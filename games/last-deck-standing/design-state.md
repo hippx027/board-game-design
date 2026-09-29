@@ -23,7 +23,7 @@ Updated 2026-09-29 · Designers: Brandon and Chris · Milestone: 1 → 3 (paper 
 - Supply drops: gold deck, one per player at rounds 3, 5, 7, 9, 11; placement rotates from the start player; placed on a tile that's not storm or edge; nudge 1 tile each (SIM-011/013)
 - Holding: keep any unplayed cards (Heal cards included); at upkeep draw to 5 and always at least 2, then discard down to 5 (not Dead cards)
 - Elimination loot pile: 5 / 3 / 1 picks
-- Supply decks of 18 cards; 60 Dead cards
+- Supply decks of 18 cards, 3 face up per deck (9-card loot display); 60 Dead cards
 - Heal affects your hand only
 - Tiles per player scale down: 15 (2–3p), 12 (4p), 10 (5p)
 
@@ -57,6 +57,7 @@ Next fix to test if cautious play dominates with humans: siphon · teams and kno
 | SIM-011 | P1 | Supply drops: one per player at rounds 3/5/7/9/11; ~4.7 drops at 5p; no balance change; placer choice doesn't affect balance |
 | SIM-012 | P1 | Loot piles don't reward fighters (aggressive claims 23%; final hitter claims 34%) |
 | SIM-013 | P1 | Draw-at-least-2 upkeep (fixes the hold-5 immortality exploit) and non-storm/non-edge drops: no stalls, same length, +1 upgrade/game |
+| SIM-014 | P1 | 3 face-up cards per supply deck: +15% upgrades, no balance or length change |
 | READTHROUGH-003 | P2 (agent) | Found hold-5 immortality, spiteful drop placement, no round-25 end |
 | READTHROUGH-001 | P2 (agent) | Wording gaps fixed; same-hex duels; upgrades rare in fast games |
 

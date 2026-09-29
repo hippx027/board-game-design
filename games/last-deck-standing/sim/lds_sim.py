@@ -83,7 +83,8 @@ class Game:
                  values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False, elim_timing="upkeep",
                  play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False,
                  min_start=0, hold=0, grace=0, storm_sched=None, dmg_sched=None, heal_no_attack=False, heal_no_move=False, hold_no_heal=False,
-                 heal_values=None, min_draw=0, drop_rule="near3"):
+                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1):
+        self.display_n = display_n
         self.min_draw, self.drop_rule = min_draw, drop_rule
         self.hold_no_heal = hold_no_heal
         self.heal_no_attack, self.heal_no_move = heal_no_attack, heal_no_move
@@ -118,7 +119,7 @@ class Game:
             self.decks["H"] = supply_deck("H", rng, values=heal_values)
         if merged_heal:
             self.decks["H"] = [("H", v) for _, v in self.decks["H"]]
-        self.display = {k: self.decks[k].pop() for k in "AMH"}
+        self.display = {k: [self.decks[k].pop() for _ in range(display_n) if self.decks[k]] for k in "AMH"}
         self.players = [Player(i, profiles[i], rng) for i in range(n)]
         for p in (reversed(self.players) if place_reverse else self.players):
             p.pos = self.place_pawn(p)
@@ -373,9 +374,11 @@ class Game:
 
     def take_loot(self, p, kind, rnd):
         self.m["loots"] += 1
-        if self.display[kind] is not None:
-            card = self.display[kind]
-            self.display[kind] = self.decks[kind].pop() if self.decks[kind] else None
+        if self.display[kind]:
+            card = max(self.display[kind], key=lambda c: c[1])  # take the best face-up card
+            self.display[kind].remove(card)
+            if self.decks[kind]:
+                self.display[kind].append(self.decks[kind].pop())
         else:
             card = None
         if card is None:
@@ -551,8 +554,9 @@ class Game:
                     loot = "G"
                     s += w["loot"] * 3.5
                 elif self.tiles[dest]:
-                    loot = max(self.tiles[dest], key=lambda k: (self.display[k] or ("x", 0))[1])
-                    s += w["loot"] * (1 + (self.display[loot] or ("x", 0))[1] * 0.5)
+                    shown = lambda k: max((c[1] for c in self.display[k]), default=0)
+                    loot = max(self.tiles[dest], key=shown)
+                    s += w["loot"] * (1 + shown(loot) * 0.5)
                 danger = sum(max(0, q.stats["atk"] + 2 - hexdist(dest, q.pos) - shd) for q in foes)
                 if dest in self.storm_tiles:
                     danger += 1.5
@@ -692,6 +696,7 @@ def main():
     ap.add_argument("--heal-values", type=lambda x: [int(v) for v in x.split(",")], default=None, help="Heal deck counts of value 1,2,3")
     ap.add_argument("--min-draw", type=int, default=0)
     ap.add_argument("--drop-rule", default="near3", choices=["near3", "inner"])
+    ap.add_argument("--display", type=int, default=1, help="face-up cards per supply deck")
     ap.add_argument("--out")
     a = ap.parse_args()
     kw = dict(tiles_per_player=a.tiles_per_player, tiles_total=a.tiles_total, deck_size=a.deck_size,
@@ -705,7 +710,7 @@ def main():
               min_start=a.min_start, hold=a.hold, grace=a.grace,
               storm_sched=parse_sched(a.storm_sched), dmg_sched=parse_sched(a.dmg_sched),
               heal_no_attack=a.heal_no_attack, heal_no_move=a.heal_no_move, hold_no_heal=a.hold_no_heal, heal_values=a.heal_values,
-              min_draw=a.min_draw, drop_rule=a.drop_rule)
+              min_draw=a.min_draw, drop_rule=a.drop_rule, display_n=a.display)
     res = dict(rules_version=RULES_VERSION, simulation_version=SIM_VERSION,
                campaigns=[campaign(n, a.runs, a.seed, a.population, **kw) for n in a.players])
     s = json.dumps(res, indent=1)

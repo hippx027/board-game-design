@@ -25,7 +25,7 @@ python3 lds_sim.py --players 3 4 5 --runs 300 --seed 42 \
   --tiles-per-player 12 --upgrade-pay discard --upgrade-cost 4 --deck-size 18 --loot tiles --pile 5 \
   --play-all --sticky-dead --elim-timing end --merged-heal --hold 5 \
   --storm flip --storm-sched 1:1,7:2 --dmg-sched 1:1,7:2 --min-start 3 \
-  --min-draw 2 --drop-rule inner --drop-rounds 3,5,7,9  # one drop per player: 3,5 at 2p; 3,5,7 at 3p; ...
+  --min-draw 2 --drop-rule inner --display 3 --drop-rounds 3,5,7,9  # one drop per player: 3,5 at 2p; 3,5,7 at 3p; ...
 ```
 The flags above match the current rules (use `--tiles-per-player` 15 for 2–3p, 12 for 4p, 10 for 5p). Other levers: `--tiles-per-player`, `--drop-rounds 4,8,12` (gold supply drops), `--elim-loot`, `--storm-per-turn`, `--values 6,4,2`. Bot styles are in `PROFILES` (random, aggressive, balanced, cautious, brawler, skirmisher). Also: `--heal-discard`, `--kill-upgrade` (rejected variants, kept for regression).
 

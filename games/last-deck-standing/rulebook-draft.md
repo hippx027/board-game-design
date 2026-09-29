@@ -33,7 +33,7 @@ Each card has a value from 1 to 3, which is its strength. Rarity color: value 1 
 3. **Loot.** Put a matching loot cube on every loot icon on the board.
 4. In turn order, starting with the start player, each player places their pawn on any tile at least **3 tiles away** (hex distance, counted straight across any gaps) from every pawn already placed. If no tile is that far away, choose the tile whose nearest pawn is as far away as possible.
 5. Place the round marker on round 1 of the round track.
-6. Shuffle the gold deck face down. Shuffle the three supply decks separately and place them face down. Turn the top card of each face up. Those three cards are the **loot display**.
+6. Shuffle the gold deck face down. Shuffle the three supply decks separately and place them face down. Turn the top **3** cards of each deck face up in a row beside it. Those 9 cards are the **loot display**.
 7. Each player sets their stats to Base Move 1, Base Attack 1, Base Shield 0.
 8. Each player shuffles their 10-card base deck and draws 5 cards.
 9. The start player takes the first turn. Advance the round marker at the start of each of the start player's turns after the first (or when play reaches their seat, if they've been eliminated).
@@ -82,7 +82,7 @@ You only get one attack, so play your Attack cards before you attack.
 
 ## Looting
 Once per turn, you may take 1 cube from the tile you're on, make one claim on a loot pile there (see Elimination; if there are several piles, pick one), or take 1 card from a supply drop there (see Supply Drops). Only one of these per turn. Return the cube to the general supply and gain a card of that type (Move cube → Movement deck, Attack → Attack deck, Heal → Heal deck). Choose either:
-- the **face-up card** of that type in the loot display (then turn the next card of that deck face up), or
+- **any one of the 3 face-up cards** of that type in the loot display (then turn the next card of that deck face up to refill the row), or
 - the **top card** of that deck, unseen.
 
 The card goes into your **discard pile**. Cubes taken from tiles never come back. If a deck and its display slot are both empty, you can't loot that type.
