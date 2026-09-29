@@ -18,8 +18,9 @@ Updated 2026-09-29 · Designers: Brandon and Chris · Milestone: 1 → 3 (paper 
 - Heal card is Heal or Shield (chosen when played); used to heal → removed from game
 - Loot: pre-made tiles (21 icons per 15-tile set); cube → card into your discard pile
 - Upgrades: pay 4+ value of one type, paid cards to discard, max 4
-- Storm: no islands; Phase 2 push-off from round 8; the active player chooses the tile
-- Reverse pawn placement order
+- Storm: markers placed from the outside in (tiles stay); 1 per turn, then 2 per turn from round 7; ending a turn on a storm tile = 1 Dead (2 from round 7) to discard; Shield doesn't block it
+- Normal pawn placement order; pawns start ≥3 tiles apart
+- Holding: keep any unplayed cards (Heal cards included); hand limit 5 including Dead cards
 - Elimination loot pile: 5 / 3 / 1 picks
 - Supply decks of 18 cards; 60 Dead cards
 - Heal affects your hand only
@@ -27,7 +28,8 @@ Updated 2026-09-29 · Designers: Brandon and Chris · Milestone: 1 → 3 (paper 
 
 ## Rejected
 - Resource cubes and buying cards
-- Storm tokens / storm damage in the base game (moved to Ideas)
+- Removing tiles for the storm, no-islands rule and push-off (replaced by storm markers, SIM-008)
+- Reverse placement order (SIM-008)
 - Minimum-1 damage
 - Upgrade payments leaving the game (thinned decks and caused stalls, SIM-001)
 - Heal from the discard pile (tested SIM-005; designer kept hand-only)
@@ -48,16 +50,18 @@ Supply drops (gold deck, rotating placement) · teams and knockdowns for 8–10 
 | SIM-005 | P1 | Bundle cap 3 is neutral; fighting wins 1v1 (72%) but loses in a crowd |
 | SIM-006 | P1 | Fewer tiles at 4–5p: 5p goes from 64 to 53 turns; seat balance holds, 0% stalls |
 | SIM-007 | P1 | Play-all + sticky Dead + end-of-turn elimination + merged Heal: first fix for turtling (5p cautious 48% → 30%); 13 rounds / 48 turns; cost 4 triples upgrades with no length or balance change |
+| SIM-008 | P1 | Storm markers work; reverse placement hurts once players can place near each other; normal order + ≥3 apart fixes seats |
+| SIM-009 | P1 | Hold all + "close fast" storm: 13 rounds / 50 turns at 5p, 2p seats 50/50; cautious ~52% (holding Heals); Heal holding kept by designer as a real strategy |
 | READTHROUGH-001 | P2 (agent) | Wording gaps fixed; same-hex duels; upgrades rare in fast games |
 
 System evidence only. Fun, clarity with humans, setup time and table handling are unproven (physical_dependency).
 
 ## Risks (≤5)
-1. Longer human turns with unlimited plays
-2. 2-player games favour aggression strongly (bots: 48% aggressive vs 14% cautious)
+1. Cautious Heal-hoarding may dominate (sim ~52% at 5p); check with humans
+2. Longer human turns with unlimited plays
 3. Setup time (now 50 tiles at 5p)
 4. Hidden-deck reshuffle swings (mitigated by marked backs)
-5. The storm may feel fiddly (connectivity checks)
+5. Storm-marker placement speed at the table
 
 ## Next Experiment
 Paper session 001: Good/Bad/Meh plus triage (`playtest-log-001.md`). Then run the kill-criteria gate after 3 sessions.

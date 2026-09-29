@@ -1,0 +1,96 @@
+{
+ "rules_version": "v1 (2026-09-29)",
+ "simulation_version": "lds-sim 0.1",
+ "campaigns": [
+  {
+   "players": 4,
+   "runs": 300,
+   "seed": 21,
+   "population": "mixed",
+   "config": {
+    "tiles_per_player": 12,
+    "tiles_total": null,
+    "deck_size": 18,
+    "storm": "flip",
+    "upgrade_pay": "discard",
+    "upgrade_cost": 4,
+    "push": null,
+    "values": null,
+    "place_reverse": false,
+    "storm_per_turn": 1,
+    "loot": "tiles",
+    "drop_rounds": [],
+    "elim_loot": 0,
+    "pile": 5,
+    "bundle_cap": 99,
+    "heal_discard": false,
+    "kill_upgrade": false,
+    "elim_timing": "end",
+    "play_all": true,
+    "sticky_dead": true,
+    "merged_heal": true,
+    "heal_keep": false,
+    "min_start": 3,
+    "hold": 5,
+    "grace": 0,
+    "storm_sched": {
+     "1": 0,
+     "3": 1,
+     "6": 0,
+     "7": 2,
+     "10": 0,
+     "11": 3
+    },
+    "dmg_sched": {
+     "1": 1,
+     "7": 2,
+     "11": 3
+    }
+   },
+   "stall_rate": 0.0,
+   "rounds_mean": 14.2,
+   "rounds_median": 14.0,
+   "rounds_p10_p90": [
+    10,
+    18
+   ],
+   "turns_mean": 44.8,
+   "first_attack_round_median": 1.0,
+   "seat_win_rate": {
+    "0": 0.243,
+    "1": 0.26,
+    "2": 0.28,
+    "3": 0.217
+   },
+   "fair_share": 0.25,
+   "profile_wins": {
+    "balanced": 120,
+    "aggressive": 33,
+    "cautious": 147
+   },
+   "upgrades_per_game": {
+    "A": 2.67,
+    "M": 2.42,
+    "H": 2.5
+   },
+   "attacks_per_turn": 0.5,
+   "dead_dealt_per_game": 41.3,
+   "shield_absorb_share": 0.13,
+   "play_slot_use": 1.18,
+   "loot_empty_rate": 0.0,
+   "supply_runs_out_pct": {
+    "A": 0.01,
+    "M": 0.03,
+    "H": 0.01
+   },
+   "drops_per_game": 0.0,
+   "drop_loots_per_game": 0.0,
+   "last_chance_turns_per_game": 4.0,
+   "dead_healed_per_game": 12.4,
+   "storm_hits_per_game": 26.8,
+   "pushes_per_game": 0.0,
+   "storm_skipped_per_game": 11.9,
+   "tiles_left_at_end_mean": 48
+  }
+ ]
+}

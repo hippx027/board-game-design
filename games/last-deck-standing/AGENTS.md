@@ -22,9 +22,9 @@ To rebuild after editing the rules: `node sim/build_html.js rulebook-draft.md ru
 ```bash
 cd sim
 python3 lds_sim.py --players 3 4 5 --runs 300 --seed 42 \
-  --tiles-per-player 12 --storm connected --push 8 --upgrade-pay discard --upgrade-cost 4 \
-  --place-reverse --deck-size 18 --loot tiles --pile 5 \
-  --play-all --sticky-dead --elim-timing end --merged-heal
+  --tiles-per-player 12 --upgrade-pay discard --upgrade-cost 4 --deck-size 18 --loot tiles --pile 5 \
+  --play-all --sticky-dead --elim-timing end --merged-heal --hold 5 \
+  --storm flip --storm-sched 1:1,7:2 --dmg-sched 1:1,7:2 --min-start 3
 ```
 The flags above match the current rules (use `--tiles-per-player` 15 for 2–3p, 12 for 4p, 10 for 5p). Other levers: `--tiles-per-player`, `--drop-rounds 4,8,12` (gold supply drops), `--elim-loot`, `--storm-per-turn`, `--values 6,4,2`. Bot styles are in `PROFILES` (random, aggressive, balanced, cautious, brawler, skirmisher). Also: `--heal-discard`, `--kill-upgrade` (rejected variants, kept for regression).
 
@@ -40,6 +40,8 @@ The flags above match the current rules (use `--tiles-per-player` 15 for 2–3p,
 - Turtling (cautious play winning) was only fixed by letting players play every card, together with sticky Dead cards, end-of-turn elimination and the merged Heal/Shield card (SIM-007). Kill rewards, loot piles, supply drops and retreat moves did not help (SIM-004/005).
 - 8–10 players is too long solo (~115 turns). It's tabled as a team variant.
 - Bots see all information, so they can't measure what hidden or open information does to players. Marked Dead-card backs need human testing.
+
+- With holding (Heal cards included, the designer's call: holding heals is a Fortnite-style strategy), cautious play wins ~52% at 5p in bots. Watch it in human tests; don't "fix" it by banning heal holding (SIM-009).
 
 ## Open questions
 Supply-drop placement (rotating, in notes) · upgrade cost 4 vs 5 · whether turtling is fun or dull · real seconds per turn (target 30–60 min).

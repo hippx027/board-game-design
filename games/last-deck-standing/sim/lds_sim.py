@@ -81,7 +81,15 @@ class Player:
 class Game:
     def __init__(self, n, profiles, rng, tiles_per_player=15, tiles_total=None, deck_size=12, storm="choose", upgrade_pay="remove", upgrade_cost=4, push=None,
                  values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False, elim_timing="upkeep",
-                 play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False):
+                 play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False,
+                 min_start=0, hold=0, grace=0, storm_sched=None, dmg_sched=None, heal_no_attack=False, heal_no_move=False, hold_no_heal=False):
+        self.hold_no_heal = hold_no_heal
+        self.heal_no_attack, self.heal_no_move = heal_no_attack, heal_no_move
+        self.storm_sched = storm_sched or {1: 1}
+        self.dmg_sched = dmg_sched or {1: 1}
+        self.grace = grace
+        self.min_start, self.hold = min_start, hold
+        self.storm_tiles = set()
         self.play_all, self.sticky_dead, self.merged_heal, self.heal_keep = play_all, sticky_dead, merged_heal, heal_keep
         self.elim_timing = elim_timing
         self.heal_discard = heal_discard
@@ -142,6 +150,11 @@ class Game:
         # Spread out: pick the loot-richest hex among those farthest from placed pawns.
         placed = [q.pos for q in self.players if q.pos is not None]
         cands = list(self.tiles)
+        if placed and self.min_start:
+            cands = [h for h in cands if min(hexdist(h, x) for x in placed) >= self.min_start] or cands
+        if placed and p.profile in ("aggressive", "brawler"):
+            near = min(min(hexdist(h, x) for x in placed) for h in cands)
+            return self.rng.choice([h for h in cands if min(hexdist(h, x) for x in placed) == near])
         if placed:
             best = max(min(hexdist(h, x) for x in placed) for h in cands)
             cands = [h for h in cands if min(hexdist(h, x) for x in placed) >= best - 1]
@@ -246,6 +259,10 @@ class Game:
 
         p_start = p.pos
         p.pos = dest
+        if target is not None and self.round <= self.grace:
+            target = None
+        if self.heal_no_attack and any(c[0] == "H" for c in played):
+            target = None
         if target is not None:
             dmg = atk - hexdist(dest, target.pos)
             if dmg > 0:
@@ -293,17 +310,38 @@ class Game:
         spent = [("H", c[1]) if c[0] == "X" else c for c in played
                  if c[0] != "H" or self.heal_keep]
         if self.sticky_dead:
-            p.discard += spent + [c for c in p.hand if c[0] != "D"]
-            p.hand = [c for c in p.hand if c[0] == "D"]
+            live = sorted((c for c in p.hand if c[0] != "D"), key=lambda c: (c[0] == "H", c[1]), reverse=True)
+            if self.hold_no_heal:
+                live = [c for c in live if c[0] != "H"] + [c for c in live if c[0] == "H"]
+                kept = [c for c in live if c[0] != "H"][:self.hold]
+            else:
+                kept = live[:self.hold]
+            p.discard += spent + [c for c in live if c not in kept or live.count(c) > kept.count(c)][:len(live) - len(kept)]
+            p.hand = [c for c in p.hand if c[0] == "D"] + kept
+            self.m["held"] += len(kept)
         else:
             p.discard += spent + p.hand
             p.hand = []
 
-        for _ in range(self.storm_per_turn):
+        sched = lambda d: d[max(r for r in d if r <= self.round)]
+        n_storm = sched(self.storm_sched) if self.storm == "flip" else self.storm_per_turn
+        for _ in range(n_storm):
             self.storm_step()
+        if self.storm == "flip" and p.pos in self.storm_tiles:
+            dmg = sched(self.dmg_sched)
+            p.discard += [("D", 0)] * dmg
+            self.m["storm_hits"] += dmg
 
     def storm_step(self):
         p = self.current
+        if self.storm == "flip":
+            outer = [h for h in self.tiles if h not in self.storm_tiles and
+                     any(nb not in self.tiles or nb in self.storm_tiles for nb in nbrs(h))]
+            if outer:
+                self.storm_tiles.add(self.pick_storm_tile(p, outer))
+            else:
+                self.m["storm_skipped"] += 1
+            return
         push = self.push_active()
         edges = self.edge_tiles(allow_pawns=push)
         if edges:
@@ -465,14 +503,20 @@ class Game:
             mov = p.stats["mov"] + sum(v for k, v in flat if k == "M")
             atk = p.stats["atk"] + sum(v for k, v in flat if k == "A")
             heal = sum(v for k, v in flat if k == "H")
+            if self.heal_no_move and heal:
+                mov = 0
             shd = p.shield + sum(v for k, v in flat if k in "SX")
             if mov not in reach_cache:
                 reach_cache[mov] = self.reachable(p.pos, mov)
-            base_s = w["heal"] * min(heal, dead_in_hand) + w["shield"] * (shd - p.shield) * 0.5
+            base_s = w["heal"] * min(heal, dead_in_hand)
+            if self.elim_timing == "end" and dead_in_hand >= 3 and dead_in_hand - heal < 3:
+                base_s += 100  # survive the end-of-turn elimination check + w["shield"] * (shd - p.shield) * 0.5
             for dest in reach_cache[mov]:
                 s = base_s
                 tgt, tdmg = None, 0
                 for q in foes:
+                    if self.heal_no_attack and heal:
+                        break
                     d = atk - hexdist(dest, q.pos) - q.shield
                     # prefer targets already close to elimination
                     val = d + 0.3 * sum(1 for c in q.discard + q.draw if c[0] == "D") / 5
@@ -491,6 +535,11 @@ class Game:
                     loot = max(self.tiles[dest], key=lambda k: (self.display[k] or ("x", 0))[1])
                     s += w["loot"] * (1 + (self.display[loot] or ("x", 0))[1] * 0.5)
                 danger = sum(max(0, q.stats["atk"] + 2 - hexdist(dest, q.pos) - shd) for q in foes)
+                if dest in self.storm_tiles:
+                    danger += 1.5
+                if self.hold and not self.hold_no_heal:  # value of Heal cards left in hand to keep for later
+                    s += w["heal"] * 0.5 * max(0, sum(1 for c in p.hand if c[0] == "H")
+                                                   - sum(1 for c in flat if c[0] in "HX"))
                 s -= w["danger"] * danger
                 s += rng.random() * 0.01
                 if s > best_s:
@@ -573,11 +622,16 @@ def campaign(n, runs, seed, population, **kw):
         drop_loots_per_game=round(tot("drop_loots") / runs, 1),
         last_chance_turns_per_game=round(tot("last_chance_turns") / runs, 1),
         dead_healed_per_game=round(tot("dead_healed") / runs, 1),
+        storm_hits_per_game=round(tot("storm_hits") / runs, 1),
         pushes_per_game=round(tot("pushes") / runs, 1),
         storm_skipped_per_game=round(tot("storm_skipped") / runs, 1),
         tiles_left_at_end_mean=round(mean(r["tiles_left"] for r in results), 1),
     )
     return out
+
+
+def parse_sched(x):
+    return {int(r): int(v) for r, v in (kv.split(":") for kv in x.split(","))} if x else None
 
 
 def main():
@@ -589,7 +643,7 @@ def main():
     ap.add_argument("--tiles-per-player", type=int, default=15)
     ap.add_argument("--tiles-total", type=int, default=None)
     ap.add_argument("--deck-size", type=int, default=12)
-    ap.add_argument("--storm", default="choose", choices=["choose", "center", "connected"])
+    ap.add_argument("--storm", default="choose", choices=["choose", "center", "connected", "flip"])
     ap.add_argument("--upgrade-cost", type=int, default=4)
     ap.add_argument("--push", default=None, help="auto | round number")
     ap.add_argument("--upgrade-pay", default="remove", choices=["remove", "discard"])
@@ -608,6 +662,14 @@ def main():
     ap.add_argument("--sticky-dead", action="store_true")
     ap.add_argument("--merged-heal", action="store_true")
     ap.add_argument("--heal-keep", action="store_true", help="Heal cards used to heal are discarded, not removed")
+    ap.add_argument("--min-start", type=int, default=0)
+    ap.add_argument("--hold", type=int, default=0)
+    ap.add_argument("--grace", type=int, default=0, help="no attacks in rounds 1..N")
+    ap.add_argument("--storm-sched", default=None, help="round:markers per turn, e.g. 1:0,5:1,9:2")
+    ap.add_argument("--dmg-sched", default=None, help="round:storm damage, e.g. 1:1,9:2")
+    ap.add_argument("--heal-no-attack", action="store_true")
+    ap.add_argument("--heal-no-move", action="store_true")
+    ap.add_argument("--hold-no-heal", action="store_true")
     ap.add_argument("--out")
     a = ap.parse_args()
     kw = dict(tiles_per_player=a.tiles_per_player, tiles_total=a.tiles_total, deck_size=a.deck_size,
@@ -617,7 +679,10 @@ def main():
               drop_rounds=a.drop_rounds, elim_loot=a.elim_loot,
               pile=a.pile, bundle_cap=a.bundle_cap, heal_discard=a.heal_discard, kill_upgrade=a.kill_upgrade,
               elim_timing=a.elim_timing, play_all=a.play_all, sticky_dead=a.sticky_dead,
-              merged_heal=a.merged_heal, heal_keep=a.heal_keep)
+              merged_heal=a.merged_heal, heal_keep=a.heal_keep,
+              min_start=a.min_start, hold=a.hold, grace=a.grace,
+              storm_sched=parse_sched(a.storm_sched), dmg_sched=parse_sched(a.dmg_sched),
+              heal_no_attack=a.heal_no_attack, heal_no_move=a.heal_no_move, hold_no_heal=a.hold_no_heal)
     res = dict(rules_version=RULES_VERSION, simulation_version=SIM_VERSION,
                campaigns=[campaign(n, a.runs, a.seed, a.population, **kw) for n in a.players])
     s = json.dumps(res, indent=1)

@@ -14,7 +14,8 @@ Goal: print, cut and play one full game with 3–5 people. Fidelity: P4 (paper).
 - [ ] **Loot cubes:** 35 each of 3 colours (or beads / coloured candy)
 - [ ] **Pawns:** 5
 - [ ] **Stat trackers:** 5 sheets with three 0–4 tracks and a Shield counter; paperclips as markers
-- [ ] **Round track:** 1–25, with round 8 labelled "Storm Phase 2"
+- [ ] **Round track:** 1–25, with round 7 labelled "Storm closes fast"
+- [ ] **Storm markers:** 50 (coloured glass beads or translucent hex cut-outs)
 - [ ] **Reference cards:** 5 copies of the Quick Reference
 
 ## Print Hygiene

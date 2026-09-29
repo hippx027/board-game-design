@@ -19,7 +19,8 @@ These are the open signals. Log what actually happens; don't steer players towar
 3. **Upgrades:** do they happen at cost 4? Note each upgrade's round.
 4. **Setup time:** target ≤ 10 minutes for 5 players.
 5. **Critical warnings / marked backs:** do they change who gets targeted?
-6. **Storm Phase 2 (round 8+):** does it arrive in time? Do the push-offs feel fun or fiddly?
+6. **Storm:** does it close at the right pace? Is placing markers quick? Does round 7 (2 markers, 2 damage) force the endgame?
+8. **Holding:** do players stockpile Heal cards and wait it out?
 7. **Loot piles:** are they worth running to? Does the 5/3/1 pick feel fair?
 
 ## Turn tracking (fill as you go)
@@ -50,7 +51,8 @@ These are the open signals. Log what actually happens; don't steer players towar
 | Play every card / one attack | | |
 | Sticky Dead cards + end-of-turn elimination | | |
 | Heal card: heal or shield | | |
-| Storm (no islands, Phase 2 push-off) | | |
+| Storm markers (1, then 2 from round 7) | | |
+| Holding cards (hand limit 5) | | |
 | Loot piles (5/3/1) | | |
 | Critical warning / marked backs | | |
 
