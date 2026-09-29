@@ -20,7 +20,7 @@ Designers: Brandon and Chris.
 | Player pawn | 1 per player | |
 | Stat tracker | 1 per player | Tracks Base Move, Base Attack and Base Shield (each 0–4) and current Shield points |
 | Round track and marker | 1 | 25 spaces; round 7 marked "Storm closes fast"; rounds 3, 5, 7, 9, 11 marked "Supply drop" |
-| Gold deck | 12 | Value-2 and value-3 cards of mixed types (Attack, Move, Heal), for supply drops |
+| Gold deck | 12 | For supply drops: 2 each of Attack 2, Attack 3, Move 2, Move 3, Heal 2, Heal 3 |
 | Supply drop marker | 1 | Shows where the current drop landed |
 | Storm markers | 50 | Discs or translucent hex overlays placed on tiles; loot icons stay visible |
 | Loot pile markers | 4 | Mark an eliminated player's loot pile on the board |
@@ -31,7 +31,7 @@ Each card has a value from 1 to 3, which is its strength. Rarity color: value 1 
 1. Randomly choose a starting player.
 2. **Build the board.** Each player takes one 15-tile set, shuffles it face down and keeps the top tiles for their player count: **15** tiles with 2–3 players, **12** with 4, **10** with 5. Return the rest to the box unseen. Starting with the start player and going clockwise, take your top tile, turn it face up and place it. The first tile starts the board; each tile after that must touch at least one tile already placed. Keep going around the table until everyone has placed all their tiles.
 3. **Loot.** Put a matching loot cube on every loot icon on the board.
-4. In turn order, starting with the start player, each player places their pawn on any tile at least **3 tiles away** (straight-line distance) from every pawn already placed. If no tile is that far away, place it as far as you can.
+4. In turn order, starting with the start player, each player places their pawn on any tile at least **3 tiles away** (hex distance, counted straight across any gaps) from every pawn already placed. If no tile is that far away, choose the tile whose nearest pawn is as far away as possible.
 5. Place the round marker on round 1 of the round track.
 6. Shuffle the gold deck face down. Shuffle the three supply decks separately and place them face down. Turn the top card of each face up. Those three cards are the **loot display**.
 7. Each player sets their stats to Base Move 1, Base Attack 1, Base Shield 0.
@@ -59,7 +59,7 @@ You may do the following in any order, and you may mix them:
 Phase 3 starts once you've finished all your actions. You can't play cards during it.
 
 1. **Elimination check:** if 3 or more cards in your hand are Dead cards, you are eliminated (see Elimination) and your turn ends; skip the storm.
-2. Put your played cards in your discard pile (Heal cards used to heal were already removed from the game). **You may keep any unplayed cards in your hand**; Dead cards must stay. Your hand limit is 5, counting Dead cards.
+2. Put your played cards in your discard pile (Heal cards used to heal were already removed from the game). **You may keep any unplayed cards in your hand**; Dead cards must stay. Any card you put into play counts as played, even if you didn't use all of its value.
 3. **Storm:** place storm markers, then take storm damage if you're on a storm tile (see The Storm).
 4. The next player clockwise begins their turn.
 
@@ -72,7 +72,7 @@ Phase 3 starts once you've finished all your actions. You can't play cards durin
 
 ## Attacking
 1. Total Attack = Base Attack + Attack cards played this turn.
-2. Pick a target. **Range** is the straight-line hex distance from your tile to theirs, The same tile is range 0, and an adjacent tile is range 1.
+2. Pick a target. **Range** is the hex distance from your tile to theirs, counted straight across any gaps. The same tile is range 0, and an adjacent tile is range 1.
 3. **Damage = Total Attack − Range.** If that is 0 or less, the target is out of range and you can't attack them.
    - Example: Attack 4 hits range 0 for 4, range 2 for 2, range 3 for 1, and can't reach range 4.
 4. Subtract range first. Then each of the target's Shield points cancels 1 damage and is spent.
@@ -81,14 +81,14 @@ Phase 3 starts once you've finished all your actions. You can't play cards durin
 You only get one attack, so play your Attack cards before you attack.
 
 ## Looting
-Once per turn, you may take 1 cube from the tile you're on, make one claim on a loot pile there (see Elimination), or take 1 card from a supply drop there (see Supply Drops). Only one of these per turn. Return the cube to the general supply and gain a card of that type (Move cube → Movement deck, Attack → Attack deck, Heal → Heal deck). Choose either:
+Once per turn, you may take 1 cube from the tile you're on, make one claim on a loot pile there (see Elimination; if there are several piles, pick one), or take 1 card from a supply drop there (see Supply Drops). Only one of these per turn. Return the cube to the general supply and gain a card of that type (Move cube → Movement deck, Attack → Attack deck, Heal → Heal deck). Choose either:
 - the **face-up card** of that type in the loot display (then turn the next card of that deck face up), or
 - the **top card** of that deck, unseen.
 
 The card goes into your **discard pile**. Cubes taken from tiles never come back. If a deck and its display slot are both empty, you can't loot that type.
 
 ## Upgrading
-At any time on your turn, pay cards from your hand of one type with a total value of **4** or more to raise that stat by 1:
+During your Actions phase, pay cards from your hand of one type with a total value of **4** or more to raise that stat by 1:
 - Attack cards → Base Attack
 - Move cards → Base Move
 - Heal cards → Base Shield
@@ -105,14 +105,14 @@ The storm closes in from the outside of the board, like a shrinking circle. At t
 | 1–6 | 1 | 1 Dead card |
 | 7+ (the storm closes fast) | 2 | 2 Dead cards |
 
-**Placing markers:** put each marker on an unmarked tile that is on the edge of the board or touches a marked tile. You choose which. It doesn't matter what's on the tile: pawns, loot cubes and loot piles all stay. Once every tile is marked, stop placing markers.
+**Placing markers:** put each marker on an unmarked tile that is on the edge of the board (at least one of its six sides has no tile next to it, including sides facing a hole) or touches a marked tile. You choose which. It doesn't matter what's on the tile: pawns, loot cubes and loot piles all stay. Once every tile is marked, stop placing markers.
 
 **Storm tiles:** a marked tile is a storm tile. You can move through, stop on and loot storm tiles normally. If you **end your turn on a storm tile**, take the storm damage for this round as Dead cards into your discard pile. Shield does not block storm damage.
 
 ## Supply Drops
-A supply drop lands at the start of rounds **3, 5, 7, 9 and 11**, but only one per player: with 2 players, only rounds 3 and 5; with 3 players, rounds 3, 5 and 7; and so on.
+A supply drop lands at the start of rounds **3, 5, 7, 9 and 11**, before the start player's upkeep. The number of drops is set by the **starting** player count: with 2 players, only rounds 3 and 5; with 3 players, rounds 3, 5 and 7; and so on. When a new drop lands, any card left in the previous drop is removed from the game.
 
-1. **Who places it:** the start player places the first drop, then the next player clockwise places the next one, skipping eliminated players.
+1. **Who places it:** the start player places the first drop, then placing passes clockwise to the next player still in the game.
 2. **Placing:** draw 2 gold cards face up and put them with the drop marker on any tile at least 3 tiles from your own pawn.
 3. **Nudging:** then each other player, clockwise, may move the drop 1 tile or pass.
 4. **Looting:** looting the drop uses your loot action. Take 1 of its cards into your discard pile. The other card stays for the next looter. When both are taken, remove the marker.
@@ -144,13 +144,13 @@ Each player's set has 15 tiles and 21 loot icons, 7 of each type:
 | 3 | 3 each: Move+Attack+Heal · Attack+Attack+Heal · Move+Attack+Heal |
 
 ## Quick Reference
-**Upkeep:** reset Shield → draw up to 5 (held and Dead cards count) → 3+ Dead: announce "critical"
+**Upkeep:** reset Shield → draw up to 5 (held and Dead cards count; reshuffle your discard pile if your deck runs out) → 3+ Dead: announce "critical"
 **Actions (any order):** play any cards · move · 1 attack · 1 loot (1 cube, 1 pile claim or 1 drop card) · upgrade
 **Supply drops:** rounds 3, 5, 7, 9, 11 (one per player); placed 3+ tiles from the placer, then everyone may nudge it 1 tile
 **Heal card:** heal (Dead from hand → supply, card leaves the game) or shield (+Shield until your next upkeep)
-**Storm:** place markers from the outside in: 1 per turn (rounds 1–6), 2 per turn (round 7+). End your turn on a storm tile: 1 Dead card (round 7+: 2) to your discard pile; Shield doesn't block it
+**Storm:** place markers on edge tiles or tiles touching a marked tile: 1 per turn (rounds 1–6), 2 per turn (round 7+). End your turn on a storm tile: 1 Dead card (round 7+: 2) to your discard pile; Shield doesn't block it
 **Eliminated:** all your Dead cards to supply; your other cards become a loot pile (claims pick 5, then 3, then 1)
-**End:** eliminated if 3+ Dead in hand → discard played cards, keep any others (hand limit 5) → storm markers → storm damage
+**End:** eliminated if 3+ Dead in hand (then skip the rest) → discard played cards, keep any others → storm markers → storm damage
 **Damage:** Attack − Range, then Shield absorbs; 0 or less can't hit; Dead cards go to the target's discard pile
 **Upgrade:** pay 4+ value of one type from hand → +1 stat (max 4); paid cards go to discard
 
