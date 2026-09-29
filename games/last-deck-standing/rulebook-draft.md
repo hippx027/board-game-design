@@ -147,6 +147,7 @@ Each player's set has 15 tiles and 21 loot icons, 7 of each type:
 
 ### Ideas for Later (not in these rules)
 - **Design intent: same-hex fights.** Sharing a hex is allowed on purpose. You can go all in for maximum damage, but if you don't get away afterward, they hit you back.
+- **Siphon (from Fortnite):** when your attack lands 2 or more Dead cards, return 1 Dead card from your own hand to the supply. Aggressive players heal by fighting instead of hoarding Heal cards. Untested.
 - **Battle bus drop:** players deploy along a straight-line bus path instead of placing anywhere.
 - **One-shot weapons:** Attack cards like a Shotgun that leave the game after use.
 - **Supply drops (gold deck):** a separate 12-card gold deck of value-2 and value-3 cards of mixed types, shuffled.

@@ -82,7 +82,8 @@ class Game:
     def __init__(self, n, profiles, rng, tiles_per_player=15, tiles_total=None, deck_size=12, storm="choose", upgrade_pay="remove", upgrade_cost=4, push=None,
                  values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False, elim_timing="upkeep",
                  play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False,
-                 min_start=0, hold=0, grace=0, storm_sched=None, dmg_sched=None, heal_no_attack=False, heal_no_move=False, hold_no_heal=False):
+                 min_start=0, hold=0, grace=0, storm_sched=None, dmg_sched=None, heal_no_attack=False, heal_no_move=False, hold_no_heal=False,
+                 heal_values=None):
         self.hold_no_heal = hold_no_heal
         self.heal_no_attack, self.heal_no_move = heal_no_attack, heal_no_move
         self.storm_sched = storm_sched or {1: 1}
@@ -112,6 +113,8 @@ class Game:
         self.tiles = {}
         self.build_board(total)
         self.decks = {k: supply_deck(k, rng, deck_size, values) for k in "AMH"}
+        if heal_values:
+            self.decks["H"] = supply_deck("H", rng, values=heal_values)
         if merged_heal:
             self.decks["H"] = [("H", v) for _, v in self.decks["H"]]
         self.display = {k: self.decks[k].pop() for k in "AMH"}
@@ -670,6 +673,7 @@ def main():
     ap.add_argument("--heal-no-attack", action="store_true")
     ap.add_argument("--heal-no-move", action="store_true")
     ap.add_argument("--hold-no-heal", action="store_true")
+    ap.add_argument("--heal-values", type=lambda x: [int(v) for v in x.split(",")], default=None, help="Heal deck counts of value 1,2,3")
     ap.add_argument("--out")
     a = ap.parse_args()
     kw = dict(tiles_per_player=a.tiles_per_player, tiles_total=a.tiles_total, deck_size=a.deck_size,
@@ -682,7 +686,7 @@ def main():
               merged_heal=a.merged_heal, heal_keep=a.heal_keep,
               min_start=a.min_start, hold=a.hold, grace=a.grace,
               storm_sched=parse_sched(a.storm_sched), dmg_sched=parse_sched(a.dmg_sched),
-              heal_no_attack=a.heal_no_attack, heal_no_move=a.heal_no_move, hold_no_heal=a.hold_no_heal)
+              heal_no_attack=a.heal_no_attack, heal_no_move=a.heal_no_move, hold_no_heal=a.hold_no_heal, heal_values=a.heal_values)
     res = dict(rules_version=RULES_VERSION, simulation_version=SIM_VERSION,
                campaigns=[campaign(n, a.runs, a.seed, a.population, **kw) for n in a.players])
     s = json.dumps(res, indent=1)
