@@ -39,7 +39,7 @@ Updated 2026-09-29 · Designers: Brandon and Chris · Milestone: 1 → 3 (paper 
 - A 2-movement cost to loot a pile (no effect, SIM-004)
 
 ## Open / Ideas
-teams and knockdowns for 8–10 players · Self-Revive special card · walls · chests · named locations · battle bus drop · levels · upgrade cost 4 option
+Next fix to test if cautious play dominates with humans: siphon · teams and knockdowns for 8–10 players · Self-Revive special card · walls · chests · named locations · battle bus drop · levels · upgrade cost 4 option
 
 ## Evidence
 | ID | Type | Finding |
@@ -53,6 +53,9 @@ teams and knockdowns for 8–10 players · Self-Revive special card · walls · 
 | SIM-007 | P1 | Play-all + sticky Dead + end-of-turn elimination + merged Heal: first fix for turtling (5p cautious 48% → 30%); 13 rounds / 48 turns; cost 4 triples upgrades with no length or balance change |
 | SIM-008 | P1 | Storm markers work; reverse placement hurts once players can place near each other; normal order + ≥3 apart fixes seats |
 | SIM-009 | P1 | Hold all + "close fast" storm: 13 rounds / 50 turns at 5p, 2p seats 50/50; cautious ~52% (holding Heals); Heal holding kept by designer as a real strategy |
+| SIM-010 | P1 | Thinner Heal values barely change healing (-10%); kept 9/6/3 |
+| SIM-011 | P1 | Supply drops: one per player at rounds 3/5/7/9/11; ~4.7 drops at 5p; no balance change; placer choice doesn't affect balance |
+| SIM-012 | P1 | Loot piles don't reward fighters (aggressive claims 23%; final hitter claims 34%) |
 | READTHROUGH-001 | P2 (agent) | Wording gaps fixed; same-hex duels; upgrades rare in fast games |
 
 System evidence only. Fun, clarity with humans, setup time and table handling are unproven (physical_dependency).
