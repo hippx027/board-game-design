@@ -18,9 +18,10 @@ Data before art. Quantities are for a full 5-player box. Source of truth for rul
 | HEL-2 | card | Heal 2 | 6 | Choose: heal up to 2 Dead or +2 Shield | supply, heal, blue | Heal deck |
 | HEL-3 | card | Heal 3 | 3 | Choose: heal up to 3 Dead or +3 Shield | supply, heal, purple | Heal deck |
 | DEAD | card | Dead | 60 | No effect; can't be played | dead | **Distinct marked back** so Dead cards are visible in hands and decks |
-| GOLD-* | card | Gold drop cards | 12 | Mixed Attack / Move / Heal, value 2 or 3 | gold (Ideas for Later) | Only needed when testing supply drops |
+| GOLD-* | card | Gold drop cards | 12 | Mixed Attack / Move / Heal, value 2 or 3 (e.g. 2 of each type at value 2 and at value 3) | gold | Supply drops |
+| DROP | token | Supply drop marker | 1 | Marks the current drop | | |
 
-Totals: base 50 · supply 54 (3 × 18) · Dead 60 · gold 12 (optional).
+Totals: base 50 · supply 54 (3 × 18) · Dead 60 · gold 12.
 
 ## Loot Tiles
 Per player set (×5 sets = 75 tiles). Mark each tile's set letter (A–E) on its back.

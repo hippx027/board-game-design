@@ -1,0 +1,100 @@
+{
+ "rules_version": "v1 (2026-09-29)",
+ "simulation_version": "lds-sim 0.1",
+ "campaigns": [
+  {
+   "players": 4,
+   "runs": 300,
+   "seed": 41,
+   "population": "mixed",
+   "config": {
+    "tiles_per_player": 12,
+    "tiles_total": null,
+    "deck_size": 18,
+    "storm": "flip",
+    "upgrade_pay": "discard",
+    "upgrade_cost": 4,
+    "push": null,
+    "values": null,
+    "place_reverse": false,
+    "storm_per_turn": 1,
+    "loot": "tiles",
+    "drop_rounds": [
+     3,
+     5,
+     7,
+     9
+    ],
+    "elim_loot": 0,
+    "pile": 5,
+    "bundle_cap": 99,
+    "heal_discard": false,
+    "kill_upgrade": false,
+    "elim_timing": "end",
+    "play_all": true,
+    "sticky_dead": true,
+    "merged_heal": true,
+    "heal_keep": false,
+    "min_start": 3,
+    "hold": 5,
+    "grace": 0,
+    "storm_sched": {
+     "1": 1,
+     "7": 2
+    },
+    "dmg_sched": {
+     "1": 1,
+     "7": 2
+    },
+    "heal_no_attack": false,
+    "heal_no_move": false,
+    "hold_no_heal": false,
+    "heal_values": null
+   },
+   "stall_rate": 0.0,
+   "rounds_mean": 12.8,
+   "rounds_median": 13.0,
+   "rounds_p10_p90": [
+    9,
+    17
+   ],
+   "turns_mean": 41.0,
+   "first_attack_round_median": 1.0,
+   "seat_win_rate": {
+    "0": 0.193,
+    "1": 0.27,
+    "2": 0.323,
+    "3": 0.213
+   },
+   "fair_share": 0.25,
+   "profile_wins": {
+    "aggressive": 35,
+    "balanced": 128,
+    "cautious": 137
+   },
+   "upgrades_per_game": {
+    "A": 2.24,
+    "M": 2.38,
+    "H": 2.56
+   },
+   "attacks_per_turn": 0.51,
+   "dead_dealt_per_game": 37.6,
+   "shield_absorb_share": 0.12,
+   "play_slot_use": 1.2,
+   "loot_empty_rate": 0.0,
+   "supply_runs_out_pct": {
+    "A": 0.0,
+    "M": 0.0,
+    "H": 0.0
+   },
+   "drops_per_game": 3.9,
+   "drop_loots_per_game": 7.1,
+   "last_chance_turns_per_game": 4.1,
+   "dead_healed_per_game": 11.5,
+   "storm_hits_per_game": 23.8,
+   "pushes_per_game": 0.0,
+   "storm_skipped_per_game": 9.3,
+   "tiles_left_at_end_mean": 48
+  }
+ ]
+}

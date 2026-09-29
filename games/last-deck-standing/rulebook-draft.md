@@ -19,7 +19,9 @@ Designers: Brandon and Chris.
 | Loot cubes | 7 per color per player (Move, Attack, Heal) | Mark unlooted loot on the tiles |
 | Player pawn | 1 per player | |
 | Stat tracker | 1 per player | Tracks Base Move, Base Attack and Base Shield (each 0–4) and current Shield points |
-| Round track and marker | 1 | 25 spaces; round 7 marked "Storm closes fast" |
+| Round track and marker | 1 | 25 spaces; round 7 marked "Storm closes fast"; rounds 3, 5, 7, 9, 11 marked "Supply drop" |
+| Gold deck | 12 | Value-2 and value-3 cards of mixed types (Attack, Move, Heal), for supply drops |
+| Supply drop marker | 1 | Shows where the current drop landed |
 | Storm markers | 50 | Discs or translucent hex overlays placed on tiles; loot icons stay visible |
 | Loot pile markers | 4 | Mark an eliminated player's loot pile on the board |
 
@@ -31,7 +33,7 @@ Each card has a value from 1 to 3, which is its strength. Rarity color: value 1 
 3. **Loot.** Put a matching loot cube on every loot icon on the board.
 4. In turn order, starting with the start player, each player places their pawn on any tile at least **3 tiles away** (straight-line distance) from every pawn already placed. If no tile is that far away, place it as far as you can.
 5. Place the round marker on round 1 of the round track.
-6. Shuffle the three supply decks separately and place them face down. Turn the top card of each face up. Those three cards are the **loot display**.
+6. Shuffle the gold deck face down. Shuffle the three supply decks separately and place them face down. Turn the top card of each face up. Those three cards are the **loot display**.
 7. Each player sets their stats to Base Move 1, Base Attack 1, Base Shield 0.
 8. Each player shuffles their 10-card base deck and draws 5 cards.
 9. The start player takes the first turn. Advance the round marker at the start of each of the start player's turns after the first (or when play reaches their seat, if they've been eliminated).
@@ -79,7 +81,7 @@ Phase 3 starts once you've finished all your actions. You can't play cards durin
 You only get one attack, so play your Attack cards before you attack.
 
 ## Looting
-Once per turn, you may take either 1 cube from the tile you're on or make one claim on a loot pile there (see Elimination), never both. Return the cube to the general supply and gain a card of that type (Move cube → Movement deck, Attack → Attack deck, Heal → Heal deck). Choose either:
+Once per turn, you may take 1 cube from the tile you're on, make one claim on a loot pile there (see Elimination), or take 1 card from a supply drop there (see Supply Drops). Only one of these per turn. Return the cube to the general supply and gain a card of that type (Move cube → Movement deck, Attack → Attack deck, Heal → Heal deck). Choose either:
 - the **face-up card** of that type in the loot display (then turn the next card of that deck face up), or
 - the **top card** of that deck, unseen.
 
@@ -107,6 +109,16 @@ The storm closes in from the outside of the board, like a shrinking circle. At t
 
 **Storm tiles:** a marked tile is a storm tile. You can move through, stop on and loot storm tiles normally. If you **end your turn on a storm tile**, take the storm damage for this round as Dead cards into your discard pile. Shield does not block storm damage.
 
+## Supply Drops
+A supply drop lands at the start of rounds **3, 5, 7, 9 and 11**, but only one per player: with 2 players, only rounds 3 and 5; with 3 players, rounds 3, 5 and 7; and so on.
+
+1. **Who places it:** the start player places the first drop, then the next player clockwise places the next one, skipping eliminated players.
+2. **Placing:** draw 2 gold cards face up and put them with the drop marker on any tile at least 3 tiles from your own pawn.
+3. **Nudging:** then each other player, clockwise, may move the drop 1 tile or pass.
+4. **Looting:** looting the drop uses your loot action. Take 1 of its cards into your discard pile. The other card stays for the next looter. When both are taken, remove the marker.
+
+A drop can land on a storm tile, and storm markers can be placed on a drop's tile.
+
 ## Elimination
 The elimination check happens only at the end of your own turn. If you are eliminated:
 1. Remove your pawn.
@@ -133,7 +145,8 @@ Each player's set has 15 tiles and 21 loot icons, 7 of each type:
 
 ## Quick Reference
 **Upkeep:** reset Shield → draw up to 5 (held and Dead cards count) → 3+ Dead: announce "critical"
-**Actions (any order):** play any cards · move · 1 attack · 1 loot (1 cube or 1 pile claim) · upgrade
+**Actions (any order):** play any cards · move · 1 attack · 1 loot (1 cube, 1 pile claim or 1 drop card) · upgrade
+**Supply drops:** rounds 3, 5, 7, 9, 11 (one per player); placed 3+ tiles from the placer, then everyone may nudge it 1 tile
 **Heal card:** heal (Dead from hand → supply, card leaves the game) or shield (+Shield until your next upkeep)
 **Storm:** place markers from the outside in: 1 per turn (rounds 1–6), 2 per turn (round 7+). End your turn on a storm tile: 1 Dead card (round 7+: 2) to your discard pile; Shield doesn't block it
 **Eliminated:** all your Dead cards to supply; your other cards become a loot pile (claims pick 5, then 3, then 1)
@@ -150,11 +163,7 @@ Each player's set has 15 tiles and 21 loot icons, 7 of each type:
 - **Siphon (from Fortnite):** when your attack lands 2 or more Dead cards, return 1 Dead card from your own hand to the supply. Aggressive players heal by fighting instead of hoarding Heal cards. Untested.
 - **Battle bus drop:** players deploy along a straight-line bus path instead of placing anywhere.
 - **One-shot weapons:** Attack cards like a Shotgun that leave the game after use.
-- **Supply drops (gold deck):** a separate 12-card gold deck of value-2 and value-3 cards of mixed types, shuffled.
-    - At the start of rounds 4, 8 and 12, a drop of 2 gold cards lands. The placer puts it on any tile at least 3 tiles from their own pawn. Then each other player, clockwise, may nudge it 1 tile or pass. It can never be nudged off the board.
-    - Placement rotates: the start player places the round 4 drop, the next player clockwise places round 8, and so on.
-    - Looting the drop uses your loot action: take 1 of its cards into your discard pile. The other card stays for the next looter.
-    - Simulation: about 3 drops per game, and players grab nearly all of them.
+
 - **8–10 player team variant (needs testing):** duos or squads that share a win. Teammates can revive a knocked-down partner (see Knocked down). Simulation: 10 solo players take about 115 turns, far past 45 minutes, so high player counts need teams or simultaneous turns.
 - **Knocked down (team play only):** if you end your turn with 3 or more Dead cards, you're knocked down instead of eliminated. You can be knocked down only once per game; a second time eliminates you.
     - While knocked down, you move at most 1 hex, can't attack or loot, and can only play Heal cards.

@@ -20,6 +20,7 @@ Updated 2026-09-29 · Designers: Brandon and Chris · Milestone: 1 → 3 (paper 
 - Upgrades: pay 4+ value of one type, paid cards to discard, max 4
 - Storm: markers placed from the outside in (tiles stay); 1 per turn, then 2 per turn from round 7; ending a turn on a storm tile = 1 Dead (2 from round 7) to discard; Shield doesn't block it
 - Normal pawn placement order; pawns start ≥3 tiles apart
+- Supply drops: gold deck, one per player at rounds 3, 5, 7, 9, 11; placement rotates from the start player; nudge 1 tile each (SIM-011)
 - Holding: keep any unplayed cards (Heal cards included); hand limit 5 including Dead cards
 - Elimination loot pile: 5 / 3 / 1 picks
 - Supply decks of 18 cards; 60 Dead cards
@@ -38,7 +39,7 @@ Updated 2026-09-29 · Designers: Brandon and Chris · Milestone: 1 → 3 (paper 
 - A 2-movement cost to loot a pile (no effect, SIM-004)
 
 ## Open / Ideas
-Supply drops (gold deck, rotating placement) · teams and knockdowns for 8–10 players · Self-Revive special card · walls · chests · named locations · battle bus drop · levels · upgrade cost 4 option
+teams and knockdowns for 8–10 players · Self-Revive special card · walls · chests · named locations · battle bus drop · levels · upgrade cost 4 option
 
 ## Evidence
 | ID | Type | Finding |
