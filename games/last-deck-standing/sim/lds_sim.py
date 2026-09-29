@@ -83,7 +83,8 @@ class Game:
                  values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False, elim_timing="upkeep",
                  play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False,
                  min_start=0, hold=0, grace=0, storm_sched=None, dmg_sched=None, heal_no_attack=False, heal_no_move=False, hold_no_heal=False,
-                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1):
+                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99):
+        self.shield_persist, self.shield_cap = shield_persist, shield_cap
         self.display_n = display_n
         self.min_draw, self.drop_rule = min_draw, drop_rule
         self.hold_no_heal = hold_no_heal
@@ -225,7 +226,7 @@ class Game:
     # --- turn ------------------------------------------------------------
     def play_turn(self, p, rnd):
         rng = self.rng
-        p.shield = p.stats["shd"]
+        p.shield = max(p.shield, p.stats["shd"]) if self.shield_persist else p.stats["shd"]
         before = len(p.hand)
         p.draw_to(5, rng)
         extra = self.min_draw - (len(p.hand) - before)
@@ -255,7 +256,7 @@ class Game:
         mov = p.stats["mov"] + sum(v for k, v in played if k == "M")
         atk = p.stats["atk"] + sum(v for k, v in played if k == "A")
         heal = sum(v for k, v in played if k == "H")
-        p.shield += sum(v for k, v in played if k in "SX")
+        p.shield = min(self.shield_cap, p.shield + sum(v for k, v in played if k in "SX"))
         self.m["cards_played"] += len(played)
         self.m["plays_used"] += len(plays)
         self.m["play_slots"] += 2
@@ -697,6 +698,8 @@ def main():
     ap.add_argument("--min-draw", type=int, default=0)
     ap.add_argument("--drop-rule", default="near3", choices=["near3", "inner"])
     ap.add_argument("--display", type=int, default=1, help="face-up cards per supply deck")
+    ap.add_argument("--shield-persist", action="store_true")
+    ap.add_argument("--shield-cap", type=int, default=99)
     ap.add_argument("--out")
     a = ap.parse_args()
     kw = dict(tiles_per_player=a.tiles_per_player, tiles_total=a.tiles_total, deck_size=a.deck_size,
@@ -710,7 +713,7 @@ def main():
               min_start=a.min_start, hold=a.hold, grace=a.grace,
               storm_sched=parse_sched(a.storm_sched), dmg_sched=parse_sched(a.dmg_sched),
               heal_no_attack=a.heal_no_attack, heal_no_move=a.heal_no_move, hold_no_heal=a.hold_no_heal, heal_values=a.heal_values,
-              min_draw=a.min_draw, drop_rule=a.drop_rule, display_n=a.display)
+              min_draw=a.min_draw, drop_rule=a.drop_rule, display_n=a.display, shield_persist=a.shield_persist, shield_cap=a.shield_cap)
     res = dict(rules_version=RULES_VERSION, simulation_version=SIM_VERSION,
                campaigns=[campaign(n, a.runs, a.seed, a.population, **kw) for n in a.players])
     s = json.dumps(res, indent=1)

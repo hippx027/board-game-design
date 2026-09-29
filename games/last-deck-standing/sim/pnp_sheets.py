@@ -15,7 +15,7 @@ TYPE = {"A": "Attack", "M": "Move", "H": "Heal"}
 TEXT = {
     "A": "+{v} Attack this turn.",
     "M": "+{v} Move this turn.",
-    "H": "Choose one:<br><b>Heal</b> &ndash; return up to {v} Dead card{s} from your hand to the supply, then remove this card from the game.<br><b>Shield</b> &ndash; +{v} Shield until your next upkeep.",
+    "H": "Choose one:<br><b>Heal</b> &ndash; return up to {v} Dead card{s} from your hand to the supply, then remove this card from the game.<br><b>Shield</b> &ndash; +{v} Shield (max 8). Stays until damage uses it.",
 }
 
 
