@@ -91,7 +91,8 @@ class Game:
                  values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False, elim_timing="upkeep",
                  play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False,
                  min_start=0, hold=0, grace=0, storm_sched=None, dmg_sched=None, heal_no_attack=False, heal_no_move=False, hold_no_heal=False,
-                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None):
+                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False):
+        self.heal_both = heal_both
         self.tile_mix = tile_mix
         self.shield_persist, self.shield_cap = shield_persist, shield_cap
         self.display_n = display_n
@@ -265,7 +266,7 @@ class Game:
         mov = p.stats["mov"] + sum(v for k, v in played if k == "M")
         atk = p.stats["atk"] + sum(v for k, v in played if k == "A")
         heal = sum(v for k, v in played if k == "H")
-        p.shield = min(self.shield_cap, p.shield + sum(v for k, v in played if k in "SX"))
+        p.shield = min(self.shield_cap, p.shield + sum(v for k, v in played if k in ("SXH" if self.heal_both else "SX")))
         self.m["cards_played"] += len(played)
         self.m["plays_used"] += len(plays)
         self.m["play_slots"] += 2
@@ -333,7 +334,7 @@ class Game:
             return
 
         spent = [("H", c[1]) if c[0] == "X" else c for c in played
-                 if c[0] != "H" or self.heal_keep]
+                 if c[0] != "H" or self.heal_keep or (self.heal_both and not healed)]
         if self.sticky_dead:
             live = sorted((c for c in p.hand if c[0] != "D"), key=lambda c: (c[0] == "H", c[1]), reverse=True)
             if self.hold_no_heal:
@@ -474,7 +475,7 @@ class Game:
                 if c[0] == "D":
                     continue
                 alts = [(c,)]
-                if self.merged_heal and c[0] == "H":
+                if self.merged_heal and c[0] == "H" and not self.heal_both:
                     alts.append((("X", c[1]),))  # Heal card spent as Shield
                 opts |= {tuple(sorted(o + a)) for o in opts for a in alts}
             from collections import Counter as _C
@@ -537,7 +538,7 @@ class Game:
             heal = sum(v for k, v in flat if k == "H")
             if self.heal_no_move and heal:
                 mov = 0
-            shd = p.shield + sum(v for k, v in flat if k in "SX")
+            shd = p.shield + sum(v for k, v in flat if k in ("SXH" if self.heal_both else "SX"))
             if mov not in reach_cache:
                 reach_cache[mov] = self.reachable(p.pos, mov)
             base_s = w["heal"] * min(heal, dead_in_hand)
@@ -711,6 +712,7 @@ def main():
     ap.add_argument("--shield-cap", type=int, default=99)
     ap.add_argument("--tile-mix", default="even", choices=["even", "armory", "arsenal", "lean_heal"])
     ap.add_argument("--deck-sizes", type=lambda x: [int(v) for v in x.split(",")], default=None, help="Attack,Move,Heal deck sizes")
+    ap.add_argument("--heal-both", action="store_true", help="Heal cards heal AND shield")
     ap.add_argument("--out")
     a = ap.parse_args()
     kw = dict(tiles_per_player=a.tiles_per_player, tiles_total=a.tiles_total, deck_size=a.deck_size,
@@ -724,7 +726,7 @@ def main():
               min_start=a.min_start, hold=a.hold, grace=a.grace,
               storm_sched=parse_sched(a.storm_sched), dmg_sched=parse_sched(a.dmg_sched),
               heal_no_attack=a.heal_no_attack, heal_no_move=a.heal_no_move, hold_no_heal=a.hold_no_heal, heal_values=a.heal_values,
-              min_draw=a.min_draw, drop_rule=a.drop_rule, display_n=a.display, shield_persist=a.shield_persist, shield_cap=a.shield_cap, tile_mix=a.tile_mix, deck_sizes=a.deck_sizes)
+              min_draw=a.min_draw, drop_rule=a.drop_rule, display_n=a.display, shield_persist=a.shield_persist, shield_cap=a.shield_cap, tile_mix=a.tile_mix, deck_sizes=a.deck_sizes, heal_both=a.heal_both)
     res = dict(rules_version=RULES_VERSION, simulation_version=SIM_VERSION,
                campaigns=[campaign(n, a.runs, a.seed, a.population, **kw) for n in a.players])
     s = json.dumps(res, indent=1)

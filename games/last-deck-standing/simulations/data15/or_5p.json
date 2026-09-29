@@ -1,0 +1,114 @@
+{
+ "rules_version": "v1 (2026-09-29)",
+ "simulation_version": "lds-sim 0.1",
+ "campaigns": [
+  {
+   "players": 5,
+   "runs": 400,
+   "seed": 97,
+   "population": "mixed",
+   "config": {
+    "tiles_per_player": 10,
+    "tiles_total": null,
+    "deck_size": 12,
+    "storm": "flip",
+    "upgrade_pay": "discard",
+    "upgrade_cost": 4,
+    "push": null,
+    "values": null,
+    "place_reverse": false,
+    "storm_per_turn": 1,
+    "loot": "tiles",
+    "drop_rounds": [
+     3,
+     5,
+     7,
+     9,
+     11
+    ],
+    "elim_loot": 0,
+    "pile": 5,
+    "bundle_cap": 99,
+    "heal_discard": false,
+    "kill_upgrade": false,
+    "elim_timing": "end",
+    "play_all": true,
+    "sticky_dead": true,
+    "merged_heal": true,
+    "heal_keep": false,
+    "min_start": 3,
+    "hold": 5,
+    "grace": 0,
+    "storm_sched": {
+     "1": 1,
+     "7": 2
+    },
+    "dmg_sched": {
+     "1": 1,
+     "7": 2
+    },
+    "heal_no_attack": false,
+    "heal_no_move": false,
+    "hold_no_heal": false,
+    "heal_values": null,
+    "min_draw": 2,
+    "drop_rule": "inner",
+    "display_n": 2,
+    "shield_persist": true,
+    "shield_cap": 4,
+    "tile_mix": "armory",
+    "deck_sizes": [
+     24,
+     18,
+     18
+    ],
+    "heal_both": false
+   },
+   "stall_rate": 0.0,
+   "rounds_mean": 14.0,
+   "rounds_median": 14.0,
+   "rounds_p10_p90": [
+    11,
+    17
+   ],
+   "turns_mean": 52.9,
+   "first_attack_round_median": 1.0,
+   "seat_win_rate": {
+    "0": 0.233,
+    "1": 0.198,
+    "2": 0.223,
+    "3": 0.185,
+    "4": 0.163
+   },
+   "fair_share": 0.2,
+   "profile_wins": {
+    "cautious": 218,
+    "balanced": 143,
+    "aggressive": 39
+   },
+   "upgrades_per_game": {
+    "A": 4.86,
+    "M": 2.87,
+    "H": 3.33
+   },
+   "attacks_per_turn": 0.49,
+   "dead_dealt_per_game": 50.8,
+   "shield_absorb_share": 0.2,
+   "play_slot_use": 1.12,
+   "loot_empty_rate": 0.0,
+   "supply_runs_out_pct": {
+    "A": 0.02,
+    "M": 0.0,
+    "H": 0.0
+   },
+   "drops_per_game": 4.9,
+   "drop_loots_per_game": 8.3,
+   "last_chance_turns_per_game": 5.1,
+   "dead_healed_per_game": 13.1,
+   "storm_hits_per_game": 36.8,
+   "pushes_per_game": 0.0,
+   "storm_skipped_per_game": 20.2,
+   "tiles_left_at_end_mean": 50
+  }
+ ]
+}
