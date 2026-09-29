@@ -43,7 +43,7 @@ Play goes clockwise. Each turn has three phases.
 
 ### Phase 1: Upkeep
 1. Set your Shield points equal to your Base Shield. Any points left over from last turn are lost.
-2. Draw until you have 5 cards in hand. Dead cards still in your hand count toward the 5. If your draw pile runs out, shuffle your discard pile to make a new one and keep drawing. If both are empty, stop drawing.
+2. **Draw:** draw until you have 5 cards in hand, and always draw **at least 2** cards. If that puts you over 5, discard cards of your choice until you have 5 (Dead cards can't be discarded). Held cards and Dead cards count toward the 5. If your draw pile runs out, shuffle your discard pile to make a new one and keep drawing. If both are empty, stop drawing.
 3. **Critical:** if 3 or more cards in your hand are Dead cards, announce "critical" to the table. This is only a warning: what counts is how many Dead cards you hold at the end of your turn.
 
 ### Phase 2: Actions
@@ -113,7 +113,7 @@ The storm closes in from the outside of the board, like a shrinking circle. At t
 A supply drop lands at the start of rounds **3, 5, 7, 9 and 11**, before the start player's upkeep. The number of drops is set by the **starting** player count: with 2 players, only rounds 3 and 5; with 3 players, rounds 3, 5 and 7; and so on. When a new drop lands, any card left in the previous drop is removed from the game.
 
 1. **Who places it:** the start player places the first drop, then placing passes clockwise to the next player still in the game.
-2. **Placing:** draw 2 gold cards face up and put them with the drop marker on any tile at least 3 tiles from your own pawn.
+2. **Placing:** draw 2 gold cards face up and put them with the drop marker on any tile that is **not a storm tile and not an edge tile**.
 3. **Nudging:** then each other player, clockwise, may move the drop 1 tile or pass.
 4. **Looting:** looting the drop uses your loot action. Take 1 of its cards into your discard pile. The other card stays for the next looter. When both are taken, remove the marker.
 
@@ -144,9 +144,9 @@ Each player's set has 15 tiles and 21 loot icons, 7 of each type:
 | 3 | 3 each: Move+Attack+Heal · Attack+Attack+Heal · Move+Attack+Heal |
 
 ## Quick Reference
-**Upkeep:** reset Shield → draw up to 5 (held and Dead cards count; reshuffle your discard pile if your deck runs out) → 3+ Dead: announce "critical"
+**Upkeep:** reset Shield → draw up to 5 and at least 2, then discard down to 5 (not Dead cards) → 3+ Dead: announce "critical"
 **Actions (any order):** play any cards · move · 1 attack · 1 loot (1 cube, 1 pile claim or 1 drop card) · upgrade
-**Supply drops:** rounds 3, 5, 7, 9, 11 (one per player); placed 3+ tiles from the placer, then everyone may nudge it 1 tile
+**Supply drops:** rounds 3, 5, 7, 9, 11 (one per starting player); placed on a tile that's not storm or edge, then everyone may nudge it 1 tile
 **Heal card:** heal (Dead from hand → supply, card leaves the game) or shield (+Shield until your next upkeep)
 **Storm:** place markers on edge tiles or tiles touching a marked tile: 1 per turn (rounds 1–6), 2 per turn (round 7+). End your turn on a storm tile: 1 Dead card (round 7+: 2) to your discard pile; Shield doesn't block it
 **Eliminated:** all your Dead cards to supply; your other cards become a loot pile (claims pick 5, then 3, then 1)

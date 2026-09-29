@@ -83,7 +83,8 @@ class Game:
                  values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False, elim_timing="upkeep",
                  play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False,
                  min_start=0, hold=0, grace=0, storm_sched=None, dmg_sched=None, heal_no_attack=False, heal_no_move=False, hold_no_heal=False,
-                 heal_values=None):
+                 heal_values=None, min_draw=0, drop_rule="near3"):
+        self.min_draw, self.drop_rule = min_draw, drop_rule
         self.hold_no_heal = hold_no_heal
         self.heal_no_attack, self.heal_no_move = heal_no_attack, heal_no_move
         self.storm_sched = storm_sched or {1: 1}
@@ -224,7 +225,17 @@ class Game:
     def play_turn(self, p, rnd):
         rng = self.rng
         p.shield = p.stats["shd"]
+        before = len(p.hand)
         p.draw_to(5, rng)
+        extra = self.min_draw - (len(p.hand) - before)
+        if extra > 0:
+            p.draw_to(len(p.hand) + extra, rng)
+            live = sorted((c for c in p.hand if c[0] != "D"), key=lambda c: (c[0] == "H", c[1]))
+            while len(p.hand) > 5 and live:
+                c = live.pop(0)
+                p.hand.remove(c)
+                p.discard.append(c)
+                self.m["upkeep_discards"] += 1
         if sum(1 for c in p.hand if c[0] == "D") >= 3:
             if self.elim_timing == "upkeep":
                 self.eliminate(p, rnd)
@@ -377,8 +388,13 @@ class Game:
         alive = self.alive()
         placer = alive[self.drop_count % len(alive)]
         self.drop_count += 1
-        far = [h for h in self.tiles if h not in self.drops and hexdist(h, placer.pos) >= 3] or \
-              [h for h in self.tiles if h not in self.drops]
+        if self.drop_rule == "inner":  # not a storm tile, not an edge tile; a new drop clears the old one
+            self.drops = {}
+            far = [h for h in self.tiles if h not in self.storm_tiles and all(nb in self.tiles for nb in nbrs(h))] or \
+                  [h for h in self.tiles if h not in self.storm_tiles] or list(self.tiles)
+        else:
+            far = [h for h in self.tiles if h not in self.drops and hexdist(h, placer.pos) >= 3] or \
+                  [h for h in self.tiles if h not in self.drops]
         if not far:
             return
         spot = min(far, key=lambda h: hexdist(h, placer.pos) + self.rng.random() * 0.01)
@@ -674,6 +690,8 @@ def main():
     ap.add_argument("--heal-no-move", action="store_true")
     ap.add_argument("--hold-no-heal", action="store_true")
     ap.add_argument("--heal-values", type=lambda x: [int(v) for v in x.split(",")], default=None, help="Heal deck counts of value 1,2,3")
+    ap.add_argument("--min-draw", type=int, default=0)
+    ap.add_argument("--drop-rule", default="near3", choices=["near3", "inner"])
     ap.add_argument("--out")
     a = ap.parse_args()
     kw = dict(tiles_per_player=a.tiles_per_player, tiles_total=a.tiles_total, deck_size=a.deck_size,
@@ -686,7 +704,8 @@ def main():
               merged_heal=a.merged_heal, heal_keep=a.heal_keep,
               min_start=a.min_start, hold=a.hold, grace=a.grace,
               storm_sched=parse_sched(a.storm_sched), dmg_sched=parse_sched(a.dmg_sched),
-              heal_no_attack=a.heal_no_attack, heal_no_move=a.heal_no_move, hold_no_heal=a.hold_no_heal, heal_values=a.heal_values)
+              heal_no_attack=a.heal_no_attack, heal_no_move=a.heal_no_move, hold_no_heal=a.hold_no_heal, heal_values=a.heal_values,
+              min_draw=a.min_draw, drop_rule=a.drop_rule)
     res = dict(rules_version=RULES_VERSION, simulation_version=SIM_VERSION,
                campaigns=[campaign(n, a.runs, a.seed, a.population, **kw) for n in a.players])
     s = json.dumps(res, indent=1)
