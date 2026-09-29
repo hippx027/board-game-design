@@ -80,7 +80,10 @@ class Player:
 
 class Game:
     def __init__(self, n, profiles, rng, tiles_per_player=15, tiles_total=None, deck_size=12, storm="choose", upgrade_pay="remove", upgrade_cost=4, push=None,
-                 values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False):
+                 values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False, elim_timing="upkeep",
+                 play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False):
+        self.play_all, self.sticky_dead, self.merged_heal, self.heal_keep = play_all, sticky_dead, merged_heal, heal_keep
+        self.elim_timing = elim_timing
         self.heal_discard = heal_discard
         self.bundle_cap = bundle_cap
         self.pile, self.pile_move_cost = pile, pile_move_cost
@@ -101,6 +104,8 @@ class Game:
         self.tiles = {}
         self.build_board(total)
         self.decks = {k: supply_deck(k, rng, deck_size, values) for k in "AMH"}
+        if merged_heal:
+            self.decks["H"] = [("H", v) for _, v in self.decks["H"]]
         self.display = {k: self.decks[k].pop() for k in "AMH"}
         self.players = [Player(i, profiles[i], rng) for i in range(n)]
         for p in (reversed(self.players) if place_reverse else self.players):
@@ -205,8 +210,10 @@ class Game:
         p.shield = p.stats["shd"]
         p.draw_to(5, rng)
         if sum(1 for c in p.hand if c[0] == "D") >= 3:
-            self.eliminate(p, rnd)
-            return
+            if self.elim_timing == "upkeep":
+                self.eliminate(p, rnd)
+                return
+            self.m["last_chance_turns"] += 1
         self.m["turns"] += 1
         self.current = p
 
@@ -216,11 +223,11 @@ class Game:
 
         played = [c for grp in plays for c in grp]
         for c in played:
-            p.hand.remove(c)
+            p.hand.remove(("H", c[1]) if c[0] == "X" else c)
         mov = p.stats["mov"] + sum(v for k, v in played if k == "M")
         atk = p.stats["atk"] + sum(v for k, v in played if k == "A")
         heal = sum(v for k, v in played if k == "H")
-        p.shield += sum(v for k, v in played if k == "S")
+        p.shield += sum(v for k, v in played if k in "SX")
         self.m["cards_played"] += len(played)
         self.m["plays_used"] += len(plays)
         self.m["play_slots"] += 2
@@ -278,8 +285,19 @@ class Game:
                     max(0, q.stats["atk"] + 2 - hexdist(h, q.pos) - p.shield) for q in foes) + self.rng.random() * 0.01)
                 self.m["retreats"] += p.pos != dest
 
-        p.discard += [c for c in played if c[0] != "H"] + p.hand
-        p.hand = []
+        if self.elim_timing == "end" and sum(1 for c in p.hand if c[0] == "D") >= 3:
+            self.eliminate(p, rnd)  # hand (with its Dead cards) goes into the loot pile / supply
+            p.hand = []
+            return
+
+        spent = [("H", c[1]) if c[0] == "X" else c for c in played
+                 if c[0] != "H" or self.heal_keep]
+        if self.sticky_dead:
+            p.discard += spent + [c for c in p.hand if c[0] != "D"]
+            p.hand = [c for c in p.hand if c[0] == "D"]
+        else:
+            p.discard += spent + p.hand
+            p.hand = []
 
         for _ in range(self.storm_per_turn):
             self.storm_step()
@@ -380,6 +398,25 @@ class Game:
                 self.m[f"upgrade_{g}"] += 1
 
     def play_options(self, p):
+        if self.play_all:
+            opts = {()}
+            for c in p.hand:
+                if c[0] == "D":
+                    continue
+                alts = [(c,)]
+                if self.merged_heal and c[0] == "H":
+                    alts.append((("X", c[1]),))  # Heal card spent as Shield
+                opts |= {tuple(sorted(o + a)) for o in opts for a in alts}
+            from collections import Counter as _C
+            have = _C(c for c in p.hand if c[0] != "D")
+            def ok(o):
+                need = _C(("H", v) if k == "X" else (k, v) for k, v in o)
+                return all(have[x] >= n for x, n in need.items())
+            opts = {o for o in opts if ok(o)}
+            return [tuple((c,) for c in o) for o in opts]
+        return self.play_options_limited(p)
+
+    def play_options_limited(self, p):
         """All legal sets of up to 2 plays. Upgraded groups play as one bundle."""
         units = []
         bundled = set()
@@ -428,7 +465,7 @@ class Game:
             mov = p.stats["mov"] + sum(v for k, v in flat if k == "M")
             atk = p.stats["atk"] + sum(v for k, v in flat if k == "A")
             heal = sum(v for k, v in flat if k == "H")
-            shd = p.shield + sum(v for k, v in flat if k == "S")
+            shd = p.shield + sum(v for k, v in flat if k in "SX")
             if mov not in reach_cache:
                 reach_cache[mov] = self.reachable(p.pos, mov)
             base_s = w["heal"] * min(heal, dead_in_hand) + w["shield"] * (shd - p.shield) * 0.5
@@ -534,6 +571,8 @@ def campaign(n, runs, seed, population, **kw):
         supply_runs_out_pct={k: round(sum(1 for r in results if k in r["supply_out_round"]) / runs, 2) for k in "AMH"},
         drops_per_game=round(tot("drops") / runs, 1),
         drop_loots_per_game=round(tot("drop_loots") / runs, 1),
+        last_chance_turns_per_game=round(tot("last_chance_turns") / runs, 1),
+        dead_healed_per_game=round(tot("dead_healed") / runs, 1),
         pushes_per_game=round(tot("pushes") / runs, 1),
         storm_skipped_per_game=round(tot("storm_skipped") / runs, 1),
         tiles_left_at_end_mean=round(mean(r["tiles_left"] for r in results), 1),
@@ -564,6 +603,11 @@ def main():
     ap.add_argument("--bundle-cap", type=int, default=99)
     ap.add_argument("--heal-discard", action="store_true")
     ap.add_argument("--kill-upgrade", action="store_true")
+    ap.add_argument("--elim-timing", default="upkeep", choices=["upkeep", "end"])
+    ap.add_argument("--play-all", action="store_true")
+    ap.add_argument("--sticky-dead", action="store_true")
+    ap.add_argument("--merged-heal", action="store_true")
+    ap.add_argument("--heal-keep", action="store_true", help="Heal cards used to heal are discarded, not removed")
     ap.add_argument("--out")
     a = ap.parse_args()
     kw = dict(tiles_per_player=a.tiles_per_player, tiles_total=a.tiles_total, deck_size=a.deck_size,
@@ -571,7 +615,9 @@ def main():
               upgrade_cost=a.upgrade_cost, push=a.push,
               values=a.values, place_reverse=a.place_reverse, storm_per_turn=a.storm_per_turn, loot=a.loot,
               drop_rounds=a.drop_rounds, elim_loot=a.elim_loot,
-              pile=a.pile, bundle_cap=a.bundle_cap, heal_discard=a.heal_discard, kill_upgrade=a.kill_upgrade)
+              pile=a.pile, bundle_cap=a.bundle_cap, heal_discard=a.heal_discard, kill_upgrade=a.kill_upgrade,
+              elim_timing=a.elim_timing, play_all=a.play_all, sticky_dead=a.sticky_dead,
+              merged_heal=a.merged_heal, heal_keep=a.heal_keep)
     res = dict(rules_version=RULES_VERSION, simulation_version=SIM_VERSION,
                campaigns=[campaign(n, a.runs, a.seed, a.population, **kw) for n in a.players])
     s = json.dumps(res, indent=1)

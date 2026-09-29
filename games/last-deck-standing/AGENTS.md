@@ -22,10 +22,11 @@ To rebuild the page after editing the rules: replace the contents of `<script ty
 ```bash
 cd sim
 python3 lds_sim.py --players 3 4 5 --runs 300 --seed 42 \
-  --storm connected --push 8 --upgrade-pay discard --upgrade-cost 5 \
-  --place-reverse --deck-size 18 --loot tiles --pile 5 --bundle-cap 3
+  --tiles-per-player 12 --storm connected --push 8 --upgrade-pay discard --upgrade-cost 4 \
+  --place-reverse --deck-size 18 --loot tiles --pile 5 \
+  --play-all --sticky-dead --elim-timing end --merged-heal
 ```
-The flags above match the current rules. Other levers: `--tiles-per-player`, `--drop-rounds 4,8,12` (gold supply drops), `--elim-loot`, `--storm-per-turn`, `--values 6,4,2`. Bot styles are in `PROFILES` (random, aggressive, balanced, cautious, brawler, skirmisher). Also: `--heal-discard`, `--kill-upgrade` (rejected variants, kept for regression).
+The flags above match the current rules (use `--tiles-per-player` 15 for 2–3p, 12 for 4p, 10 for 5p). Other levers: `--tiles-per-player`, `--drop-rounds 4,8,12` (gold supply drops), `--elim-loot`, `--storm-per-turn`, `--values 6,4,2`. Bot styles are in `PROFILES` (random, aggressive, balanced, cautious, brawler, skirmisher). Also: `--heal-discard`, `--kill-upgrade` (rejected variants, kept for regression).
 
 ## How the designer works (preferences)
 - **The designer makes the rules calls.** Surface contradictions as clear options with a recommendation; don't silently decide. Defaults you choose must be flagged in the rules or notes.
@@ -36,7 +37,7 @@ The flags above match the current rules. Other levers: `--tiles-per-player`, `--
 
 ## Key findings to remember
 - The original storm stranded players on islands, and 69% of 5-player games never ended. That was fixed by the no-island rule (SIM-001/002).
-- Cautious play wins about 25–27% in 5-player games (fair share 20%). Kill rewards, loot piles, supply drops and retreat moves don't change it. Fighting wins 1v1 (~72%) but loses in a crowd: the battle royale third-party dynamic. Watch it in human tests rather than force a fix (SIM-004/005).
+- Turtling (cautious play winning) was only fixed by letting players play every card, together with sticky Dead cards, end-of-turn elimination and the merged Heal/Shield card (SIM-007). Kill rewards, loot piles, supply drops and retreat moves did not help (SIM-004/005).
 - 8–10 players is too long solo (~115 turns). It's tabled as a team variant.
 - Bots see all information, so they can't measure what hidden or open information does to players. Marked Dead-card backs need human testing.
 

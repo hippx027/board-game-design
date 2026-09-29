@@ -7,21 +7,18 @@ Data before art. Quantities are for a full 5-player box. Source of truth for rul
 |---|---|---|---|---|---|---|
 | BASE-A1 | card | Strike | 20 (4 per player) | +1 Attack | base, attack, gray | Player-colour stripe on the front |
 | BASE-M1 | card | Dash | 15 (3 per player) | +1 Move | base, move, gray | |
-| BASE-H1 | card | Patch Up | 15 (3 per player) | Return 1 Dead card from hand to supply; then remove from game | base, heal, gray | |
+| BASE-H1 | card | Patch Up | 15 (3 per player) | Choose: heal 1 Dead from hand (then remove from game) or +1 Shield | base, heal, gray | |
 | ATK-1 | card | Attack 1 | 9 | +1 Attack | supply, attack, gray | |
 | ATK-2 | card | Attack 2 | 6 | +2 Attack | supply, attack, blue | |
 | ATK-3 | card | Attack 3 | 3 | +3 Attack | supply, attack, purple | |
 | MOV-1 | card | Move 1 | 9 | +1 Move | supply, move, gray | |
 | MOV-2 | card | Move 2 | 6 | +2 Move | supply, move, blue | |
 | MOV-3 | card | Move 3 | 3 | +3 Move | supply, move, purple | |
-| HEL-1 | card | Heal 1 | 5 | Return 1 Dead from hand; remove from game | supply, heal, gray | Heal deck |
-| HEL-2 | card | Heal 2 | 3 | Return up to 2 Dead from hand; remove from game | supply, heal, blue | Heal deck |
-| HEL-3 | card | Heal 3 | 2 | Return up to 3 Dead from hand; remove from game | supply, heal, purple | Heal deck |
-| SHD-1 | card | Shield 1 | 4 | +1 Shield point until your next upkeep | supply, shield, gray | Heal deck |
-| SHD-2 | card | Shield 2 | 3 | +2 Shield points | supply, shield, blue | Heal deck |
-| SHD-3 | card | Shield 3 | 1 | +3 Shield points | supply, shield, purple | Heal deck |
+| HEL-1 | card | Heal 1 | 9 | Choose: heal 1 Dead from hand (then remove from game) or +1 Shield | supply, heal, gray | Heal deck |
+| HEL-2 | card | Heal 2 | 6 | Choose: heal up to 2 Dead or +2 Shield | supply, heal, blue | Heal deck |
+| HEL-3 | card | Heal 3 | 3 | Choose: heal up to 3 Dead or +3 Shield | supply, heal, purple | Heal deck |
 | DEAD | card | Dead | 60 | No effect; can't be played | dead | **Distinct marked back** so Dead cards are visible in hands and decks |
-| GOLD-* | card | Gold drop cards | 12 | Mixed Attack / Move / Heal / Shield, value 2 or 3 | gold (Ideas for Later) | Only needed when testing supply drops |
+| GOLD-* | card | Gold drop cards | 12 | Mixed Attack / Move / Heal, value 2 or 3 | gold (Ideas for Later) | Only needed when testing supply drops |
 
 Totals: base 50 · supply 54 (3 × 18) · Dead 60 · gold 12 (optional).
 

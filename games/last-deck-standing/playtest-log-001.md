@@ -14,9 +14,9 @@
 ## What to watch (from simulation and read-throughs)
 These are the open signals. Log what actually happens; don't steer players toward them.
 
-1. **Turtling:** bots won by hanging back (cautious 27% vs 20% fair share). Do people hang back? Is waiting fun or dull?
+1. **Turn length:** with unlimited plays, time a few turns. Target: the whole game in 30–60 min.
 2. **Same-hex fights:** read-through agents stacked and traded every turn. Do humans go all in, then escape?
-3. **Upgrades:** do they happen at cost 5? Note each upgrade's round.
+3. **Upgrades:** do they happen at cost 4? Note each upgrade's round.
 4. **Setup time:** target ≤ 10 minutes for 5 players.
 5. **Critical warnings / marked backs:** do they change who gets targeted?
 6. **Storm Phase 2 (round 8+):** does it arrive in time? Do the push-offs feel fun or fiddly?
@@ -46,8 +46,10 @@ These are the open signals. Log what actually happens; don't steer players towar
 | Range-based damage | | |
 | Same-hex fights | | |
 | Loot cubes → cards | | |
-| Upgrades (cost 5, paid to discard) | | |
-| Bundled plays (cap 3) | | |
+| Upgrades (cost 4, paid to discard) | | |
+| Play every card / one attack | | |
+| Sticky Dead cards + end-of-turn elimination | | |
+| Heal card: heal or shield | | |
 | Storm (no islands, Phase 2 push-off) | | |
 | Loot piles (5/3/1) | | |
 | Critical warning / marked backs | | |
