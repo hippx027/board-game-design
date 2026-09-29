@@ -10,7 +10,7 @@ Designers: Brandon and Chris.
 ## Components
 | Item | Qty | Notes |
 |---|---|---|
-| Loot tiles | 15 per player (one tile set each) | Hex tiles printed with 0–3 loot icons; see Loot Tile Set |
+| Loot tiles | 15 per player (one tile set each) | Hex tiles printed with 0–3 loot icons; each set has its own back colour. See Loot Tile Set |
 | Base deck cards | 10 per player | 4 Strike (Attack 1), 3 Dash (Move 1), 3 Patch Up (Heal 1) |
 | Attack supply deck | 18 | 9× value 1, 6× value 2, 3× value 3 |
 | Movement supply deck | 18 | 9× value 1, 6× value 2, 3× value 3 |
@@ -20,27 +20,28 @@ Designers: Brandon and Chris.
 | Player pawn | 1 per player | |
 | Stat tracker | 1 per player | Tracks Base Move, Base Attack and Base Shield (each 0–4) and current Shield points |
 | Round track and marker | 1 | 25 spaces; tracks the global round for the storm phases |
+| Loot pile markers | 4 | Mark an eliminated player's loot pile on the board |
 
 Each card has a value from 1 to 3, which is its strength. Rarity color: value 1 gray, 2 blue, 3 purple.
 
 ## Setup
 1. Randomly choose a starting player.
-2. **Build the board.** Each player takes one 15-tile set, shuffles it face down and keeps the top tiles for their player count: **15** tiles with 2–3 players, **12** with 4, **10** with 5. Return the rest to the box unseen. Starting with the start player and going clockwise, take your top tile, turn it face up and place it. Each new tile must touch at least one tile already placed.
+2. **Build the board.** Each player takes one 15-tile set, shuffles it face down and keeps the top tiles for their player count: **15** tiles with 2–3 players, **12** with 4, **10** with 5. Return the rest to the box unseen. Starting with the start player and going clockwise, take your top tile, turn it face up and place it. The first tile starts the board; each tile after that must touch at least one tile already placed. Keep going around the table until everyone has placed all their tiles.
 3. **Loot.** Put a matching loot cube on every loot icon on the board.
-4. In **reverse** turn order (the last player first, the start player last), each player places their pawn on any hex. Players may share a hex.
+4. In **reverse** turn order (the last player first, the start player last), each player places their pawn on any tile. Players may share a tile.
 5. Place the round marker on round 1 of the round track.
 6. Shuffle the three supply decks separately and place them face down. Turn the top card of each face up. Those three cards are the **loot display**.
 7. Each player sets their stats to Base Move 1, Base Attack 1, Base Shield 0.
 8. Each player shuffles their 10-card base deck and draws 5 cards.
-9. The start player takes the first turn. Each time play passes the start player's seat, advance the round marker. Keep doing this even after the start player is eliminated.
+9. The start player takes the first turn. Advance the round marker at the start of each of the start player's turns after the first (or when play reaches their seat, if they've been eliminated).
 
 ## Your Turn
 Play goes clockwise. Each turn has three phases.
 
 ### Phase 1: Upkeep
 1. Set your Shield points equal to your Base Shield. Any points left over from last turn are lost.
-2. Draw until you have 5 cards in hand. Dead cards still in your hand count toward the 5. If your draw pile runs out, shuffle your discard pile to make a new one and keep drawing.
-3. **Critical:** if 3 or more cards in your hand are Dead cards, announce "critical" to the table. You have this turn to heal, or you'll be eliminated at the end of it.
+2. Draw until you have 5 cards in hand. Dead cards still in your hand count toward the 5. If your draw pile runs out, shuffle your discard pile to make a new one and keep drawing. If both are empty, stop drawing.
+3. **Critical:** if 3 or more cards in your hand are Dead cards, announce "critical" to the table. This is only a warning: what counts is how many Dead cards you hold at the end of your turn.
 
 ### Phase 2: Actions
 You may do the following in any order, and you may mix them:
@@ -52,8 +53,10 @@ You may do the following in any order, and you may mix them:
 - **Upgrade** any number of times (see Upgrading).
 
 ### Phase 3: End of Turn
+Phase 3 starts once you've finished all your actions. You can't play cards during it.
+
 1. **Elimination check:** if 3 or more cards in your hand are Dead cards, you are eliminated (see Elimination) and your turn ends; skip the storm.
-2. Put your played and unplayed cards in your discard pile. **Dead cards stay in your hand.** Heal cards used to heal are removed from the game instead.
+2. Put your played and unplayed cards in your discard pile. **Dead cards stay in your hand.** Heal cards used to heal were already removed from the game.
 3. **Storm:** you remove one tile from the board (see The Storm).
 4. The next player clockwise begins their turn.
 
@@ -62,20 +65,20 @@ You may do the following in any order, and you may mix them:
 |---|---|
 | **Move** (Dash, Movement deck) | Add its value to your Move this turn. |
 | **Attack** (Strike, Attack deck) | Add its value to your Attack this turn. |
-| **Heal** (Patch Up, Heal deck) | Choose one when you play it: **Heal:** return up to that many Dead cards **from your hand** to the Dead supply, then remove this card from the game. **Shield:** gain that many Shield points (they can go above your Base Shield and protect you until your next upkeep); the card is discarded normally. |
+| **Heal** (Patch Up, Heal deck) | Choose one mode for its whole value when you play it. **Heal:** return up to that many Dead cards **from your hand** to the Dead supply, then remove this card from the game. **Shield:** add that many points to your Shield tracker (they can go above your Base Shield and protect you until your next upkeep); the card is discarded at the end of your turn with your other cards. |
 
 ## Attacking
 1. Total Attack = Base Attack + Attack cards played this turn.
-2. Pick a target. **Range** is the straight-line hex distance from your hex to theirs, counting any removed hexes in between. The same hex is range 0, and an adjacent hex is range 1.
+2. Pick a target. **Range** is the straight-line hex distance from your tile to theirs, counting any gaps in between. The same tile is range 0, and an adjacent tile is range 1. You can hit across a gap you can't walk across.
 3. **Damage = Total Attack − Range.** If that is 0 or less, the target is out of range and you can't attack them.
    - Example: Attack 4 hits range 0 for 4, range 2 for 2, range 3 for 1, and can't reach range 4.
-4. Each of the target's Shield points cancels 1 damage and is then spent.
+4. Subtract range first. Then each of the target's Shield points cancels 1 damage and is spent.
 5. The target puts the remaining damage as Dead cards from the supply **into their discard pile**. They show up when the deck reshuffles.
 
 You only get one attack, so play your Attack cards before you attack.
 
 ## Looting
-Once per turn, you may take either 1 cube from the hex you're on or one pick from a loot pile there (see Elimination), never both. Return the cube to the general supply and gain a card of that type (Move cube → Movement deck, Attack → Attack deck, Heal → Heal deck). Choose either:
+Once per turn, you may take either 1 cube from the tile you're on or make one claim on a loot pile there (see Elimination), never both. Return the cube to the general supply and gain a card of that type (Move cube → Movement deck, Attack → Attack deck, Heal → Heal deck). Choose either:
 - the **face-up card** of that type in the loot display (then turn the next card of that deck face up), or
 - the **top card** of that deck, unseen.
 
@@ -89,10 +92,10 @@ At any time on your turn, pay cards from your hand of one type with a total valu
 
 Example: a value-3 Move card plus a value-1 Move card raises Base Move by 1. So do two value-2s, or four value-1s.
 
-Paid cards go to your discard pile, not out of the game; they come back when you reshuffle. Cards you pay with can't also be played this turn. You may overpay, but extra value above 4 is lost. Each stat maxes out at 4.
+Paid cards go to your discard pile, not out of the game; they come back when you reshuffle. Cards you pay with can't also be played this turn and add nothing to your Move, Attack or Shield. You may overpay, but extra value above 4 is lost. Each stat maxes out at 4.
 
 ## The Storm
-At the end of your turn, you choose and remove one **edge tile** from the board: a tile with at least one side not touching another tile. Any loot cubes on it go back to the supply.
+At the end of your turn, you choose and remove one **edge tile** from the board: a tile with at least one side not touching another tile (sides facing an inner gap count). Any loot cubes on it go back to the supply. Loot piles don't protect a tile; a pile on a removed tile is lost.
 
 **The board must stay in one piece.** You can't remove a tile if that would split the board into separate islands. Never remove the last tile. If no tile qualifies, skip this step.
 
@@ -103,18 +106,18 @@ The storm moves in two phases, set by the round marker:
 | 1: Closing | 1–7 | Edge tiles with no pawn on them |
 | 2: Collapse | 8+ | Any edge tile, even one with pawns on it |
 
-**Push-off (Phase 2):** if you remove a tile with pawns on it, each of those pawns' owners chooses a remaining tile adjacent to the removed one and moves their pawn there. A pawn can be pushed more than once in a game.
+**Push-off (Phase 2):** if you remove a tile with pawns on it, every pawn on it moves, including your own. In turn order starting with you, each owner chooses a remaining tile adjacent to the removed one and moves their pawn there. A pawn can be pushed more than once in a game.
 
 Removed tiles are gone. Pawns can't move onto or across the gap, and range is still counted in hexes across the gap.
 
 ## Elimination
 The elimination check happens only at the end of your own turn. If you are eliminated:
 1. Remove your pawn.
-2. Put your Dead cards back in the Dead supply. Gather the rest of your hand, deck and discard pile into a face-down **loot pile** on your hex.
-3. The loot pile is looted with the normal loot action, but players look through it and choose cards:
-    - The first player to loot it keeps up to **5** cards of their choice.
-    - The second keeps up to **3**.
-    - The third keeps **1**. Then the rest of the pile is removed from the game.
+2. Return every Dead card you own (hand, deck and discard pile) to the Dead supply. Gather the rest of your cards into a face-down **loot pile** on your tile, marked with a loot pile marker.
+3. Each loot action on the pile is one claim. Claims count in order, whoever makes them (the same player can make more than one on later turns). The claimer looks through the pile and chooses cards:
+    - The first claim keeps up to **5** cards.
+    - The second claim keeps up to **3**.
+    - The third claim keeps **1**. Then the rest of the pile is removed from the game.
     - If the pile runs out sooner, it is gone.
 4. Looted cards go to your discard pile. If the storm removes the tile, the pile is lost.
 
@@ -133,10 +136,12 @@ Each player's set has 15 tiles and 21 loot icons, 7 of each type:
 
 ## Quick Reference
 **Upkeep:** reset Shield → draw up to 5 (Dead cards in hand count) → 3+ Dead: announce "critical"
-**Actions (any order):** play any cards · move · 1 attack · 1 loot (cube or pile pick) · upgrade
-**Eliminated:** Dead cards to supply; your other cards become a loot pile (first looter picks 5, then 3, then 1)
+**Actions (any order):** play any cards · move · 1 attack · 1 loot (1 cube or 1 pile claim) · upgrade
+**Heal card:** heal (Dead from hand → supply, card leaves the game) or shield (+Shield until your next upkeep)
+**Storm:** rounds 1–7 remove an edge tile with no pawn; round 8+ any edge tile, pawns pushed to an adjacent tile
+**Eliminated:** all your Dead cards to supply; your other cards become a loot pile (claims pick 5, then 3, then 1)
 **End:** eliminated if 3+ Dead in hand → discard all but Dead cards (Heal cards used to heal leave the game) → storm removes 1 edge tile (never splits the board)
-**Damage:** Attack − Range; 0 or less can't hit; Shield absorbs; Dead cards go to the target's discard pile
+**Damage:** Attack − Range, then Shield absorbs; 0 or less can't hit; Dead cards go to the target's discard pile
 **Upgrade:** pay 4+ value of one type from hand → +1 stat (max 4); paid cards go to discard
 
 ---
