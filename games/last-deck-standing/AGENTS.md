@@ -9,14 +9,14 @@ A battle royale deck builder by Brandon and Chris. Players flood rivals' decks w
 | File | Purpose |
 |---|---|
 | `rulebook-draft.md` | **Source of truth** for the rules (v1). Main rules above `---`; Designer Notes (Ideas for Later, Playtest Questions) below |
-| `rulebook.html` | Published playtester page, built from the Markdown (the markdown is embedded and rendered with marked.js). Live at https://claude.ai/artifact/Vxqh1KqNT3K8XXwGD8Ub2y |
+| `rulebook.html` | Published playtester page, pre-rendered from the Markdown by `sim/build_html.js`. Live at https://claude.ai/artifact/Vxqh1KqNT3K8XXwGD8Ub2y |
 | `design-state.md` | Locked / Rejected / Open decisions, evidence table, risks, next experiment |
 | `components-sheet.md`, `pnp-checklist.md` | Paper prototype build |
 | `playtest-log-001.md`, `feedback-sheet.md` | First human session kit |
 | `sim/lds_sim.py` | Seeded Monte Carlo simulator (heuristic bots; system evidence only) |
 | `simulations/SIM-00N.md`, `READTHROUGH-001.md` | Test write-ups; raw JSON in `simulations/data*/` |
 
-To rebuild the page after editing the rules: replace the contents of `<script type="text/markdown" id="src">` in `rulebook.html` with `rulebook-draft.md` minus its first 3 lines (title + designers), then republish.
+To rebuild after editing the rules: `node sim/build_html.js rulebook-draft.md rulebook.html` (pre-renders static, ASCII-safe HTML; needs `npm install marked@12`) and `node sim/md2docx.js rulebook-draft.md "Last Deck Standing Rules v1.docx"` (needs `npm install docx`), then republish the page.
 
 ## Running the simulator
 ```bash

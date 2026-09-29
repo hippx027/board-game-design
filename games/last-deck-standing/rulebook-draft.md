@@ -116,11 +116,10 @@ The elimination check happens only at the end of your own turn. If you are elimi
     - The second keeps up to **3**.
     - The third keeps **1**. Then the rest of the pile is removed from the game.
     - If the pile runs out sooner, it is gone.
-
-    Looted cards go to your discard pile. If the storm removes the tile, the pile is lost.
+4. Looted cards go to your discard pile. If the storm removes the tile, the pile is lost.
 
 ## Winning
-The last player not eliminated wins. There are no ties: players are only eliminated during their own upkeep, one at a time.
+The last player not eliminated wins. There are no ties: players are only eliminated at the end of their own turn, one at a time.
 
 ## Loot Tile Set
 Each player's set has 15 tiles and 21 loot icons, 7 of each type:
@@ -158,7 +157,7 @@ Each player's set has 15 tiles and 21 loot icons, 7 of each type:
 - **8–10 player team variant (needs testing):** duos or squads that share a win. Teammates can revive a knocked-down partner (see Knocked down). Simulation: 10 solo players take about 115 turns, far past 45 minutes, so high player counts need teams or simultaneous turns.
 - **Knocked down (team play only):** if you end your turn with 3 or more Dead cards, you're knocked down instead of eliminated. You can be knocked down only once per game; a second time eliminates you.
     - While knocked down, you move at most 1 hex, can't attack or loot, and can only play Heal cards.
-    - Get your hand below 3 Dead cards by the end of your next turn to stand back up. Otherwise you're eliminated at your next upkeep.
+    - Get your hand below 3 Dead cards by the end of your next turn to stand back up. Otherwise you're eliminated at the end of that turn.
     - Any hit that lands on you while you're knocked down eliminates you immediately.
     - A teammate on your hex can spend a Heal card on you to revive you. You stand up with that many fewer Dead cards.
 - **Special cards:** rare cards with unique effects, such as a **Self-Revive** that lets a solo player survive one end-of-turn elimination check.

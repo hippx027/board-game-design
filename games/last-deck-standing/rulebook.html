@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>Last Deck Standing</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
@@ -33,191 +34,274 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </style>
 <div class="wrap">
 <header>
-<div class="eyebrow">Playtest rules · v1 · 2026-09-29</div>
+<div class="eyebrow">Playtest rules &#183; v1 &#183; 2026-09-29</div>
 <h1>Last Deck Standing</h1>
-<div class="meta"><span class="chip">2–5 players</span><span class="chip">30–60 min</span><span class="chip">Battle royale deck builder</span></div>
+<div class="meta"><span class="chip">2&#8211;5 players</span><span class="chip">30&#8211;60 min</span><span class="chip">Battle royale deck builder</span></div>
 </header>
-<main id="rules"></main>
+<main id="rules">
+<h2 id="overview">Overview</h2>
+<ul>
+<li><strong>Players:</strong> 2&#8211;5 &#183; <strong>Time:</strong> 30&#8211;60 min</li>
+<li><strong>Goal:</strong> Be the last player standing. You knock opponents out by flooding their decks with Dead cards.</li>
+<li><strong>You are eliminated</strong> if you end your turn with 3 or more Dead cards in your hand. Dead cards stay in your hand until you heal them, so every hit also slows you down.</li>
+</ul>
+<h2 id="components">Components</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Qty</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Loot tiles</td>
+<td>15 per player (one tile set each)</td>
+<td>Hex tiles printed with 0&#8211;3 loot icons; see Loot Tile Set</td>
+</tr>
+<tr>
+<td>Base deck cards</td>
+<td>10 per player</td>
+<td>4 Strike (Attack 1), 3 Dash (Move 1), 3 Patch Up (Heal 1)</td>
+</tr>
+<tr>
+<td>Attack supply deck</td>
+<td>18</td>
+<td>9&#215; value 1, 6&#215; value 2, 3&#215; value 3</td>
+</tr>
+<tr>
+<td>Movement supply deck</td>
+<td>18</td>
+<td>9&#215; value 1, 6&#215; value 2, 3&#215; value 3</td>
+</tr>
+<tr>
+<td>Heal supply deck</td>
+<td>18</td>
+<td>9&#215; value 1, 6&#215; value 2, 3&#215; value 3 (each Heal card can heal or shield)</td>
+</tr>
+<tr>
+<td>Dead cards</td>
+<td>60</td>
+<td>Marked on the back, so everyone can see Dead cards in hands and decks. If they run out, use any marked substitute</td>
+</tr>
+<tr>
+<td>Loot cubes</td>
+<td>7 per color per player (Move, Attack, Heal)</td>
+<td>Mark unlooted loot on the tiles</td>
+</tr>
+<tr>
+<td>Player pawn</td>
+<td>1 per player</td>
+<td></td>
+</tr>
+<tr>
+<td>Stat tracker</td>
+<td>1 per player</td>
+<td>Tracks Base Move, Base Attack and Base Shield (each 0&#8211;4) and current Shield points</td>
+</tr>
+<tr>
+<td>Round track and marker</td>
+<td>1</td>
+<td>25 spaces; tracks the global round for the storm phases</td>
+</tr>
+</tbody></table></div>
+<p>Each card has a value from 1 to 3, which is its strength. Rarity color: <span class="v1">value 1 gray</span>, <span class="v2">2 blue</span>, <span class="v3">3 purple</span>.</p>
+<h2 id="setup">Setup</h2>
+<ol>
+<li>Randomly choose a starting player.</li>
+<li><strong>Build the board.</strong> Each player takes one 15-tile set, shuffles it face down and keeps the top tiles for their player count: <strong>15</strong> tiles with 2&#8211;3 players, <strong>12</strong> with 4, <strong>10</strong> with 5. Return the rest to the box unseen. Starting with the start player and going clockwise, take your top tile, turn it face up and place it. Each new tile must touch at least one tile already placed.</li>
+<li><strong>Loot.</strong> Put a matching loot cube on every loot icon on the board.</li>
+<li>In <strong>reverse</strong> turn order (the last player first, the start player last), each player places their pawn on any hex. Players may share a hex.</li>
+<li>Place the round marker on round 1 of the round track.</li>
+<li>Shuffle the three supply decks separately and place them face down. Turn the top card of each face up. Those three cards are the <strong>loot display</strong>.</li>
+<li>Each player sets their stats to Base Move 1, Base Attack 1, Base Shield 0.</li>
+<li>Each player shuffles their 10-card base deck and draws 5 cards.</li>
+<li>The start player takes the first turn. Each time play passes the start player&#39;s seat, advance the round marker. Keep doing this even after the start player is eliminated.</li>
+</ol>
+<h2 id="your-turn">Your Turn</h2>
+<p>Play goes clockwise. Each turn has three phases.</p>
+<h3>Phase 1: Upkeep</h3>
+<ol>
+<li>Set your Shield points equal to your Base Shield. Any points left over from last turn are lost.</li>
+<li>Draw until you have 5 cards in hand. Dead cards still in your hand count toward the 5. If your draw pile runs out, shuffle your discard pile to make a new one and keep drawing.</li>
+<li><strong>Critical:</strong> if 3 or more cards in your hand are Dead cards, announce &quot;critical&quot; to the table. You have this turn to heal, or you&#39;ll be eliminated at the end of it.</li>
+</ol>
+<h3>Phase 2: Actions</h3>
+<p>You may do the following in any order, and you may mix them:</p>
+<ul>
+<li><strong>Play any number of cards</strong> from your hand, including none. Dead cards can&#39;t be played.</li>
+<li><strong>Move</strong> up to your total Move: Base Move plus the Move cards you played this turn. You may move some before playing cards and the rest after.</li>
+<li><strong>Attack once</strong> (see Attacking). You may attack even if you played no Attack cards, since your Base Attack still counts.</li>
+<li><strong>Loot once</strong> (see Looting).</li>
+<li><strong>Upgrade</strong> any number of times (see Upgrading).</li>
+</ul>
+<h3>Phase 3: End of Turn</h3>
+<ol>
+<li><strong>Elimination check:</strong> if 3 or more cards in your hand are Dead cards, you are eliminated (see Elimination) and your turn ends; skip the storm.</li>
+<li>Put your played and unplayed cards in your discard pile. <strong>Dead cards stay in your hand.</strong> Heal cards used to heal are removed from the game instead.</li>
+<li><strong>Storm:</strong> you remove one tile from the board (see The Storm).</li>
+<li>The next player clockwise begins their turn.</li>
+</ol>
+<h2 id="cards">Cards</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Card</th>
+<th>When played</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Move</strong> (Dash, Movement deck)</td>
+<td>Add its value to your Move this turn.</td>
+</tr>
+<tr>
+<td><strong>Attack</strong> (Strike, Attack deck)</td>
+<td>Add its value to your Attack this turn.</td>
+</tr>
+<tr>
+<td><strong>Heal</strong> (Patch Up, Heal deck)</td>
+<td>Choose one when you play it: <strong>Heal:</strong> return up to that many Dead cards <strong>from your hand</strong> to the Dead supply, then remove this card from the game. <strong>Shield:</strong> gain that many Shield points (they can go above your Base Shield and protect you until your next upkeep); the card is discarded normally.</td>
+</tr>
+</tbody></table></div>
+<h2 id="attacking">Attacking</h2>
+<ol>
+<li>Total Attack = Base Attack + Attack cards played this turn.</li>
+<li>Pick a target. <strong>Range</strong> is the straight-line hex distance from your hex to theirs, counting any removed hexes in between. The same hex is range 0, and an adjacent hex is range 1.</li>
+<li><strong>Damage = Total Attack &#8722; Range.</strong> If that is 0 or less, the target is out of range and you can&#39;t attack them.<ul>
+<li>Example: Attack 4 hits range 0 for 4, range 2 for 2, range 3 for 1, and can&#39;t reach range 4.</li>
+</ul>
+</li>
+<li>Each of the target&#39;s Shield points cancels 1 damage and is then spent.</li>
+<li>The target puts the remaining damage as Dead cards from the supply <strong>into their discard pile</strong>. They show up when the deck reshuffles.</li>
+</ol>
+<p>You only get one attack, so play your Attack cards before you attack.</p>
+<h2 id="looting">Looting</h2>
+<p>Once per turn, you may take either 1 cube from the hex you&#39;re on or one pick from a loot pile there (see Elimination), never both. Return the cube to the general supply and gain a card of that type (Move cube &#8594; Movement deck, Attack &#8594; Attack deck, Heal &#8594; Heal deck). Choose either:</p>
+<ul>
+<li>the <strong>face-up card</strong> of that type in the loot display (then turn the next card of that deck face up), or</li>
+<li>the <strong>top card</strong> of that deck, unseen.</li>
+</ul>
+<p>The card goes into your <strong>discard pile</strong>. Cubes taken from tiles never come back. If a deck and its display slot are both empty, you can&#39;t loot that type.</p>
+<h2 id="upgrading">Upgrading</h2>
+<p>At any time on your turn, pay cards from your hand of one type with a total value of <strong>4</strong> or more to raise that stat by 1:</p>
+<ul>
+<li>Attack cards &#8594; Base Attack</li>
+<li>Move cards &#8594; Base Move</li>
+<li>Heal cards &#8594; Base Shield</li>
+</ul>
+<p>Example: a value-3 Move card plus a value-1 Move card raises Base Move by 1. So do two value-2s, or four value-1s.</p>
+<p>Paid cards go to your discard pile, not out of the game; they come back when you reshuffle. Cards you pay with can&#39;t also be played this turn. You may overpay, but extra value above 4 is lost. Each stat maxes out at 4.</p>
+<h2 id="the-storm">The Storm</h2>
+<p>At the end of your turn, you choose and remove one <strong>edge tile</strong> from the board: a tile with at least one side not touching another tile. Any loot cubes on it go back to the supply.</p>
+<p><strong>The board must stay in one piece.</strong> You can&#39;t remove a tile if that would split the board into separate islands. Never remove the last tile. If no tile qualifies, skip this step.</p>
+<p>The storm moves in two phases, set by the round marker:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Rounds</th>
+<th>Which tiles the storm can remove</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1: Closing</td>
+<td>1&#8211;7</td>
+<td>Edge tiles with no pawn on them</td>
+</tr>
+<tr>
+<td>2: Collapse</td>
+<td>8+</td>
+<td>Any edge tile, even one with pawns on it</td>
+</tr>
+</tbody></table></div>
+<p><strong>Push-off (Phase 2):</strong> if you remove a tile with pawns on it, each of those pawns&#39; owners chooses a remaining tile adjacent to the removed one and moves their pawn there. A pawn can be pushed more than once in a game.</p>
+<p>Removed tiles are gone. Pawns can&#39;t move onto or across the gap, and range is still counted in hexes across the gap.</p>
+<h2 id="elimination">Elimination</h2>
+<p>The elimination check happens only at the end of your own turn. If you are eliminated:</p>
+<ol>
+<li>Remove your pawn.</li>
+<li>Put your Dead cards back in the Dead supply. Gather the rest of your hand, deck and discard pile into a face-down <strong>loot pile</strong> on your hex.</li>
+<li>The loot pile is looted with the normal loot action, but players look through it and choose cards:<ul>
+<li>The first player to loot it keeps up to <strong>5</strong> cards of their choice.</li>
+<li>The second keeps up to <strong>3</strong>.</li>
+<li>The third keeps <strong>1</strong>. Then the rest of the pile is removed from the game.</li>
+<li>If the pile runs out sooner, it is gone.</li>
+</ul>
+</li>
+<li>Looted cards go to your discard pile. If the storm removes the tile, the pile is lost.</li>
+</ol>
+<h2 id="winning">Winning</h2>
+<p>The last player not eliminated wins. There are no ties: players are only eliminated at the end of their own turn, one at a time.</p>
+<h2 id="loot-tile-set">Loot Tile Set</h2>
+<p>Each player&#39;s set has 15 tiles and 21 loot icons, 7 of each type:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Tiles</th>
+<th>Loot icons on each tile</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>4</td>
+<td>none</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1 each: Move &#183; Attack &#183; Heal &#183; Heal</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2 each: Move+Attack &#183; Attack+Heal &#183; Heal+Move &#183; Move+Move</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3 each: Move+Attack+Heal &#183; Attack+Attack+Heal &#183; Move+Attack+Heal</td>
+</tr>
+</tbody></table></div>
+<h2 id="quick-reference">Quick Reference</h2>
+<p class="qr"><strong>Upkeep:</strong> reset Shield &#8594; draw up to 5 (Dead cards in hand count) &#8594; 3+ Dead: announce &quot;critical&quot;<br>
+<strong>Actions (any order):</strong> play any cards &#183; move &#183; 1 attack &#183; 1 loot (cube or pile pick) &#183; upgrade<br>
+<strong>Eliminated:</strong> Dead cards to supply; your other cards become a loot pile (first looter picks 5, then 3, then 1)<br>
+<strong>End:</strong> eliminated if 3+ Dead in hand &#8594; discard all but Dead cards (Heal cards used to heal leave the game) &#8594; storm removes 1 edge tile (never splits the board)<br>
+<strong>Damage:</strong> Attack &#8722; Range; 0 or less can&#39;t hit; Shield absorbs; Dead cards go to the target&#39;s discard pile<br>
+<strong>Upgrade:</strong> pay 4+ value of one type from hand &#8594; +1 stat (max 4); paid cards go to discard</p>
+<hr>
+<section class="designer">
+<h2 id="designer-notes">Designer Notes</h2>
+<h3>Ideas for Later (not in these rules)</h3>
+<ul>
+<li><strong>Design intent: same-hex fights.</strong> Sharing a hex is allowed on purpose. You can go all in for maximum damage, but if you don&#39;t get away afterward, they hit you back.</li>
+<li><strong>Storm damage:</strong> storm tiles that deal Dead cards to anyone who ends a turn on them, possibly escalating to 2 later in the game.</li>
+<li><strong>Battle bus drop:</strong> players deploy along a straight-line bus path instead of placing anywhere.</li>
+<li><strong>One-shot weapons:</strong> Attack cards like a Shotgun that leave the game after use.</li>
+<li><strong>Supply drops (gold deck):</strong> a separate 12-card gold deck of value-2 and value-3 cards of mixed types, shuffled.<ul>
+<li>At the start of rounds 4, 8 and 12, a drop of 2 gold cards lands. The placer puts it on any tile at least 3 hexes from their own pawn. Then each other player, clockwise, may nudge it 1 hex or pass. It can never be nudged off the board or into a gap.</li>
+<li>Placement rotates: the start player places the round 4 drop, the next player clockwise places round 8, and so on.</li>
+<li>Looting the drop uses your loot action: take 1 of its cards into your discard pile. The other card stays for the next looter.</li>
+<li>The storm can&#39;t remove a tile with an unlooted drop on it.</li>
+<li>Simulation: about 3 drops per game, and players grab nearly all of them.</li>
+</ul>
+</li>
+<li><strong>8&#8211;10 player team variant (needs testing):</strong> duos or squads that share a win. Teammates can revive a knocked-down partner (see Knocked down). Simulation: 10 solo players take about 115 turns, far past 45 minutes, so high player counts need teams or simultaneous turns.</li>
+<li><strong>Knocked down (team play only):</strong> if you end your turn with 3 or more Dead cards, you&#39;re knocked down instead of eliminated. You can be knocked down only once per game; a second time eliminates you.<ul>
+<li>While knocked down, you move at most 1 hex, can&#39;t attack or loot, and can only play Heal cards.</li>
+<li>Get your hand below 3 Dead cards by the end of your next turn to stand back up. Otherwise you&#39;re eliminated at the end of that turn.</li>
+<li>Any hit that lands on you while you&#39;re knocked down eliminates you immediately.</li>
+<li>A teammate on your hex can spend a Heal card on you to revive you. You stand up with that many fewer Dead cards.</li>
+</ul>
+</li>
+<li><strong>Special cards:</strong> rare cards with unique effects, such as a <strong>Self-Revive</strong> that lets a solo player survive one end-of-turn elimination check.</li>
+<li><strong>Walls:</strong> spend a card to place a wall on a hex edge. Walls block movement, and attacks through a wall cost +1 range.</li>
+<li><strong>Chests:</strong> some tiles are chests. Looting one lets you take the display card and the top card of the deck.</li>
+<li><strong>Named locations:</strong> each player places one named tile during setup, such as a factory or a village, with richer loot.</li>
+</ul>
+<h3>Playtest Questions</h3>
+<ul>
+<li>With unlimited plays, how long does a turn take? Time a few.</li>
+<li>Is upgrading worth giving up a turn&#39;s cards? Which stat do people upgrade first?</li>
+<li>Heal or Shield: which do players choose, and when? Is a critical turn ever survivable in practice?</li>
+<li>Does removing 1 tile per turn shrink the board at the right pace for 2 players vs 5?</li>
+<li>Do players pick the face-up loot card or gamble on the deck?</li>
+</ul>
+</section></main>
 </div>
-<script type="text/markdown" id="src">
-## Overview
-- **Players:** 2–5 · **Time:** 30–60 min
-- **Goal:** Be the last player standing. You knock opponents out by flooding their decks with Dead cards.
-- **You are eliminated** if you end your turn with 3 or more Dead cards in your hand. Dead cards stay in your hand until you heal them, so every hit also slows you down.
-
-## Components
-| Item | Qty | Notes |
-|---|---|---|
-| Loot tiles | 15 per player (one tile set each) | Hex tiles printed with 0–3 loot icons; see Loot Tile Set |
-| Base deck cards | 10 per player | 4 Strike (Attack 1), 3 Dash (Move 1), 3 Patch Up (Heal 1) |
-| Attack supply deck | 18 | 9× value 1, 6× value 2, 3× value 3 |
-| Movement supply deck | 18 | 9× value 1, 6× value 2, 3× value 3 |
-| Heal supply deck | 18 | 9× value 1, 6× value 2, 3× value 3 (each Heal card can heal or shield) |
-| Dead cards | 60 | Marked on the back, so everyone can see Dead cards in hands and decks. If they run out, use any marked substitute |
-| Loot cubes | 7 per color per player (Move, Attack, Heal) | Mark unlooted loot on the tiles |
-| Player pawn | 1 per player | |
-| Stat tracker | 1 per player | Tracks Base Move, Base Attack and Base Shield (each 0–4) and current Shield points |
-| Round track and marker | 1 | 25 spaces; tracks the global round for the storm phases |
-
-Each card has a value from 1 to 3, which is its strength. Rarity color: value 1 gray, 2 blue, 3 purple.
-
-## Setup
-1. Randomly choose a starting player.
-2. **Build the board.** Each player takes one 15-tile set, shuffles it face down and keeps the top tiles for their player count: **15** tiles with 2–3 players, **12** with 4, **10** with 5. Return the rest to the box unseen. Starting with the start player and going clockwise, take your top tile, turn it face up and place it. Each new tile must touch at least one tile already placed.
-3. **Loot.** Put a matching loot cube on every loot icon on the board.
-4. In **reverse** turn order (the last player first, the start player last), each player places their pawn on any hex. Players may share a hex.
-5. Place the round marker on round 1 of the round track.
-6. Shuffle the three supply decks separately and place them face down. Turn the top card of each face up. Those three cards are the **loot display**.
-7. Each player sets their stats to Base Move 1, Base Attack 1, Base Shield 0.
-8. Each player shuffles their 10-card base deck and draws 5 cards.
-9. The start player takes the first turn. Each time play passes the start player's seat, advance the round marker. Keep doing this even after the start player is eliminated.
-
-## Your Turn
-Play goes clockwise. Each turn has three phases.
-
-### Phase 1: Upkeep
-1. Set your Shield points equal to your Base Shield. Any points left over from last turn are lost.
-2. Draw until you have 5 cards in hand. Dead cards still in your hand count toward the 5. If your draw pile runs out, shuffle your discard pile to make a new one and keep drawing.
-3. **Critical:** if 3 or more cards in your hand are Dead cards, announce "critical" to the table. You have this turn to heal, or you'll be eliminated at the end of it.
-
-### Phase 2: Actions
-You may do the following in any order, and you may mix them:
-
-- **Play any number of cards** from your hand, including none. Dead cards can't be played.
-- **Move** up to your total Move: Base Move plus the Move cards you played this turn. You may move some before playing cards and the rest after.
-- **Attack once** (see Attacking). You may attack even if you played no Attack cards, since your Base Attack still counts.
-- **Loot once** (see Looting).
-- **Upgrade** any number of times (see Upgrading).
-
-### Phase 3: End of Turn
-1. **Elimination check:** if 3 or more cards in your hand are Dead cards, you are eliminated (see Elimination) and your turn ends; skip the storm.
-2. Put your played and unplayed cards in your discard pile. **Dead cards stay in your hand.** Heal cards used to heal are removed from the game instead.
-3. **Storm:** you remove one tile from the board (see The Storm).
-4. The next player clockwise begins their turn.
-
-## Cards
-| Card | When played |
-|---|---|
-| **Move** (Dash, Movement deck) | Add its value to your Move this turn. |
-| **Attack** (Strike, Attack deck) | Add its value to your Attack this turn. |
-| **Heal** (Patch Up, Heal deck) | Choose one when you play it: **Heal:** return up to that many Dead cards **from your hand** to the Dead supply, then remove this card from the game. **Shield:** gain that many Shield points (they can go above your Base Shield and protect you until your next upkeep); the card is discarded normally. |
-
-## Attacking
-1. Total Attack = Base Attack + Attack cards played this turn.
-2. Pick a target. **Range** is the straight-line hex distance from your hex to theirs, counting any removed hexes in between. The same hex is range 0, and an adjacent hex is range 1.
-3. **Damage = Total Attack − Range.** If that is 0 or less, the target is out of range and you can't attack them.
-   - Example: Attack 4 hits range 0 for 4, range 2 for 2, range 3 for 1, and can't reach range 4.
-4. Each of the target's Shield points cancels 1 damage and is then spent.
-5. The target puts the remaining damage as Dead cards from the supply **into their discard pile**. They show up when the deck reshuffles.
-
-You only get one attack, so play your Attack cards before you attack.
-
-## Looting
-Once per turn, you may take either 1 cube from the hex you're on or one pick from a loot pile there (see Elimination), never both. Return the cube to the general supply and gain a card of that type (Move cube → Movement deck, Attack → Attack deck, Heal → Heal deck). Choose either:
-- the **face-up card** of that type in the loot display (then turn the next card of that deck face up), or
-- the **top card** of that deck, unseen.
-
-The card goes into your **discard pile**. Cubes taken from tiles never come back. If a deck and its display slot are both empty, you can't loot that type.
-
-## Upgrading
-At any time on your turn, pay cards from your hand of one type with a total value of **4** or more to raise that stat by 1:
-- Attack cards → Base Attack
-- Move cards → Base Move
-- Heal cards → Base Shield
-
-Example: a value-3 Move card plus a value-1 Move card raises Base Move by 1. So do two value-2s, or four value-1s.
-
-Paid cards go to your discard pile, not out of the game; they come back when you reshuffle. Cards you pay with can't also be played this turn. You may overpay, but extra value above 4 is lost. Each stat maxes out at 4.
-
-## The Storm
-At the end of your turn, you choose and remove one **edge tile** from the board: a tile with at least one side not touching another tile. Any loot cubes on it go back to the supply.
-
-**The board must stay in one piece.** You can't remove a tile if that would split the board into separate islands. Never remove the last tile. If no tile qualifies, skip this step.
-
-The storm moves in two phases, set by the round marker:
-
-| Phase | Rounds | Which tiles the storm can remove |
-|---|---|---|
-| 1: Closing | 1–7 | Edge tiles with no pawn on them |
-| 2: Collapse | 8+ | Any edge tile, even one with pawns on it |
-
-**Push-off (Phase 2):** if you remove a tile with pawns on it, each of those pawns' owners chooses a remaining tile adjacent to the removed one and moves their pawn there. A pawn can be pushed more than once in a game.
-
-Removed tiles are gone. Pawns can't move onto or across the gap, and range is still counted in hexes across the gap.
-
-## Elimination
-The elimination check happens only at the end of your own turn. If you are eliminated:
-1. Remove your pawn.
-2. Put your Dead cards back in the Dead supply. Gather the rest of your hand, deck and discard pile into a face-down **loot pile** on your hex.
-3. The loot pile is looted with the normal loot action, but players look through it and choose cards:
-    - The first player to loot it keeps up to **5** cards of their choice.
-    - The second keeps up to **3**.
-    - The third keeps **1**. Then the rest of the pile is removed from the game.
-    - If the pile runs out sooner, it is gone.
-
-    Looted cards go to your discard pile. If the storm removes the tile, the pile is lost.
-
-## Winning
-The last player not eliminated wins. There are no ties: players are only eliminated during their own upkeep, one at a time.
-
-## Loot Tile Set
-Each player's set has 15 tiles and 21 loot icons, 7 of each type:
-
-| Tiles | Loot icons on each tile |
-|---|---|
-| 4 | none |
-| 4 | 1 each: Move · Attack · Heal · Heal |
-| 4 | 2 each: Move+Attack · Attack+Heal · Heal+Move · Move+Move |
-| 3 | 3 each: Move+Attack+Heal · Attack+Attack+Heal · Move+Attack+Heal |
-
-## Quick Reference
-**Upkeep:** reset Shield → draw up to 5 (Dead cards in hand count) → 3+ Dead: announce "critical"
-**Actions (any order):** play any cards · move · 1 attack · 1 loot (cube or pile pick) · upgrade
-**Eliminated:** Dead cards to supply; your other cards become a loot pile (first looter picks 5, then 3, then 1)
-**End:** eliminated if 3+ Dead in hand → discard all but Dead cards (Heal cards used to heal leave the game) → storm removes 1 edge tile (never splits the board)
-**Damage:** Attack − Range; 0 or less can't hit; Shield absorbs; Dead cards go to the target's discard pile
-**Upgrade:** pay 4+ value of one type from hand → +1 stat (max 4); paid cards go to discard
-
----
-
-## Designer Notes
-
-### Ideas for Later (not in these rules)
-- **Design intent: same-hex fights.** Sharing a hex is allowed on purpose. You can go all in for maximum damage, but if you don't get away afterward, they hit you back.
-- **Storm damage:** storm tiles that deal Dead cards to anyone who ends a turn on them, possibly escalating to 2 later in the game.
-- **Battle bus drop:** players deploy along a straight-line bus path instead of placing anywhere.
-- **One-shot weapons:** Attack cards like a Shotgun that leave the game after use.
-- **Supply drops (gold deck):** a separate 12-card gold deck of value-2 and value-3 cards of mixed types, shuffled.
-    - At the start of rounds 4, 8 and 12, a drop of 2 gold cards lands. The placer puts it on any tile at least 3 hexes from their own pawn. Then each other player, clockwise, may nudge it 1 hex or pass. It can never be nudged off the board or into a gap.
-    - Placement rotates: the start player places the round 4 drop, the next player clockwise places round 8, and so on.
-    - Looting the drop uses your loot action: take 1 of its cards into your discard pile. The other card stays for the next looter.
-    - The storm can't remove a tile with an unlooted drop on it.
-    - Simulation: about 3 drops per game, and players grab nearly all of them.
-- **8–10 player team variant (needs testing):** duos or squads that share a win. Teammates can revive a knocked-down partner (see Knocked down). Simulation: 10 solo players take about 115 turns, far past 45 minutes, so high player counts need teams or simultaneous turns.
-- **Knocked down (team play only):** if you end your turn with 3 or more Dead cards, you're knocked down instead of eliminated. You can be knocked down only once per game; a second time eliminates you.
-    - While knocked down, you move at most 1 hex, can't attack or loot, and can only play Heal cards.
-    - Get your hand below 3 Dead cards by the end of your next turn to stand back up. Otherwise you're eliminated at your next upkeep.
-    - Any hit that lands on you while you're knocked down eliminates you immediately.
-    - A teammate on your hex can spend a Heal card on you to revive you. You stand up with that many fewer Dead cards.
-- **Special cards:** rare cards with unique effects, such as a **Self-Revive** that lets a solo player survive one end-of-turn elimination check.
-- **Walls:** spend a card to place a wall on a hex edge. Walls block movement, and attacks through a wall cost +1 range.
-- **Chests:** some tiles are chests. Looting one lets you take the display card and the top card of the deck.
-- **Named locations:** each player places one named tile during setup, such as a factory or a village, with richer loot.
-
-### Playtest Questions
-- With unlimited plays, how long does a turn take? Time a few.
-- Is upgrading worth giving up a turn's cards? Which stat do people upgrade first?
-- Heal or Shield: which do players choose, and when? Is a critical turn ever survivable in practice?
-- Does removing 1 tile per turn shrink the board at the right pace for 2 players vs 5?
-- Do players pick the face-up loot card or gamble on the deck?
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
-<script>
-const el=document.getElementById('rules');
-el.innerHTML=marked.parse(document.getElementById('src').textContent);
-el.querySelectorAll('table').forEach(t=>{const d=document.createElement('div');d.className='tbl';t.before(d);d.append(t)});
-el.querySelectorAll('h2').forEach(h=>h.id=h.textContent.toLowerCase().replace(/[^a-z0-9]+/g,'-'));
-const qr=document.getElementById('quick-reference');if(qr){const p=qr.nextElementSibling;p.className='qr';p.innerHTML=p.innerHTML.replace(/\n/g,'<br>')}
-const hr=el.querySelector('hr');if(hr){const a=document.createElement('section');a.className='designer';let n=hr.nextSibling;while(n){const m=n.nextSibling;a.append(n);n=m}hr.after(a)}
-el.innerHTML=el.innerHTML.replace(/value 1 gray/,'<span class="v1">value 1 gray</span>').replace(/2 blue/,'<span class="v2">2 blue</span>').replace(/3 purple/,'<span class="v3">3 purple</span>');
-</script>
