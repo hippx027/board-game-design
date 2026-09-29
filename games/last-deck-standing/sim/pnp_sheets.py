@@ -8,7 +8,8 @@ import os
 import subprocess
 
 OUT = os.path.join(os.path.dirname(__file__), "..", "pnp")
-PLAYERS = [("Red", "#c62828"), ("Blue", "#1565c0"), ("Green", "#2e7d32"), ("Yellow", "#b8860b"), ("Purple", "#6a1b9a")]
+# Player colours are chosen to never match the rarity colours (gray / blue / purple) or gold.
+PLAYERS = [("Red", "#c62828"), ("Orange", "#ef6c00"), ("Teal", "#00897b"), ("Pink", "#d81b60"), ("Black", "#212121")]
 RARITY = {1: ("#8a8f9c", "Common"), 2: ("#2f6fd0", "Rare"), 3: ("#7b3fc4", "Epic")}
 ICON = {"A": "&#9876;", "M": "&#10140;", "H": "&#10010;", "D": "&#9760;"}  # crossed swords, arrow, cross, skull
 TYPE = {"A": "Attack", "M": "Move", "H": "Heal"}
@@ -19,7 +20,7 @@ TEXT = {
 }
 
 
-def card(kind, v, name=None, stripe=None, gold=False):
+def card(kind, v, name=None, stripe=None, gold=False, owner=None):
     color, tier = RARITY[v]
     if gold:
         color, tier = "#b8860b", "Gold"
@@ -28,7 +29,7 @@ def card(kind, v, name=None, stripe=None, gold=False):
     stripe_html = f'<div class="stripe" style="background:{stripe}"></div>' if stripe else ""
     return (f'<div class="card" style="--c:{color}">{stripe_html}'
             f'<div class="top"><span class="val">{v}</span><span class="icon">{ICON[kind]}</span></div>'
-            f'<div class="name">{html.escape(title)}</div><div class="tier">{tier} &middot; {TYPE[kind]}</div>'
+            f'<div class="name">{html.escape(title)}</div><div class="tier">{(owner + " starting deck") if owner else tier} &middot; {TYPE[kind]}</div>'
             f'<div class="text">{body}</div></div>')
 
 
@@ -60,7 +61,8 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     cards = []
     for pname, col in PLAYERS:
-        cards += [card("A", 1, "Strike", col)] * 4 + [card("M", 1, "Dash", col)] * 3 + [card("H", 1, "Patch Up", col)] * 3
+        cards += ([card("A", 1, "Strike", col, owner=pname)] * 4 + [card("M", 1, "Dash", col, owner=pname)] * 3
+                  + [card("H", 1, "Patch Up", col, owner=pname)] * 3)
     for k in "AMH":
         for v, n in ((1, 9), (2, 6), (3, 3)):
             cards += [card(k, v)] * n

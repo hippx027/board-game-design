@@ -8,7 +8,7 @@ Goal: print, cut and play one full game with 3–5 people. Fidelity: P4 (paper).
 - [x] Design state — `design-state.md`
 
 ## Physical Build
-- [ ] **Cards:** 50 base (5 player colours) + 54 supply + 60 Dead. Poker-size sleeves over normal playing cards work well: slip a printed slip in front.
+- [ ] **Cards:** 50 base (5 player colours: red, orange, teal, pink, black) + 54 supply + 60 Dead. Poker-size sleeves over normal playing cards work well: slip a printed slip in front.
 - [ ] **Dead cards:** a visibly different back (e.g. red-backed deck vs blue-backed for everything else)
 - [ ] **Hex tiles:** 75, about 2 in / 5 cm across, on cardstock. Draw loot icons by hand; write the set letter A–E on the back.
 - [ ] **Loot cubes:** 35 each of 3 colours (or beads / coloured candy)
