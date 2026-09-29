@@ -16,7 +16,7 @@ A battle royale deck builder by Brandon and Chris. Players flood rivals' decks w
 | `sim/lds_sim.py` | Seeded Monte Carlo simulator (heuristic bots; system evidence only) |
 | `simulations/SIM-00N.md`, `READTHROUGH-001.md` | Test write-ups; raw JSON in `simulations/data*/` |
 
-To rebuild after editing the rules: `node sim/build_html.js rulebook-draft.md rulebook.html` (pre-renders static, ASCII-safe HTML; needs `npm install marked@12`) and `node sim/md2docx.js rulebook-draft.md "Last Deck Standing Rules v1.docx"` (needs `npm install docx`), then republish the page.
+To rebuild after editing the rules: `node sim/build_html.js rulebook-draft.md rulebook.html` (pre-renders static, ASCII-safe HTML; needs `npm install marked@12`) and `node sim/md2docx.js rulebook-draft.md "Last Deck Standing Rules v1.docx"` (needs `npm install docx`). The Claude artifact page is no longer updated; the local files are the source of truth.
 
 ## Running the simulator
 ```bash
