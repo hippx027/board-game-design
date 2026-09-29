@@ -15,7 +15,7 @@ TYPE = {"A": "Attack", "M": "Move", "H": "Heal"}
 TEXT = {
     "A": "+{v} Attack this turn.",
     "M": "+{v} Move this turn.",
-    "H": "Choose one:<br><b>Heal</b> &ndash; return up to {v} Dead card{s} from your hand to the supply, then remove this card from the game.<br><b>Shield</b> &ndash; +{v} Shield (max 8). Stays until damage uses it.",
+    "H": "Choose one:<br><b>Heal</b> &ndash; return up to {v} Dead card{s} from your hand to the supply, then remove this card from the game.<br><b>Shield</b> &ndash; +{v} Shield (max 4). Stays until damage uses it.",
 }
 
 
@@ -77,7 +77,7 @@ def main():
     tracker = ('<div class="tracker"><h3>Player: ________</h3>' + "".join(
         f'<div class="track"><b>Base {s}</b>' + "".join(f"<span>{i}</span>" for i in range(5)) + "</div>"
         for s in ("Move", "Attack", "Shield")) +
-        '<div class="track"><b>Shield now</b>' + "".join(f"<span>{i}</span>" for i in range(9)) + "</div></div>")
+        '<div class="track"><b>Shield now</b>' + "".join(f"<span>{i}</span>" for i in range(5)) + "</div></div>")
     rounds = "".join(
         f'<span class="rnd{" hot" if r == 7 else ""}{" drop" if r in (3, 5, 7, 9, 11) else ""}">{r}'
         f'{"<small>storm fast</small>" if r == 7 else ""}{"<small>drop</small>" if r in (3, 5, 7, 9, 11) else ""}</span>'

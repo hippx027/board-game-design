@@ -18,7 +18,7 @@ Designers: Brandon and Chris.
 | Dead cards | 60 | Marked on the back, so everyone can see Dead cards in hands and decks. If they run out, use any marked substitute |
 | Loot cubes | 7 per color per player (Move, Attack, Heal) | Mark unlooted loot on the tiles |
 | Player pawn | 1 per player | |
-| Stat tracker | 1 per player | Tracks Base Move, Base Attack and Base Shield (each 0–4) and current Shield points (0–8) |
+| Stat tracker | 1 per player | Tracks Base Move, Base Attack and Base Shield (each 0–4) and current Shield points (0–4) |
 | Round track and marker | 1 | 25 spaces; round 7 marked "Storm closes fast"; rounds 3, 5, 7, 9, 11 marked "Supply drop" |
 | Gold deck | 12 | For supply drops: 2 each of Attack 2, Attack 3, Move 2, Move 3, Heal 2, Heal 3 |
 | Supply drop marker | 1 | Shows where the current drop landed |
@@ -68,7 +68,7 @@ Phase 3 starts once you've finished all your actions. You can't play cards durin
 |---|---|
 | **Move** (Dash, Movement deck) | Add its value to your Move this turn. |
 | **Attack** (Strike, Attack deck) | Add its value to your Attack this turn. |
-| **Heal** (Patch Up, Heal deck) | Choose one mode for its whole value when you play it. **Heal:** return up to that many Dead cards **from your hand** to the Dead supply, then remove this card from the game. **Shield:** add that many points to your Shield tracker (maximum 8). They stay until damage uses them; the card is discarded at the end of your turn with your other cards. |
+| **Heal** (Patch Up, Heal deck) | Choose one mode for its whole value when you play it. **Heal:** return up to that many Dead cards **from your hand** to the Dead supply, then remove this card from the game. **Shield:** add that many points to your Shield tracker (maximum 4). They stay until damage uses them; the card is discarded at the end of your turn with your other cards. |
 
 ## Attacking
 1. Total Attack = Base Attack + Attack cards played this turn.
@@ -147,7 +147,7 @@ Each player's set has 15 tiles and 21 loot icons, 7 of each type:
 **Upkeep:** refill Shield up to Base Shield → draw up to 5 and at least 2, then discard down to 5 (not Dead cards) → 3+ Dead: announce "critical"
 **Actions (any order):** play any cards · move · 1 attack · 1 loot (1 cube, 1 pile claim or 1 drop card) · upgrade
 **Supply drops:** rounds 3, 5, 7, 9, 11 (one per starting player); placed on a tile that's not storm or edge, then everyone may nudge it 1 tile
-**Heal card:** heal (Dead from hand → supply, card leaves the game) or shield (+Shield, max 8; stays until used)
+**Heal card:** heal (Dead from hand → supply, card leaves the game) or shield (+Shield, max 4; stays until used)
 **Storm:** place markers on edge tiles or tiles touching a marked tile: 1 per turn (rounds 1–6), 2 per turn (round 7+). End your turn on a storm tile: 1 Dead card (round 7+: 2) to your discard pile; Shield doesn't block it
 **Eliminated:** all your Dead cards to supply; your other cards become a loot pile (claims pick 5, then 3, then 1)
 **End:** eliminated if 3+ Dead in hand (then skip the rest) → discard played cards, keep any others → storm markers → storm damage
