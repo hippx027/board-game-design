@@ -23,6 +23,14 @@ BASE = {"atk": 1, "mov": 1, "shd": 0}
 MAX_ROUNDS = 150
 
 
+TILE_SETS = {  # one 15-tile set per player: 4 blank, 4 single, 4 double, 3 triple
+    "even":   ["", "", "", "", "M", "A", "H", "H", "MA", "AH", "HM", "MM", "MAH", "AAH", "MAH"],   # 7 M / 7 A / 7 H
+    "armory": ["", "", "", "", "M", "A", "A", "H", "MA", "AA", "AH", "MM", "MAH", "AAH", "MAA"],   # 6 M / 11 A / 4 H
+    "arsenal": ["", "", "", "", "A", "A", "M", "H", "AA", "MA", "AM", "MM", "AAA", "MAH", "AAM"],  # 7 M / 12 A / 2 H
+    "lean_heal": ["", "", "", "", "M", "A", "A", "H", "MA", "AH", "HM", "MM", "MAA", "AAH", "MAH"],  # 7 M / 9 A / 5 H
+}
+
+
 def hexdist(a, b):
     dq, dr = a[0] - b[0], a[1] - b[1]
     return (abs(dq) + abs(dr) + abs(dq + dr)) // 2
@@ -83,7 +91,8 @@ class Game:
                  values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False, elim_timing="upkeep",
                  play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False,
                  min_start=0, hold=0, grace=0, storm_sched=None, dmg_sched=None, heal_no_attack=False, heal_no_move=False, hold_no_heal=False,
-                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99):
+                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even"):
+        self.tile_mix = tile_mix
         self.shield_persist, self.shield_cap = shield_persist, shield_cap
         self.display_n = display_n
         self.min_draw, self.drop_rule = min_draw, drop_rule
@@ -142,8 +151,7 @@ class Game:
         rng = self.rng
         if self.loot == "tiles":
             if not getattr(self, "tile_pool", None):
-                self.tile_pool = [[], [], [], [], ["M"], ["A"], ["H"], ["H"], ["M", "A"], ["A", "H"], ["H", "M"],
-                                  ["M", "M"], ["M", "A", "H"], ["A", "A", "H"], ["M", "A", "H"]]
+                self.tile_pool = [list(t) for t in TILE_SETS[self.tile_mix]]
                 rng.shuffle(self.tile_pool)
             return list(self.tile_pool.pop())
         n = {"d4-1": lambda: rng.randrange(4),
@@ -700,6 +708,7 @@ def main():
     ap.add_argument("--display", type=int, default=1, help="face-up cards per supply deck")
     ap.add_argument("--shield-persist", action="store_true")
     ap.add_argument("--shield-cap", type=int, default=99)
+    ap.add_argument("--tile-mix", default="even", choices=["even", "armory", "arsenal", "lean_heal"])
     ap.add_argument("--out")
     a = ap.parse_args()
     kw = dict(tiles_per_player=a.tiles_per_player, tiles_total=a.tiles_total, deck_size=a.deck_size,
@@ -713,7 +722,7 @@ def main():
               min_start=a.min_start, hold=a.hold, grace=a.grace,
               storm_sched=parse_sched(a.storm_sched), dmg_sched=parse_sched(a.dmg_sched),
               heal_no_attack=a.heal_no_attack, heal_no_move=a.heal_no_move, hold_no_heal=a.hold_no_heal, heal_values=a.heal_values,
-              min_draw=a.min_draw, drop_rule=a.drop_rule, display_n=a.display, shield_persist=a.shield_persist, shield_cap=a.shield_cap)
+              min_draw=a.min_draw, drop_rule=a.drop_rule, display_n=a.display, shield_persist=a.shield_persist, shield_cap=a.shield_cap, tile_mix=a.tile_mix)
     res = dict(rules_version=RULES_VERSION, simulation_version=SIM_VERSION,
                campaigns=[campaign(n, a.runs, a.seed, a.population, **kw) for n in a.players])
     s = json.dumps(res, indent=1)

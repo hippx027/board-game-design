@@ -5,7 +5,7 @@ Data before art. Quantities are for a full 5-player box. Source of truth for rul
 ## Cards
 | id | type | name | qty | effect | tags | notes |
 |---|---|---|---|---|---|---|
-| BASE-A1 | card | Strike | 20 (4 per player) | +1 Attack | base, attack, gray | Player-colour stripe on the front |
+| BASE-A1 | card | Strike | 20 (4 per player) | +1 Attack | base, attack, gray | Player-colour stripe and character name: Blaze (red), Ember (orange), Tide (teal), Nova (pink), Shade (black) |
 | BASE-M1 | card | Dash | 15 (3 per player) | +1 Move | base, move, gray | |
 | BASE-H1 | card | Patch Up | 15 (3 per player) | Choose: heal 1 Dead from hand (then remove from game) or +1 Shield | base, heal, gray | |
 | ATK-1 | card | Attack 1 | 9 | +1 Attack | supply, attack, gray | |
@@ -30,21 +30,22 @@ Per player set (×5 sets = 75 tiles). Mark each tile's set letter (A–E) on its
 |---|---|---|---|
 | TILE-0 | hex tile | none | 4 |
 | TILE-M | hex tile | Move | 1 |
-| TILE-A | hex tile | Attack | 1 |
-| TILE-H | hex tile | Heal | 2 |
+| TILE-A | hex tile | Attack | 2 |
+| TILE-H | hex tile | Heal | 1 |
 | TILE-MA | hex tile | Move + Attack | 1 |
 | TILE-AH | hex tile | Attack + Heal | 1 |
 | TILE-HM | hex tile | Heal + Move | 1 |
 | TILE-MM | hex tile | Move + Move | 1 |
-| TILE-MAH | hex tile | Move + Attack + Heal | 2 |
+| TILE-MAH | hex tile | Move + Attack + Heal | 1 |
+| TILE-MAA | hex tile | Move + Attack + Attack | 1 |
 | TILE-AAH | hex tile | Attack + Attack + Heal | 1 |
 
-Per set: 15 tiles, 21 icons (7 Move, 7 Attack, 7 Heal).
+Per set: 15 tiles, 21 icons (7 Move, 9 Attack, 5 Heal).
 
 ## Tokens / Other
 | id | name | qty | purpose | notes |
 |---|---|---|---|---|
-| CUBE-M/A/H | Loot cubes | 35 per colour | One per loot icon at setup | Use colour **and** icon shape for colour-blind play |
+| CUBE-M/A/H | Loot cubes | 35 Move, 45 Attack, 25 Heal | One per loot icon at setup | Use colour **and** icon shape for colour-blind play |
 | PAWN | Player pawns | 5 | Position | |
 | STAT | Stat tracker | 5 | Base Move / Attack / Shield (0–4) and current Shield | Paper sheet with 3 tracks and a Shield counter |
 | ROUND | Round track + marker | 1 | Rounds 1–25; round 7 marked "Storm closes fast" | Also marks supply-drop rounds when testing |

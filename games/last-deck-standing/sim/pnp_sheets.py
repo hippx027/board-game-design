@@ -9,7 +9,7 @@ import subprocess
 
 OUT = os.path.join(os.path.dirname(__file__), "..", "pnp")
 # Player colours are chosen to never match the rarity colours (gray / blue / purple) or gold.
-PLAYERS = [("Red", "#c62828"), ("Orange", "#ef6c00"), ("Teal", "#00897b"), ("Pink", "#d81b60"), ("Black", "#212121")]
+PLAYERS = [("Blaze", "#c62828"), ("Ember", "#ef6c00"), ("Tide", "#00897b"), ("Nova", "#d81b60"), ("Shade", "#212121")]
 RARITY = {1: ("#8a8f9c", "Common"), 2: ("#2f6fd0", "Rare"), 3: ("#7b3fc4", "Epic")}
 ICON = {"A": "&#9876;", "M": "&#10140;", "H": "&#10010;", "D": "&#9760;"}  # crossed swords, arrow, cross, skull
 TYPE = {"A": "Attack", "M": "Move", "H": "Heal"}
@@ -29,7 +29,7 @@ def card(kind, v, name=None, stripe=None, gold=False, owner=None):
     stripe_html = f'<div class="stripe" style="background:{stripe}"></div>' if stripe else ""
     return (f'<div class="card" style="--c:{color}">{stripe_html}'
             f'<div class="top"><span class="val">{v}</span><span class="icon">{ICON[kind]}</span></div>'
-            f'<div class="name">{html.escape(title)}</div><div class="tier">{(owner + " starting deck") if owner else tier} &middot; {TYPE[kind]}</div>'
+            f'<div class="name">{html.escape(title)}</div><div class="tier">{(owner + " &middot; starting deck") if owner else tier} &middot; {TYPE[kind]}</div>'
             f'<div class="text">{body}</div></div>')
 
 
@@ -47,8 +47,8 @@ def pages(items, per_page, cls):
     return out
 
 
-TILE_SET = [[], [], [], [], ["M"], ["A"], ["H"], ["H"], ["M", "A"], ["A", "H"], ["H", "M"], ["M", "M"],
-            ["M", "A", "H"], ["A", "A", "H"], ["M", "A", "H"]]
+TILE_SET = [[], [], [], [], ["M"], ["A"], ["A"], ["H"], ["M", "A"], ["A", "H"], ["H", "M"], ["M", "M"],
+            ["M", "A", "A"], ["A", "A", "H"], ["M", "A", "H"]]  # 7 Move / 9 Attack / 5 Heal
 CUBE = {"M": "#1e88e5", "A": "#e53935", "H": "#43a047"}
 
 

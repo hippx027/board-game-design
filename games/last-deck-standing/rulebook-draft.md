@@ -11,12 +11,12 @@ Designers: Brandon and Chris.
 | Item | Qty | Notes |
 |---|---|---|
 | Loot tiles | 15 per player (one tile set each) | Hex tiles printed with 0–3 loot icons; each set has its own back colour. See Loot Tile Set |
-| Base deck cards | 10 per player | 4 Strike (Attack 1), 3 Dash (Move 1), 3 Patch Up (Heal 1) |
+| Base deck cards | 10 per player | 4 Strike (Attack 1), 3 Dash (Move 1), 3 Patch Up (Heal 1). Each player's deck belongs to a character: Blaze (red), Ember (orange), Tide (teal), Nova (pink), Shade (black) |
 | Attack supply deck | 18 | 9× value 1, 6× value 2, 3× value 3 |
 | Movement supply deck | 18 | 9× value 1, 6× value 2, 3× value 3 |
 | Heal supply deck | 18 | 9× value 1, 6× value 2, 3× value 3 (each Heal card can heal or shield) |
 | Dead cards | 60 | Marked on the back, so everyone can see Dead cards in hands and decks. If they run out, use any marked substitute |
-| Loot cubes | 7 per color per player (Move, Attack, Heal) | Mark unlooted loot on the tiles |
+| Loot cubes | Per player: 7 Move, 9 Attack, 5 Heal | Mark unlooted loot on the tiles |
 | Player pawn | 1 per player | |
 | Stat tracker | 1 per player | Tracks Base Move, Base Attack and Base Shield (each 0–4) and current Shield points (0–4) |
 | Round track and marker | 1 | 25 spaces; round 7 marked "Storm closes fast"; rounds 3, 5, 7, 9, 11 marked "Supply drop" |
@@ -134,14 +134,14 @@ The elimination check happens only at the end of your own turn. If you are elimi
 The last player not eliminated wins. There are no ties: players are only eliminated at the end of their own turn, one at a time.
 
 ## Loot Tile Set
-Each player's set has 15 tiles and 21 loot icons, 7 of each type:
+Each player's set has 15 tiles and 21 loot icons: 7 Move, 9 Attack, 5 Heal.
 
 | Tiles | Loot icons on each tile |
 |---|---|
 | 4 | none |
-| 4 | 1 each: Move · Attack · Heal · Heal |
+| 4 | 1 each: Move · Attack · Attack · Heal |
 | 4 | 2 each: Move+Attack · Attack+Heal · Heal+Move · Move+Move |
-| 3 | 3 each: Move+Attack+Heal · Attack+Attack+Heal · Move+Attack+Heal |
+| 3 | 3 each: Move+Attack+Attack · Attack+Attack+Heal · Move+Attack+Heal |
 
 ## Quick Reference
 **Upkeep:** refill Shield up to Base Shield → draw up to 5 and at least 2, then discard down to 5 (not Dead cards) → 3+ Dead: announce "critical"

@@ -17,7 +17,7 @@ Updated 2026-09-29 · Designers: Brandon and Chris · Milestone: 1 → 3 (paper 
 - Play any number of cards; one attack per turn
 - Heal card is Heal or Shield (chosen when played); used to heal → removed from game
 - Shield persists until damage uses it (max 4); upkeep refills up to Base Shield
-- Loot: pre-made tiles (21 icons per 15-tile set); cube → card into your discard pile
+- Loot: pre-made tiles (21 icons per 15-tile set: 7 Move / 9 Attack / 5 Heal); cube → card into your discard pile
 - Upgrades: pay 4+ value of one type, paid cards to discard, max 4
 - Storm: markers placed from the outside in (tiles stay); 1 per turn, then 2 per turn from round 7; ending a turn on a storm tile = 1 Dead (2 from round 7) to discard; Shield doesn't block it
 - Normal pawn placement order; pawns start ≥3 tiles apart
@@ -59,6 +59,7 @@ Next fix to test if cautious play dominates with humans: siphon · teams and kno
 | SIM-011 | P1 | Supply drops: one per player at rounds 3/5/7/9/11; ~4.7 drops at 5p; no balance change; placer choice doesn't affect balance |
 | SIM-012 | P1 | Loot piles don't reward fighters (aggressive claims 23%; final hitter claims 34%) |
 | SIM-013 | P1 | Draw-at-least-2 upkeep (fixes the hold-5 immortality exploit) and non-storm/non-edge drops: no stalls, same length, +1 upgrade/game |
+| SIM-016 | P1 | Attack-heavy tiles: more attacks, less healing, shorter games; no change to who wins; heavy mixes empty the Attack deck; adopted 7/9/5 |
 | SIM-015 | P1 | Persistent Shield (max 4; 4 and 8 equivalent): absorbs 21% of damage (was 13%); +2 rounds at 5p; balance unchanged |
 | SIM-014 | P1 | 2–3 face-up cards per supply deck (2 adopted): +13–15% upgrades, no balance or length change |
 | READTHROUGH-003 | P2 (agent) | Found hold-5 immortality, spiteful drop placement, no round-25 end |
