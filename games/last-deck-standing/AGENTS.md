@@ -1,0 +1,44 @@
+# Last Deck Standing — Agent Notes
+
+Context for any AI agent (Claude Code, Codex, Cursor) picking up this project. Read this, then `design-state.md`, before proposing changes.
+
+## What this is
+A battle royale deck builder by Brandon and Chris. Players flood rivals' decks with Dead cards while a storm shrinks a hex board built by the players. It's in a first-paper-playtest stage (2026-09-29).
+
+## Files
+| File | Purpose |
+|---|---|
+| `rulebook-draft.md` | **Source of truth** for the rules (v1). Main rules above `---`; Designer Notes (Ideas for Later, Playtest Questions) below |
+| `rulebook.html` | Published playtester page, built from the Markdown (the markdown is embedded and rendered with marked.js). Live at https://claude.ai/artifact/Vxqh1KqNT3K8XXwGD8Ub2y |
+| `design-state.md` | Locked / Rejected / Open decisions, evidence table, risks, next experiment |
+| `components-sheet.md`, `pnp-checklist.md` | Paper prototype build |
+| `playtest-log-001.md`, `feedback-sheet.md` | First human session kit |
+| `sim/lds_sim.py` | Seeded Monte Carlo simulator (heuristic bots; system evidence only) |
+| `simulations/SIM-00N.md`, `READTHROUGH-001.md` | Test write-ups; raw JSON in `simulations/data*/` |
+
+To rebuild the page after editing the rules: replace the contents of `<script type="text/markdown" id="src">` in `rulebook.html` with `rulebook-draft.md` minus its first 3 lines (title + designers), then republish.
+
+## Running the simulator
+```bash
+cd sim
+python3 lds_sim.py --players 3 4 5 --runs 300 --seed 42 \
+  --storm connected --push 8 --upgrade-pay discard --upgrade-cost 5 \
+  --place-reverse --deck-size 18 --loot tiles --pile 5 --bundle-cap 3
+```
+The flags above match the current rules. Other levers: `--tiles-per-player`, `--drop-rounds 4,8,12` (gold supply drops), `--elim-loot`, `--storm-per-turn`, `--values 6,4,2`. Bot styles are in `PROFILES` (random, aggressive, balanced, cautious, brawler, skirmisher). Also: `--heal-discard`, `--kill-upgrade` (rejected variants, kept for regression).
+
+## How the designer works (preferences)
+- **The designer makes the rules calls.** Surface contradictions as clear options with a recommendation; don't silently decide. Defaults you choose must be flagged in the rules or notes.
+- **Ideas the designer likes but hasn't committed to go in Designer Notes → Ideas for Later**, not the main rules.
+- **Test before adopting** when a change affects balance: one variable per run, report stalls, median rounds, turns, and seat and play-style win rates. Never auto-fix rules from sim anomalies; propose and let the designer decide.
+- The rules are **v1**; don't track changes against the original Google Doc.
+- Plain rulebook language for new playtesters: short numbered steps, tables for card data, a quick reference card.
+
+## Key findings to remember
+- The original storm stranded players on islands, and 69% of 5-player games never ended. That was fixed by the no-island rule (SIM-001/002).
+- Cautious play wins about 25–27% in 5-player games (fair share 20%). Kill rewards, loot piles, supply drops and retreat moves don't change it. Fighting wins 1v1 (~72%) but loses in a crowd: the battle royale third-party dynamic. Watch it in human tests rather than force a fix (SIM-004/005).
+- 8–10 players is too long solo (~115 turns). It's tabled as a team variant.
+- Bots see all information, so they can't measure what hidden or open information does to players. Marked Dead-card backs need human testing.
+
+## Open questions
+Supply-drop placement (rotating, in notes) · upgrade cost 4 vs 5 · whether turtling is fun or dull · real seconds per turn (target 30–60 min).

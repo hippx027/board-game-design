@@ -1,0 +1,192 @@
+{
+ "rules_version": "v1 (2026-09-29)",
+ "simulation_version": "lds-sim 0.1",
+ "campaigns": [
+  {
+   "players": 3,
+   "runs": 300,
+   "seed": 42,
+   "population": "mixed",
+   "config": {
+    "tiles_per_player": 15,
+    "tiles_total": null,
+    "deck_size": 24,
+    "storm": "connected",
+    "upgrade_pay": "discard",
+    "upgrade_cost": 5,
+    "push": "8",
+    "values": null,
+    "place_reverse": true,
+    "storm_per_turn": 1,
+    "loot": "d4-1",
+    "drop_rounds": [],
+    "elim_loot": 0
+   },
+   "stall_rate": 0.003,
+   "rounds_mean": 13.1,
+   "rounds_median": 13,
+   "rounds_p10_p90": [
+    8,
+    19
+   ],
+   "turns_mean": 34.5,
+   "first_attack_round_median": 3.0,
+   "seat_win_rate": {
+    "0": 0.365,
+    "1": 0.344,
+    "2": 0.291
+   },
+   "fair_share": 0.333,
+   "profile_wins": {
+    "aggressive": 66,
+    "cautious": 117,
+    "balanced": 116
+   },
+   "upgrades_per_game": {
+    "A": 1.78,
+    "M": 1.38,
+    "H": 0.84
+   },
+   "attacks_per_turn": 0.44,
+   "dead_dealt_per_game": 34.5,
+   "shield_absorb_share": 0.09,
+   "play_slot_use": 0.87,
+   "loot_empty_rate": 0.0,
+   "supply_runs_out_pct": {
+    "A": 0.0,
+    "M": 0.0,
+    "H": 0.0
+   },
+   "drops_per_game": 0.0,
+   "drop_loots_per_game": 0.0,
+   "pushes_per_game": 4.9,
+   "storm_skipped_per_game": 2.0,
+   "tiles_left_at_end_mean": 12.5
+  },
+  {
+   "players": 4,
+   "runs": 300,
+   "seed": 42,
+   "population": "mixed",
+   "config": {
+    "tiles_per_player": 15,
+    "tiles_total": null,
+    "deck_size": 24,
+    "storm": "connected",
+    "upgrade_pay": "discard",
+    "upgrade_cost": 5,
+    "push": "8",
+    "values": null,
+    "place_reverse": true,
+    "storm_per_turn": 1,
+    "loot": "d4-1",
+    "drop_rounds": [],
+    "elim_loot": 0
+   },
+   "stall_rate": 0.0,
+   "rounds_mean": 15.8,
+   "rounds_median": 15.0,
+   "rounds_p10_p90": [
+    11,
+    22
+   ],
+   "turns_mean": 48.4,
+   "first_attack_round_median": 3.0,
+   "seat_win_rate": {
+    "0": 0.223,
+    "1": 0.27,
+    "2": 0.28,
+    "3": 0.227
+   },
+   "fair_share": 0.25,
+   "profile_wins": {
+    "cautious": 136,
+    "aggressive": 74,
+    "balanced": 90
+   },
+   "upgrades_per_game": {
+    "A": 2.61,
+    "M": 2.04,
+    "H": 1.07
+   },
+   "attacks_per_turn": 0.46,
+   "dead_dealt_per_game": 52.1,
+   "shield_absorb_share": 0.08,
+   "play_slot_use": 0.87,
+   "loot_empty_rate": 0.0,
+   "supply_runs_out_pct": {
+    "A": 0.0,
+    "M": 0.0,
+    "H": 0.0
+   },
+   "drops_per_game": 0.0,
+   "drop_loots_per_game": 0.0,
+   "pushes_per_game": 8.5,
+   "storm_skipped_per_game": 1.5,
+   "tiles_left_at_end_mean": 13.2
+  },
+  {
+   "players": 5,
+   "runs": 300,
+   "seed": 42,
+   "population": "mixed",
+   "config": {
+    "tiles_per_player": 15,
+    "tiles_total": null,
+    "deck_size": 24,
+    "storm": "connected",
+    "upgrade_pay": "discard",
+    "upgrade_cost": 5,
+    "push": "8",
+    "values": null,
+    "place_reverse": true,
+    "storm_per_turn": 1,
+    "loot": "d4-1",
+    "drop_rounds": [],
+    "elim_loot": 0
+   },
+   "stall_rate": 0.0,
+   "rounds_mean": 17.2,
+   "rounds_median": 17.0,
+   "rounds_p10_p90": [
+    12,
+    23
+   ],
+   "turns_mean": 62.4,
+   "first_attack_round_median": 3.0,
+   "seat_win_rate": {
+    "0": 0.177,
+    "1": 0.177,
+    "2": 0.227,
+    "3": 0.24,
+    "4": 0.18
+   },
+   "fair_share": 0.2,
+   "profile_wins": {
+    "cautious": 139,
+    "aggressive": 59,
+    "balanced": 102
+   },
+   "upgrades_per_game": {
+    "A": 3.63,
+    "M": 2.59,
+    "H": 1.47
+   },
+   "attacks_per_turn": 0.48,
+   "dead_dealt_per_game": 68.9,
+   "shield_absorb_share": 0.08,
+   "play_slot_use": 0.87,
+   "loot_empty_rate": 0.0,
+   "supply_runs_out_pct": {
+    "A": 0.01,
+    "M": 0.03,
+    "H": 0.01
+   },
+   "drops_per_game": 0.0,
+   "drop_loots_per_game": 0.0,
+   "pushes_per_game": 12.7,
+   "storm_skipped_per_game": 1.7,
+   "tiles_left_at_end_mean": 14.3
+  }
+ ]
+}

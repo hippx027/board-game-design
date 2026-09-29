@@ -1,0 +1,204 @@
+{
+ "rules_version": "v1 (2026-09-29)",
+ "simulation_version": "lds-sim 0.1",
+ "campaigns": [
+  {
+   "players": 3,
+   "runs": 300,
+   "seed": 42,
+   "population": "mixed",
+   "config": {
+    "tiles_per_player": 15,
+    "tiles_total": null,
+    "deck_size": 18,
+    "storm": "connected",
+    "upgrade_pay": "discard",
+    "upgrade_cost": 5,
+    "push": "8",
+    "values": null,
+    "place_reverse": true,
+    "storm_per_turn": 1,
+    "loot": "d4-1",
+    "drop_rounds": [
+     4,
+     8,
+     12
+    ],
+    "elim_loot": 0
+   },
+   "stall_rate": 0.0,
+   "rounds_mean": 13.4,
+   "rounds_median": 13.0,
+   "rounds_p10_p90": [
+    9,
+    19
+   ],
+   "turns_mean": 34.4,
+   "first_attack_round_median": 4.0,
+   "seat_win_rate": {
+    "0": 0.36,
+    "1": 0.4,
+    "2": 0.24
+   },
+   "fair_share": 0.333,
+   "profile_wins": {
+    "cautious": 112,
+    "aggressive": 82,
+    "balanced": 106
+   },
+   "upgrades_per_game": {
+    "A": 1.94,
+    "M": 1.54,
+    "H": 1.32
+   },
+   "attacks_per_turn": 0.44,
+   "dead_dealt_per_game": 35.2,
+   "shield_absorb_share": 0.1,
+   "play_slot_use": 0.86,
+   "loot_empty_rate": 0.0,
+   "supply_runs_out_pct": {
+    "A": 0.0,
+    "M": 0.0,
+    "H": 0.0
+   },
+   "drops_per_game": 2.6,
+   "drop_loots_per_game": 4.5,
+   "pushes_per_game": 4.6,
+   "storm_skipped_per_game": 1.5,
+   "tiles_left_at_end_mean": 12.1
+  },
+  {
+   "players": 4,
+   "runs": 300,
+   "seed": 42,
+   "population": "mixed",
+   "config": {
+    "tiles_per_player": 15,
+    "tiles_total": null,
+    "deck_size": 18,
+    "storm": "connected",
+    "upgrade_pay": "discard",
+    "upgrade_cost": 5,
+    "push": "8",
+    "values": null,
+    "place_reverse": true,
+    "storm_per_turn": 1,
+    "loot": "d4-1",
+    "drop_rounds": [
+     4,
+     8,
+     12
+    ],
+    "elim_loot": 0
+   },
+   "stall_rate": 0.0,
+   "rounds_mean": 15.7,
+   "rounds_median": 15.0,
+   "rounds_p10_p90": [
+    11,
+    22
+   ],
+   "turns_mean": 48.2,
+   "first_attack_round_median": 3.0,
+   "seat_win_rate": {
+    "0": 0.22,
+    "1": 0.243,
+    "2": 0.313,
+    "3": 0.223
+   },
+   "fair_share": 0.25,
+   "profile_wins": {
+    "cautious": 133,
+    "aggressive": 73,
+    "balanced": 94
+   },
+   "upgrades_per_game": {
+    "A": 2.87,
+    "M": 2.02,
+    "H": 1.62
+   },
+   "attacks_per_turn": 0.46,
+   "dead_dealt_per_game": 52.5,
+   "shield_absorb_share": 0.1,
+   "play_slot_use": 0.87,
+   "loot_empty_rate": 0.0,
+   "supply_runs_out_pct": {
+    "A": 0.01,
+    "M": 0.01,
+    "H": 0.04
+   },
+   "drops_per_game": 2.8,
+   "drop_loots_per_game": 5.1,
+   "pushes_per_game": 8.1,
+   "storm_skipped_per_game": 1.8,
+   "tiles_left_at_end_mean": 13.5
+  },
+  {
+   "players": 5,
+   "runs": 300,
+   "seed": 42,
+   "population": "mixed",
+   "config": {
+    "tiles_per_player": 15,
+    "tiles_total": null,
+    "deck_size": 18,
+    "storm": "connected",
+    "upgrade_pay": "discard",
+    "upgrade_cost": 5,
+    "push": "8",
+    "values": null,
+    "place_reverse": true,
+    "storm_per_turn": 1,
+    "loot": "d4-1",
+    "drop_rounds": [
+     4,
+     8,
+     12
+    ],
+    "elim_loot": 0
+   },
+   "stall_rate": 0.0,
+   "rounds_mean": 17.3,
+   "rounds_median": 17.0,
+   "rounds_p10_p90": [
+    12,
+    23
+   ],
+   "turns_mean": 62.0,
+   "first_attack_round_median": 3.0,
+   "seat_win_rate": {
+    "0": 0.177,
+    "1": 0.223,
+    "2": 0.187,
+    "3": 0.213,
+    "4": 0.2
+   },
+   "fair_share": 0.2,
+   "profile_wins": {
+    "cautious": 134,
+    "aggressive": 81,
+    "balanced": 85
+   },
+   "upgrades_per_game": {
+    "A": 3.42,
+    "M": 2.82,
+    "H": 1.94
+   },
+   "attacks_per_turn": 0.47,
+   "dead_dealt_per_game": 68.1,
+   "shield_absorb_share": 0.08,
+   "play_slot_use": 0.87,
+   "loot_empty_rate": 0.02,
+   "supply_runs_out_pct": {
+    "A": 0.09,
+    "M": 0.15,
+    "H": 0.15
+   },
+   "drops_per_game": 2.9,
+   "drop_loots_per_game": 5.4,
+   "pushes_per_game": 11.7,
+   "storm_skipped_per_game": 2.3,
+   "tiles_left_at_end_mean": 15.3
+  }
+ ]
+}
