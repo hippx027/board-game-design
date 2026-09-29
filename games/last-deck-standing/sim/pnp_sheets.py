@@ -47,8 +47,8 @@ def pages(items, per_page, cls):
     return out
 
 
-TILE_SET = [[], [], [], [], ["M"], ["A"], ["A"], ["H"], ["M", "A"], ["A", "H"], ["H", "M"], ["M", "M"],
-            ["M", "A", "A"], ["A", "A", "H"], ["M", "A", "H"]]  # 7 Move / 9 Attack / 5 Heal
+TILE_SET = [[], [], [], [], ["M"], ["A"], ["A"], ["H"], ["M", "A"], ["A", "A"], ["A", "H"], ["M", "M"],
+            ["M", "A", "H"], ["A", "A", "H"], ["M", "A", "A"]]  # 6 Move / 11 Attack / 4 Heal
 CUBE = {"M": "#1e88e5", "A": "#e53935", "H": "#43a047"}
 
 
@@ -64,7 +64,7 @@ def main():
         cards += ([card("A", 1, "Strike", col, owner=pname)] * 4 + [card("M", 1, "Dash", col, owner=pname)] * 3
                   + [card("H", 1, "Patch Up", col, owner=pname)] * 3)
     for k in "AMH":
-        for v, n in ((1, 9), (2, 6), (3, 3)):
+        for v, n in (((1, 12), (2, 8), (3, 4)) if k == "A" else ((1, 9), (2, 6), (3, 3))):
             cards += [card(k, v)] * n
     for k in "AMH":
         cards += [card(k, 2, gold=True)] * 2 + [card(k, 3, gold=True)] * 2
