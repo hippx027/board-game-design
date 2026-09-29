@@ -5,7 +5,7 @@ Data before art. Quantities are for a full 5-player box. Source of truth for rul
 ## Cards
 | id | type | name | qty | effect | tags | notes |
 |---|---|---|---|---|---|---|
-| BASE-A1 | card | Strike | 20 (4 per player) | +1 Attack | base, attack, gray | Player-colour stripe and character name: Blaze (red), Ember (orange), Tide (teal), Nova (pink), Shade (black) |
+| BASE-A1 | card | Strike | 20 (4 per player) | +1 Attack | base, attack, gray | Common (gray) top band with the character's symbol and name: Blaze ▲, Ember ◆, Tide ≈, Nova ★, Shade ☾ |
 | BASE-M1 | card | Dash | 15 (3 per player) | +1 Move | base, move, gray | |
 | BASE-H1 | card | Patch Up | 15 (3 per player) | Choose: heal 1 Dead from hand (then remove from game) or +1 Shield | base, heal, gray | |
 | ATK-1 | card | Attack 1 | 12 | +1 Attack | supply, attack, gray | |

@@ -9,7 +9,8 @@ import subprocess
 
 OUT = os.path.join(os.path.dirname(__file__), "..", "pnp")
 # Player colours are chosen to never match the rarity colours (gray / blue / purple) or gold.
-PLAYERS = [("Blaze", "#c62828"), ("Ember", "#ef6c00"), ("Tide", "#00897b"), ("Nova", "#d81b60"), ("Shade", "#212121")]
+# Starting cards use the normal rarity colour (gray, common); the character is shown by name + symbol in the top bar.
+PLAYERS = [("Blaze", "&#9650;"), ("Ember", "&#9670;"), ("Tide", "&#8776;"), ("Nova", "&#9733;"), ("Shade", "&#9790;")]  # triangle, diamond, waves, star, moon
 RARITY = {1: ("#8a8f9c", "Common"), 2: ("#2f6fd0", "Rare"), 3: ("#7b3fc4", "Epic")}
 ICON = {"A": "&#9876;", "M": "&#10140;", "H": "&#10010;", "D": "&#9760;"}  # crossed swords, arrow, cross, skull
 TYPE = {"A": "Attack", "M": "Move", "H": "Heal"}
@@ -26,8 +27,8 @@ def card(kind, v, name=None, stripe=None, gold=False, owner=None):
         color, tier = "#b8860b", "Gold"
     title = name or f"{TYPE[kind]} {v}"
     body = TEXT[kind].format(v=v, s="" if v == 1 else "s")
-    stripe_html = f'<div class="stripe" style="background:{stripe}"></div>' if stripe else ""
-    return (f'<div class="card" style="--c:{color}">{stripe_html}'
+    band = f'<div class="band">{stripe} {html.escape(owner.upper())}</div>' if owner else ""
+    return (f'<div class="card{" owned" if owner else ""}" style="--c:{color}">{band}'
             f'<div class="top"><span class="val">{v}</span><span class="icon">{ICON[kind]}</span></div>'
             f'<div class="name">{html.escape(title)}</div><div class="tier">{(owner + " &middot; starting deck") if owner else tier} &middot; {TYPE[kind]}</div>'
             f'<div class="text">{body}</div></div>')
@@ -60,9 +61,9 @@ def tile(icons, letter):
 def main():
     os.makedirs(OUT, exist_ok=True)
     cards = []
-    for pname, col in PLAYERS:
-        cards += ([card("A", 1, "Strike", col, owner=pname)] * 4 + [card("M", 1, "Dash", col, owner=pname)] * 3
-                  + [card("H", 1, "Patch Up", col, owner=pname)] * 3)
+    for pname, sym in PLAYERS:
+        cards += ([card("A", 1, "Strike", sym, owner=pname)] * 4 + [card("M", 1, "Dash", sym, owner=pname)] * 3
+                  + [card("H", 1, "Patch Up", sym, owner=pname)] * 3)
     for k in "AMH":
         for v, n in (((1, 12), (2, 8), (3, 4)) if k == "A" else ((1, 9), (2, 6), (3, 3))):
             cards += [card(k, v)] * n
@@ -103,7 +104,9 @@ body { margin: 0; font-family: Helvetica, Arial, sans-serif; color: #1b1f2a; }
 .page { page-break-after: always; }
 .cards { display: grid; grid-template-columns: repeat(3, 2.5in); grid-auto-rows: 3.5in; gap: 0 0.05in; justify-content: center; }
 .card { position: relative; border: 1px dashed #999; padding: 0.14in; overflow: hidden; border-top: 0.16in solid var(--c); }
-.card .stripe { position: absolute; left: 0; top: 0; bottom: 0; width: 0.12in; }
+.card.owned { border-top: 0; padding-top: 0; }
+.card .band { background: var(--c); color: #fff; font-weight: 700; font-size: 10pt; letter-spacing: .12em; text-align: center;
+              margin: 0 -0.14in 0.06in; padding: 0.04in 0; }
 .card .top { display: flex; justify-content: space-between; align-items: center; }
 .card .val { font-size: 34pt; font-weight: 700; color: var(--c); }
 .card .icon { font-size: 28pt; }

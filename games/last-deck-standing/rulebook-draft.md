@@ -11,7 +11,7 @@ Designers: Brandon and Chris.
 | Item | Qty | Notes |
 |---|---|---|
 | Loot tiles | 15 per player (one tile set each) | Hex tiles printed with 0–3 loot icons; each set has its own back colour. See Loot Tile Set |
-| Base deck cards | 10 per player | 4 Strike (Attack 1), 3 Dash (Move 1), 3 Patch Up (Heal 1). Each player's deck belongs to a character: Blaze (red), Ember (orange), Tide (teal), Nova (pink), Shade (black) |
+| Base deck cards | 10 per player | 4 Strike (Attack 1), 3 Dash (Move 1), 3 Patch Up (Heal 1). Each player's deck belongs to a character, shown by name and symbol on the card's top band: Blaze ▲, Ember ◆, Tide ≈, Nova ★, Shade ☾ |
 | Attack supply deck | 24 | 12× value 1, 8× value 2, 4× value 3 |
 | Movement supply deck | 18 | 9× value 1, 6× value 2, 3× value 3 |
 | Heal supply deck | 18 | 9× value 1, 6× value 2, 3× value 3 (each Heal card can heal or shield) |
