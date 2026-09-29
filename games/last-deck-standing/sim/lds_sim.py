@@ -31,6 +31,24 @@ TILE_SETS = {  # one 15-tile set per player: 4 blank, 4 single, 4 double, 3 trip
 }
 
 
+CHARACTERS = {  # name: (base stats override, ability)
+    "Blaze": ({"atk": 2}, "point_blank"),   # +1 damage at range 0
+    "Ember": ({}, "scavenge"),              # loot twice per turn
+    "Tide": ({"mov": 2}, "storm_runner"),   # storm damage -1
+    "Nova": ({"shd": 1}, "field_medic"),    # Heal cards used to heal remove 1 extra Dead card
+    "Shade": ({}, "long_shot"),             # +1 damage at range 2+
+}
+
+
+LONG_SHOT_MIN = 2
+PB_BONUS = 1
+
+
+def char_bonus(p, rng_):
+    ab = getattr(p, "ability", None)
+    return (PB_BONUS if ab == "point_blank" and rng_ == 0 else 0) + (1 if ab == "long_shot" and rng_ >= LONG_SHOT_MIN else 0)
+
+
 def hexdist(a, b):
     dq, dr = a[0] - b[0], a[1] - b[1]
     return (abs(dq) + abs(dr) + abs(dq + dr)) // 2
@@ -91,7 +109,8 @@ class Game:
                  values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False, elim_timing="upkeep",
                  play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False,
                  min_start=0, hold=0, grace=0, storm_sched=None, dmg_sched=None, heal_no_attack=False, heal_no_move=False, hold_no_heal=False,
-                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False):
+                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False, characters=None):
+        self.characters = characters
         self.heal_both = heal_both
         self.tile_mix = tile_mix
         self.shield_persist, self.shield_cap = shield_persist, shield_cap
@@ -133,6 +152,11 @@ class Game:
             self.decks["H"] = [("H", v) for _, v in self.decks["H"]]
         self.display = {k: [self.decks[k].pop() for _ in range(display_n) if self.decks[k]] for k in "AMH"}
         self.players = [Player(i, profiles[i], rng) for i in range(n)]
+        if characters:
+            for p, name in zip(self.players, characters):
+                p.char = name
+                stats, p.ability = CHARACTERS[name]
+                p.stats.update(stats)
         for p in (reversed(self.players) if place_reverse else self.players):
             p.pos = self.place_pawn(p)
             p.draw_to(5, rng)
@@ -272,6 +296,8 @@ class Game:
         self.m["play_slots"] += 2
 
         healed = 0
+        if getattr(p, "ability", None) == "field_medic":
+            heal += sum(1 for k, v in played if k == "H")
         for _ in range(heal):
             if ("D", 0) in p.hand:
                 p.hand.remove(("D", 0))
@@ -291,6 +317,8 @@ class Game:
             target = None
         if target is not None:
             dmg = atk - hexdist(dest, target.pos)
+            if dmg > 0:
+                dmg += char_bonus(p, hexdist(dest, target.pos))
             if dmg > 0:
                 absorbed = min(target.shield, dmg)
                 target.shield -= absorbed
@@ -319,6 +347,10 @@ class Game:
         elif loot_kind is not None:
             self.tiles[dest].remove(loot_kind)
             self.take_loot(p, loot_kind, rnd)
+        if getattr(p, "ability", None) == "scavenge" and self.tiles.get(dest):
+            k2 = self.tiles[dest][0]
+            self.tiles[dest].remove(k2)
+            self.take_loot(p, k2, rnd)
 
         if self.retreat and PROFILES[p.profile] is not None and PROFILES[p.profile].get("retreat", True):
             left = mov - self.path_len(p_start, dest) - (self.pile_move_cost if loot_kind == "P" else 0)
@@ -355,6 +387,8 @@ class Game:
             self.storm_step()
         if self.storm == "flip" and p.pos in self.storm_tiles:
             dmg = sched(self.dmg_sched)
+            if getattr(p, "ability", None) == "storm_runner":
+                dmg = max(0, dmg - 1)
             p.discard += [("D", 0)] * dmg
             self.m["storm_hits"] += dmg
 
@@ -551,6 +585,8 @@ class Game:
                     if self.heal_no_attack and heal:
                         break
                     d = atk - hexdist(dest, q.pos) - q.shield
+                    if atk - hexdist(dest, q.pos) > 0:
+                        d += char_bonus(p, hexdist(dest, q.pos))
                     # prefer targets already close to elimination
                     val = d + 0.3 * sum(1 for c in q.discard + q.draw if c[0] == "D") / 5
                     if d > 0 and val > tdmg:
@@ -614,6 +650,7 @@ class Game:
             stalled=winner is None,
             winner_seat=winner.seat if winner else None,
             winner_profile=winner.profile if winner else None,
+            winner_char=getattr(winner, "char", None) if winner else None,
             first_attack_round=self.first_attack_round,
             tiles_left=len(self.tiles),
             supply_out_round=self.supply_out_round,
