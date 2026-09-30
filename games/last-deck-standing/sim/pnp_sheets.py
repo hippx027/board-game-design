@@ -107,7 +107,19 @@ def main():
     body += [f'<section class="page tiles"><h2>Loot tiles &mdash; set {"ABCDE"[i]}</h2><div class="hexgrid">' + "".join(t) + "</div></section>"
              for i, t in enumerate(tiles)]
     body.append('<section class="page misc"><h2>Stat trackers</h2>' + tracker * 5 + "</section>")
-    body.append(f'<section class="page misc"><h2>Round track</h2><div class="rounds">{rounds}</div>'
+    howto = ('<div class="howto"><b>How to use the round track</b><ul>'
+             '<li><b>Start:</b> put the marker on 1.</li>'
+             '<li><b>Advance:</b> move the marker up 1 at the start of each of the start player\'s turns after the first '
+             '(if the start player is out, move it when play reaches their seat).</li>'
+             '<li><b>Storm, rounds 1&ndash;6:</b> at the end of your turn place <b>1</b> storm marker. '
+             'End your turn on a storm tile: <b>1</b> Dead card to your discard pile.</li>'
+             '<li><b>Storm, round 7+ (STORM FAST):</b> place <b>2</b> markers per turn; storm damage is <b>2</b>. '
+             'Storm damage ignores Shield.</li>'
+             '<li><b>DROP rounds (3, 5, 7, 9, 11):</b> before the start player\'s upkeep, a supply drop lands &mdash; '
+             'one drop per starting player (2 players: rounds 3 and 5; 3 players: 3, 5, 7; and so on).</li>'
+             '<li><b>Endgame:</b> once every tile is marked, everyone takes storm damage every turn. There is no round limit.</li>'
+             '</ul></div>')
+    body.append(f'<section class="page misc"><h2>Round track</h2><div class="rounds">{rounds}</div>{howto}'
                 f'<h2>Storm markers (cut out, or use glass beads)</h2><div class="minis">{storm}</div></section>')
     body.append('<section class="page misc"><h2>Reference cards</h2>' + ('<div class="ref">' + qr_html + "</div>") * 2 + "</section>")
 
@@ -153,6 +165,8 @@ h2 { font-size: 14pt; margin: 0 0 0.1in; }
 .rnd.hot { background: #ede1ff; }
 .minis { display: grid; grid-template-columns: repeat(10, 0.7in); gap: 0.05in; }
 .mini { width: 0.7in; height: 0.8in; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); background: #7b3fc4; opacity: .55; }
+.howto { border: 1px solid #999; padding: 0.1in 0.15in; margin: -0.15in 0 0.25in; font-size: 10pt; }
+.howto ul { margin: 0.05in 0 0; padding-left: 0.2in; } .howto li { margin: 0.03in 0; }
 .ref { border: 1px solid #999; padding: 0.15in; margin-bottom: 0.2in; font-size: 10pt; }
 .ref p { margin: 0.04in 0; }
 """
