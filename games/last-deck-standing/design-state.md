@@ -32,7 +32,7 @@ Updated 2026-09-29 · Designers: Brandon and Chris · Milestone: 1 → 3 (paper 
 ## Art direction (chosen)
 - Comic "kaiju" style study: `pnp/style-mockup-kaiju.html`
 - Type colours: Attack red, Move purple, Heal green, Shield blue
-- Rarity (Fortnite naming): Common gray, Rare blue, Epic purple, Legendary gold, shown on the value badge and hanging tag only; every card has the same dark frame (option B, `pnp/rarity-options.html`)
+- Rarity (Fortnite naming): Common gray, Rare blue, Epic purple, Legendary gold, shown Slay-the-Spire style: the title bar (reading ATTACK / MOVE / HEAL) and a tinted frame are the rarity colour, plus the badge and tag (`pnp/rarity-mocks.html`, first row). The value badge reads "+1", "+2", …
 - Characters each have their own palette, art pattern and epithet (Blaze the Brawler, Shade the Sniper, Ember the Scavenger, Tide the Runner, Nova the Medic, Gale the Storm Chaser, Vex the Leech, Bastion the Tank, Brute the Heavy, Rig the Mechanic)
 - Hex tiles: ink-outlined hexes, sand sunburst, loot as white sticker discs in type colours; loot cubes: purple Move, red Attack, green Heal
 - Icons: Material Symbols **Sharp**, filled, with an ink outline, in a tilted white rectangle plate

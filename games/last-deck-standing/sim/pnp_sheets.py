@@ -58,10 +58,11 @@ def comic(title, typ, icon, text, rarity_color=None, value=None, tag="", owner=N
 
 
 def card_color(kind, v, name=None, stripe=None, legendary=False, owner=None):
+    # Slay-the-Spire-style rarity: the title bar and a tinted frame carry the rarity colour; the art burst is the type colour.
     color, tier = RARITY[4] if legendary else RARITY[v]
-    title = name or f"{TYPE[kind]} {v}"
-    tag = "Starting deck" if owner else f"{tier} &middot; {TYPE[kind]}"
-    return comic(title, TYPE_COLOR[kind], MSYM[kind], COMIC_TEXT[kind].format(v=v), color, v, tag, owner)
+    tag = f"{tier} &middot; {TYPE[kind]}"
+    card = comic(TYPE[kind].upper(), TYPE_COLOR[kind], MSYM[kind], COMIC_TEXT[kind].format(v=v), color, f"+{v}", tag, owner, cls="rar")
+    return card.replace('style="--type:', f'style="--rar:{color}; --type:', 1)
 
 
 def dead_card_color():
@@ -285,6 +286,9 @@ COMIC_CSS = """
 .cc .tag { position: absolute; bottom: 0.13in; left: 50%; transform: translateX(-50%) rotate(-2deg); color: #fff; border: 2.5px solid var(--ink);
            border-radius: 5px; padding: 1px 9px; font: 10pt "Bangers", Impact, sans-serif; letter-spacing: 1px; white-space: nowrap;
            -webkit-text-stroke: .5px var(--ink); box-shadow: 2px 2px 0 var(--ink); }
+.cc.rar { background: color-mix(in srgb, var(--rar) 55%, #15121c); }
+.cc.rar .title { background: var(--rar); padding-left: 0.08in; padding-right: 0.08in; }
+.cc .badge { font-size: 19pt; letter-spacing: -1px; }
 .cc.dead .frame { background: #3a3a46; } .cc.dead .text { color: #f3f3f3; }
 .cc.dead .art { background: repeating-linear-gradient(135deg, #2a2a33 0 12px, #34343f 12px 24px); }
 .cc.dead .plate { background: #e8e8f0; } .cc.dead .msym { color: #2a2a33; text-shadow: none; }
