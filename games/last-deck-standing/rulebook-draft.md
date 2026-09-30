@@ -24,7 +24,7 @@ Designers: Brandon and Chris.
 | Supply drop marker | 1 | Shows where the current drop landed |
 | Storm markers | 50 | Discs or translucent hex overlays placed on tiles; loot icons stay visible |
 | Loot pile markers | 4 | Mark an eliminated player's loot pile on the board |
-| Character cards | 10 | One ability each; see Characters |
+| Character cards | 10 | Optional variant: one ability each; see Characters |
 
 Each card has a value from 1 to 3, which is its strength. Rarity color: value 1 gray, 2 blue, 3 purple.
 
@@ -35,8 +35,8 @@ Each card has a value from 1 to 3, which is its strength. Rarity color: value 1 
 4. In turn order, starting with the start player, each player places their pawn on any tile at least **3 tiles away** (hex distance, counted straight across any gaps) from every pawn already placed. If no tile is that far away, choose the tile whose nearest pawn is as far away as possible.
 5. Place the round marker on round 1 of the round track.
 6. Shuffle the gold deck face down. Shuffle the three supply decks separately and place them face down. Turn the top **2** cards of each deck face up in a row beside it. Those 6 cards are the **loot display**.
-7. **Choose characters.** Shuffle the character cards and deal 2 to each player. Keep 1 face up in front of you and return the other to the box.
-8. Each player sets their stats to Base Move 1, Base Attack 1, Base Shield 0, then applies their character's changes.
+7. **Characters (optional variant; skip for your first games).** Shuffle the character cards and deal 2 to each player. Keep 1 face up in front of you and return the other to the box.
+8. Each player sets their stats to Base Move 1, Base Attack 1, Base Shield 0, then applies their character's changes if you're using characters.
 9. Each player shuffles their 10-card base deck and draws 5 cards.
 10. The start player takes the first turn. Advance the round marker at the start of each of the start player's turns after the first (or when play reaches their seat, if they've been eliminated).
 
@@ -72,8 +72,8 @@ Phase 3 starts once you've finished all your actions. You can't play cards durin
 | **Attack** (Strike, Attack deck) | Add its value to your Attack this turn. |
 | **Heal** (Patch Up, Heal deck) | Choose one mode for its whole value when you play it. **Heal:** return up to that many Dead cards **from your hand** to the Dead supply, then remove this card from the game. **Shield:** add that many points to your Shield tracker (maximum 4). They stay until damage uses them; the card is discarded at the end of your turn with your other cards. |
 
-## Characters
-Each character card gives you one ability for the whole game.
+## Characters (optional variant)
+Not used in the base game yet; try them after a few games without. Each character card gives you one ability for the whole game.
 
 | Character | Ability |
 |---|---|
