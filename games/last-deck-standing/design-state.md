@@ -29,6 +29,12 @@ Updated 2026-09-29 · Designers: Brandon and Chris · Milestone: 1 → 3 (paper 
 - Heal affects your hand only
 - Tiles per player scale down: 15 (2–3p), 12 (4p), 10 (5p)
 
+## Art direction (chosen)
+- Comic "kaiju" style study: `pnp/style-mockup-kaiju.html`
+- Type colours: Attack red, Move purple, Heal green, Shield blue
+- Rarity (Fortnite naming): Common gray, Rare blue, Epic purple, Legendary gold, shown on the value badge and hanging tag only; every card has the same dark frame (option B, `pnp/rarity-options.html`)
+- Icons: Material Symbols **Sharp**, filled, with an ink outline, in a tilted white rectangle plate
+
 ## Rejected
 - A round-25 end rule: designer says kill or be killed; the storm plus draw-at-least-2 always forces an end (0% stalls in SIM-013/014)
 - Resource cubes and buying cards
