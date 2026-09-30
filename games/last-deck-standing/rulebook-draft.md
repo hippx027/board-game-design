@@ -45,14 +45,14 @@ Play goes clockwise. Each turn has three phases.
 
 ### Phase 1: Upkeep
 1. **Shield refill:** if your Shield points are below your Base Shield, raise them to your Base Shield. Shield points never go down at upkeep; they stay until damage uses them.
-2. **Draw:** draw until you have 5 cards in hand. Held cards and Dead cards count toward the 5. (You end each turn with 3 cards or fewer, so you always draw at least 2 unless your deck and discard pile both run out.) If your draw pile runs out, shuffle your discard pile to make a new one and keep drawing. If both are empty, stop drawing.
+2. **Draw:** draw until you have 5 cards in hand. Cards you kept from last turn and Dead cards count toward the 5. (You end each turn with 3 cards or fewer, so you always draw at least 2 unless your deck and discard pile both run out.) If your draw pile runs out, shuffle your discard pile to make a new one and keep drawing. If both are empty, stop drawing.
 3. **Critical:** if 3 or more cards in your hand are Dead cards, announce "critical" to the table. This is only a warning: what counts is how many Dead cards you hold at the end of your turn.
 
 ### Phase 2: Actions
 You may do the following in any order, and you may mix them:
 
 - **Play any number of cards** from your hand, including none. Dead cards can't be played.
-- **Move** up to your total Move: Base Move plus the Move cards you played this turn. You may move some before playing cards and the rest after.
+- **Move** up to your total Move: Base Move plus the Move cards you played this turn. Each point of Move takes your pawn to an adjacent tile; you can't cross a gap where there's no tile. Any number of pawns may share a tile. You may move some before playing cards and the rest after.
 - **Attack once** (see Attacking). You may attack even if you played no Attack cards, since your Base Attack still counts.
 - **Loot once** (see Looting).
 - **Upgrade** any number of times (see Upgrading).
@@ -61,7 +61,7 @@ You may do the following in any order, and you may mix them:
 Phase 3 starts once you've finished all your actions. You can't play cards during it.
 
 1. **Elimination check:** if 3 or more cards in your hand are Dead cards, you are eliminated (see Elimination) and your turn ends; skip the storm.
-2. Put your played cards in your discard pile (Heal cards used to heal were already removed from the game). **Then discard down to 3 cards.** You choose which unplayed cards to keep. Dead cards can't be discarded and count toward the 3.
+2. Put your played cards in your discard pile (Heal cards used to heal were already removed from the game). **Then discard down to 3 cards.** You choose which unplayed cards to keep, and you may keep fewer. Dead cards can't be discarded and count toward the 3.
 3. **Storm:** place storm markers, then take storm damage if you're on a storm tile (see The Storm).
 4. The next player clockwise begins their turn.
 
@@ -83,10 +83,10 @@ Not used in the base game yet; try them after a few games without. Each characte
 | ☾ **The Sniper** | **Long shot:** when you attack a player who isn't on your tile and they're in range, add 1 damage (before their Shield). It can't bring an out-of-range player into range. |
 | ◆ **The Scavenger** | **Scavenge:** after your normal loot, you may take 1 more **cube** from the same tile. |
 | ≈ **The Runner** | **Runner:** your Base Move starts at 2. |
-| ★ **The Medic** | **Field medic:** each Heal card you use to heal removes up to 2 extra Dead cards from your hand, and goes to your discard pile instead of leaving the game. |
+| ★ **The Medic** | **Field medic:** each Heal card you use to heal removes up to its value **+2** Dead cards from your hand, then goes to your discard pile with your other played cards instead of leaving the game. |
 | ☁ **The Storm Chaser** | **Storm runner:** you take 1 less storm damage (so none in rounds 1–6). |
 | ⚡ **The Leech** | **Siphon:** when your attack puts 2 or more Dead cards on a player after their Shield, return 1 Dead card from your hand to the supply. |
-| ■ **The Tank** | **Armored:** your Base Shield starts at 1, but your upgrades cost 5 instead of 4. |
+| ■ **The Tank** | **Armored:** your Base Shield starts at 1, but all your upgrades (any stat) cost 5 instead of 4. |
 | ● **The Heavy** | **Heavy hitter:** your Base Attack starts at 2. |
 | ⚙ **The Mechanic** | **Tinkerer:** your upgrades cost 3 instead of 4. |
 
@@ -113,14 +113,14 @@ Once per turn, you may do **one** of these on the tile you're on:
 The card goes into your **discard pile**. Cubes taken from tiles never come back. You can loot a type as long as any card of it is face up or left in its deck. If none are left, that type's cubes stay on the board unused.
 
 ## Upgrading
-During your Actions phase, pay cards from your hand of one type with a total value of **4** or more to raise that stat by 1:
+During your Actions phase, pay cards from your hand of one type worth at least your **upgrade cost** (normally **4**) to raise that stat by 1:
 - Attack cards → Base Attack
 - Move cards → Base Move
 - Heal cards → Base Shield
 
 Example: a value-3 Move card plus a value-1 Move card raises Base Move by 1. So do two value-2s, or four value-1s.
 
-Paid cards go to your discard pile, not out of the game; they come back when you reshuffle. Cards you pay with can't also be played this turn and add nothing to your Move, Attack or Shield. You may overpay, but extra value above 4 is lost. Each stat maxes out at 4.
+Paid cards go to your discard pile, not out of the game; they come back when you reshuffle. Cards you pay with can't also be played this turn and add nothing to your Move, Attack or Shield. You may overpay, but extra value is lost. Each stat maxes out at 4; you can't upgrade a stat that's already 4.
 
 ## The Storm
 The storm closes in from the outside of the board, like a shrinking circle. At the end of your turn, place storm markers on tiles, then check for storm damage.
@@ -130,14 +130,14 @@ The storm closes in from the outside of the board, like a shrinking circle. At t
 | 1–6 | 1 | 1 Dead card |
 | 7+ (the storm closes fast) | 2 | 2 Dead cards |
 
-**Placing markers:** put each marker on an unmarked tile that is on the edge of the board (at least one of its six sides has no tile next to it, including sides facing a hole) or touches a marked tile. You choose which. It doesn't matter what's on the tile: pawns, loot cubes and loot piles all stay. Once every tile is marked, stop placing markers. From then on, everyone takes storm damage every turn: this is the endgame.
+**Placing markers:** you choose where each marker goes, and you may use them to cut off opponents. Put each marker on an unmarked tile that is on the edge of the board (at least one of its six sides has no tile next to it, including sides facing a hole) or touches a marked tile. You choose which. It doesn't matter what's on the tile: pawns, loot cubes and loot piles all stay. Once every tile is marked, stop placing markers. From then on, everyone takes storm damage every turn: this is the endgame.
 
 **Storm tiles:** a marked tile is a storm tile. You can move through, stop on and loot storm tiles normally. If you **end your turn on a storm tile**, take the storm damage for this round as Dead cards into your discard pile. Storm damage ignores Shield and doesn't use up any Shield points.
 
 ## Supply Drops
 A supply drop lands at the start of rounds **3, 5, 7, 9 and 11**, before the start player's upkeep. The number of drops is set by the **starting** player count: with 2 players, only rounds 3 and 5; with 3 players, rounds 3, 5 and 7; and so on. When a new drop lands, any card left in the previous drop is removed from the game.
 
-1. **Who places it:** the start player places the first drop (or the next player clockwise still in the game, if the start player is out), then placing passes clockwise to the next player still in the game.
+1. **Who places it:** the start player places the first drop (or the next player clockwise still in the game, if the start player is out), then each later drop is placed by the next player still in the game clockwise from whoever placed the previous one. Placing and all nudges happen before the start player's upkeep.
 2. **Placing:** draw 2 Legendary cards face up and put them with the drop marker on any tile that is **not a storm tile and not an edge tile**. If there is none, use any tile that isn't an edge tile; if there is none of those either, any tile.
 3. **Nudging:** then each other player, clockwise, may move the drop 1 tile in any direction (onto any tile, storm or edge included) or pass.
 4. **Looting:** looting the drop uses your loot action. Take 1 of its cards into your discard pile. The other card stays for the next looter. When both are taken, remove the marker.
@@ -177,7 +177,7 @@ Each player's set has 15 tiles and 21 loot icons: 6 Move, 11 Attack, 4 Heal.
 **Eliminated:** all your Dead cards to supply; your other cards become a loot pile (claims pick 5, then 3, then 1)
 **End:** eliminated if 3+ Dead in hand (then skip the rest) → discard played cards, then discard down to 3 (Dead cards stay and count) → storm markers → storm damage
 **Damage:** Attack − Range, then Shield absorbs; 0 or less can't hit; Dead cards go to the target's discard pile
-**Upgrade:** pay 4+ value of one type from hand → +1 stat (max 4); paid cards go to discard
+**Upgrade:** pay your upgrade cost (normally 4) in value of one type from hand → +1 stat (max 4); paid cards go to discard
 
 ---
 
