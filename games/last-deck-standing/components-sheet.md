@@ -5,7 +5,7 @@ Data before art. Quantities are for a full 5-player box. Source of truth for rul
 ## Cards
 | id | type | name | qty | effect | tags | notes |
 |---|---|---|---|---|---|---|
-| BASE-A1 | card | Strike | 20 (4 per player) | +1 Attack | base, attack, gray | Common (gray) top band with the character's symbol and name: Blaze ▲, Ember ◆, Tide ≈, Nova ★, Shade ☾ |
+| BASE-A1 | card | Strike | 20 (4 per player) | +1 Attack | base, attack, gray | Common (gray) top band labelled PLAYER 1–5 |
 | BASE-M1 | card | Dash | 15 (3 per player) | +1 Move | base, move, gray | |
 | BASE-H1 | card | Patch Up | 15 (3 per player) | Choose: heal 1 Dead from hand (then remove from game) or +1 Shield | base, heal, gray | |
 | ATK-1 | card | Attack 1 | 12 | +1 Attack | supply, attack, gray | |
@@ -20,6 +20,7 @@ Data before art. Quantities are for a full 5-player box. Source of truth for rul
 | DEAD | card | Dead | 60 | No effect; can't be played | dead | **Distinct marked back** so Dead cards are visible in hands and decks |
 | GOLD-* | card | Gold drop cards | 12 | Mixed Attack / Move / Heal, value 2 or 3 (e.g. 2 of each type at value 2 and at value 3) | gold | Supply drops |
 | DROP | token | Supply drop marker | 1 | Marks the current drop | | |
+| CHAR-* | card | Character cards | 10 | One ability each (see rulebook: Characters) | character | Blaze ▲, Shade ☾, Ember ◆, Tide ≈, Nova ★, Gale ☁, Vex ⚡, Bastion ■, Brute ●, Rig ⚙ |
 
 Totals: base 50 · supply 60 (Attack 24, Move 18, Heal 18) · Dead 60 · gold 12.
 

@@ -62,7 +62,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <tr>
 <td>Base deck cards</td>
 <td>10 per player</td>
-<td>4 Strike (Attack 1), 3 Dash (Move 1), 3 Patch Up (Heal 1). Each player&#39;s deck belongs to a character, shown by name and symbol on the card&#39;s top band: Blaze &#9650;, Ember &#9670;, Tide &#8776;, Nova &#9733;, Shade &#9790;</td>
+<td>4 Strike (Attack 1), 3 Dash (Move 1), 3 Patch Up (Heal 1). Labelled Player 1&#8211;5 on the card&#39;s top band so decks don&#39;t mix</td>
 </tr>
 <tr>
 <td>Attack supply deck</td>
@@ -124,6 +124,11 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <td>4</td>
 <td>Mark an eliminated player&#39;s loot pile on the board</td>
 </tr>
+<tr>
+<td>Character cards</td>
+<td>10</td>
+<td>One ability each; see Characters</td>
+</tr>
 </tbody></table></div>
 <p>Each card has a value from 1 to 3, which is its strength. Rarity color: <span class="v1">value 1 gray</span>, <span class="v2">2 blue</span>, <span class="v3">3 purple</span>.</p>
 <h2 id="setup">Setup</h2>
@@ -134,7 +139,8 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li>In turn order, starting with the start player, each player places their pawn on any tile at least <strong>3 tiles away</strong> (hex distance, counted straight across any gaps) from every pawn already placed. If no tile is that far away, choose the tile whose nearest pawn is as far away as possible.</li>
 <li>Place the round marker on round 1 of the round track.</li>
 <li>Shuffle the gold deck face down. Shuffle the three supply decks separately and place them face down. Turn the top <strong>2</strong> cards of each deck face up in a row beside it. Those 6 cards are the <strong>loot display</strong>.</li>
-<li>Each player sets their stats to Base Move 1, Base Attack 1, Base Shield 0.</li>
+<li><strong>Choose characters.</strong> Shuffle the character cards and deal 2 to each player. Keep 1 face up in front of you and return the other to the box.</li>
+<li>Each player sets their stats to Base Move 1, Base Attack 1, Base Shield 0, then applies their character&#39;s changes.</li>
 <li>Each player shuffles their 10-card base deck and draws 5 cards.</li>
 <li>The start player takes the first turn. Advance the round marker at the start of each of the start player&#39;s turns after the first (or when play reaches their seat, if they&#39;ve been eliminated).</li>
 </ol>
@@ -182,6 +188,56 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <tr>
 <td><strong>Heal</strong> (Patch Up, Heal deck)</td>
 <td>Choose one mode for its whole value when you play it. <strong>Heal:</strong> return up to that many Dead cards <strong>from your hand</strong> to the Dead supply, then remove this card from the game. <strong>Shield:</strong> add that many points to your Shield tracker (maximum 4). They stay until damage uses them; the card is discarded at the end of your turn with your other cards.</td>
+</tr>
+</tbody></table></div>
+<h2 id="characters">Characters</h2>
+<p>Each character card gives you one ability for the whole game.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Ability</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#9650; <strong>Blaze</strong></td>
+<td><strong>Point blank:</strong> your attacks deal +1 damage to a player on your own tile.</td>
+</tr>
+<tr>
+<td>&#9790; <strong>Shade</strong></td>
+<td><strong>Long shot:</strong> your attacks deal +1 damage to a player who isn&#39;t on your tile.</td>
+</tr>
+<tr>
+<td>&#9670; <strong>Ember</strong></td>
+<td><strong>Scavenge:</strong> you may loot twice per turn.</td>
+</tr>
+<tr>
+<td>&#8776; <strong>Tide</strong></td>
+<td><strong>Runner:</strong> your Base Move starts at 2.</td>
+</tr>
+<tr>
+<td>&#9733; <strong>Nova</strong></td>
+<td><strong>Field medic:</strong> your Base Move starts at 2, and each Heal card you use to heal removes 2 extra Dead cards.</td>
+</tr>
+<tr>
+<td>&#9729; <strong>Gale</strong></td>
+<td><strong>Storm runner:</strong> you take 1 less storm damage.</td>
+</tr>
+<tr>
+<td>&#9889; <strong>Vex</strong></td>
+<td><strong>Siphon:</strong> when your attack puts 2 or more Dead cards on a player, return 1 Dead card from your hand to the supply.</td>
+</tr>
+<tr>
+<td>&#9632; <strong>Bastion</strong></td>
+<td><strong>Armored:</strong> you start the game with 1 Shield point (it doesn&#39;t refill at upkeep).</td>
+</tr>
+<tr>
+<td>&#9679; <strong>Brute</strong></td>
+<td><strong>Heavy hitter:</strong> your Base Attack starts at 2.</td>
+</tr>
+<tr>
+<td>&#9881; <strong>Rig</strong></td>
+<td><strong>Tinkerer:</strong> your first upgrade costs 3 instead of 4.</td>
 </tr>
 </tbody></table></div>
 <h2 id="attacking">Attacking</h2>
@@ -301,6 +357,8 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <h2 id="designer-notes">Designer Notes</h2>
 <h3>Ideas for Later (not in these rules)</h3>
 <ul>
+<li><p><strong>Deep pockets (character):</strong> keep 4 cards at end of turn instead of 3. Tested too weak (SIM-019); needs a buff before it joins the deck.</p>
+</li>
 <li><p><strong>Design intent: same-hex fights.</strong> Sharing a hex is allowed on purpose. You can go all in for maximum damage, but if you don&#39;t get away afterward, they hit you back.</p>
 </li>
 <li><p><strong>Siphon (from Fortnite):</strong> when your attack lands 2 or more Dead cards, return 1 Dead card from your own hand to the supply. Aggressive players heal by fighting instead of hoarding Heal cards. Untested; the top candidate if cautious play dominates, because it rewards every hit rather than just the kill.</p>

@@ -8,7 +8,7 @@ Goal: print, cut and play one full game with 3–5 people. Fidelity: P4 (paper).
 - [x] Design state — `design-state.md`
 
 ## Physical Build
-- [ ] **Cards:** 50 base (5 characters, marked by symbol: Blaze ▲, Ember ◆, Tide ≈, Nova ★, Shade ☾) + 60 supply (Attack 24, Move 18, Heal 18) + 60 Dead. Poker-size sleeves over normal playing cards work well: slip a printed slip in front.
+- [ ] **Cards:** 50 base (labelled Player 1–5) + 60 supply (Attack 24, Move 18, Heal 18) + 60 Dead. Poker-size sleeves over normal playing cards work well: slip a printed slip in front.
 - [ ] **Dead cards:** a visibly different back (e.g. red-backed deck vs blue-backed for everything else)
 - [ ] **Hex tiles:** 75, about 2 in / 5 cm across, on cardstock. Draw loot icons by hand; write the set letter A–E on the back.
 - [ ] **Loot cubes:** 30 blue (Move), 55 red (Attack), 20 green (Heal), or beads / coloured candy

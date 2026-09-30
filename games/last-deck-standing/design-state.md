@@ -24,6 +24,7 @@ Updated 2026-09-29 · Designers: Brandon and Chris · Milestone: 1 → 3 (paper 
 - Supply drops: gold deck, one per player at rounds 3, 5, 7, 9, 11; placement rotates from the start player; placed on a tile that's not storm or edge; nudge 1 tile each (SIM-011/013)
 - Holding: at end of turn discard down to 3 cards (Dead cards stay and count); at upkeep draw to 5, so you always draw at least 2 (SIM-020)
 - Elimination loot pile: 5 / 3 / 1 picks
+- Characters: 10 character (ability) cards, deal 2 keep 1; starting decks labelled Player 1–5 (SIM-019)
 - Supply decks: Attack 24, Move 18, Heal 18 (same 1/2 : 1/3 : 1/6 value spread), 2 face up per deck (6-card loot display); 60 Dead cards
 - Heal affects your hand only
 - Tiles per player scale down: 15 (2–3p), 12 (4p), 10 (5p)
@@ -59,6 +60,7 @@ Next fix to test if cautious play dominates with humans: siphon · teams and kno
 | SIM-011 | P1 | Supply drops: one per player at rounds 3/5/7/9/11; ~4.7 drops at 5p; no balance change; placer choice doesn't affect balance |
 | SIM-012 | P1 | Loot piles don't reward fighters (aggressive claims 23%; final hitter claims 34%) |
 | SIM-013 | P1 | Draw-at-least-2 upkeep (fixes the hold-5 immortality exploit) and non-storm/non-edge drops: no stalls, same length, +1 upgrade/game |
+| SIM-019 | P1 | 11 ability cards tested over 3 rounds; 10 within about ±25% of fair (most ±15%); Deep pockets too weak and left out |
 | SIM-020 | P1 | End-of-turn discard to 3 replaces draw-at-least-2: same balance, ~2 fewer turns at 5p |
 | SIM-016 | P1 | Attack-heavy tiles: more attacks, less healing, shorter games; no change to who wins; heavy mixes empty the Attack deck; first adopted 7/9/5, then 6/11/4 with a 24-card Attack deck |
 | SIM-015 | P1 | Persistent Shield (max 4; 4 and 8 equivalent): absorbs 21% of damage (was 13%); +2 rounds at 5p; balance unchanged |

@@ -378,7 +378,8 @@ class Game:
         if self.sticky_dead:
             live = sorted((c for c in p.hand if c[0] != "D"), key=lambda c: (c[0] == "H", c[1]), reverse=True)
             if self.end_limit:  # discard down to end_limit cards; Dead cards stay and count toward it
-                room = max(0, self.end_limit - sum(1 for c in p.hand if c[0] == "D"))
+                lim = self.end_limit + (1 if getattr(p, "ability", None) == "keep4" else 0)
+                room = max(0, lim - sum(1 for c in p.hand if c[0] == "D"))
                 kept = live[:min(room, self.hold)]
             elif self.hold_no_heal:
                 live = [c for c in live if c[0] != "H"] + [c for c in live if c[0] == "H"]

@@ -10,7 +10,7 @@ import subprocess
 OUT = os.path.join(os.path.dirname(__file__), "..", "pnp")
 # Player colours are chosen to never match the rarity colours (gray / blue / purple) or gold.
 # Starting cards use the normal rarity colour (gray, common); the character is shown by name + symbol in the top bar.
-PLAYERS = [("Blaze", "&#9650;"), ("Ember", "&#9670;"), ("Tide", "&#8776;"), ("Nova", "&#9733;"), ("Shade", "&#9790;")]  # triangle, diamond, waves, star, moon
+PLAYERS = [(f"Player {i}", f"{i}") for i in range(1, 6)]  # characters now come from ability cards
 RARITY = {1: ("#8a8f9c", "Common"), 2: ("#2f6fd0", "Rare"), 3: ("#7b3fc4", "Epic")}
 ICON = {"A": "&#9876;", "M": "&#10140;", "H": "&#10010;", "D": "&#9760;"}  # crossed swords, arrow, cross, skull
 TYPE = {"A": "Attack", "M": "Move", "H": "Heal"}
@@ -27,10 +27,10 @@ def card(kind, v, name=None, stripe=None, gold=False, owner=None):
         color, tier = "#b8860b", "Gold"
     title = name or f"{TYPE[kind]} {v}"
     body = TEXT[kind].format(v=v, s="" if v == 1 else "s")
-    band = f'<div class="band">{stripe} {html.escape(owner.upper())}</div>' if owner else ""
+    band = f'<div class="band">{html.escape(owner.upper())}</div>' if owner else ""
     return (f'<div class="card{" owned" if owner else ""}" style="--c:{color}">{band}'
             f'<div class="top"><span class="val">{v}</span><span class="icon">{ICON[kind]}</span></div>'
-            f'<div class="name">{html.escape(title)}</div><div class="tier">{(owner + " &middot; starting deck") if owner else tier} &middot; {TYPE[kind]}</div>'
+            f'<div class="name">{html.escape(title)}</div><div class="tier">{"Starting deck" if owner else tier} &middot; {TYPE[kind]}</div>'
             f'<div class="text">{body}</div></div>')
 
 
@@ -87,7 +87,21 @@ def main():
         for r in range(1, 26))
     storm = "".join('<div class="mini"></div>' for _ in range(50))
 
+    chars = [("&#9650;", "Blaze", "Point blank", "Your attacks deal +1 damage to a player on your own tile."),
+             ("&#9790;", "Shade", "Long shot", "Your attacks deal +1 damage to a player who isn't on your tile."),
+             ("&#9670;", "Ember", "Scavenge", "You may loot twice per turn."),
+             ("&#8776;", "Tide", "Runner", "Your Base Move starts at 2."),
+             ("&#9733;", "Nova", "Field medic", "Your Base Move starts at 2. Each Heal card you use to heal removes 2 extra Dead cards."),
+             ("&#9729;&#xFE0E;", "Gale", "Storm runner", "You take 1 less storm damage."),
+             ("&#9889;&#xFE0E;", "Vex", "Siphon", "When your attack puts 2+ Dead cards on a player, return 1 Dead card from your hand to the supply."),
+             ("&#9632;", "Bastion", "Armored", "You start the game with 1 Shield point (it doesn't refill at upkeep)."),
+             ("&#9679;", "Brute", "Heavy hitter", "Your Base Attack starts at 2."),
+             ("&#9881;", "Rig", "Tinkerer", "Your first upgrade costs 3 instead of 4.")]
+    char_cards = [f'<div class="card char"><div class="sym">{sym}</div><div class="name">{nm}</div>'
+                  f'<div class="tier">Character</div><div class="ab">{ab}</div><div class="text">{tx}</div></div>'
+                  for sym, nm, ab, tx in chars]
     body = []
+    body += pages(char_cards, 9, "cards")
     body += pages(cards, 9, "cards")
     body += pages(dead, 9, "cards")
     body += [f'<section class="page tiles"><h2>Loot tiles &mdash; set {"ABCDE"[i]}</h2><div class="hexgrid">' + "".join(t) + "</div></section>"
@@ -114,6 +128,10 @@ body { margin: 0; font-family: Helvetica, Arial, sans-serif; color: #1b1f2a; }
 .card .name { font-size: 15pt; font-weight: 700; margin-top: 0.05in; }
 .card .tier { font-size: 8pt; text-transform: uppercase; letter-spacing: .08em; color: #555; }
 .card .text { font-size: 9.5pt; line-height: 1.35; margin-top: 0.1in; }
+.card.char { border-top: 0.16in solid #1b1f2a; text-align: center; }
+.card.char .sym { font-size: 54pt; margin-top: 0.15in; }
+.card.char .name { font-size: 20pt; }
+.card.char .ab { font-size: 12pt; font-weight: 700; margin-top: 0.12in; }
 .card.dead { border-top-color: #111; background: #f3f3f3; text-align: center; }
 .card.dead .name { font-size: 26pt; }
 h2 { font-size: 14pt; margin: 0 0 0.1in; }

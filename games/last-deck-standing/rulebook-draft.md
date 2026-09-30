@@ -11,7 +11,7 @@ Designers: Brandon and Chris.
 | Item | Qty | Notes |
 |---|---|---|
 | Loot tiles | 15 per player (one tile set each) | Hex tiles printed with 0–3 loot icons; each set has its own back colour. See Loot Tile Set |
-| Base deck cards | 10 per player | 4 Strike (Attack 1), 3 Dash (Move 1), 3 Patch Up (Heal 1). Each player's deck belongs to a character, shown by name and symbol on the card's top band: Blaze ▲, Ember ◆, Tide ≈, Nova ★, Shade ☾ |
+| Base deck cards | 10 per player | 4 Strike (Attack 1), 3 Dash (Move 1), 3 Patch Up (Heal 1). Labelled Player 1–5 on the card's top band so decks don't mix |
 | Attack supply deck | 24 | 12× value 1, 8× value 2, 4× value 3 |
 | Movement supply deck | 18 | 9× value 1, 6× value 2, 3× value 3 |
 | Heal supply deck | 18 | 9× value 1, 6× value 2, 3× value 3 (each Heal card can heal or shield) |
@@ -24,6 +24,7 @@ Designers: Brandon and Chris.
 | Supply drop marker | 1 | Shows where the current drop landed |
 | Storm markers | 50 | Discs or translucent hex overlays placed on tiles; loot icons stay visible |
 | Loot pile markers | 4 | Mark an eliminated player's loot pile on the board |
+| Character cards | 10 | One ability each; see Characters |
 
 Each card has a value from 1 to 3, which is its strength. Rarity color: value 1 gray, 2 blue, 3 purple.
 
@@ -34,9 +35,10 @@ Each card has a value from 1 to 3, which is its strength. Rarity color: value 1 
 4. In turn order, starting with the start player, each player places their pawn on any tile at least **3 tiles away** (hex distance, counted straight across any gaps) from every pawn already placed. If no tile is that far away, choose the tile whose nearest pawn is as far away as possible.
 5. Place the round marker on round 1 of the round track.
 6. Shuffle the gold deck face down. Shuffle the three supply decks separately and place them face down. Turn the top **2** cards of each deck face up in a row beside it. Those 6 cards are the **loot display**.
-7. Each player sets their stats to Base Move 1, Base Attack 1, Base Shield 0.
-8. Each player shuffles their 10-card base deck and draws 5 cards.
-9. The start player takes the first turn. Advance the round marker at the start of each of the start player's turns after the first (or when play reaches their seat, if they've been eliminated).
+7. **Choose characters.** Shuffle the character cards and deal 2 to each player. Keep 1 face up in front of you and return the other to the box.
+8. Each player sets their stats to Base Move 1, Base Attack 1, Base Shield 0, then applies their character's changes.
+9. Each player shuffles their 10-card base deck and draws 5 cards.
+10. The start player takes the first turn. Advance the round marker at the start of each of the start player's turns after the first (or when play reaches their seat, if they've been eliminated).
 
 ## Your Turn
 Play goes clockwise. Each turn has three phases.
@@ -69,6 +71,22 @@ Phase 3 starts once you've finished all your actions. You can't play cards durin
 | **Move** (Dash, Movement deck) | Add its value to your Move this turn. |
 | **Attack** (Strike, Attack deck) | Add its value to your Attack this turn. |
 | **Heal** (Patch Up, Heal deck) | Choose one mode for its whole value when you play it. **Heal:** return up to that many Dead cards **from your hand** to the Dead supply, then remove this card from the game. **Shield:** add that many points to your Shield tracker (maximum 4). They stay until damage uses them; the card is discarded at the end of your turn with your other cards. |
+
+## Characters
+Each character card gives you one ability for the whole game.
+
+| Character | Ability |
+|---|---|
+| ▲ **Blaze** | **Point blank:** your attacks deal +1 damage to a player on your own tile. |
+| ☾ **Shade** | **Long shot:** your attacks deal +1 damage to a player who isn't on your tile. |
+| ◆ **Ember** | **Scavenge:** you may loot twice per turn. |
+| ≈ **Tide** | **Runner:** your Base Move starts at 2. |
+| ★ **Nova** | **Field medic:** your Base Move starts at 2, and each Heal card you use to heal removes 2 extra Dead cards. |
+| ☁ **Gale** | **Storm runner:** you take 1 less storm damage. |
+| ⚡ **Vex** | **Siphon:** when your attack puts 2 or more Dead cards on a player, return 1 Dead card from your hand to the supply. |
+| ■ **Bastion** | **Armored:** you start the game with 1 Shield point (it doesn't refill at upkeep). |
+| ● **Brute** | **Heavy hitter:** your Base Attack starts at 2. |
+| ⚙ **Rig** | **Tinkerer:** your first upgrade costs 3 instead of 4. |
 
 ## Attacking
 1. Total Attack = Base Attack + Attack cards played this turn.
@@ -159,6 +177,7 @@ Each player's set has 15 tiles and 21 loot icons: 6 Move, 11 Attack, 4 Heal.
 ## Designer Notes
 
 ### Ideas for Later (not in these rules)
+- **Deep pockets (character):** keep 4 cards at end of turn instead of 3. Tested too weak (SIM-019); needs a buff before it joins the deck.
 - **Design intent: same-hex fights.** Sharing a hex is allowed on purpose. You can go all in for maximum damage, but if you don't get away afterward, they hit you back.
 - **Siphon (from Fortnite):** when your attack lands 2 or more Dead cards, return 1 Dead card from your own hand to the supply. Aggressive players heal by fighting instead of hoarding Heal cards. Untested; the top candidate if cautious play dominates, because it rewards every hit rather than just the kill.
 - **Eliminator claims first:** the player who landed the final hit on an eliminated player takes the first loot-pile claim (5 cards) immediately, from anywhere. A direct kill reward; similar kill rewards barely helped in simulation (SIM-004), because the final hit often lands on an already weakened player.
