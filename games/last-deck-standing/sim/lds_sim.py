@@ -110,7 +110,7 @@ class Game:
                  values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False, elim_timing="upkeep",
                  play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False,
                  min_start=0, hold=0, grace=0, storm_sched=None, dmg_sched=None, heal_no_attack=False, heal_no_move=False, hold_no_heal=False,
-                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False, characters=None, end_limit=0, shield_decay=False, base_shd_max=4, shield_card_remove=False):
+                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False, characters=None, end_limit=0, shield_decay=False, base_shd_max=4, shield_card_remove=False, legendary_values=None):
         self.shield_decay, self.base_shd_max, self.shield_card_remove = shield_decay, base_shd_max, shield_card_remove
         self.end_limit = end_limit
         self.characters = characters
@@ -137,7 +137,8 @@ class Game:
         self.drop_rounds, self.elim_loot = set(drop_rounds), elim_loot
         self.drops = {}
         self.drop_count = 0
-        self.gold = [(rng.choice("AMHS"), v) for v in [2] * 6 + [3] * 6]
+        # Legendary deck, as in the rules: 4 cards of each type (Attack, Move, Heal)
+        self.gold = [(k, v) for k in "AMH" for v in (legendary_values or [2, 2, 3, 3])]
         rng.shuffle(self.gold)
         self.storm_per_turn = storm_per_turn
         self.storm, self.upgrade_pay, self.upgrade_cost, self.push = storm, upgrade_pay, upgrade_cost, push
