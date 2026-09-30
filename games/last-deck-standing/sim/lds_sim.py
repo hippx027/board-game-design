@@ -500,10 +500,12 @@ class Game:
         w = PROFILES[p.profile]
         for g in sorted("AMH", key=lambda g: -(w["up"][g] if w else self.rng.random())):
             stat = STAT[g]
-            while p.stats[stat] < (self.base_shd_max if stat == "shd" else 4):
+            smax = 1 if (stat == "shd" and getattr(p, "ability", None) == "tank_fixed") else (self.base_shd_max if stat == "shd" else 4)
+            while p.stats[stat] < smax:
                 cards = sorted([c for c in p.hand if c[0] != "D" and GROUP[c[0]] == g], key=lambda c: c[1])
                 ab = getattr(p, "ability", None)
-                ucost = self.upgrade_cost - (1 if (ab == "tinkerer" and not p.upgrades) or ab == "tinkerer_all" else 0)
+                ucost = self.upgrade_cost - (1 if (ab == "tinkerer" and not p.upgrades) or ab == "tinkerer_all" else 0) \
+                        + (1 if ab == "tank_slow" else 0)
                 if sum(v for _, v in cards) < ucost:
                     break
                 if w is None and self.rng.random() < 0.5:
