@@ -89,7 +89,7 @@ def main():
 
     chars = [("&#9650;", "Blaze", "Point blank", "Your attacks deal +1 damage to a player on your own tile."),
              ("&#9790;", "Shade", "Long shot", "Your attacks deal +1 damage to a player who isn't on your tile."),
-             ("&#9670;", "Ember", "Scavenge", "You may loot twice per turn."),
+             ("&#9670;", "Ember", "Scavenge", "After your normal loot, you may take 1 more cube from the same tile."),
              ("&#8776;", "Tide", "Runner", "Your Base Move starts at 2."),
              ("&#9733;", "Nova", "Field medic", "Your Base Move starts at 2. Each Heal card you use to heal removes 2 extra Dead cards."),
              ("&#9729;&#xFE0E;", "Gale", "Storm runner", "You take 1 less storm damage."),

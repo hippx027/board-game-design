@@ -30,7 +30,7 @@ Each card has a value from 1 to 3, which is its strength. Rarity color: value 1 
 
 ## Setup
 1. Randomly choose a starting player.
-2. **Build the board.** Each player takes one 15-tile set, shuffles it face down and keeps the top tiles for their player count: **15** tiles with 2–3 players, **12** with 4, **10** with 5. Return the rest to the box unseen. Starting with the start player and going clockwise, take your top tile, turn it face up and place it. The first tile starts the board; each tile after that must touch at least one tile already placed. Keep going around the table until everyone has placed all their tiles.
+2. **Build the board.** Each player takes one 15-tile set, shuffles it face down and keeps the top tiles for their player count: **15** tiles with 2–3 players, **12** with 4, **10** with 5. Return the rest to the box unseen. Starting with the start player and going clockwise, take your top tile, turn it face up and place it. The first tile starts the board; each tile after that must touch at least one tile already placed. Keep going around the table until everyone has placed all their tiles. Try to build a compact, roundish board; long snakes leave the storm nowhere to close in from.
 3. **Loot.** Put a matching loot cube on every loot icon on the board.
 4. In turn order, starting with the start player, each player places their pawn on any tile at least **3 tiles away** (hex distance, counted straight across any gaps) from every pawn already placed. If no tile is that far away, choose the tile whose nearest pawn is as far away as possible.
 5. Place the round marker on round 1 of the round track.
@@ -45,7 +45,7 @@ Play goes clockwise. Each turn has three phases.
 
 ### Phase 1: Upkeep
 1. **Shield refill:** if your Shield points are below your Base Shield, raise them to your Base Shield. Shield points never go down at upkeep; they stay until damage uses them.
-2. **Draw:** draw until you have 5 cards in hand. Held cards and Dead cards count toward the 5. (You end each turn with 3 cards or fewer, so you always draw at least 2.) If your draw pile runs out, shuffle your discard pile to make a new one and keep drawing. If both are empty, stop drawing.
+2. **Draw:** draw until you have 5 cards in hand. Held cards and Dead cards count toward the 5. (You end each turn with 3 cards or fewer, so you always draw at least 2 unless your deck and discard pile both run out.) If your draw pile runs out, shuffle your discard pile to make a new one and keep drawing. If both are empty, stop drawing.
 3. **Critical:** if 3 or more cards in your hand are Dead cards, announce "critical" to the table. This is only a warning: what counts is how many Dead cards you hold at the end of your turn.
 
 ### Phase 2: Actions
@@ -61,7 +61,7 @@ You may do the following in any order, and you may mix them:
 Phase 3 starts once you've finished all your actions. You can't play cards during it.
 
 1. **Elimination check:** if 3 or more cards in your hand are Dead cards, you are eliminated (see Elimination) and your turn ends; skip the storm.
-2. Put your played cards in your discard pile (Heal cards used to heal were already removed from the game). **Then discard down to 3 cards.** You choose which unplayed cards to keep. Dead cards can't be discarded and count toward the 3. Any card you put into play counts as played, even if you didn't use all of its value.
+2. Put your played cards in your discard pile (Heal cards used to heal were already removed from the game). **Then discard down to 3 cards.** You choose which unplayed cards to keep. Dead cards can't be discarded and count toward the 3.
 3. **Storm:** place storm markers, then take storm damage if you're on a storm tile (see The Storm).
 4. The next player clockwise begins their turn.
 
@@ -70,23 +70,25 @@ Phase 3 starts once you've finished all your actions. You can't play cards durin
 |---|---|
 | **Move** (Dash, Movement deck) | Add its value to your Move this turn. |
 | **Attack** (Strike, Attack deck) | Add its value to your Attack this turn. |
-| **Heal** (Patch Up, Heal deck) | Choose one mode for its whole value when you play it. **Heal:** return up to that many Dead cards **from your hand** to the Dead supply, then remove this card from the game. **Shield:** add that many points to your Shield tracker (maximum 4). They stay until damage uses them; the card is discarded at the end of your turn with your other cards. |
+| **Heal** (Patch Up, Heal deck) | Choose one mode for its whole value when you play it. Unused value is lost. **Heal:** return up to that many Dead cards **from your hand** to the Dead supply, then remove this card from the game. **Shield:** add that many points to your Shield tracker (maximum 4). They stay until damage uses them; the card is discarded at the end of your turn with your other cards. |
+
+Any card you put into play counts as played, even if you didn't use all of its value.
 
 ## Characters (optional variant)
-Not used in the base game yet; try them after a few games without. Each character card gives you one ability for the whole game.
+Not used in the base game yet; try them after a few games without. Each character card gives you one ability for the whole game. Stats that start at 2 can still be upgraded to the maximum of 4.
 
 | Character | Ability |
 |---|---|
-| ▲ **Blaze** | **Point blank:** your attacks deal +1 damage to a player on your own tile. |
-| ☾ **Shade** | **Long shot:** your attacks deal +1 damage to a player who isn't on your tile. |
-| ◆ **Ember** | **Scavenge:** you may loot twice per turn. |
+| ▲ **Blaze** | **Point blank:** when you attack a player on your own tile, add 1 damage (before their Shield). |
+| ☾ **Shade** | **Long shot:** when you attack a player who isn't on your tile and they're in range, add 1 damage (before their Shield). It can't bring an out-of-range player into range. |
+| ◆ **Ember** | **Scavenge:** after your normal loot, you may take 1 more **cube** from the same tile. |
 | ≈ **Tide** | **Runner:** your Base Move starts at 2. |
-| ★ **Nova** | **Field medic:** your Base Move starts at 2, and each Heal card you use to heal removes 2 extra Dead cards. |
-| ☁ **Gale** | **Storm runner:** you take 1 less storm damage. |
-| ⚡ **Vex** | **Siphon:** when your attack puts 2 or more Dead cards on a player, return 1 Dead card from your hand to the supply. |
-| ■ **Bastion** | **Armored:** you start the game with 1 Shield point (it doesn't refill at upkeep). |
+| ★ **Nova** | **Field medic:** your Base Move starts at 2, and each Heal card you use to heal removes up to 2 extra Dead cards from your hand. |
+| ☁ **Gale** | **Storm runner:** you take 1 less storm damage (so none in rounds 1–6). |
+| ⚡ **Vex** | **Siphon:** when your attack puts 2 or more Dead cards on a player after their Shield, return 1 Dead card from your hand to the supply. |
+| ■ **Bastion** | **Armored:** you start the game with 1 Shield point. Your Base Shield is still 0. |
 | ● **Brute** | **Heavy hitter:** your Base Attack starts at 2. |
-| ⚙ **Rig** | **Tinkerer:** your first upgrade costs 3 instead of 4. |
+| ⚙ **Rig** | **Tinkerer:** your first upgrade of the game costs 3 instead of 4. |
 
 ## Attacking
 1. Total Attack = Base Attack + Attack cards played this turn.
@@ -99,11 +101,16 @@ Not used in the base game yet; try them after a few games without. Each characte
 You only get one attack, so play your Attack cards before you attack.
 
 ## Looting
-Once per turn, you may take 1 cube from the tile you're on, make one claim on a loot pile there (see Elimination; if there are several piles, pick one), or take 1 card from a supply drop there (see Supply Drops). Only one of these per turn. Return the cube to the general supply and gain a card of that type (Move cube → Movement deck, Attack → Attack deck, Heal → Heal deck). Choose either:
+Once per turn, you may do **one** of these on the tile you're on:
+- take 1 loot cube (below),
+- make one claim on a loot pile (see Elimination; if there are several piles, pick one), or
+- take 1 card from a supply drop (see Supply Drops).
+
+**Looting a cube:** return the cube to the general supply and gain a card of that type (Move cube → Movement deck, Attack → Attack deck, Heal → Heal deck). Choose either:
 - **either of the 2 face-up cards** of that type in the loot display (then turn the next card of that deck face up to refill the row), or
 - the **top card** of that deck, unseen.
 
-The card goes into your **discard pile**. Cubes taken from tiles never come back. If a deck and its display slot are both empty, you can't loot that type.
+The card goes into your **discard pile**. Cubes taken from tiles never come back. You can loot a type as long as any card of it is face up or left in its deck. If none are left, that type's cubes stay on the board unused.
 
 ## Upgrading
 During your Actions phase, pay cards from your hand of one type with a total value of **4** or more to raise that stat by 1:
@@ -123,19 +130,19 @@ The storm closes in from the outside of the board, like a shrinking circle. At t
 | 1–6 | 1 | 1 Dead card |
 | 7+ (the storm closes fast) | 2 | 2 Dead cards |
 
-**Placing markers:** put each marker on an unmarked tile that is on the edge of the board (at least one of its six sides has no tile next to it, including sides facing a hole) or touches a marked tile. You choose which. It doesn't matter what's on the tile: pawns, loot cubes and loot piles all stay. Once every tile is marked, stop placing markers.
+**Placing markers:** put each marker on an unmarked tile that is on the edge of the board (at least one of its six sides has no tile next to it, including sides facing a hole) or touches a marked tile. You choose which. It doesn't matter what's on the tile: pawns, loot cubes and loot piles all stay. Once every tile is marked, stop placing markers. From then on, everyone takes storm damage every turn: this is the endgame.
 
-**Storm tiles:** a marked tile is a storm tile. You can move through, stop on and loot storm tiles normally. If you **end your turn on a storm tile**, take the storm damage for this round as Dead cards into your discard pile. Shield does not block storm damage.
+**Storm tiles:** a marked tile is a storm tile. You can move through, stop on and loot storm tiles normally. If you **end your turn on a storm tile**, take the storm damage for this round as Dead cards into your discard pile. Storm damage ignores Shield and doesn't use up any Shield points.
 
 ## Supply Drops
 A supply drop lands at the start of rounds **3, 5, 7, 9 and 11**, before the start player's upkeep. The number of drops is set by the **starting** player count: with 2 players, only rounds 3 and 5; with 3 players, rounds 3, 5 and 7; and so on. When a new drop lands, any card left in the previous drop is removed from the game.
 
-1. **Who places it:** the start player places the first drop, then placing passes clockwise to the next player still in the game.
-2. **Placing:** draw 2 gold cards face up and put them with the drop marker on any tile that is **not a storm tile and not an edge tile**.
-3. **Nudging:** then each other player, clockwise, may move the drop 1 tile or pass.
+1. **Who places it:** the start player places the first drop (or the next player clockwise still in the game, if the start player is out), then placing passes clockwise to the next player still in the game.
+2. **Placing:** draw 2 gold cards face up and put them with the drop marker on any tile that is **not a storm tile and not an edge tile**. If there is none, use any tile that isn't an edge tile; if there is none of those either, any tile.
+3. **Nudging:** then each other player, clockwise, may move the drop 1 tile in any direction (onto any tile, storm or edge included) or pass.
 4. **Looting:** looting the drop uses your loot action. Take 1 of its cards into your discard pile. The other card stays for the next looter. When both are taken, remove the marker.
 
-A drop can land on a storm tile, and storm markers can be placed on a drop's tile.
+Once placed, a drop can end up on a storm tile through nudges or new storm markers; it stays there.
 
 ## Elimination
 The elimination check happens only at the end of your own turn. If you are eliminated:

@@ -134,7 +134,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <h2 id="setup">Setup</h2>
 <ol>
 <li>Randomly choose a starting player.</li>
-<li><strong>Build the board.</strong> Each player takes one 15-tile set, shuffles it face down and keeps the top tiles for their player count: <strong>15</strong> tiles with 2&#8211;3 players, <strong>12</strong> with 4, <strong>10</strong> with 5. Return the rest to the box unseen. Starting with the start player and going clockwise, take your top tile, turn it face up and place it. The first tile starts the board; each tile after that must touch at least one tile already placed. Keep going around the table until everyone has placed all their tiles.</li>
+<li><strong>Build the board.</strong> Each player takes one 15-tile set, shuffles it face down and keeps the top tiles for their player count: <strong>15</strong> tiles with 2&#8211;3 players, <strong>12</strong> with 4, <strong>10</strong> with 5. Return the rest to the box unseen. Starting with the start player and going clockwise, take your top tile, turn it face up and place it. The first tile starts the board; each tile after that must touch at least one tile already placed. Keep going around the table until everyone has placed all their tiles. Try to build a compact, roundish board; long snakes leave the storm nowhere to close in from.</li>
 <li><strong>Loot.</strong> Put a matching loot cube on every loot icon on the board.</li>
 <li>In turn order, starting with the start player, each player places their pawn on any tile at least <strong>3 tiles away</strong> (hex distance, counted straight across any gaps) from every pawn already placed. If no tile is that far away, choose the tile whose nearest pawn is as far away as possible.</li>
 <li>Place the round marker on round 1 of the round track.</li>
@@ -149,7 +149,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <h3>Phase 1: Upkeep</h3>
 <ol>
 <li><strong>Shield refill:</strong> if your Shield points are below your Base Shield, raise them to your Base Shield. Shield points never go down at upkeep; they stay until damage uses them.</li>
-<li><strong>Draw:</strong> draw until you have 5 cards in hand. Held cards and Dead cards count toward the 5. (You end each turn with 3 cards or fewer, so you always draw at least 2.) If your draw pile runs out, shuffle your discard pile to make a new one and keep drawing. If both are empty, stop drawing.</li>
+<li><strong>Draw:</strong> draw until you have 5 cards in hand. Held cards and Dead cards count toward the 5. (You end each turn with 3 cards or fewer, so you always draw at least 2 unless your deck and discard pile both run out.) If your draw pile runs out, shuffle your discard pile to make a new one and keep drawing. If both are empty, stop drawing.</li>
 <li><strong>Critical:</strong> if 3 or more cards in your hand are Dead cards, announce &quot;critical&quot; to the table. This is only a warning: what counts is how many Dead cards you hold at the end of your turn.</li>
 </ol>
 <h3>Phase 2: Actions</h3>
@@ -165,7 +165,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <p>Phase 3 starts once you&#39;ve finished all your actions. You can&#39;t play cards during it.</p>
 <ol>
 <li><strong>Elimination check:</strong> if 3 or more cards in your hand are Dead cards, you are eliminated (see Elimination) and your turn ends; skip the storm.</li>
-<li>Put your played cards in your discard pile (Heal cards used to heal were already removed from the game). <strong>Then discard down to 3 cards.</strong> You choose which unplayed cards to keep. Dead cards can&#39;t be discarded and count toward the 3. Any card you put into play counts as played, even if you didn&#39;t use all of its value.</li>
+<li>Put your played cards in your discard pile (Heal cards used to heal were already removed from the game). <strong>Then discard down to 3 cards.</strong> You choose which unplayed cards to keep. Dead cards can&#39;t be discarded and count toward the 3.</li>
 <li><strong>Storm:</strong> place storm markers, then take storm damage if you&#39;re on a storm tile (see The Storm).</li>
 <li>The next player clockwise begins their turn.</li>
 </ol>
@@ -187,11 +187,12 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 <tr>
 <td><strong>Heal</strong> (Patch Up, Heal deck)</td>
-<td>Choose one mode for its whole value when you play it. <strong>Heal:</strong> return up to that many Dead cards <strong>from your hand</strong> to the Dead supply, then remove this card from the game. <strong>Shield:</strong> add that many points to your Shield tracker (maximum 4). They stay until damage uses them; the card is discarded at the end of your turn with your other cards.</td>
+<td>Choose one mode for its whole value when you play it. Unused value is lost. <strong>Heal:</strong> return up to that many Dead cards <strong>from your hand</strong> to the Dead supply, then remove this card from the game. <strong>Shield:</strong> add that many points to your Shield tracker (maximum 4). They stay until damage uses them; the card is discarded at the end of your turn with your other cards.</td>
 </tr>
 </tbody></table></div>
+<p>Any card you put into play counts as played, even if you didn&#39;t use all of its value.</p>
 <h2 id="characters-optional-variant-">Characters (optional variant)</h2>
-<p>Not used in the base game yet; try them after a few games without. Each character card gives you one ability for the whole game.</p>
+<p>Not used in the base game yet; try them after a few games without. Each character card gives you one ability for the whole game. Stats that start at 2 can still be upgraded to the maximum of 4.</p>
 <div class="tbl"><table>
 <thead>
 <tr>
@@ -201,15 +202,15 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </thead>
 <tbody><tr>
 <td>&#9650; <strong>Blaze</strong></td>
-<td><strong>Point blank:</strong> your attacks deal +1 damage to a player on your own tile.</td>
+<td><strong>Point blank:</strong> when you attack a player on your own tile, add 1 damage (before their Shield).</td>
 </tr>
 <tr>
 <td>&#9790; <strong>Shade</strong></td>
-<td><strong>Long shot:</strong> your attacks deal +1 damage to a player who isn&#39;t on your tile.</td>
+<td><strong>Long shot:</strong> when you attack a player who isn&#39;t on your tile and they&#39;re in range, add 1 damage (before their Shield). It can&#39;t bring an out-of-range player into range.</td>
 </tr>
 <tr>
 <td>&#9670; <strong>Ember</strong></td>
-<td><strong>Scavenge:</strong> you may loot twice per turn.</td>
+<td><strong>Scavenge:</strong> after your normal loot, you may take 1 more <strong>cube</strong> from the same tile.</td>
 </tr>
 <tr>
 <td>&#8776; <strong>Tide</strong></td>
@@ -217,19 +218,19 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 <tr>
 <td>&#9733; <strong>Nova</strong></td>
-<td><strong>Field medic:</strong> your Base Move starts at 2, and each Heal card you use to heal removes 2 extra Dead cards.</td>
+<td><strong>Field medic:</strong> your Base Move starts at 2, and each Heal card you use to heal removes up to 2 extra Dead cards from your hand.</td>
 </tr>
 <tr>
 <td>&#9729; <strong>Gale</strong></td>
-<td><strong>Storm runner:</strong> you take 1 less storm damage.</td>
+<td><strong>Storm runner:</strong> you take 1 less storm damage (so none in rounds 1&#8211;6).</td>
 </tr>
 <tr>
 <td>&#9889; <strong>Vex</strong></td>
-<td><strong>Siphon:</strong> when your attack puts 2 or more Dead cards on a player, return 1 Dead card from your hand to the supply.</td>
+<td><strong>Siphon:</strong> when your attack puts 2 or more Dead cards on a player after their Shield, return 1 Dead card from your hand to the supply.</td>
 </tr>
 <tr>
 <td>&#9632; <strong>Bastion</strong></td>
-<td><strong>Armored:</strong> you start the game with 1 Shield point (it doesn&#39;t refill at upkeep).</td>
+<td><strong>Armored:</strong> you start the game with 1 Shield point. Your Base Shield is still 0.</td>
 </tr>
 <tr>
 <td>&#9679; <strong>Brute</strong></td>
@@ -237,7 +238,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 <tr>
 <td>&#9881; <strong>Rig</strong></td>
-<td><strong>Tinkerer:</strong> your first upgrade costs 3 instead of 4.</td>
+<td><strong>Tinkerer:</strong> your first upgrade of the game costs 3 instead of 4.</td>
 </tr>
 </tbody></table></div>
 <h2 id="attacking">Attacking</h2>
@@ -253,12 +254,18 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </ol>
 <p>You only get one attack, so play your Attack cards before you attack.</p>
 <h2 id="looting">Looting</h2>
-<p>Once per turn, you may take 1 cube from the tile you&#39;re on, make one claim on a loot pile there (see Elimination; if there are several piles, pick one), or take 1 card from a supply drop there (see Supply Drops). Only one of these per turn. Return the cube to the general supply and gain a card of that type (Move cube &#8594; Movement deck, Attack &#8594; Attack deck, Heal &#8594; Heal deck). Choose either:</p>
+<p>Once per turn, you may do <strong>one</strong> of these on the tile you&#39;re on:</p>
+<ul>
+<li>take 1 loot cube (below),</li>
+<li>make one claim on a loot pile (see Elimination; if there are several piles, pick one), or</li>
+<li>take 1 card from a supply drop (see Supply Drops).</li>
+</ul>
+<p><strong>Looting a cube:</strong> return the cube to the general supply and gain a card of that type (Move cube &#8594; Movement deck, Attack &#8594; Attack deck, Heal &#8594; Heal deck). Choose either:</p>
 <ul>
 <li><strong>either of the 2 face-up cards</strong> of that type in the loot display (then turn the next card of that deck face up to refill the row), or</li>
 <li>the <strong>top card</strong> of that deck, unseen.</li>
 </ul>
-<p>The card goes into your <strong>discard pile</strong>. Cubes taken from tiles never come back. If a deck and its display slot are both empty, you can&#39;t loot that type.</p>
+<p>The card goes into your <strong>discard pile</strong>. Cubes taken from tiles never come back. You can loot a type as long as any card of it is face up or left in its deck. If none are left, that type&#39;s cubes stay on the board unused.</p>
 <h2 id="upgrading">Upgrading</h2>
 <p>During your Actions phase, pay cards from your hand of one type with a total value of <strong>4</strong> or more to raise that stat by 1:</p>
 <ul>
@@ -289,17 +296,17 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <td>2 Dead cards</td>
 </tr>
 </tbody></table></div>
-<p><strong>Placing markers:</strong> put each marker on an unmarked tile that is on the edge of the board (at least one of its six sides has no tile next to it, including sides facing a hole) or touches a marked tile. You choose which. It doesn&#39;t matter what&#39;s on the tile: pawns, loot cubes and loot piles all stay. Once every tile is marked, stop placing markers.</p>
-<p><strong>Storm tiles:</strong> a marked tile is a storm tile. You can move through, stop on and loot storm tiles normally. If you <strong>end your turn on a storm tile</strong>, take the storm damage for this round as Dead cards into your discard pile. Shield does not block storm damage.</p>
+<p><strong>Placing markers:</strong> put each marker on an unmarked tile that is on the edge of the board (at least one of its six sides has no tile next to it, including sides facing a hole) or touches a marked tile. You choose which. It doesn&#39;t matter what&#39;s on the tile: pawns, loot cubes and loot piles all stay. Once every tile is marked, stop placing markers. From then on, everyone takes storm damage every turn: this is the endgame.</p>
+<p><strong>Storm tiles:</strong> a marked tile is a storm tile. You can move through, stop on and loot storm tiles normally. If you <strong>end your turn on a storm tile</strong>, take the storm damage for this round as Dead cards into your discard pile. Storm damage ignores Shield and doesn&#39;t use up any Shield points.</p>
 <h2 id="supply-drops">Supply Drops</h2>
 <p>A supply drop lands at the start of rounds <strong>3, 5, 7, 9 and 11</strong>, before the start player&#39;s upkeep. The number of drops is set by the <strong>starting</strong> player count: with 2 players, only rounds 3 and 5; with 3 players, rounds 3, 5 and 7; and so on. When a new drop lands, any card left in the previous drop is removed from the game.</p>
 <ol>
-<li><strong>Who places it:</strong> the start player places the first drop, then placing passes clockwise to the next player still in the game.</li>
-<li><strong>Placing:</strong> draw 2 gold cards face up and put them with the drop marker on any tile that is <strong>not a storm tile and not an edge tile</strong>.</li>
-<li><strong>Nudging:</strong> then each other player, clockwise, may move the drop 1 tile or pass.</li>
+<li><strong>Who places it:</strong> the start player places the first drop (or the next player clockwise still in the game, if the start player is out), then placing passes clockwise to the next player still in the game.</li>
+<li><strong>Placing:</strong> draw 2 gold cards face up and put them with the drop marker on any tile that is <strong>not a storm tile and not an edge tile</strong>. If there is none, use any tile that isn&#39;t an edge tile; if there is none of those either, any tile.</li>
+<li><strong>Nudging:</strong> then each other player, clockwise, may move the drop 1 tile in any direction (onto any tile, storm or edge included) or pass.</li>
 <li><strong>Looting:</strong> looting the drop uses your loot action. Take 1 of its cards into your discard pile. The other card stays for the next looter. When both are taken, remove the marker.</li>
 </ol>
-<p>A drop can land on a storm tile, and storm markers can be placed on a drop&#39;s tile.</p>
+<p>Once placed, a drop can end up on a storm tile through nudges or new storm markers; it stays there.</p>
 <h2 id="elimination">Elimination</h2>
 <p>The elimination check happens only at the end of your own turn. If you are eliminated:</p>
 <ol>
