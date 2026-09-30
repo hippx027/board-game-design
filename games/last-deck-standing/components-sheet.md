@@ -5,9 +5,9 @@ Data before art. Quantities are for a full 5-player box. Source of truth for rul
 ## Cards
 | id | type | name | qty | effect | tags | notes |
 |---|---|---|---|---|---|---|
-| BASE-A1 | card | Strike | 20 (4 per player) | +1 Attack | base, attack, gray | Common (gray) top band labelled PLAYER 1–5 |
-| BASE-M1 | card | Dash | 15 (3 per player) | +1 Move | base, move, gray | |
-| BASE-H1 | card | Patch Up | 15 (3 per player) | Choose: heal 1 Dead from hand (then remove from game) or +1 Shield | base, heal, gray | |
+| BASE-A1 | card | Attack 1 | 20 (4 per player) | +1 Attack | base, attack, gray | Common (gray) top band labelled PLAYER 1–5 |
+| BASE-M1 | card | Move 1 | 15 (3 per player) | +1 Move | base, move, gray | |
+| BASE-H1 | card | Heal 1 | 15 (3 per player) | Choose: heal 1 Dead from hand (then remove from game) or +1 Shield | base, heal, gray | |
 | ATK-1 | card | Attack 1 | 12 | +1 Attack | supply, attack, gray | |
 | ATK-2 | card | Attack 2 | 8 | +2 Attack | supply, attack, blue | |
 | ATK-3 | card | Attack 3 | 4 | +3 Attack | supply, attack, purple | |
@@ -20,7 +20,7 @@ Data before art. Quantities are for a full 5-player box. Source of truth for rul
 | DEAD | card | Dead | 60 | No effect; can't be played | dead | **Distinct marked back** so Dead cards are visible in hands and decks |
 | LEG-* | card | Legendary cards (supply drops) | 12 | 2 each of Attack 3, Attack 4, Move 3, Move 4, Heal 3, Heal 4 | legendary, gold | Supply drops |
 | DROP | token | Supply drop marker | 1 | Marks the current drop | | |
-| CHAR-* | card | Character cards | 10 | One ability each (see rulebook: Characters) | character | Blaze ▲, Shade ☾, Ember ◆, Tide ≈, Nova ★, Gale ☁, Vex ⚡, Bastion ■, Brute ●, Rig ⚙ |
+| CHAR-* | card | Character cards | 10 | One ability each (see rulebook: Characters) | character | The Brawler ▲, The Sniper ☾, The Scavenger ◆, The Runner ≈, The Medic ★, The Storm Chaser ☁, The Leech ⚡, The Tank ■, The Heavy ●, The Mechanic ⚙ |
 
 Totals: base 50 · supply 60 (Attack 24, Move 18, Heal 18) · Dead 60 · Legendary 12.
 

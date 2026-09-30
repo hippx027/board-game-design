@@ -53,7 +53,8 @@ def comic(title, typ, icon, text, rarity_color=None, value=None, tag="", owner=N
     return (f'<div class="cc {cls}" style="--type:{typ}">{badge}{own}<div class="frame">'
             f'<div class="title{" long" if len(title) > 11 else ""}">{html.escape(title)}</div>'
             f'<div class="art"><div class="plate"><span class="msym">{icon}</span></div></div>'
-            f'<div class="text"><div>{text}</div></div></div><div class="tag" style="background:{tagc}">{tag}</div></div>')
+            f'<div class="text"><div>{text}</div></div></div>'
+            + (f'<div class="tag" style="background:{tagc}">{tag}</div>' if tag else "") + '</div>')
 
 
 def card_color(kind, v, name=None, stripe=None, legendary=False, owner=None):
@@ -85,7 +86,7 @@ CHAR_THEME = {
 
 def char_card_color(icon, name, ability, text):
     col, b1, b2, epithet, pat = CHAR_THEME[name]
-    card = comic(name, col, icon, f'<i class="epi">{epithet}</i><br><b>{ability}</b><br>{text}', tag=name.upper(), cls=f"char pat-{pat}")
+    card = comic(epithet, col, icon, f'<b class="abn">{ability}</b><br>{text}', tag="", owner="Character", cls=f"char pat-{pat}")
     return card.replace('style="--type:', f'style="--b1:{b1}; --b2:{b2}; --type:', 1)
 
 
@@ -129,8 +130,8 @@ def main(style="plain"):
     card = card_color if color else card_plain
     cards = []
     for pname, sym in PLAYERS:
-        cards += ([card("A", 1, "Strike", sym, owner=pname)] * 4 + [card("M", 1, "Dash", sym, owner=pname)] * 3
-                  + [card("H", 1, "Patch Up", sym, owner=pname)] * 3)
+        cards += ([card("A", 1, None, sym, owner=pname)] * 4 + [card("M", 1, None, sym, owner=pname)] * 3
+                  + [card("H", 1, None, sym, owner=pname)] * 3)
     for k in "AMH":
         for v, n in (((1, 12), (2, 8), (3, 4)) if k == "A" else ((1, 9), (2, 6), (3, 3))):
             cards += [card(k, v)] * n
@@ -165,7 +166,7 @@ def main(style="plain"):
              ("&#9679;", "Brute", "Heavy hitter", "Your Base Attack starts at 2."),
              ("&#9881;", "Rig", "Tinkerer", "Your first upgrade of the game costs 3 instead of 4.")]
     char_cards = [char_card_color(CHAR_ICON[nm], nm, ab, tx) for sym, nm, ab, tx in chars] if color else \
-                 [f'<div class="card char"><div class="sym">{sym}</div><div class="name">{nm}</div>'
+                 [f'<div class="card char"><div class="sym">{sym}</div><div class="name">{CHAR_THEME[nm][3]}</div>'
                   f'<div class="tier">Character</div><div class="ab">{ab}</div><div class="text">{tx}</div></div>'
                   for sym, nm, ab, tx in chars]
     body = []
@@ -290,6 +291,7 @@ COMIC_CSS = """
 .cc.dead .title { padding-left: 0.08in; }
 .cc.char .art { background: repeating-conic-gradient(from 0deg at 50% 50%, var(--b1) 0 10deg, var(--b2) 10deg 20deg); }
 .cc.char .msym { color: var(--type); }
+.cc.char .text .abn { color: var(--type); font: 13pt "Bangers", Impact, sans-serif; letter-spacing: 1px; }
 .cc.char .tag { background: var(--type) !important; }
 .cc.char .epi { font-style: normal; font: 11pt "Bangers", Impact, sans-serif; letter-spacing: 1px; color: var(--type); }
 .cc.pat-night .art { background: radial-gradient(circle at 20% 25%, #fff 0 1.5px, transparent 2px) 0 0 / 22px 22px,

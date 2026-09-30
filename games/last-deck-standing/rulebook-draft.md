@@ -11,7 +11,7 @@ Designers: Brandon and Chris.
 | Item | Qty | Notes |
 |---|---|---|
 | Loot tiles | 15 per player (one tile set each) | Hex tiles printed with 0–3 loot icons; each set has its own back colour. See Loot Tile Set |
-| Base deck cards | 10 per player | 4 Strike (Attack 1), 3 Dash (Move 1), 3 Patch Up (Heal 1). Labelled Player 1–5 on the card's top band so decks don't mix |
+| Base deck cards | 10 per player | 4 Attack 1, 3 Move 1, 3 Heal 1: the same as supply cards, but labelled Player 1–5 on the card's top band so decks don't mix |
 | Attack supply deck | 24 | 12× value 1, 8× value 2, 4× value 3 |
 | Movement supply deck | 18 | 9× value 1, 6× value 2, 3× value 3 |
 | Heal supply deck | 18 | 9× value 1, 6× value 2, 3× value 3 (each Heal card can heal or shield) |
@@ -68,9 +68,9 @@ Phase 3 starts once you've finished all your actions. You can't play cards durin
 ## Cards
 | Card | When played |
 |---|---|
-| **Move** (Dash, Movement deck) | Add its value to your Move this turn. |
-| **Attack** (Strike, Attack deck) | Add its value to your Attack this turn. |
-| **Heal** (Patch Up, Heal deck) | Choose one mode for its whole value when you play it. Unused value is lost. **Heal:** return up to that many Dead cards **from your hand** to the Dead supply, then remove this card from the game. **Shield:** add that many points to your Shield tracker (maximum 4). They stay until damage uses them; the card is discarded at the end of your turn with your other cards. |
+| **Move** (starting deck and Movement deck) | Add its value to your Move this turn. |
+| **Attack** (starting deck and Attack deck) | Add its value to your Attack this turn. |
+| **Heal** (starting deck and Heal deck) | Choose one mode for its whole value when you play it. Unused value is lost. **Heal:** return up to that many Dead cards **from your hand** to the Dead supply, then remove this card from the game. **Shield:** add that many points to your Shield tracker (maximum 4). They stay until damage uses them; the card is discarded at the end of your turn with your other cards. |
 
 Any card you put into play counts as played, even if you didn't use all of its value.
 
@@ -79,16 +79,16 @@ Not used in the base game yet; try them after a few games without. Each characte
 
 | Character | Ability |
 |---|---|
-| ▲ **Blaze** | **Point blank:** when you attack a player on your own tile, add 1 damage (before their Shield). |
-| ☾ **Shade** | **Long shot:** when you attack a player who isn't on your tile and they're in range, add 1 damage (before their Shield). It can't bring an out-of-range player into range. |
-| ◆ **Ember** | **Scavenge:** after your normal loot, you may take 1 more **cube** from the same tile. |
-| ≈ **Tide** | **Runner:** your Base Move starts at 2. |
-| ★ **Nova** | **Field medic:** your Base Move starts at 2, and each Heal card you use to heal removes up to 2 extra Dead cards from your hand. |
-| ☁ **Gale** | **Storm runner:** you take 1 less storm damage (so none in rounds 1–6). |
-| ⚡ **Vex** | **Siphon:** when your attack puts 2 or more Dead cards on a player after their Shield, return 1 Dead card from your hand to the supply. |
-| ■ **Bastion** | **Armored:** you start the game with 1 Shield point. Your Base Shield is still 0. |
-| ● **Brute** | **Heavy hitter:** your Base Attack starts at 2. |
-| ⚙ **Rig** | **Tinkerer:** your first upgrade of the game costs 3 instead of 4. |
+| ▲ **The Brawler** | **Point blank:** when you attack a player on your own tile, add 1 damage (before their Shield). |
+| ☾ **The Sniper** | **Long shot:** when you attack a player who isn't on your tile and they're in range, add 1 damage (before their Shield). It can't bring an out-of-range player into range. |
+| ◆ **The Scavenger** | **Scavenge:** after your normal loot, you may take 1 more **cube** from the same tile. |
+| ≈ **The Runner** | **Runner:** your Base Move starts at 2. |
+| ★ **The Medic** | **Field medic:** your Base Move starts at 2, and each Heal card you use to heal removes up to 2 extra Dead cards from your hand. |
+| ☁ **The Storm Chaser** | **Storm runner:** you take 1 less storm damage (so none in rounds 1–6). |
+| ⚡ **The Leech** | **Siphon:** when your attack puts 2 or more Dead cards on a player after their Shield, return 1 Dead card from your hand to the supply. |
+| ■ **The Tank** | **Armored:** you start the game with 1 Shield point. Your Base Shield is still 0. |
+| ● **The Heavy** | **Heavy hitter:** your Base Attack starts at 2. |
+| ⚙ **The Mechanic** | **Tinkerer:** your first upgrade of the game costs 3 instead of 4. |
 
 ## Attacking
 1. Total Attack = Base Attack + Attack cards played this turn.

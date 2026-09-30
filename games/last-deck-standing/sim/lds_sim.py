@@ -306,7 +306,7 @@ class Game:
         self.m["play_slots"] += 2
 
         healed = 0
-        if getattr(p, "ability", None) == "field_medic":
+        if getattr(p, "ability", None) in ("field_medic", "field_medic_keep"):
             heal += MEDIC_BONUS * sum(1 for k, v in played if k == "H")
         for _ in range(heal):
             if ("D", 0) in p.hand:
@@ -380,7 +380,8 @@ class Game:
 
         spent = [("H", c[1]) if c[0] == "X" else c for c in played
                  if not (self.shield_card_remove and c[0] == "X")
-                 if c[0] != "H" or self.heal_keep or (self.heal_both and not healed)]
+                 if c[0] != "H" or self.heal_keep or (self.heal_both and not healed)
+                 or getattr(p, "ability", None) == "field_medic_keep"]
         if self.sticky_dead:
             live = sorted((c for c in p.hand if c[0] != "D"), key=lambda c: (c[0] == "H", c[1]), reverse=True)
             if self.end_limit:  # discard down to end_limit cards; Dead cards stay and count toward it
@@ -501,7 +502,8 @@ class Game:
             stat = STAT[g]
             while p.stats[stat] < (self.base_shd_max if stat == "shd" else 4):
                 cards = sorted([c for c in p.hand if c[0] != "D" and GROUP[c[0]] == g], key=lambda c: c[1])
-                ucost = self.upgrade_cost - (1 if getattr(p, "ability", None) == "tinkerer" and not p.upgrades else 0)
+                ab = getattr(p, "ability", None)
+                ucost = self.upgrade_cost - (1 if (ab == "tinkerer" and not p.upgrades) or ab == "tinkerer_all" else 0)
                 if sum(v for _, v in cards) < ucost:
                     break
                 if w is None and self.rng.random() < 0.5:
