@@ -43,7 +43,7 @@ Play goes clockwise. Each turn has three phases.
 
 ### Phase 1: Upkeep
 1. **Shield refill:** if your Shield points are below your Base Shield, raise them to your Base Shield. Shield points never go down at upkeep; they stay until damage uses them.
-2. **Draw:** draw until you have 5 cards in hand, and always draw **at least 2** cards. If that puts you over 5, discard cards of your choice until you have 5 (Dead cards can't be discarded). Held cards and Dead cards count toward the 5. If your draw pile runs out, shuffle your discard pile to make a new one and keep drawing. If both are empty, stop drawing.
+2. **Draw:** draw until you have 5 cards in hand. Held cards and Dead cards count toward the 5. (You end each turn with 3 cards or fewer, so you always draw at least 2.) If your draw pile runs out, shuffle your discard pile to make a new one and keep drawing. If both are empty, stop drawing.
 3. **Critical:** if 3 or more cards in your hand are Dead cards, announce "critical" to the table. This is only a warning: what counts is how many Dead cards you hold at the end of your turn.
 
 ### Phase 2: Actions
@@ -59,7 +59,7 @@ You may do the following in any order, and you may mix them:
 Phase 3 starts once you've finished all your actions. You can't play cards during it.
 
 1. **Elimination check:** if 3 or more cards in your hand are Dead cards, you are eliminated (see Elimination) and your turn ends; skip the storm.
-2. Put your played cards in your discard pile (Heal cards used to heal were already removed from the game). **You may keep any unplayed cards in your hand**; Dead cards must stay. Any card you put into play counts as played, even if you didn't use all of its value.
+2. Put your played cards in your discard pile (Heal cards used to heal were already removed from the game). **Then discard down to 3 cards.** You choose which unplayed cards to keep. Dead cards can't be discarded and count toward the 3. Any card you put into play counts as played, even if you didn't use all of its value.
 3. **Storm:** place storm markers, then take storm damage if you're on a storm tile (see The Storm).
 4. The next player clockwise begins their turn.
 
@@ -144,13 +144,13 @@ Each player's set has 15 tiles and 21 loot icons: 6 Move, 11 Attack, 4 Heal.
 | 3 | 3 each: Move+Attack+Heal · Attack+Attack+Heal · Move+Attack+Attack |
 
 ## Quick Reference
-**Upkeep:** refill Shield up to Base Shield → draw up to 5 and at least 2, then discard down to 5 (not Dead cards) → 3+ Dead: announce "critical"
+**Upkeep:** refill Shield up to Base Shield → draw up to 5 (held and Dead cards count) → 3+ Dead: announce "critical"
 **Actions (any order):** play any cards · move · 1 attack · 1 loot (1 cube, 1 pile claim or 1 drop card) · upgrade
 **Supply drops:** rounds 3, 5, 7, 9, 11 (one per starting player); placed on a tile that's not storm or edge, then everyone may nudge it 1 tile
 **Heal card:** heal (Dead from hand → supply, card leaves the game) or shield (+Shield, max 4; stays until used)
 **Storm:** place markers on edge tiles or tiles touching a marked tile: 1 per turn (rounds 1–6), 2 per turn (round 7+). End your turn on a storm tile: 1 Dead card (round 7+: 2) to your discard pile; Shield doesn't block it
 **Eliminated:** all your Dead cards to supply; your other cards become a loot pile (claims pick 5, then 3, then 1)
-**End:** eliminated if 3+ Dead in hand (then skip the rest) → discard played cards, keep any others → storm markers → storm damage
+**End:** eliminated if 3+ Dead in hand (then skip the rest) → discard played cards, then discard down to 3 (Dead cards stay and count) → storm markers → storm damage
 **Damage:** Attack − Range, then Shield absorbs; 0 or less can't hit; Dead cards go to the target's discard pile
 **Upgrade:** pay 4+ value of one type from hand → +1 stat (max 4); paid cards go to discard
 

@@ -1,0 +1,54 @@
+{
+ "2": {
+  "Point blank (+1 dmg on your tile)": 1.0432801822323463,
+  "Long shot (+1 dmg off your tile)": 1.019189765458422,
+  "Scavenge (loot twice)": 0.8528138528138528,
+  "Runner (Base Move 2)": 0.8616780045351474,
+  "Field medic (Heal cards heal +2)": 0.7925311203319502,
+  "Storm runner (storm dmg -1)": 0.8721461187214612,
+  "Siphon (hit 2+: heal 1)": 0.8852459016393442,
+  "Armored (Base Shield 1)": 1.173160173160173,
+  "Heavy hitter (Base Attack 2)": 1.214428857715431,
+  "Quick draw (hand size 6)": 1.039301310043668,
+  "Tinkerer (upgrades cost 3)": 1.2387706855791962
+ },
+ "3": {
+  "Point blank (+1 dmg on your tile)": 0.9521739130434783,
+  "Long shot (+1 dmg off your tile)": 0.9096209912536444,
+  "Scavenge (loot twice)": 1.0176991150442478,
+  "Runner (Base Move 2)": 0.8670788253477588,
+  "Field medic (Heal cards heal +2)": 0.8727272727272727,
+  "Storm runner (storm dmg -1)": 0.9708588957055215,
+  "Siphon (hit 2+: heal 1)": 0.9025423728813559,
+  "Armored (Base Shield 1)": 1.217948717948718,
+  "Heavy hitter (Base Attack 2)": 0.9520123839009288,
+  "Quick draw (hand size 6)": 0.9489795918367347,
+  "Tinkerer (upgrades cost 3)": 1.3782608695652172
+ },
+ "4": {
+  "Point blank (+1 dmg on your tile)": 0.9690265486725663,
+  "Long shot (+1 dmg off your tile)": 0.9175946547884187,
+  "Scavenge (loot twice)": 0.8828213879408419,
+  "Runner (Base Move 2)": 0.8810572687224669,
+  "Field medic (Heal cards heal +2)": 1.0096256684491978,
+  "Storm runner (storm dmg -1)": 1.1,
+  "Siphon (hit 2+: heal 1)": 0.9863636363636363,
+  "Armored (Base Shield 1)": 1.2562704471101418,
+  "Heavy hitter (Base Attack 2)": 0.9409141583054627,
+  "Quick draw (hand size 6)": 0.9739854318418314,
+  "Tinkerer (upgrades cost 3)": 1.075451647183847
+ },
+ "5": {
+  "Point blank (+1 dmg on your tile)": 0.9602076124567474,
+  "Long shot (+1 dmg off your tile)": 0.9244444444444444,
+  "Scavenge (loot twice)": 1.0488013698630136,
+  "Runner (Base Move 2)": 1.1,
+  "Field medic (Heal cards heal +2)": 0.7879045996592846,
+  "Storm runner (storm dmg -1)": 1.214868540344515,
+  "Siphon (hit 2+: heal 1)": 0.8933333333333333,
+  "Armored (Base Shield 1)": 1.3112639724849526,
+  "Heavy hitter (Base Attack 2)": 0.9279778393351801,
+  "Quick draw (hand size 6)": 0.7894736842105263,
+  "Tinkerer (upgrades cost 3)": 1.0379858657243817
+ }
+}

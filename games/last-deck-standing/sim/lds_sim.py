@@ -110,7 +110,8 @@ class Game:
                  values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False, elim_timing="upkeep",
                  play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False,
                  min_start=0, hold=0, grace=0, storm_sched=None, dmg_sched=None, heal_no_attack=False, heal_no_move=False, hold_no_heal=False,
-                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False, characters=None):
+                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False, characters=None, end_limit=0):
+        self.end_limit = end_limit
         self.characters = characters
         self.heal_both = heal_both
         self.tile_mix = tile_mix
@@ -265,12 +266,13 @@ class Game:
         rng = self.rng
         p.shield = max(p.shield, p.stats["shd"]) if self.shield_persist else p.stats["shd"]
         before = len(p.hand)
-        p.draw_to(5, rng)
-        extra = self.min_draw - (len(p.hand) - before)
+        hs = 6 if getattr(p, "ability", None) == "quick_draw" else 5
+        p.draw_to(hs, rng)
+        extra = self.min_draw + (1 if getattr(p, "ability", None) == "quick_draw3" else 0) - (len(p.hand) - before)
         if extra > 0:
             p.draw_to(len(p.hand) + extra, rng)
             live = sorted((c for c in p.hand if c[0] != "D"), key=lambda c: (c[0] == "H", c[1]))
-            while len(p.hand) > 5 and live:
+            while len(p.hand) > hs and live:
                 c = live.pop(0)
                 p.hand.remove(c)
                 p.discard.append(c)
@@ -329,6 +331,9 @@ class Game:
                 target.discard += [("D", 0)] * dealt
                 if dealt:
                     target.last_hit_by = p
+                if dealt >= 2 and getattr(p, "ability", None) == "siphon" and ("D", 0) in p.hand:
+                    p.hand.remove(("D", 0))
+                    self.m["siphons"] += 1
                 self.m["attacks"] += 1
                 self.m["dead_dealt"] += dealt
                 self.m["dead_absorbed"] += absorbed
@@ -372,7 +377,10 @@ class Game:
                  if c[0] != "H" or self.heal_keep or (self.heal_both and not healed)]
         if self.sticky_dead:
             live = sorted((c for c in p.hand if c[0] != "D"), key=lambda c: (c[0] == "H", c[1]), reverse=True)
-            if self.hold_no_heal:
+            if self.end_limit:  # discard down to end_limit cards; Dead cards stay and count toward it
+                room = max(0, self.end_limit - sum(1 for c in p.hand if c[0] == "D"))
+                kept = live[:min(room, self.hold)]
+            elif self.hold_no_heal:
                 live = [c for c in live if c[0] != "H"] + [c for c in live if c[0] == "H"]
                 kept = [c for c in live if c[0] != "H"][:self.hold]
             else:
@@ -390,7 +398,7 @@ class Game:
             self.storm_step()
         if self.storm == "flip" and p.pos in self.storm_tiles:
             dmg = sched(self.dmg_sched)
-            if getattr(p, "ability", None) == "storm_runner":
+            if getattr(p, "ability", None) == "storm_runner" or (getattr(p, "ability", None) == "storm_runner_early" and self.round < 7):
                 dmg = max(0, dmg - 1)
             p.discard += [("D", 0)] * dmg
             self.m["storm_hits"] += dmg
@@ -486,7 +494,8 @@ class Game:
             stat = STAT[g]
             while p.stats[stat] < 4:
                 cards = sorted([c for c in p.hand if c[0] != "D" and GROUP[c[0]] == g], key=lambda c: c[1])
-                if sum(v for _, v in cards) < self.upgrade_cost:
+                ucost = self.upgrade_cost - (1 if getattr(p, "ability", None) == "tinkerer" and not p.upgrades else 0)
+                if sum(v for _, v in cards) < ucost:
                     break
                 if w is None and self.rng.random() < 0.5:
                     break
@@ -494,13 +503,13 @@ class Game:
                 for c in sorted(cards, key=lambda c: -c[1]):  # fewest cards that reach 4
                     pay.append(c)
                     tot += c[1]
-                    if tot >= self.upgrade_cost:
+                    if tot >= ucost:
                         break
                 for c in pay:
                     p.hand.remove(c)
                     if self.upgrade_pay == "discard":
                         p.discard.append(c)
-                self.m["overpay"] += tot - self.upgrade_cost
+                self.m["overpay"] += tot - ucost
                 p.stats[stat] += 1
                 p.upgrades[g] += 1
                 self.m[f"upgrade_{g}"] += 1
@@ -753,6 +762,7 @@ def main():
     ap.add_argument("--tile-mix", default="even", choices=["even", "armory", "arsenal", "lean_heal"])
     ap.add_argument("--deck-sizes", type=lambda x: [int(v) for v in x.split(",")], default=None, help="Attack,Move,Heal deck sizes")
     ap.add_argument("--heal-both", action="store_true", help="Heal cards heal AND shield")
+    ap.add_argument("--end-limit", type=int, default=0, help="discard down to N cards at end of turn (Dead count)")
     ap.add_argument("--out")
     a = ap.parse_args()
     kw = dict(tiles_per_player=a.tiles_per_player, tiles_total=a.tiles_total, deck_size=a.deck_size,
@@ -766,7 +776,8 @@ def main():
               min_start=a.min_start, hold=a.hold, grace=a.grace,
               storm_sched=parse_sched(a.storm_sched), dmg_sched=parse_sched(a.dmg_sched),
               heal_no_attack=a.heal_no_attack, heal_no_move=a.heal_no_move, hold_no_heal=a.hold_no_heal, heal_values=a.heal_values,
-              min_draw=a.min_draw, drop_rule=a.drop_rule, display_n=a.display, shield_persist=a.shield_persist, shield_cap=a.shield_cap, tile_mix=a.tile_mix, deck_sizes=a.deck_sizes, heal_both=a.heal_both)
+              min_draw=a.min_draw, drop_rule=a.drop_rule, display_n=a.display, shield_persist=a.shield_persist, shield_cap=a.shield_cap, tile_mix=a.tile_mix, deck_sizes=a.deck_sizes, heal_both=a.heal_both,
+              end_limit=a.end_limit)
     res = dict(rules_version=RULES_VERSION, simulation_version=SIM_VERSION,
                campaigns=[campaign(n, a.runs, a.seed, a.population, **kw) for n in a.players])
     s = json.dumps(res, indent=1)
