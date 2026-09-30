@@ -7,7 +7,7 @@
 /* Style study: chunky comic look (thick ink outlines, flat bright fills, halftone, sticker badges).
    Rarity colours follow the game: Common gray, Rare blue, Epic purple, Legendary gold. */
 :root { --ink:#15121c; --paper:#fff8ea; --common:#9aa3b2; --rare:#2f7df6; --epic:#8b3fe0; --legendary:#ffb000;
-        --atk:#ff3b30; --mov:#18a0ff; --heal:#20c060; --dead:#2a2a33; }
+        --atk:#ff3b30; --mov:#9b4dff; --shd:#1e88ff; --heal:#20c060; --dead:#2a2a33; }
 * { box-sizing: border-box; }
 body { margin: 0; padding: 28px 16px; background: #2b2540; font-family: "Nunito", system-ui, sans-serif; }
 h1 { font: 42px "Bangers", Impact, sans-serif; letter-spacing: 2px; color: #ffe066; text-align: center; margin: 0 0 22px;
@@ -74,7 +74,7 @@ h1 { font: 42px "Bangers", Impact, sans-serif; letter-spacing: 2px; color: #ffe0
     <div class="badge">2</div>
     <div class="frame"><div class="title">MED KIT</div>
       <div class="art"><div class="medal"><span class="icon">medical_services</span></div></div>
-      <div class="text"><div>Choose one:</div><div><b>Heal</b> 2 Dead from your hand (then remove this card).</div><div><b>Shield</b> +2 (max 4).</div></div></div>
+      <div class="text"><div>Choose one:</div><div><b style="color:#12994a">Heal</b> 2 Dead from your hand (then remove this card).</div><div><b style="color:var(--shd)">Shield</b> +2 (max 4).</div></div></div>
     <div class="tier">RARE · HEAL</div>
   </div>
 
@@ -84,6 +84,22 @@ h1 { font: 42px "Bangers", Impact, sans-serif; letter-spacing: 2px; color: #ffe0
       <div class="art"><div class="medal"><span class="icon">sprint</span></div></div>
       <div class="text"><div><b>+3 Move</b> this turn.</div></div></div>
     <div class="tier">LEGENDARY · MOVE</div>
+  </div>
+
+  <div class="card" style="--rar:var(--epic); --type:var(--mov)">
+    <div class="badge">3</div>
+    <div class="frame"><div class="title">JUMP PACK</div>
+      <div class="art"><div class="medal"><span class="icon">sprint</span></div></div>
+      <div class="text"><div><b>+3 Move</b> this turn.</div></div></div>
+    <div class="tier">EPIC · MOVE</div>
+  </div>
+
+  <div class="card" style="--rar:var(--rare); --type:var(--shd)">
+    <div class="badge">2</div>
+    <div class="frame"><div class="title">BARRIER</div>
+      <div class="art"><div class="medal"><span class="icon">shield</span></div></div>
+      <div class="text"><div><b style="color:var(--shd)">Shield</b> +2 (max 4).</div><div style="font-size:11px">(Example shield-colour card for comparison)</div></div></div>
+    <div class="tier">RARE · SHIELD</div>
   </div>
 
   <div class="card dead" style="--rar:var(--dead); --type:var(--dead)">
@@ -102,5 +118,5 @@ h1 { font: 42px "Bangers", Impact, sans-serif; letter-spacing: 2px; color: #ffe0
 
 </div>
 <p class="note">Style study only. Card names like Haymaker, Med Kit and Launch Pad are example flavour names, not rules changes.
-The rarity colour frames the card, the type colour (red Attack, blue Move, green Heal) fills the title and art burst, and the value sits in a sticker badge. Art panels are placeholders for real illustration.</p>
+The rarity colour frames the card, the type colour (red Attack, purple Move, green Heal, blue Shield) fills the title and art burst, and the value sits in a sticker badge. Art panels are placeholders for real illustration.</p>
 </body></html>
