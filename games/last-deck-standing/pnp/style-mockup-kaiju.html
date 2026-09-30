@@ -22,10 +22,11 @@ h1 { font: 42px "Bangers", Impact, sans-serif; letter-spacing: 2px; color: #ffe0
        background: repeating-conic-gradient(from 0deg at 50% 50%, var(--type) 0 10deg, color-mix(in srgb, var(--type) 72%, #fff) 10deg 20deg); }
 .art::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(var(--ink) 1.2px, transparent 1.3px);
               background-size: 9px 9px; opacity: .18; }
-.medal { position: relative; z-index: 1; width: 104px; height: 104px; border-radius: 50%; background: #fff;
-         border: 5px solid var(--ink); box-shadow: 5px 5px 0 var(--ink); display: flex; align-items: center; justify-content: center; }
-.medal::before { content: ""; position: absolute; inset: 6px; border-radius: 50%; border: 3px dashed color-mix(in srgb, var(--type) 45%, #fff); }
-.icon { font-family: "Material Symbols Rounded"; font-size: 64px; line-height: 1; color: var(--type);
+.medal { position: relative; z-index: 1; width: 72%; height: 70%; border-radius: 14px; background: #fff;
+         border: 5px solid var(--ink); box-shadow: 5px 5px 0 var(--ink); display: flex; align-items: center; justify-content: center;
+         transform: rotate(-2deg); }
+.medal::before { content: ""; position: absolute; inset: 6px; border-radius: 9px; border: 3px dashed color-mix(in srgb, var(--type) 45%, #fff); }
+.icon { font-family: "Material Symbols Rounded"; font-size: 84px; line-height: 1; color: var(--type);
         font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 48;
         position: relative;
         text-shadow: 2.5px 0 var(--ink), -2.5px 0 var(--ink), 0 2.5px var(--ink), 0 -2.5px var(--ink),
