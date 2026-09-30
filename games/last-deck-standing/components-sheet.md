@@ -18,11 +18,11 @@ Data before art. Quantities are for a full 5-player box. Source of truth for rul
 | HEL-2 | card | Heal 2 | 6 | Choose: heal up to 2 Dead or +2 Shield | supply, heal, blue | Heal deck |
 | HEL-3 | card | Heal 3 | 3 | Choose: heal up to 3 Dead or +3 Shield | supply, heal, purple | Heal deck |
 | DEAD | card | Dead | 60 | No effect; can't be played | dead | **Distinct marked back** so Dead cards are visible in hands and decks |
-| GOLD-* | card | Gold drop cards | 12 | Mixed Attack / Move / Heal, value 2 or 3 (e.g. 2 of each type at value 2 and at value 3) | gold | Supply drops |
+| LEG-* | card | Legendary cards (supply drops) | 12 | Mixed Attack / Move / Heal, value 2 or 3 (e.g. 2 of each type at value 2 and at value 3) | legendary, gold | Supply drops |
 | DROP | token | Supply drop marker | 1 | Marks the current drop | | |
 | CHAR-* | card | Character cards | 10 | One ability each (see rulebook: Characters) | character | Blaze ▲, Shade ☾, Ember ◆, Tide ≈, Nova ★, Gale ☁, Vex ⚡, Bastion ■, Brute ●, Rig ⚙ |
 
-Totals: base 50 · supply 60 (Attack 24, Move 18, Heal 18) · Dead 60 · gold 12.
+Totals: base 50 · supply 60 (Attack 24, Move 18, Heal 18) · Dead 60 · Legendary 12.
 
 ## Loot Tiles
 Per player set (×5 sets = 75 tiles). Mark each tile's set letter (A–E) on its back.
@@ -55,7 +55,7 @@ Per set: 15 tiles, 21 icons (6 Move, 11 Attack, 4 Heal).
 | REF | Reference card | 5 | Quick Reference from the rulebook | |
 
 ## Counts Check
-- [x] Every id appears in the rulebook (gold cards: Ideas for Later)
+- [x] Every id appears in the rulebook 
 - [x] 2 players: 30 tiles, 20 base cards; 5 players: 75 tiles, 50 base cards
 - [x] Dead-card backs are the only back that differs
 - [ ] Art: placeholders only

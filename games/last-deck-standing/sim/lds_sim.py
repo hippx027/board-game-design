@@ -110,7 +110,8 @@ class Game:
                  values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False, elim_timing="upkeep",
                  play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False,
                  min_start=0, hold=0, grace=0, storm_sched=None, dmg_sched=None, heal_no_attack=False, heal_no_move=False, hold_no_heal=False,
-                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False, characters=None, end_limit=0):
+                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False, characters=None, end_limit=0, shield_decay=False, base_shd_max=4, shield_card_remove=False):
+        self.shield_decay, self.base_shd_max, self.shield_card_remove = shield_decay, base_shd_max, shield_card_remove
         self.end_limit = end_limit
         self.characters = characters
         self.heal_both = heal_both
@@ -264,7 +265,10 @@ class Game:
     # --- turn ------------------------------------------------------------
     def play_turn(self, p, rnd):
         rng = self.rng
-        p.shield = max(p.shield, p.stats["shd"]) if self.shield_persist else p.stats["shd"]
+        if self.shield_persist and self.shield_decay:
+            p.shield = max(p.stats["shd"], p.shield - 1)
+        else:
+            p.shield = max(p.shield, p.stats["shd"]) if self.shield_persist else p.stats["shd"]
         before = len(p.hand)
         hs = 6 if getattr(p, "ability", None) == "quick_draw" else 5
         p.draw_to(hs, rng)
@@ -374,6 +378,7 @@ class Game:
             return
 
         spent = [("H", c[1]) if c[0] == "X" else c for c in played
+                 if not (self.shield_card_remove and c[0] == "X")
                  if c[0] != "H" or self.heal_keep or (self.heal_both and not healed)]
         if self.sticky_dead:
             live = sorted((c for c in p.hand if c[0] != "D"), key=lambda c: (c[0] == "H", c[1]), reverse=True)
@@ -493,7 +498,7 @@ class Game:
         w = PROFILES[p.profile]
         for g in sorted("AMH", key=lambda g: -(w["up"][g] if w else self.rng.random())):
             stat = STAT[g]
-            while p.stats[stat] < 4:
+            while p.stats[stat] < (self.base_shd_max if stat == "shd" else 4):
                 cards = sorted([c for c in p.hand if c[0] != "D" and GROUP[c[0]] == g], key=lambda c: c[1])
                 ucost = self.upgrade_cost - (1 if getattr(p, "ability", None) == "tinkerer" and not p.upgrades else 0)
                 if sum(v for _, v in cards) < ucost:

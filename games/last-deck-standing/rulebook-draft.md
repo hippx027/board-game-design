@@ -20,13 +20,13 @@ Designers: Brandon and Chris.
 | Player pawn | 1 per player | |
 | Stat tracker | 1 per player | Tracks Base Move, Base Attack and Base Shield (each 0–4) and current Shield points (0–4) |
 | Round track and marker | 1 | 25 spaces; round 7 marked "Storm closes fast"; rounds 3, 5, 7, 9, 11 marked "Supply drop" |
-| Gold deck | 12 | For supply drops: 2 each of Attack 2, Attack 3, Move 2, Move 3, Heal 2, Heal 3 |
+| Legendary deck | 12 | For supply drops: 2 each of Attack 2, Attack 3, Move 2, Move 3, Heal 2, Heal 3 |
 | Supply drop marker | 1 | Shows where the current drop landed |
 | Storm markers | 50 | Discs or translucent hex overlays placed on tiles; loot icons stay visible |
 | Loot pile markers | 4 | Mark an eliminated player's loot pile on the board |
 | Character cards | 10 | Optional variant: one ability each; see Characters |
 
-Each card has a value from 1 to 3, which is its strength. Rarity color: value 1 gray, 2 blue, 3 purple.
+Each card has a value from 1 to 3, which is its strength. Rarity follows Fortnite: value 1 Common (gray), 2 Rare (blue), 3 Epic (purple). Supply drop cards are Legendary (gold).
 
 ## Setup
 1. Randomly choose a starting player.
@@ -34,7 +34,7 @@ Each card has a value from 1 to 3, which is its strength. Rarity color: value 1 
 3. **Loot.** Put a matching loot cube on every loot icon on the board.
 4. In turn order, starting with the start player, each player places their pawn on any tile at least **3 tiles away** (hex distance, counted straight across any gaps) from every pawn already placed. If no tile is that far away, choose the tile whose nearest pawn is as far away as possible.
 5. Place the round marker on round 1 of the round track.
-6. Shuffle the gold deck face down. Shuffle the three supply decks separately and place them face down. Turn the top **2** cards of each deck face up in a row beside it. Those 6 cards are the **loot display**.
+6. Shuffle the Legendary deck face down. Shuffle the three supply decks separately and place them face down. Turn the top **2** cards of each deck face up in a row beside it. Those 6 cards are the **loot display**.
 7. **Characters (optional variant; skip for your first games).** Shuffle the character cards and deal 2 to each player. Keep 1 face up in front of you and return the other to the box.
 8. Each player sets their stats to Base Move 1, Base Attack 1, Base Shield 0, then applies their character's changes if you're using characters.
 9. Each player shuffles their 10-card base deck and draws 5 cards.
@@ -138,7 +138,7 @@ The storm closes in from the outside of the board, like a shrinking circle. At t
 A supply drop lands at the start of rounds **3, 5, 7, 9 and 11**, before the start player's upkeep. The number of drops is set by the **starting** player count: with 2 players, only rounds 3 and 5; with 3 players, rounds 3, 5 and 7; and so on. When a new drop lands, any card left in the previous drop is removed from the game.
 
 1. **Who places it:** the start player places the first drop (or the next player clockwise still in the game, if the start player is out), then placing passes clockwise to the next player still in the game.
-2. **Placing:** draw 2 gold cards face up and put them with the drop marker on any tile that is **not a storm tile and not an edge tile**. If there is none, use any tile that isn't an edge tile; if there is none of those either, any tile.
+2. **Placing:** draw 2 Legendary cards face up and put them with the drop marker on any tile that is **not a storm tile and not an edge tile**. If there is none, use any tile that isn't an edge tile; if there is none of those either, any tile.
 3. **Nudging:** then each other player, clockwise, may move the drop 1 tile in any direction (onto any tile, storm or edge included) or pass.
 4. **Looting:** looting the drop uses your loot action. Take 1 of its cards into your discard pile. The other card stays for the next looter. When both are taken, remove the marker.
 

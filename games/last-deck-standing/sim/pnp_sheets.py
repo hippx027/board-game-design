@@ -8,7 +8,7 @@ import os
 import subprocess
 
 OUT = os.path.join(os.path.dirname(__file__), "..", "pnp")
-# Player colours are chosen to never match the rarity colours (gray / blue / purple) or gold.
+# Rarity follows Fortnite: Common gray, Rare blue, Epic purple, Legendary gold.
 # Starting cards use the normal rarity colour (gray, common); the character is shown by name + symbol in the top bar.
 PLAYERS = [(f"Player {i}", f"{i}") for i in range(1, 6)]  # characters now come from ability cards
 RARITY = {1: ("#8a8f9c", "Common"), 2: ("#2f6fd0", "Rare"), 3: ("#7b3fc4", "Epic")}
@@ -21,10 +21,10 @@ TEXT = {
 }
 
 
-def card(kind, v, name=None, stripe=None, gold=False, owner=None):
+def card(kind, v, name=None, stripe=None, legendary=False, owner=None):
     color, tier = RARITY[v]
-    if gold:
-        color, tier = "#b8860b", "Gold"
+    if legendary:
+        color, tier = "#c98a00", "Legendary"
     title = name or f"{TYPE[kind]} {v}"
     body = TEXT[kind].format(v=v, s="" if v == 1 else "s")
     band = f'<div class="band">{html.escape(owner.upper())}</div>' if owner else ""
@@ -68,7 +68,7 @@ def main():
         for v, n in (((1, 12), (2, 8), (3, 4)) if k == "A" else ((1, 9), (2, 6), (3, 3))):
             cards += [card(k, v)] * n
     for k in "AMH":
-        cards += [card(k, 2, gold=True)] * 2 + [card(k, 3, gold=True)] * 2
+        cards += [card(k, 2, legendary=True)] * 2 + [card(k, 3, legendary=True)] * 2
     dead = [dead_card()] * 60
     tiles = []
     for letter in "ABCDE":
