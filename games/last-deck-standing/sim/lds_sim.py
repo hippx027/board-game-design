@@ -110,7 +110,8 @@ class Game:
                  values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False, elim_timing="upkeep",
                  play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False,
                  min_start=0, hold=0, grace=0, storm_sched=None, dmg_sched=None, heal_no_attack=False, heal_no_move=False, hold_no_heal=False,
-                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False, characters=None, end_limit=0, shield_decay=False, base_shd_max=4, shield_card_remove=False, legendary_values=None):
+                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False, characters=None, end_limit=0, shield_decay=False, base_shd_max=4, shield_card_remove=False, legendary_values=None, no_cache=False):
+        self.no_cache = no_cache
         self.shield_decay, self.base_shd_max, self.shield_card_remove = shield_decay, base_shd_max, shield_card_remove
         self.end_limit = end_limit
         self.characters = characters
@@ -306,8 +307,11 @@ class Game:
         self.m["play_slots"] += 2
 
         healed = 0
-        if getattr(p, "ability", None) in ("field_medic", "field_medic_keep"):
+        ab = getattr(p, "ability", None)
+        if ab in ("field_medic", "field_medic_keep", "medic_nohold"):
             heal += MEDIC_BONUS * sum(1 for k, v in played if k == "H")
+        elif ab == "medic_plus1":
+            heal += sum(1 for k, v in played if k == "H")
         for _ in range(heal):
             if ("D", 0) in p.hand:
                 p.hand.remove(("D", 0))
@@ -381,9 +385,11 @@ class Game:
         spent = [("H", c[1]) if c[0] == "X" else c for c in played
                  if not (self.shield_card_remove and c[0] == "X")
                  if c[0] != "H" or self.heal_keep or (self.heal_both and not healed)
-                 or getattr(p, "ability", None) == "field_medic_keep"]
+                 or getattr(p, "ability", None) in ("field_medic_keep", "medic_nohold", "medic_plus1")]
         if self.sticky_dead:
             live = sorted((c for c in p.hand if c[0] != "D"), key=lambda c: (c[0] == "H", c[1]), reverse=True)
+            if getattr(p, "ability", None) == "medic_nohold":  # recycled Heal cards can't be kept
+                live = [c for c in live if c[0] != "H"] + [c for c in live if c[0] == "H"]
             if self.end_limit:  # discard down to end_limit cards; Dead cards stay and count toward it
                 lim = self.end_limit + (1 if getattr(p, "ability", None) == "keep4" else 0)
                 room = max(0, lim - sum(1 for c in p.hand if c[0] == "D"))
@@ -438,7 +444,9 @@ class Game:
 
     def take_loot(self, p, kind, rnd):
         self.m["loots"] += 1
-        if self.display[kind]:
+        if self.display_n == 0:
+            card = self.decks[kind].pop() if self.decks[kind] else None
+        elif self.display[kind]:
             card = max(self.display[kind], key=lambda c: c[1])  # take the best face-up card
             self.display[kind].remove(card)
             if self.decks[kind]:
@@ -492,7 +500,7 @@ class Game:
         if self.pile:
             if p.pos in self.tiles:
                 self.piles.setdefault(p.pos, []).extend(p.draw + p.discard + p.hand)
-        elif p.pos in self.tiles:
+        elif p.pos in self.tiles and not self.no_cache:
             self.tiles[p.pos] += ["M", "A", "H"]
 
     # --- bot decisions ---------------------------------------------------
@@ -504,7 +512,11 @@ class Game:
             while p.stats[stat] < smax:
                 cards = sorted([c for c in p.hand if c[0] != "D" and GROUP[c[0]] == g], key=lambda c: c[1])
                 ab = getattr(p, "ability", None)
-                ucost = self.upgrade_cost - (1 if (ab == "tinkerer" and not p.upgrades) or ab == "tinkerer_all" else 0) \
+                once = ab == "tinkerer_once" and getattr(p, "last_upg_turn", -1) != self.m["turns"]
+                perstat = ab == "tinkerer_perstat" and not p.upgrades.get(g)
+                if ab == "tinkerer_once" and not once and p.upgrades:
+                    pass
+                ucost = self.upgrade_cost - (1 if (ab == "tinkerer" and not p.upgrades) or ab == "tinkerer_all" or once or perstat else 0) \
                         + (1 if ab == "tank_slow" else 0)
                 if sum(v for _, v in cards) < ucost:
                     break
@@ -523,6 +535,7 @@ class Game:
                 self.m["overpay"] += tot - ucost
                 p.stats[stat] += 1
                 p.upgrades[g] += 1
+                p.last_upg_turn = self.m["turns"]
                 self.m[f"upgrade_{g}"] += 1
 
     def play_options(self, p):
@@ -624,7 +637,7 @@ class Game:
                     loot = "G"
                     s += w["loot"] * 3.5
                 elif self.tiles[dest]:
-                    shown = lambda k: max((c[1] for c in self.display[k]), default=0)
+                    shown = lambda k: max((c[1] for c in self.display[k]), default=0) if self.display_n else 1.5
                     loot = max(self.tiles[dest], key=shown)
                     s += w["loot"] * (1 + shown(loot) * 0.5)
                 danger = sum(max(0, q.stats["atk"] + 2 - hexdist(dest, q.pos) - shd) for q in foes)

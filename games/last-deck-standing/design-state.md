@@ -24,6 +24,7 @@ Updated 2026-09-29 · Designers: Brandon and Chris · Milestone: 1 → 3 (paper 
 - Supply drops: Legendary deck (values 3/3/4/4 per type, SIM-022), one per player at rounds 3, 5, 7, 9, 11; placement rotates from the start player; placed on a tile that's not storm or edge; nudge 1 tile each (SIM-011/013)
 - Holding: at end of turn discard down to 3 cards (Dead cards stay and count); at upkeep draw to 5, so you always draw at least 2 (SIM-020)
 - Elimination loot pile: 5 / 3 / 1 picks
+- First Game (learning rules) box: no drops, loot piles, upgrades, loot display, critical call or characters; plays the same length with no stalls (SIM-024)
 - Characters (optional variant until human playtests): 10 character (ability) cards, deal 2 keep 1; starting decks labelled Player 1–5 (SIM-019)
 - Supply decks: Attack 24, Move 18, Heal 18 (same 1/2 : 1/3 : 1/6 value spread), 2 face up per deck (6-card loot display); 60 Dead cards
 - Heal affects your hand only

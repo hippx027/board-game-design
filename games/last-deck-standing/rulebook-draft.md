@@ -7,6 +7,20 @@ Designers: Brandon and Chris.
 - **Goal:** Be the last player standing. You knock opponents out by flooding their decks with Dead cards.
 - **You are eliminated** if you end your turn with 3 or more Dead cards in your hand. Dead cards stay in your hand until you heal them, so every hit also slows you down.
 
+## First Game (learning rules)
+For your first game, leave these out. Everything else plays exactly as written.
+
+| Leave out | Instead |
+|---|---|
+| Supply Drops | No drops; skip the Legendary deck |
+| Loot piles | When a player is eliminated, all their cards leave the game |
+| Upgrading | Stats never change from their starting values |
+| The loot display | When you loot a cube, take the top card of that deck |
+| The "critical" call | Just check for 3+ Dead cards at the end of your turn |
+| Characters | Don't use them |
+
+Simulated first games run the same length as full games (about 11–14 rounds) and never stall. Add the full rules from your second game.
+
 ## Components
 | Item | Qty | Notes |
 |---|---|---|
