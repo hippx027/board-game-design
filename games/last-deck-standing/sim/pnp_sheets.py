@@ -1,6 +1,8 @@
 """Generate print-and-play sheets (HTML → PDF via headless Chrome) for Last Deck Standing.
 
-Usage: python3 pnp_sheets.py            # writes ../pnp/last-deck-standing-pnp.html and .pdf
+Usage: python3 pnp_sheets.py
+  writes ../pnp/last-deck-standing-pnp.{html,pdf}        (ink-saver: plain cards)
+     and ../pnp/last-deck-standing-pnp-color.{html,pdf}  (full-colour comic style, see style-mockup-kaiju.html)
 Quantities follow components-sheet.md (full 5-player box).
 """
 import html
@@ -11,7 +13,7 @@ OUT = os.path.join(os.path.dirname(__file__), "..", "pnp")
 # Rarity follows Fortnite: Common gray, Rare blue, Epic purple, Legendary gold.
 # Starting cards use the normal rarity colour (gray, common); the character is shown by name + symbol in the top bar.
 PLAYERS = [(f"Player {i}", f"{i}") for i in range(1, 6)]  # characters now come from ability cards
-RARITY = {1: ("#8a8f9c", "Common"), 2: ("#2f6fd0", "Rare"), 3: ("#7b3fc4", "Epic")}
+RARITY = {1: ("#8a8f9c", "Common"), 2: ("#2f6fd0", "Rare"), 3: ("#7b3fc4", "Epic"), 4: ("#c98a00", "Legendary")}
 ICON = {"A": "&#9876;", "M": "&#10140;", "H": "&#10010;", "D": "&#9760;"}  # crossed swords, arrow, cross, skull
 TYPE = {"A": "Attack", "M": "Move", "H": "Heal"}
 TEXT = {
@@ -21,7 +23,7 @@ TEXT = {
 }
 
 
-def card(kind, v, name=None, stripe=None, legendary=False, owner=None):
+def card_plain(kind, v, name=None, stripe=None, legendary=False, owner=None):
     color, tier = RARITY[v]
     if legendary:
         color, tier = "#c98a00", "Legendary"
@@ -32,6 +34,42 @@ def card(kind, v, name=None, stripe=None, legendary=False, owner=None):
             f'<div class="top"><span class="val">{v}</span><span class="icon">{ICON[kind]}</span></div>'
             f'<div class="name">{html.escape(title)}</div><div class="tier">{"Starting deck" if owner else tier} &middot; {TYPE[kind]}</div>'
             f'<div class="text">{body}</div></div>')
+
+
+# --- full-colour comic style -------------------------------------------------------
+TYPE_COLOR = {"A": "#ff3b30", "M": "#9b4dff", "H": "#20c060"}
+MSYM = {"A": "swords", "M": "sprint", "H": "medical_services", "D": "skull"}
+COMIC_TEXT = {
+    "A": "<b>+{v} Attack</b> this turn.",
+    "M": "<b>+{v} Move</b> this turn.",
+    "H": 'Choose one:<br><b class="hl">Heal:</b> remove up to {v} Dead from your hand, then remove this card.<br><b class="sh">Shield:</b> +{v} (max 4), stays until used.',
+}
+
+
+def comic(title, typ, icon, text, rarity_color=None, value=None, tag="", owner=None, cls=""):
+    badge = f'<div class="badge" style="background:{rarity_color}">{value}</div>' if value is not None else ""
+    own = f'<div class="owner">{html.escape(owner.upper())}</div>' if owner else ""
+    tagc = rarity_color or "#15121c"
+    return (f'<div class="cc {cls}" style="--type:{typ}">{badge}{own}<div class="frame">'
+            f'<div class="title{" long" if len(title) > 11 else ""}">{html.escape(title)}</div>'
+            f'<div class="art"><div class="plate"><span class="msym">{icon}</span></div></div>'
+            f'<div class="text"><div>{text}</div></div></div><div class="tag" style="background:{tagc}">{tag}</div></div>')
+
+
+def card_color(kind, v, name=None, stripe=None, legendary=False, owner=None):
+    color, tier = RARITY[4] if legendary else RARITY[v]
+    title = name or f"{TYPE[kind]} {v}"
+    tag = "Starting deck" if owner else f"{tier} &middot; {TYPE[kind]}"
+    return comic(title, TYPE_COLOR[kind], MSYM[kind], COMIC_TEXT[kind].format(v=v), color, v, tag, owner)
+
+
+def dead_card_color():
+    return comic("DEAD", "#2a2a33", "skull", "Can't be played. Stays in your hand.<br><b>3 in hand at end of turn = OUT.</b>",
+                 tag="Dead &middot; different back", cls="dead")
+
+
+def char_card_color(icon, name, ability, text):
+    return comic(name, "#ff7a1a", icon, f"<b>{ability}</b><br>{text}", tag="Character", cls="char")
 
 
 def dead_card():
@@ -58,8 +96,14 @@ def tile(icons, letter):
     return f'<div class="hex"><div class="hexin">{dots}</div><span class="set">{letter}</span></div>'
 
 
-def main():
+CHAR_ICON = {"Blaze": "local_fire_department", "Shade": "dark_mode", "Ember": "diamond", "Tide": "waves", "Nova": "star",
+             "Gale": "cyclone", "Vex": "bolt", "Bastion": "fort", "Brute": "sports_mma", "Rig": "build"}
+
+
+def main(style="plain"):
     os.makedirs(OUT, exist_ok=True)
+    color = style == "color"
+    card = card_color if color else card_plain
     cards = []
     for pname, sym in PLAYERS:
         cards += ([card("A", 1, "Strike", sym, owner=pname)] * 4 + [card("M", 1, "Dash", sym, owner=pname)] * 3
@@ -68,8 +112,8 @@ def main():
         for v, n in (((1, 12), (2, 8), (3, 4)) if k == "A" else ((1, 9), (2, 6), (3, 3))):
             cards += [card(k, v)] * n
     for k in "AMH":
-        cards += [card(k, 2, legendary=True)] * 2 + [card(k, 3, legendary=True)] * 2
-    dead = [dead_card()] * 60
+        cards += [card(k, 3, legendary=True)] * 2 + [card(k, 4, legendary=True)] * 2
+    dead = [dead_card_color() if color else dead_card()] * 60
     tiles = []
     for letter in "ABCDE":
         tiles.append([tile(t, letter) for t in TILE_SET])
@@ -87,17 +131,18 @@ def main():
         for r in range(1, 26))
     storm = "".join('<div class="mini"></div>' for _ in range(50))
 
-    chars = [("&#9650;", "Blaze", "Point blank", "Your attacks deal +1 damage to a player on your own tile."),
-             ("&#9790;", "Shade", "Long shot", "Your attacks deal +1 damage to a player who isn't on your tile."),
+    chars = [("&#9650;", "Blaze", "Point blank", "When you attack a player on your own tile, add 1 damage (before their Shield)."),
+             ("&#9790;", "Shade", "Long shot", "When you attack an in-range player who isn't on your tile, add 1 damage (before their Shield)."),
              ("&#9670;", "Ember", "Scavenge", "After your normal loot, you may take 1 more cube from the same tile."),
              ("&#8776;", "Tide", "Runner", "Your Base Move starts at 2."),
-             ("&#9733;", "Nova", "Field medic", "Your Base Move starts at 2. Each Heal card you use to heal removes 2 extra Dead cards."),
-             ("&#9729;&#xFE0E;", "Gale", "Storm runner", "You take 1 less storm damage."),
-             ("&#9889;&#xFE0E;", "Vex", "Siphon", "When your attack puts 2+ Dead cards on a player, return 1 Dead card from your hand to the supply."),
-             ("&#9632;", "Bastion", "Armored", "You start the game with 1 Shield point (it doesn't refill at upkeep)."),
+             ("&#9733;", "Nova", "Field medic", "Your Base Move starts at 2. Each Heal card you use to heal removes up to 2 extra Dead cards from your hand."),
+             ("&#9729;&#xFE0E;", "Gale", "Storm runner", "You take 1 less storm damage (none in rounds 1&ndash;6)."),
+             ("&#9889;&#xFE0E;", "Vex", "Siphon", "When your attack puts 2+ Dead cards on a player after their Shield, return 1 Dead card from your hand to the supply."),
+             ("&#9632;", "Bastion", "Armored", "You start the game with 1 Shield point. Your Base Shield is still 0."),
              ("&#9679;", "Brute", "Heavy hitter", "Your Base Attack starts at 2."),
-             ("&#9881;", "Rig", "Tinkerer", "Your first upgrade costs 3 instead of 4.")]
-    char_cards = [f'<div class="card char"><div class="sym">{sym}</div><div class="name">{nm}</div>'
+             ("&#9881;", "Rig", "Tinkerer", "Your first upgrade of the game costs 3 instead of 4.")]
+    char_cards = [char_card_color(CHAR_ICON[nm], nm, ab, tx) for sym, nm, ab, tx in chars] if color else \
+                 [f'<div class="card char"><div class="sym">{sym}</div><div class="name">{nm}</div>'
                   f'<div class="tier">Character</div><div class="ab">{ab}</div><div class="text">{tx}</div></div>'
                   for sym, nm, ab, tx in chars]
     body = []
@@ -170,17 +215,61 @@ h2 { font-size: 14pt; margin: 0 0 0.1in; }
 .ref { border: 1px solid #999; padding: 0.15in; margin-bottom: 0.2in; font-size: 10pt; }
 .ref p { margin: 0.04in 0; }
 """
-    doc = f'<!doctype html><html><head><meta charset="utf-8"><title>Last Deck Standing PnP</title><style>{css}</style></head><body>{"".join(body)}</body></html>'
-    html_path = os.path.abspath(os.path.join(OUT, "last-deck-standing-pnp.html"))
+    fonts = ""
+    if color:
+        css += COMIC_CSS
+        fonts = ('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@700;900&display=block">'
+                 '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,700,1,0&display=block">')
+    doc = (f'<!doctype html><html><head><meta charset="utf-8"><title>Last Deck Standing PnP</title>{fonts}'
+           f'<style>{css}</style></head><body>{"".join(body)}</body></html>')
+    html_path = os.path.abspath(os.path.join(OUT, "last-deck-standing-pnp" + ("-color" if color else "") + ".html"))
     open(html_path, "w").write(doc)
     pdf_path = html_path.replace(".html", ".pdf")
     chrome = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
     if os.path.exists(chrome):
-        subprocess.run([chrome, "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
+        subprocess.run([chrome, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", "--virtual-time-budget=15000",
                         f"--print-to-pdf={pdf_path}", "file://" + html_path],
                        check=True, capture_output=True)
-    print(f"cards: {len(cards)} + {len(dead)} dead · tiles: {sum(map(len, tiles))} · wrote {html_path}")
+    print(f"{style}: cards {len(cards)} + {len(dead)} dead · tiles {sum(map(len, tiles))} · wrote {html_path}")
+
+
+COMIC_CSS = """
+* { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.cc { --ink:#15121c; position: relative; width: 2.5in; height: 3.5in; background: #3b3550; padding: 0.09in;
+      outline: 1px dashed #aaa; outline-offset: -1px; display: flex; flex-direction: column; font-family: "Nunito", sans-serif; }
+.cc .frame { flex: 1; background: #fff8ea; border: 3px solid var(--ink); border-radius: 0.1in; display: flex; flex-direction: column; overflow: hidden; }
+.cc .title { font: 19pt/1 "Bangers", Impact, sans-serif; letter-spacing: 1px; color: #fff; text-align: center; background: var(--type);
+             border-bottom: 3px solid var(--ink); padding: 0.06in 0.08in 0.05in 0.42in; white-space: nowrap;
+             -webkit-text-stroke: 1px var(--ink); text-shadow: 2px 2px 0 var(--ink); }
+.cc .title.long { font-size: 15pt; }
+.cc .art { flex: 1; min-height: 1.2in; border-bottom: 3px solid var(--ink); display: flex; align-items: center; justify-content: center;
+           background: repeating-conic-gradient(from 0deg at 50% 50%, var(--type) 0 10deg, color-mix(in srgb, var(--type) 72%, #fff) 10deg 20deg); }
+.cc .plate { width: 70%; height: 72%; background: #fff; border: 3px solid var(--ink); border-radius: 0.1in; box-shadow: 3px 3px 0 var(--ink);
+             display: flex; align-items: center; justify-content: center; transform: rotate(-2deg); }
+.cc .msym { font-family: "Material Symbols Sharp"; font-size: 50pt; line-height: 1; color: var(--type);
+            font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 48;
+            text-shadow: 2px 0 var(--ink), -2px 0 var(--ink), 0 2px var(--ink), 0 -2px var(--ink),
+                         1.4px 1.4px var(--ink), -1.4px 1.4px var(--ink), 1.4px -1.4px var(--ink), -1.4px -1.4px var(--ink); }
+.cc .text { padding: 0.06in 0.08in 0.2in; font: 700 8.5pt/1.3 "Nunito", sans-serif; color: var(--ink); text-align: center; min-height: 0.75in;
+            display: flex; flex-direction: column; justify-content: center; }
+.cc .text b { font-weight: 900; } .cc .text .hl { color: #129a4a; } .cc .text .sh { color: #1e6fe0; }
+.cc .badge { position: absolute; top: 0.03in; left: 0.03in; width: 0.5in; height: 0.5in; border-radius: 50%; border: 3px solid var(--ink);
+             color: #fff; font: 22pt/1 "Bangers", Impact, sans-serif; display: flex; align-items: center; justify-content: center;
+             -webkit-text-stroke: 1px var(--ink); box-shadow: 2px 2px 0 var(--ink); z-index: 2; }
+.cc .owner { position: absolute; top: 0.47in; right: 0.14in; background: var(--ink); color: #fff; font: 9pt "Bangers", Impact, sans-serif;
+             letter-spacing: 1px; padding: 1px 6px; border-radius: 4px; z-index: 2; }
+.cc .tag { position: absolute; bottom: 0.13in; left: 50%; transform: translateX(-50%) rotate(-2deg); color: #fff; border: 2.5px solid var(--ink);
+           border-radius: 5px; padding: 1px 9px; font: 10pt "Bangers", Impact, sans-serif; letter-spacing: 1px; white-space: nowrap;
+           -webkit-text-stroke: .5px var(--ink); box-shadow: 2px 2px 0 var(--ink); }
+.cc.dead .frame { background: #3a3a46; } .cc.dead .text { color: #f3f3f3; }
+.cc.dead .art { background: repeating-linear-gradient(135deg, #2a2a33 0 12px, #34343f 12px 24px); }
+.cc.dead .plate { background: #e8e8f0; } .cc.dead .msym { color: #2a2a33; text-shadow: none; }
+.cc.dead .title { padding-left: 0.08in; }
+.cc.char .art { background: repeating-conic-gradient(from 0deg at 50% 50%, #ffd23f 0 10deg, #ff8a3d 10deg 20deg); }
+.cc.char .title { padding-left: 0.08in; }
+"""
 
 
 if __name__ == "__main__":
-    main()
+    main("plain")
+    main("color")

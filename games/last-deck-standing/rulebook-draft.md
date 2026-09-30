@@ -20,13 +20,13 @@ Designers: Brandon and Chris.
 | Player pawn | 1 per player | |
 | Stat tracker | 1 per player | Tracks Base Move, Base Attack and Base Shield (each 0–4) and current Shield points (0–4) |
 | Round track and marker | 1 | 25 spaces; round 7 marked "Storm closes fast"; rounds 3, 5, 7, 9, 11 marked "Supply drop" |
-| Legendary deck | 12 | For supply drops: 2 each of Attack 2, Attack 3, Move 2, Move 3, Heal 2, Heal 3 |
+| Legendary deck | 12 | For supply drops: 2 each of Attack 3, Attack 4, Move 3, Move 4, Heal 3, Heal 4 |
 | Supply drop marker | 1 | Shows where the current drop landed |
 | Storm markers | 50 | Discs or translucent hex overlays placed on tiles; loot icons stay visible |
 | Loot pile markers | 4 | Mark an eliminated player's loot pile on the board |
 | Character cards | 10 | Optional variant: one ability each; see Characters |
 
-Each card has a value from 1 to 3, which is its strength. Rarity follows Fortnite: value 1 Common (gray), 2 Rare (blue), 3 Epic (purple). Supply drop cards are Legendary (gold).
+Each card has a value from 1 to 4, which is its strength (value 4 only appears on Legendary cards). Rarity follows Fortnite: value 1 Common (gray), 2 Rare (blue), 3 Epic (purple). Supply drop cards are Legendary (gold).
 
 ## Setup
 1. Randomly choose a starting player.

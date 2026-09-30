@@ -18,7 +18,7 @@ Data before art. Quantities are for a full 5-player box. Source of truth for rul
 | HEL-2 | card | Heal 2 | 6 | Choose: heal up to 2 Dead or +2 Shield | supply, heal, blue | Heal deck |
 | HEL-3 | card | Heal 3 | 3 | Choose: heal up to 3 Dead or +3 Shield | supply, heal, purple | Heal deck |
 | DEAD | card | Dead | 60 | No effect; can't be played | dead | **Distinct marked back** so Dead cards are visible in hands and decks |
-| LEG-* | card | Legendary cards (supply drops) | 12 | Mixed Attack / Move / Heal, value 2 or 3 (e.g. 2 of each type at value 2 and at value 3) | legendary, gold | Supply drops |
+| LEG-* | card | Legendary cards (supply drops) | 12 | 2 each of Attack 3, Attack 4, Move 3, Move 4, Heal 3, Heal 4 | legendary, gold | Supply drops |
 | DROP | token | Supply drop marker | 1 | Marks the current drop | | |
 | CHAR-* | card | Character cards | 10 | One ability each (see rulebook: Characters) | character | Blaze ▲, Shade ☾, Ember ◆, Tide ≈, Nova ★, Gale ☁, Vex ⚡, Bastion ■, Brute ●, Rig ⚙ |
 

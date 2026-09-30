@@ -138,7 +138,7 @@ class Game:
         self.drops = {}
         self.drop_count = 0
         # Legendary deck, as in the rules: 4 cards of each type (Attack, Move, Heal)
-        self.gold = [(k, v) for k in "AMH" for v in (legendary_values or [2, 2, 3, 3])]
+        self.gold = [(k, v) for k in "AMH" for v in (legendary_values or [3, 3, 4, 4])]
         rng.shuffle(self.gold)
         self.storm_per_turn = storm_per_turn
         self.storm, self.upgrade_pay, self.upgrade_cost, self.push = storm, upgrade_pay, upgrade_cost, push
