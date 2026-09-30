@@ -97,12 +97,12 @@ Not used in the base game yet; try them after a few games without. Each characte
 | ☾ **The Sniper** | **Long shot:** when you attack a player who isn't on your tile and they're in range, add 1 damage (before their Shield). It can't bring an out-of-range player into range. |
 | ◆ **The Scavenger** | **Scavenge:** after your normal loot, you may take 1 more **cube** from the same tile. |
 | ≈ **The Runner** | **Runner:** your Base Move starts at 2. |
-| ★ **The Medic** | **Field medic:** each Heal card you use to heal removes up to its value **+2** Dead cards from your hand, then goes to your discard pile with your other played cards instead of leaving the game. |
+| ★ **The Medic** | **Field medic:** each Heal card you use to heal removes up to its value **+2** Dead cards from your hand, then goes to your discard pile with your other played cards instead of leaving the game. You can't keep Heal cards in your hand at the end of your turn. |
 | ☁ **The Storm Chaser** | **Storm runner:** you take 1 less storm damage (so none in rounds 1–6). |
 | ⚡ **The Leech** | **Siphon:** when your attack puts 2 or more Dead cards on a player after their Shield, return 1 Dead card from your hand to the supply. |
 | ■ **The Tank** | **Armored:** your Base Shield starts at 1, but all your upgrades (any stat) cost 5 instead of 4. |
 | ● **The Heavy** | **Heavy hitter:** your Base Attack starts at 2. |
-| ⚙ **The Mechanic** | **Tinkerer:** your upgrades cost 3 instead of 4. |
+| ⚙ **The Mechanic** | **Tinkerer:** the first upgrade of each stat costs you 3 instead of 4. |
 
 ## Attacking
 1. Total Attack = Base Attack + Attack cards played this turn.

@@ -160,12 +160,12 @@ def main(style="plain"):
              ("&#9790;", "Shade", "Long shot", "When you attack an in-range player who isn't on your tile, add 1 damage (before their Shield)."),
              ("&#9670;", "Ember", "Scavenge", "After your normal loot, you may take 1 more cube from the same tile."),
              ("&#8776;", "Tide", "Runner", "Your Base Move starts at 2."),
-             ("&#9733;", "Nova", "Field medic", "Each Heal card you use to heal removes up to its value +2 Dead cards from your hand, then goes to your discard pile instead of leaving the game."),
+             ("&#9733;", "Nova", "Field medic", "Each Heal card you use to heal removes up to its value +2 Dead cards from your hand, then goes to your discard pile instead of leaving the game. You can't keep Heal cards at end of turn."),
              ("&#9729;&#xFE0E;", "Gale", "Storm runner", "You take 1 less storm damage (none in rounds 1&ndash;6)."),
              ("&#9889;&#xFE0E;", "Vex", "Siphon", "When your attack puts 2+ Dead cards on a player after their Shield, return 1 Dead card from your hand to the supply."),
              ("&#9632;", "Bastion", "Armored", "Your Base Shield starts at 1, but all your upgrades (any stat) cost 5 instead of 4."),
              ("&#9679;", "Brute", "Heavy hitter", "Your Base Attack starts at 2."),
-             ("&#9881;", "Rig", "Tinkerer", "Your upgrades cost 3 instead of 4.")]
+             ("&#9881;", "Rig", "Tinkerer", "The first upgrade of each stat costs you 3 instead of 4.")]
     char_cards = [char_card_color(CHAR_ICON[nm], nm, ab, tx) for sym, nm, ab, tx in chars] if color else \
                  [f'<div class="card char"><div class="sym">{sym}</div><div class="name">{CHAR_THEME[nm][3]}</div>'
                   f'<div class="tier">Character</div><div class="ab">{ab}</div><div class="text">{tx}</div></div>'
