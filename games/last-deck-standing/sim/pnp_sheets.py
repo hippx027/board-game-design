@@ -68,8 +68,25 @@ def dead_card_color():
                  tag="Dead &middot; different back", cls="dead")
 
 
+# name: (title colour, burst colour 1, burst colour 2, epithet, pattern)
+CHAR_THEME = {
+    "Blaze":   ("#ff4d1a", "#ffb347", "#ff6a1a", "The Brawler", "burst"),
+    "Shade":   ("#3d2c8d", "#2a2250", "#4b3fa0", "The Sniper", "night"),
+    "Ember":   ("#d98e00", "#ffe066", "#f5b400", "The Scavenger", "burst"),
+    "Tide":    ("#0097a7", "#4dd0e1", "#00a0b4", "The Runner", "waves"),
+    "Nova":    ("#e91e63", "#ffc1dc", "#ff6fa5", "The Medic", "burst"),
+    "Gale":    ("#546e7a", "#cfe0e8", "#90a4ae", "The Storm Chaser", "swirl"),
+    "Vex":     ("#2e7d32", "#c6ff00", "#64dd17", "The Leech", "burst"),
+    "Bastion": ("#455a64", "#b0bec5", "#78909c", "The Tank", "bricks"),
+    "Brute":   ("#b71c1c", "#ff8a80", "#e53935", "The Heavy", "burst"),
+    "Rig":     ("#f9a825", "#15121c", "#fdd835", "The Mechanic", "hazard"),
+}
+
+
 def char_card_color(icon, name, ability, text):
-    return comic(name, "#ff7a1a", icon, f"<b>{ability}</b><br>{text}", tag="Character", cls="char")
+    col, b1, b2, epithet, pat = CHAR_THEME[name]
+    card = comic(name, col, icon, f'<i class="epi">{epithet}</i><br><b>{ability}</b><br>{text}', tag=name.upper(), cls=f"char pat-{pat}")
+    return card.replace('style="--type:', f'style="--b1:{b1}; --b2:{b2}; --type:', 1)
 
 
 def dead_card():
@@ -88,7 +105,13 @@ def pages(items, per_page, cls):
 
 TILE_SET = [[], [], [], [], ["M"], ["A"], ["A"], ["H"], ["M", "A"], ["A", "A"], ["A", "H"], ["M", "M"],
             ["M", "A", "H"], ["A", "A", "H"], ["M", "A", "A"]]  # 6 Move / 11 Attack / 4 Heal
-CUBE = {"M": "#1e88e5", "A": "#e53935", "H": "#43a047"}
+CUBE = {"M": "#8e44ec", "A": "#e53935", "H": "#43a047"}
+
+
+def tile_color(icons, letter):
+    loot = "".join(f'<span class="hloot" style="--type:{TYPE_COLOR[k]}"><span class="msym">{MSYM[k]}</span></span>' for k in icons)
+    return (f'<div class="hexc"><div class="hin"><div class="hloots">{loot}</div>'
+            f'<span class="hset">{letter}</span></div></div>')
 
 
 def tile(icons, letter):
@@ -116,7 +139,7 @@ def main(style="plain"):
     dead = [dead_card_color() if color else dead_card()] * 60
     tiles = []
     for letter in "ABCDE":
-        tiles.append([tile(t, letter) for t in TILE_SET])
+        tiles.append([(tile_color if color else tile)(t, letter) for t in TILE_SET])
     ref = open(os.path.join(os.path.dirname(__file__), "..", "rulebook-draft.md")).read()
     qr = ref.split("## Quick Reference")[1].split("---")[0].strip().splitlines()
     import re
@@ -265,8 +288,36 @@ COMIC_CSS = """
 .cc.dead .art { background: repeating-linear-gradient(135deg, #2a2a33 0 12px, #34343f 12px 24px); }
 .cc.dead .plate { background: #e8e8f0; } .cc.dead .msym { color: #2a2a33; text-shadow: none; }
 .cc.dead .title { padding-left: 0.08in; }
-.cc.char .art { background: repeating-conic-gradient(from 0deg at 50% 50%, #ffd23f 0 10deg, #ff8a3d 10deg 20deg); }
+.cc.char .art { background: repeating-conic-gradient(from 0deg at 50% 50%, var(--b1) 0 10deg, var(--b2) 10deg 20deg); }
+.cc.char .msym { color: var(--type); }
+.cc.char .tag { background: var(--type) !important; }
+.cc.char .epi { font-style: normal; font: 11pt "Bangers", Impact, sans-serif; letter-spacing: 1px; color: var(--type); }
+.cc.pat-night .art { background: radial-gradient(circle at 20% 25%, #fff 0 1.5px, transparent 2px) 0 0 / 22px 22px,
+                                 radial-gradient(circle at 70% 60%, #d9d2ff 0 1px, transparent 1.5px) 0 0 / 17px 17px,
+                                 linear-gradient(160deg, var(--b1), var(--b2)); }
+.cc.pat-night .msym { color: #b9a8ff; }
+.cc.pat-waves .art { background: radial-gradient(circle at 50% 0, transparent 9px, var(--b2) 10px 13px, transparent 14px) 0 0 / 28px 16px,
+                                 linear-gradient(180deg, var(--b1), var(--type)); }
+.cc.pat-swirl .art { background: repeating-radial-gradient(circle at 50% 50%, var(--b1) 0 8px, var(--b2) 8px 16px); }
+.cc.pat-bricks .art { background: linear-gradient(0deg, #37474f 2px, transparent 2px) 0 0 / 100% 18px,
+                                  linear-gradient(90deg, #37474f 2px, transparent 2px) 0 0 / 36px 36px,
+                                  linear-gradient(90deg, #37474f 2px, transparent 2px) 18px 18px / 36px 36px, var(--b1); }
+.cc.pat-hazard .art { background: repeating-linear-gradient(135deg, var(--b1) 0 14px, var(--b2) 14px 28px); }
 .cc.char .title { padding-left: 0.08in; }
+h2 { font: 20pt "Bangers", Impact, sans-serif; letter-spacing: 1px; }
+.hexc { --ink:#15121c; position: relative; width: 1.9in; height: 2.19in; background: var(--ink);
+        clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+.hexc .hin { position: absolute; inset: 5px; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+             background: radial-gradient(circle at 50% 50%, rgba(21,18,28,.12) 1px, transparent 1.3px) 0 0 / 8px 8px,
+                         repeating-conic-gradient(from 0deg at 50% 50%, #f3e2b3 0 10deg, #ead29a 10deg 20deg);
+             display: flex; align-items: center; justify-content: center; }
+.hloots { display: flex; flex-wrap: wrap; gap: 0.06in; justify-content: center; width: 1.35in; }
+.hloot { width: 0.5in; height: 0.5in; border-radius: 50%; background: #fff; border: 3px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+         display: flex; align-items: center; justify-content: center; }
+.hloot .msym { font-family: "Material Symbols Sharp"; font-size: 21pt; line-height: 1; color: var(--type);
+               font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 48;
+               text-shadow: 1.2px 0 var(--ink), -1.2px 0 var(--ink), 0 1.2px var(--ink), 0 -1.2px var(--ink); }
+.hset { position: absolute; bottom: 0.16in; font: 12pt "Bangers", Impact, sans-serif; letter-spacing: 1px; color: var(--ink); }
 """
 
 

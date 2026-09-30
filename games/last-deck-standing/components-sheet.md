@@ -46,7 +46,7 @@ Per set: 15 tiles, 21 icons (6 Move, 11 Attack, 4 Heal).
 ## Tokens / Other
 | id | name | qty | purpose | notes |
 |---|---|---|---|---|
-| CUBE-M/A/H | Loot cubes | 30 Move, 55 Attack, 20 Heal | One per loot icon at setup | Use colour **and** icon shape for colour-blind play |
+| CUBE-M/A/H | Loot cubes | 30 Move (purple), 55 Attack (red), 20 Heal (green) | One per loot icon at setup | Use colour **and** icon shape for colour-blind play |
 | PAWN | Player pawns | 5 | Position | |
 | STAT | Stat tracker | 5 | Base Move / Attack / Shield (0–4) and current Shield | Paper sheet with 3 tracks and a Shield counter |
 | ROUND | Round track + marker | 1 | Rounds 1–25; round 7 marked "Storm closes fast" | Also marks supply-drop rounds when testing |

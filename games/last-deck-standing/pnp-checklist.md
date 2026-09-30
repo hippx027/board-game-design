@@ -13,7 +13,7 @@ Two printable versions in `pnp/`: **`last-deck-standing-pnp-color.pdf`** (full-c
 - [ ] **Cards:** 50 base (labelled Player 1–5) + 60 supply (Attack 24, Move 18, Heal 18) + 60 Dead. Poker-size sleeves over normal playing cards work well: slip a printed slip in front.
 - [ ] **Dead cards:** a visibly different back (e.g. red-backed deck vs blue-backed for everything else)
 - [ ] **Hex tiles:** 75, about 2 in / 5 cm across, on cardstock. Draw loot icons by hand; write the set letter A–E on the back.
-- [ ] **Loot cubes:** 30 blue (Move), 55 red (Attack), 20 green (Heal), or beads / coloured candy
+- [ ] **Loot cubes:** 30 purple (Move), 55 red (Attack), 20 green (Heal), or beads / coloured candy
 - [ ] **Pawns:** 5
 - [ ] **Stat trackers:** 5 sheets with three 0–4 tracks and a Shield counter; paperclips as markers
 - [ ] **Round track:** 1–25, with round 7 labelled "Storm closes fast"
