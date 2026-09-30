@@ -42,6 +42,7 @@ CHARACTERS = {  # name: (base stats override, ability)
 
 LONG_SHOT_MIN = 2
 PB_BONUS = 1
+MEDIC_BONUS = 1
 
 
 def char_bonus(p, rng_):
@@ -156,6 +157,8 @@ class Game:
             for p, name in zip(self.players, characters):
                 p.char = name
                 stats, p.ability = CHARACTERS[name]
+                stats = dict(stats)
+                p.shield = stats.pop("start_shield", 0)  # one-time starting Shield (doesn't refill)
                 p.stats.update(stats)
         for p in (reversed(self.players) if place_reverse else self.players):
             p.pos = self.place_pawn(p)
@@ -297,7 +300,7 @@ class Game:
 
         healed = 0
         if getattr(p, "ability", None) == "field_medic":
-            heal += sum(1 for k, v in played if k == "H")
+            heal += MEDIC_BONUS * sum(1 for k, v in played if k == "H")
         for _ in range(heal):
             if ("D", 0) in p.hand:
                 p.hand.remove(("D", 0))
