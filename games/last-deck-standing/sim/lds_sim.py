@@ -110,7 +110,8 @@ class Game:
                  values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False, elim_timing="upkeep",
                  play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False,
                  min_start=0, hold=0, grace=0, storm_sched=None, dmg_sched=None, heal_no_attack=False, heal_no_move=False, hold_no_heal=False,
-                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False, characters=None, end_limit=0, shield_decay=False, base_shd_max=4, shield_card_remove=False, legendary_values=None, no_cache=False, no_refill=False, split_attack=False, storm_mode="any"):
+                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False, characters=None, end_limit=0, shield_decay=False, base_shd_max=4, shield_card_remove=False, legendary_values=None, no_cache=False, no_refill=False, split_attack=False, storm_mode="any", heal_split=False):
+        self.heal_split = heal_split
         self.storm_mode = storm_mode
         self.no_refill, self.split_attack = no_refill, split_attack
         self.no_cache = no_cache
@@ -304,8 +305,24 @@ class Game:
             p.hand.remove(("H", c[1]) if c[0] == "X" else c)
         mov = p.stats["mov"] + sum(v for k, v in played if k == "M")
         atk = p.stats["atk"] + sum(v for k, v in played if k == "A")
+        if getattr(p, "ability", None) == "berserker":
+            atk += sum(1 for c in p.hand if c[0] == "D")
+        elif getattr(p, "ability", None) == "berserker2":
+            atk += 2 * sum(1 for c in p.hand if c[0] == "D")
         hb = p.stats["shd"] if self.no_refill else 0  # Heal upgrades add +1 per level to every Heal card
+        hb += 1 if getattr(p, "ability", None) == "medic_value" else 0
         heal = sum(v + hb for k, v in played if k == "H")
+        if getattr(p, "ability", None) == "medic_first" and any(k == "H" for k, v in played):
+            heal += 1  # Medic: your first Heal card each turn is worth +1
+        if self.heal_split:  # each Heal card's value is split: Dead removal first, the rest becomes Shield
+            dead_now = sum(1 for c in p.hand if c[0] == "D")
+            to_heal = min(heal, dead_now)
+            if getattr(p, "ability", None) == "medic_once" and any(k == "H" for k, v in played) and dead_now > to_heal:
+                to_heal += 1  # Medic: once per turn, heal 1 extra Dead card
+            if getattr(p, "ability", None) == "medic_healplus":
+                to_heal = min(dead_now, to_heal + sum(1 for k, v in played if k == "H"))  # +1 Dead removal per Heal card
+            p.shield = min(self.shield_cap + (2 if getattr(p, "ability", None) in ("tank_cap6", "tank_cap6s") else 0), p.shield + heal - to_heal)
+            heal = to_heal
         p.shield = min(self.shield_cap, p.shield + sum(v + hb for k, v in played if k in ("SXH" if self.heal_both else "SX")))
         self.m["cards_played"] += len(played)
         self.m["plays_used"] += len(plays)
@@ -410,7 +427,7 @@ class Game:
             if getattr(p, "ability", None) == "medic_nohold":  # recycled Heal cards can't be kept
                 live = [c for c in live if c[0] != "H"] + [c for c in live if c[0] == "H"]
             if self.end_limit:  # discard down to end_limit cards; Dead cards stay and count toward it
-                lim = self.end_limit + (1 if getattr(p, "ability", None) == "keep4" else 0)
+                lim = self.end_limit + {"keep4": 1, "keep5": 2}.get(getattr(p, "ability", None), 0)
                 room = max(0, lim - sum(1 for c in p.hand if c[0] == "D"))
                 kept = live[:min(room, self.hold)]
             elif self.hold_no_heal:
@@ -602,7 +619,7 @@ class Game:
                 if c[0] == "D":
                     continue
                 alts = [(c,)]
-                if self.merged_heal and c[0] == "H" and not self.heal_both:
+                if self.merged_heal and c[0] == "H" and not self.heal_both and not self.heal_split:
                     alts.append((("X", c[1]),))  # Heal card spent as Shield
                 opts |= {tuple(sorted(o + a)) for o in opts for a in alts}
             from collections import Counter as _C
@@ -662,11 +679,19 @@ class Game:
             flat = [c for g in plays for c in g]
             mov = p.stats["mov"] + sum(v for k, v in flat if k == "M")
             atk = p.stats["atk"] + sum(v for k, v in flat if k == "A")
-            hb = p.stats["shd"] if self.no_refill else 0
+            if getattr(p, "ability", None) == "berserker":
+                atk += dead_in_hand
+            elif getattr(p, "ability", None) == "berserker2":
+                atk += 2 * dead_in_hand
+            hb = (p.stats["shd"] if self.no_refill else 0) + (1 if getattr(p, "ability", None) == "medic_value" else 0)
             heal = sum(v + hb for k, v in flat if k == "H")
+            split_shd = 0
+            if self.heal_split:
+                split_shd = max(0, heal - dead_in_hand)
+                heal = min(heal, dead_in_hand)
             if self.heal_no_move and heal:
                 mov = 0
-            shd = p.shield + sum(v + hb for k, v in flat if k in ("SXH" if self.heal_both else "SX"))
+            shd = p.shield + sum(v + hb for k, v in flat if k in ("SXH" if self.heal_both else "SX")) + split_shd
             if mov not in reach_cache:
                 reach_cache[mov] = self.reachable(p.pos, mov)
             base_s = w["heal"] * min(heal, dead_in_hand)

@@ -132,7 +132,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <tr>
 <td>Stat tracker</td>
 <td>1 per player</td>
-<td>Tracks Base Move and Base Attack (each 0&#8211;4), Heal bonus (0&#8211;3) and current Shield points (0&#8211;4)</td>
+<td>Tracks Base Move and Base Attack (each 0&#8211;4) and your Shield (0&#8211;4; the Tank can reach 6)</td>
 </tr>
 <tr>
 <td>Round track and marker</td>
@@ -161,7 +161,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 <tr>
 <td>Character cards</td>
-<td>10</td>
+<td>11</td>
 <td>Optional variant: one ability each; see Characters</td>
 </tr>
 </tbody></table></div>
@@ -175,7 +175,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li>Place the round marker on round 1 of the round track.</li>
 <li>Shuffle the Legendary deck face down. Shuffle the three supply decks separately and place them face down. Turn the top <strong>2</strong> cards of each deck face up in a row beside it. Those 6 cards are the <strong>loot display</strong>.</li>
 <li><strong>Characters (optional variant; skip for your first games).</strong> Shuffle the character cards and deal 2 to each player. Keep 1 face up in front of you and return the other to the box.</li>
-<li>Each player sets their stats to Base Move 1, Base Attack 1, Heal bonus 0, Shield 0, then applies their character&#39;s changes if you&#39;re using characters.</li>
+<li>Each player sets their stats to Base Move 1, Base Attack 1, Shield 0, then applies their character&#39;s changes if you&#39;re using characters.</li>
 <li>Each player shuffles their 10-card base deck and draws 5 cards.</li>
 <li>The start player takes the first turn. Advance the round marker at the start of each of the start player&#39;s turns after the first (or when play reaches their seat, if they&#39;ve been eliminated).</li>
 </ol>
@@ -200,7 +200,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <p>Phase 3 starts once you&#39;ve finished all your actions. You can&#39;t play cards during it.</p>
 <ol>
 <li><strong>Elimination check:</strong> if 3 or more cards in your hand are Dead cards, you are eliminated (see Elimination) and your turn ends; skip the storm.</li>
-<li>Put your played cards in your discard pile (Heal cards used to heal were already removed from the game). <strong>Then discard down to 3 cards.</strong> You choose which unplayed cards to keep, and you may keep fewer. Dead cards can&#39;t be discarded and count toward the 3.</li>
+<li>Put your played cards in your discard pile (Heal cards were already removed from the game). <strong>Then discard down to 3 cards.</strong> You choose which unplayed cards to keep, and you may keep fewer. Dead cards can&#39;t be discarded and count toward the 3.</li>
 <li><strong>Storm:</strong> place storm markers, then take storm damage if you&#39;re on a storm tile (see The Storm).</li>
 <li>The next player clockwise begins their turn.</li>
 </ol>
@@ -222,7 +222,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 <tr>
 <td><strong>Heal</strong> (starting deck and Heal deck)</td>
-<td>Its value is the card&#39;s number plus your Heal bonus. Choose one mode for its whole value when you play it. Unused value is lost. <strong>Heal:</strong> return up to that many Dead cards <strong>from your hand</strong> to the Dead supply, then remove this card from the game. <strong>Shield:</strong> add that many points to your Shield tracker (maximum 4). They stay until damage uses them; the card is discarded at the end of your turn with your other cards.</td>
+<td><strong>One-time use.</strong> Split its value however you like between <strong>removing Dead cards from your hand</strong> (each point returns 1 Dead card to the Dead supply) and <strong>adding Shield</strong> (each point adds 1 Shield, max 4). Example: a Heal 2 can remove 1 Dead card and add 1 Shield. Unused value is lost. Then remove the card from the game. Shield stays until damage uses it and never refills on its own.</td>
 </tr>
 </tbody></table></div>
 <p>Any card you put into play counts as played, even if you didn&#39;t use all of its value.</p>
@@ -253,7 +253,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 <tr>
 <td>&#9733; <strong>The Medic</strong></td>
-<td><strong>Field medic:</strong> each Heal card you use to heal removes up to its value <strong>+2</strong> Dead cards from your hand, then goes to your discard pile with your other played cards instead of leaving the game. You can&#39;t keep Heal cards in your hand at the end of your turn.</td>
+<td><strong>Field medic:</strong> each Heal card you play can remove 1 extra Dead card from your hand (on top of its value).</td>
 </tr>
 <tr>
 <td>&#9729; <strong>The Storm Chaser</strong></td>
@@ -265,7 +265,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 <tr>
 <td>&#9632; <strong>The Tank</strong></td>
-<td><strong>Armored:</strong> you start the game with 2 Shield points, but all your upgrades (any stat) cost 5 instead of 4.</td>
+<td><strong>Armored:</strong> you start the game with 1 Shield point, and your Shield maximum is 6 instead of 4.</td>
 </tr>
 <tr>
 <td>&#9679; <strong>The Heavy</strong></td>
@@ -273,7 +273,11 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 <tr>
 <td>&#9881; <strong>The Mechanic</strong></td>
-<td><strong>Tinkerer:</strong> the first upgrade of each stat costs you 3 instead of 4.</td>
+<td><strong>Tinkerer:</strong> your upgrades cost 3 instead of 4.</td>
+</tr>
+<tr>
+<td>&#10006; <strong>The Berserker</strong></td>
+<td><strong>Rage:</strong> your Attack is +2 for each Dead card in your hand.</td>
 </tr>
 </tbody></table></div>
 <h2 id="attacking">Attacking</h2>
@@ -303,14 +307,13 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </ul>
 <p>The card goes into your <strong>discard pile</strong>. Cubes taken from tiles never come back. You can loot a type as long as any card of it is face up or left in its deck. If none are left, that type&#39;s cubes stay on the board unused.</p>
 <h2 id="upgrading">Upgrading</h2>
-<p>During your Actions phase, pay cards from your hand of one type worth at least your <strong>upgrade cost</strong> (normally <strong>4</strong>) to raise that stat by 1:</p>
+<p>During your Actions phase, pay Attack or Move cards from your hand of one type worth at least your <strong>upgrade cost</strong> (normally <strong>4</strong>) to raise that stat by 1:</p>
 <ul>
 <li>Attack cards &#8594; Base Attack</li>
 <li>Move cards &#8594; Base Move</li>
-<li>Heal cards &#8594; <strong>Heal bonus</strong>: +1 to the value of every Heal card you play (heal or shield), up to +3</li>
 </ul>
 <p>Example: a value-3 Move card plus a value-1 Move card raises Base Move by 1. So do two value-2s, or four value-1s.</p>
-<p>Paid cards go to your discard pile, not out of the game; they come back when you reshuffle. Cards you pay with can&#39;t also be played this turn and add nothing to your Move, Attack or Shield. You may overpay, but extra value is lost. Base Move and Base Attack max out at 4, and the Heal bonus at +3; you can&#39;t upgrade past the maximum.</p>
+<p>Paid cards go to your discard pile, not out of the game; they come back when you reshuffle. Cards you pay with can&#39;t also be played this turn and add nothing to your Move, Attack or Shield. You may overpay, but extra value is lost. Base Move and Base Attack max out at 4; you can&#39;t upgrade past that. Heal cards can&#39;t pay for upgrades.</p>
 <h2 id="the-storm">The Storm</h2>
 <p>The storm closes in from the outside of the board <strong>one ring at a time</strong>, like a shrinking circle. At the end of your turn, place storm markers on tiles, then check for storm damage.</p>
 <div class="tbl"><table>
@@ -395,12 +398,12 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <p class="qr"><strong>Upkeep:</strong> draw up to 5 (held and Dead cards count) &#8594; 3+ Dead: announce &quot;critical&quot;<br>
 <strong>Actions (any order):</strong> play any cards &#183; move &#183; attack (split it among players if you like) &#183; 1 loot (1 cube, 1 pile claim or 1 drop card) &#183; upgrade<br>
 <strong>Supply drops:</strong> rounds 3, 5, 7, 9, 11 (one per starting player); placed on a tile that&#39;s not storm or edge, then everyone may nudge it 1 tile<br>
-<strong>Heal card:</strong> value + your Heal bonus: heal (Dead from hand &#8594; supply, card leaves the game) or shield (+Shield, max 4; stays until used; never refills)<br>
+<strong>Heal card (one-time):</strong> split its value between removing Dead cards from your hand and adding Shield (max 4); then it leaves the game. Shield never refills on its own<br>
 <strong>Storm:</strong> finish the outermost ring before starting the next; place 1 per turn (rounds 1&#8211;6), 2 per turn (round 7+). End your turn on a storm tile: 1 Dead card (round 7+: 2) to your discard pile; Shield doesn&#39;t block it<br>
 <strong>Eliminated:</strong> all your Dead cards to supply; your other cards become a loot pile (claims pick 5, then 3, then 1)<br>
 <strong>End:</strong> eliminated if 3+ Dead in hand (then skip the rest) &#8594; discard played cards, then discard down to 3 (Dead cards stay and count) &#8594; storm markers &#8594; storm damage<br>
 <strong>Damage:</strong> points in that attack &#8722; Range, then Shield absorbs; 0 or less can&#39;t hit; Dead cards go to the target&#39;s discard pile<br>
-<strong>Upgrade:</strong> pay your upgrade cost (normally 4) in value of one type from hand &#8594; +1 Move or Attack (max 4) or +1 Heal bonus (max +3); paid cards go to discard</p>
+<strong>Upgrade:</strong> pay your upgrade cost (normally 4) in value of one type from hand &#8594; +1 Move or Attack (max 4); paid cards go to discard; Heal cards can&#39;t pay</p>
 <hr>
 <section class="designer">
 <h2 id="designer-notes">Designer Notes</h2>

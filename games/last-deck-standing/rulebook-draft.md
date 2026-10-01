@@ -32,13 +32,13 @@ Simulated first games run the same length as full games (about 11–14 rounds) a
 | Dead cards | 60 | Marked on the back, so everyone can see Dead cards in hands and decks. If they run out, use any marked substitute |
 | Loot cubes | Per player: 6 Move, 11 Attack, 4 Heal | Mark unlooted loot on the tiles |
 | Player pawn | 1 per player | |
-| Stat tracker | 1 per player | Tracks Base Move and Base Attack (each 0–4), Heal bonus (0–3) and current Shield points (0–4) |
+| Stat tracker | 1 per player | Tracks Base Move and Base Attack (each 0–4) and your Shield (0–4; the Tank can reach 6) |
 | Round track and marker | 1 | 25 spaces; round 7 marked "Storm closes fast"; rounds 3, 5, 7, 9, 11 marked "Supply drop" |
 | Legendary deck | 12 | For supply drops: 2 each of Attack 3, Attack 4, Move 3, Move 4, Heal 3, Heal 4 |
 | Supply drop marker | 1 | Shows where the current drop landed |
 | Storm markers | 50 | Discs or translucent hex overlays placed on tiles; loot icons stay visible |
 | Loot pile markers | 4 | Mark an eliminated player's loot pile on the board |
-| Character cards | 10 | Optional variant: one ability each; see Characters |
+| Character cards | 11 | Optional variant: one ability each; see Characters |
 
 Each card has a value from 1 to 4, which is its strength (value 4 only appears on Legendary cards). Rarity follows Fortnite: value 1 Common (gray), 2 Rare (blue), 3 Epic (purple). Supply drop cards are Legendary (gold).
 
@@ -50,7 +50,7 @@ Each card has a value from 1 to 4, which is its strength (value 4 only appears o
 5. Place the round marker on round 1 of the round track.
 6. Shuffle the Legendary deck face down. Shuffle the three supply decks separately and place them face down. Turn the top **2** cards of each deck face up in a row beside it. Those 6 cards are the **loot display**.
 7. **Characters (optional variant; skip for your first games).** Shuffle the character cards and deal 2 to each player. Keep 1 face up in front of you and return the other to the box.
-8. Each player sets their stats to Base Move 1, Base Attack 1, Heal bonus 0, Shield 0, then applies their character's changes if you're using characters.
+8. Each player sets their stats to Base Move 1, Base Attack 1, Shield 0, then applies their character's changes if you're using characters.
 9. Each player shuffles their 10-card base deck and draws 5 cards.
 10. The start player takes the first turn. Advance the round marker at the start of each of the start player's turns after the first (or when play reaches their seat, if they've been eliminated).
 
@@ -76,7 +76,7 @@ You may do the following in any order, and you may mix them:
 Phase 3 starts once you've finished all your actions. You can't play cards during it.
 
 1. **Elimination check:** if 3 or more cards in your hand are Dead cards, you are eliminated (see Elimination) and your turn ends; skip the storm.
-2. Put your played cards in your discard pile (Heal cards used to heal were already removed from the game). **Then discard down to 3 cards.** You choose which unplayed cards to keep, and you may keep fewer. Dead cards can't be discarded and count toward the 3.
+2. Put your played cards in your discard pile (Heal cards were already removed from the game). **Then discard down to 3 cards.** You choose which unplayed cards to keep, and you may keep fewer. Dead cards can't be discarded and count toward the 3.
 3. **Storm:** place storm markers, then take storm damage if you're on a storm tile (see The Storm).
 4. The next player clockwise begins their turn.
 
@@ -85,7 +85,7 @@ Phase 3 starts once you've finished all your actions. You can't play cards durin
 |---|---|
 | **Move** (starting deck and Movement deck) | Add its value to your Move this turn. |
 | **Attack** (starting deck and Attack deck) | Add its value to your Attack this turn. |
-| **Heal** (starting deck and Heal deck) | Its value is the card's number plus your Heal bonus. Choose one mode for its whole value when you play it. Unused value is lost. **Heal:** return up to that many Dead cards **from your hand** to the Dead supply, then remove this card from the game. **Shield:** add that many points to your Shield tracker (maximum 4). They stay until damage uses them; the card is discarded at the end of your turn with your other cards. |
+| **Heal** (starting deck and Heal deck) | **One-time use.** Split its value however you like between **removing Dead cards from your hand** (each point returns 1 Dead card to the Dead supply) and **adding Shield** (each point adds 1 Shield, max 4). Example: a Heal 2 can remove 1 Dead card and add 1 Shield. Unused value is lost. Then remove the card from the game. Shield stays until damage uses it and never refills on its own. |
 
 Any card you put into play counts as played, even if you didn't use all of its value.
 
@@ -98,12 +98,13 @@ Not used in the base game yet; try them after a few games without. Each characte
 | ☾ **The Sniper** | **Long shot:** when you attack a player who isn't on your tile and they're in range, add 1 damage (before their Shield). It can't bring an out-of-range player into range. |
 | ◆ **The Scavenger** | **Scavenge:** after your normal loot, you may take 1 more **cube** from the same tile. |
 | ≈ **The Runner** | **Runner:** your Base Move starts at 2. |
-| ★ **The Medic** | **Field medic:** each Heal card you use to heal removes up to its value **+2** Dead cards from your hand, then goes to your discard pile with your other played cards instead of leaving the game. You can't keep Heal cards in your hand at the end of your turn. |
+| ★ **The Medic** | **Field medic:** each Heal card you play can remove 1 extra Dead card from your hand (on top of its value). |
 | ☁ **The Storm Chaser** | **Storm runner:** you take 1 less storm damage (so none in rounds 1–6). |
 | ⚡ **The Leech** | **Siphon:** when your attack puts 2 or more Dead cards on a player after their Shield, return 1 Dead card from your hand to the supply. |
-| ■ **The Tank** | **Armored:** you start the game with 2 Shield points, but all your upgrades (any stat) cost 5 instead of 4. |
+| ■ **The Tank** | **Armored:** you start the game with 1 Shield point, and your Shield maximum is 6 instead of 4. |
 | ● **The Heavy** | **Heavy hitter:** your Base Attack starts at 2. |
-| ⚙ **The Mechanic** | **Tinkerer:** the first upgrade of each stat costs you 3 instead of 4. |
+| ⚙ **The Mechanic** | **Tinkerer:** your upgrades cost 3 instead of 4. |
+| ✖ **The Berserker** | **Rage:** your Attack is +2 for each Dead card in your hand. |
 
 ## Attacking
 1. Total Attack = Base Attack + Attack cards played this turn.
@@ -129,14 +130,13 @@ Once per turn, you may do **one** of these on the tile you're on:
 The card goes into your **discard pile**. Cubes taken from tiles never come back. You can loot a type as long as any card of it is face up or left in its deck. If none are left, that type's cubes stay on the board unused.
 
 ## Upgrading
-During your Actions phase, pay cards from your hand of one type worth at least your **upgrade cost** (normally **4**) to raise that stat by 1:
+During your Actions phase, pay Attack or Move cards from your hand of one type worth at least your **upgrade cost** (normally **4**) to raise that stat by 1:
 - Attack cards → Base Attack
 - Move cards → Base Move
-- Heal cards → **Heal bonus**: +1 to the value of every Heal card you play (heal or shield), up to +3
 
 Example: a value-3 Move card plus a value-1 Move card raises Base Move by 1. So do two value-2s, or four value-1s.
 
-Paid cards go to your discard pile, not out of the game; they come back when you reshuffle. Cards you pay with can't also be played this turn and add nothing to your Move, Attack or Shield. You may overpay, but extra value is lost. Base Move and Base Attack max out at 4, and the Heal bonus at +3; you can't upgrade past the maximum.
+Paid cards go to your discard pile, not out of the game; they come back when you reshuffle. Cards you pay with can't also be played this turn and add nothing to your Move, Attack or Shield. You may overpay, but extra value is lost. Base Move and Base Attack max out at 4; you can't upgrade past that. Heal cards can't pay for upgrades.
 
 ## The Storm
 The storm closes in from the outside of the board **one ring at a time**, like a shrinking circle. At the end of your turn, place storm markers on tiles, then check for storm damage.
@@ -194,12 +194,12 @@ Each player's set has 15 tiles and 21 loot icons: 6 Move, 11 Attack, 4 Heal.
 **Upkeep:** draw up to 5 (held and Dead cards count) → 3+ Dead: announce "critical"
 **Actions (any order):** play any cards · move · attack (split it among players if you like) · 1 loot (1 cube, 1 pile claim or 1 drop card) · upgrade
 **Supply drops:** rounds 3, 5, 7, 9, 11 (one per starting player); placed on a tile that's not storm or edge, then everyone may nudge it 1 tile
-**Heal card:** value + your Heal bonus: heal (Dead from hand → supply, card leaves the game) or shield (+Shield, max 4; stays until used; never refills)
+**Heal card (one-time):** split its value between removing Dead cards from your hand and adding Shield (max 4); then it leaves the game. Shield never refills on its own
 **Storm:** finish the outermost ring before starting the next; place 1 per turn (rounds 1–6), 2 per turn (round 7+). End your turn on a storm tile: 1 Dead card (round 7+: 2) to your discard pile; Shield doesn't block it
 **Eliminated:** all your Dead cards to supply; your other cards become a loot pile (claims pick 5, then 3, then 1)
 **End:** eliminated if 3+ Dead in hand (then skip the rest) → discard played cards, then discard down to 3 (Dead cards stay and count) → storm markers → storm damage
 **Damage:** points in that attack − Range, then Shield absorbs; 0 or less can't hit; Dead cards go to the target's discard pile
-**Upgrade:** pay your upgrade cost (normally 4) in value of one type from hand → +1 Move or Attack (max 4) or +1 Heal bonus (max +3); paid cards go to discard
+**Upgrade:** pay your upgrade cost (normally 4) in value of one type from hand → +1 Move or Attack (max 4); paid cards go to discard; Heal cards can't pay
 
 ---
 

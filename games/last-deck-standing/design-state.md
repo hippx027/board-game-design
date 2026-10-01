@@ -15,8 +15,8 @@ Updated 2026-09-29 · Designers: Brandon and Chris · Milestone: 1 → 3 (paper 
 - Elimination: 3+ Dead cards in hand at the **end** of your turn; announce "critical" at upkeep; Dead cards stay in hand (sticky) and have marked backs
 - Damage = Attack − range, no minimum; same-hex fights allowed by design
 - Play any number of cards
-- Heal card is Heal or Shield (chosen when played); used to heal → removed from game
-- Shield persists until damage uses it (max 4) and never refills on its own; it only comes from Heal cards. Heal upgrades give a Heal bonus (+1 to every Heal card, max +3) instead of Base Shield (SIM-026)
+- Heal cards are one-time: split the value between removing Dead cards from hand and adding Shield, then the card leaves the game (SIM-028/029)
+- Shield persists until damage uses it (max 4) and never refills on its own; it only comes from Heal cards. There is no Heal upgrade; only Move and Attack upgrade, and Heal cards can't pay (SIM-028)
 - Attacks can be split among several players (at most one attack per player per turn); each attack subtracts its own range (SIM-026)
 - Loot: pre-made tiles (21 icons per 15-tile set: 6 Move / 11 Attack / 4 Heal); cube → card into your discard pile
 - Upgrades: pay 4+ value of one type, paid cards to discard, max 4

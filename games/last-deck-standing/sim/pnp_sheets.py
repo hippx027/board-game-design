@@ -19,7 +19,7 @@ TYPE = {"A": "Attack", "M": "Move", "H": "Heal"}
 TEXT = {
     "A": "+{v} Attack this turn.",
     "M": "+{v} Move this turn.",
-    "H": "Choose one:<br><b>Heal</b> &ndash; return up to {v} Dead card{s} from your hand to the supply, then remove this card from the game.<br><b>Shield</b> &ndash; +{v} Shield (max 4). Stays until damage uses it.",
+    "H": "<b>One-time.</b> Split {v} between removing Dead cards from your hand and adding Shield (max 4). Then remove this card from the game.",
 }
 
 
@@ -42,7 +42,7 @@ MSYM = {"A": "swords", "M": "sprint", "H": "medical_services", "D": "skull"}
 COMIC_TEXT = {
     "A": "<b>+{v} Attack</b> this turn.",
     "M": "<b>+{v} Move</b> this turn.",
-    "H": 'Choose one:<br><b class="hl">Heal:</b> remove up to {v} Dead from your hand, then remove this card.<br><b class="sh">Shield:</b> +{v} (max 4), stays until used.',
+    "H": 'Split <b>{v}</b> between:<br><b class="hl">Heal</b> &ndash; remove Dead cards from your hand<br><b class="sh">Shield</b> &ndash; +Shield (max 4)<br><i>One-time: then remove this card.</i>',
 }
 
 
@@ -82,6 +82,7 @@ CHAR_THEME = {
     "Bastion": ("#455a64", "#b0bec5", "#78909c", "The Tank", "bricks"),
     "Brute":   ("#b71c1c", "#ff8a80", "#e53935", "The Heavy", "burst"),
     "Rig":     ("#f9a825", "#15121c", "#fdd835", "The Mechanic", "hazard"),
+    "Fury":    ("#8b0000", "#2a0a0a", "#c62828", "The Berserker", "burst"),
 }
 
 
@@ -122,7 +123,7 @@ def tile(icons, letter):
 
 
 CHAR_ICON = {"Blaze": "local_fire_department", "Shade": "dark_mode", "Ember": "diamond", "Tide": "waves", "Nova": "star",
-             "Gale": "cyclone", "Vex": "bolt", "Bastion": "fort", "Brute": "sports_mma", "Rig": "build"}
+             "Gale": "cyclone", "Vex": "bolt", "Bastion": "fort", "Brute": "sports_mma", "Rig": "build", "Fury": "bloodtype"}
 
 
 def main(style="plain"):
@@ -149,8 +150,7 @@ def main(style="plain"):
     tracker = ('<div class="tracker"><h3>Player: ________</h3>' + "".join(
         f'<div class="track"><b>Base {s}</b>' + "".join(f"<span>{i}</span>" for i in range(5)) + "</div>"
         for s in ("Move", "Attack")) +
-        '<div class="track"><b>Heal bonus</b>' + "".join(f"<span>+{i}</span>" for i in range(4)) + "</div>" +
-        '<div class="track"><b>Shield now</b>' + "".join(f"<span>{i}</span>" for i in range(5)) + "</div></div>")
+        '<div class="track"><b>Shield</b>' + "".join(f"<span>{i}</span>" for i in range(7)) + "</div></div>")
     rounds = "".join(
         f'<span class="rnd{" hot" if r == 7 else ""}{" drop" if r in (3, 5, 7, 9, 11) else ""}">{r}'
         f'{"<small>storm fast</small>" if r == 7 else ""}{"<small>drop</small>" if r in (3, 5, 7, 9, 11) else ""}</span>'
@@ -161,12 +161,13 @@ def main(style="plain"):
              ("&#9790;", "Shade", "Long shot", "When you attack an in-range player who isn't on your tile, add 1 damage (before their Shield)."),
              ("&#9670;", "Ember", "Scavenge", "After your normal loot, you may take 1 more cube from the same tile."),
              ("&#8776;", "Tide", "Runner", "Your Base Move starts at 2."),
-             ("&#9733;", "Nova", "Field medic", "Each Heal card you use to heal removes up to its value +2 Dead cards from your hand, then goes to your discard pile instead of leaving the game. You can't keep Heal cards at end of turn."),
+             ("&#9733;", "Nova", "Field medic", "Each Heal card you play can remove 1 extra Dead card from your hand (on top of its value)."),
              ("&#9729;&#xFE0E;", "Gale", "Storm runner", "You take 1 less storm damage (none in rounds 1&ndash;6)."),
              ("&#9889;&#xFE0E;", "Vex", "Siphon", "When your attack puts 2+ Dead cards on a player after their Shield, return 1 Dead card from your hand to the supply."),
-             ("&#9632;", "Bastion", "Armored", "You start the game with 2 Shield points, but all your upgrades (any stat) cost 5 instead of 4."),
+             ("&#9632;", "Bastion", "Armored", "You start the game with 1 Shield point, and your Shield maximum is 6 instead of 4."),
              ("&#9679;", "Brute", "Heavy hitter", "Your Base Attack starts at 2."),
-             ("&#9881;", "Rig", "Tinkerer", "The first upgrade of each stat costs you 3 instead of 4.")]
+             ("&#9881;", "Rig", "Tinkerer", "Your upgrades cost 3 instead of 4."),
+             ("&#10006;", "Fury", "Rage", "Your Attack is +2 for each Dead card in your hand.")]
     char_cards = [char_card_color(CHAR_ICON[nm], nm, ab, tx) for sym, nm, ab, tx in chars] if color else \
                  [f'<div class="card char"><div class="sym">{sym}</div><div class="name">{CHAR_THEME[nm][3]}</div>'
                   f'<div class="tier">Character</div><div class="ab">{ab}</div><div class="text">{tx}</div></div>'
