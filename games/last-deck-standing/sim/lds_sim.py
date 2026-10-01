@@ -1,0 +1,897 @@
+"""Last Deck Standing — seeded Monte Carlo simulator for Playtest Rules v1.
+
+System evidence only: bots measure length, seat balance, stalls and economy.
+They do not measure fun or rule clarity.
+
+Usage:
+  python3 lds_sim.py --players 3 5 8 10 --runs 500 --seed 42 --out results.json
+  python3 lds_sim.py --players 8 --tiles-total 70      # fixed board size variant
+"""
+import argparse
+import json
+import random
+from collections import Counter, deque
+from statistics import mean, median
+
+RULES_VERSION = "v1 (2026-09-29)"
+SIM_VERSION = "lds-sim 0.1"
+
+DIRS = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, -1), (-1, 1)]
+GROUP = {"A": "A", "M": "M", "H": "H", "S": "H"}  # Heal and Shield both upgrade Shield
+STAT = {"A": "atk", "M": "mov", "H": "shd"}
+BASE = {"atk": 1, "mov": 1, "shd": 0}
+MAX_ROUNDS = 150
+
+
+TILE_SETS = {  # one 15-tile set per player: 4 blank, 4 single, 4 double, 3 triple
+    "even":   ["", "", "", "", "M", "A", "H", "H", "MA", "AH", "HM", "MM", "MAH", "AAH", "MAH"],   # 7 M / 7 A / 7 H
+    "armory": ["", "", "", "", "M", "A", "A", "H", "MA", "AA", "AH", "MM", "MAH", "AAH", "MAA"],   # 6 M / 11 A / 4 H
+    "arsenal": ["", "", "", "", "A", "A", "M", "H", "AA", "MA", "AM", "MM", "AAA", "MAH", "AAM"],  # 7 M / 12 A / 2 H
+    "lean_heal": ["", "", "", "", "M", "A", "A", "H", "MA", "AH", "HM", "MM", "MAA", "AAH", "MAH"],  # 7 M / 9 A / 5 H
+}
+
+
+CHARACTERS = {  # name: (base stats override, ability)
+    "Blaze": ({"atk": 2}, "point_blank"),   # +1 damage at range 0
+    "Ember": ({}, "scavenge"),              # loot twice per turn
+    "Tide": ({"mov": 2}, "storm_runner"),   # storm damage -1
+    "Nova": ({"shd": 1}, "field_medic"),    # Heal cards used to heal remove 1 extra Dead card
+    "Shade": ({}, "long_shot"),             # +1 damage at range 2+
+}
+
+
+LONG_SHOT_MIN = 2
+PB_BONUS = 1
+MEDIC_BONUS = 1
+
+
+def char_bonus(p, rng_):
+    ab = getattr(p, "ability", None)
+    return (PB_BONUS if ab == "point_blank" and rng_ == 0 else 0) + (1 if ab == "long_shot" and rng_ >= LONG_SHOT_MIN else 0)
+
+
+def hexdist(a, b):
+    dq, dr = a[0] - b[0], a[1] - b[1]
+    return (abs(dq) + abs(dr) + abs(dq + dr)) // 2
+
+
+def nbrs(h):
+    return [(h[0] + d[0], h[1] + d[1]) for d in DIRS]
+
+
+# Bot profiles: weights for scoring a candidate turn.
+PROFILES = {
+    "random": None,
+    "aggressive": dict(att=3.0, loot=1.0, danger=0.5, heal=1.5, shield=0.5, up={"A": 3, "M": 1, "H": 1}),
+    "balanced": dict(att=2.0, loot=1.5, danger=1.0, heal=2.0, shield=1.0, up={"A": 2, "M": 1, "H": 2}),
+    "brawler": dict(att=3.0, loot=0.5, danger=0.0, heal=1.5, shield=0.5, up={"A": 3, "M": 1, "H": 1}, retreat=False),
+    "skirmisher": dict(att=3.0, loot=1.0, danger=1.5, heal=1.5, shield=0.5, up={"A": 3, "M": 2, "H": 1}),
+    "cautious": dict(att=1.5, loot=1.2, danger=2.0, heal=2.5, shield=1.5, up={"A": 1, "M": 1, "H": 3}),
+}
+
+
+def supply_deck(kind, rng, size=12, values=None):
+    if values:  # counts of value-1, value-2, value-3 cards
+        vals = [v + 1 for v, c in enumerate(values) for _ in range(c)]
+    else:
+        vals = [1] * (size // 2) + [2] * (size // 3) + [3] * (size - size // 2 - size // 3)
+    if kind == "H":  # alternate Heal / Shield within each value
+        cards = [("H" if i % 2 == 0 else "S", v) for i, v in enumerate(vals)]
+    else:
+        cards = [(kind, v) for v in vals]
+    rng.shuffle(cards)
+    return cards
+
+
+class Player:
+    def __init__(self, seat, profile, rng):
+        self.seat, self.profile = seat, profile
+        self.stats = dict(BASE)
+        self.shield = 0
+        self.draw = [("A", 1)] * 4 + [("M", 1)] * 3 + [("H", 1)] * 3
+        rng.shuffle(self.draw)
+        self.discard, self.hand = [], []
+        self.pos = None
+        self.alive = True
+        self.upgrades = Counter()
+
+    def draw_to(self, n, rng):
+        while len(self.hand) < n:
+            if not self.draw:
+                if not self.discard:
+                    return
+                self.draw, self.discard = self.discard, []
+                rng.shuffle(self.draw)
+            self.hand.append(self.draw.pop())
+
+
+class Game:
+    def __init__(self, n, profiles, rng, tiles_per_player=15, tiles_total=None, deck_size=12, storm="choose", upgrade_pay="remove", upgrade_cost=4, push=None,
+                 values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False, elim_timing="upkeep",
+                 play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False,
+                 min_start=0, hold=0, grace=0, storm_sched=None, dmg_sched=None, heal_no_attack=False, heal_no_move=False, hold_no_heal=False,
+                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False, characters=None, end_limit=0, shield_decay=False, base_shd_max=4, shield_card_remove=False, legendary_values=None, no_cache=False, no_refill=False, split_attack=False, storm_mode="any", heal_split=False):
+        self.heal_split = heal_split
+        self.storm_mode = storm_mode
+        self.no_refill, self.split_attack = no_refill, split_attack
+        self.no_cache = no_cache
+        self.shield_decay, self.base_shd_max, self.shield_card_remove = shield_decay, base_shd_max, shield_card_remove
+        self.end_limit = end_limit
+        self.characters = characters
+        self.heal_both = heal_both
+        self.tile_mix = tile_mix
+        self.shield_persist, self.shield_cap = shield_persist, shield_cap
+        self.display_n = display_n
+        self.min_draw, self.drop_rule = min_draw, drop_rule
+        self.hold_no_heal = hold_no_heal
+        self.heal_no_attack, self.heal_no_move = heal_no_attack, heal_no_move
+        self.storm_sched = storm_sched or {1: 1}
+        self.dmg_sched = dmg_sched or {1: 1}
+        self.grace = grace
+        self.min_start, self.hold = min_start, hold
+        self.storm_tiles = set()
+        self.play_all, self.sticky_dead, self.merged_heal, self.heal_keep = play_all, sticky_dead, merged_heal, heal_keep
+        self.elim_timing = elim_timing
+        self.heal_discard = heal_discard
+        self.bundle_cap = bundle_cap
+        self.pile, self.pile_move_cost = pile, pile_move_cost
+        self.piles = {}
+        self.retreat, self.kill_upgrade = retreat, kill_upgrade
+        self.loot = loot
+        self.drop_rounds, self.elim_loot = set(drop_rounds), elim_loot
+        self.drops = {}
+        self.drop_count = 0
+        # Legendary deck, as in the rules: 4 cards of each type (Attack, Move, Heal)
+        self.gold = [(k, v) for k in "AMH" for v in (legendary_values or [3, 3, 4, 4])]
+        rng.shuffle(self.gold)
+        self.storm_per_turn = storm_per_turn
+        self.storm, self.upgrade_pay, self.upgrade_cost, self.push = storm, upgrade_pay, upgrade_cost, push
+        self.round = 0
+        self.rng = rng
+        self.n = n
+        total = tiles_total or tiles_per_player * n
+        self.tiles = {}
+        self.build_board(total)
+        sizes = dict(zip("AMH", deck_sizes)) if deck_sizes else {k: deck_size for k in "AMH"}
+        self.decks = {k: supply_deck(k, rng, sizes[k], values) for k in "AMH"}
+        if heal_values:
+            self.decks["H"] = supply_deck("H", rng, values=heal_values)
+        if merged_heal:
+            self.decks["H"] = [("H", v) for _, v in self.decks["H"]]
+        self.display = {k: [self.decks[k].pop() for _ in range(display_n) if self.decks[k]] for k in "AMH"}
+        self.players = [Player(i, profiles[i], rng) for i in range(n)]
+        if characters:
+            for p, name in zip(self.players, characters):
+                p.char = name
+                stats, p.ability = CHARACTERS[name]
+                stats = dict(stats)
+                p.shield = stats.pop("start_shield", 0)  # one-time starting Shield (doesn't refill)
+                p.stats.update(stats)
+        for p in (reversed(self.players) if place_reverse else self.players):
+            p.pos = self.place_pawn(p)
+            p.draw_to(5, rng)
+        self.m = Counter()
+        self.first_attack_round = None
+        self.supply_out_round = {}
+
+    # --- setup -----------------------------------------------------------
+    def build_board(self, total):
+        rng = self.rng
+        self.tiles[(0, 0)] = self.roll_loot()
+        while len(self.tiles) < total:
+            frontier = list({nb for h in self.tiles for nb in nbrs(h) if nb not in self.tiles})
+            h = rng.choice(frontier)
+            self.tiles[h] = self.roll_loot()
+
+    def roll_loot(self):
+        rng = self.rng
+        if self.loot == "tiles":
+            if not getattr(self, "tile_pool", None):
+                self.tile_pool = [list(t) for t in TILE_SETS[self.tile_mix]]
+                rng.shuffle(self.tile_pool)
+            return list(self.tile_pool.pop())
+        n = {"d4-1": lambda: rng.randrange(4),
+             "coin": lambda: rng.randrange(2),
+             "d6": lambda: [0, 0, 0, 1, 1, 2][rng.randrange(6)],
+             "d4-2": lambda: max(0, rng.randrange(1, 5) - 2)}[self.loot]()
+        return [["M", "M", "A", "A", "H", "H"][rng.randrange(6)] for _ in range(n)]
+
+    def place_pawn(self, p):
+        # Spread out: pick the loot-richest hex among those farthest from placed pawns.
+        placed = [q.pos for q in self.players if q.pos is not None]
+        cands = list(self.tiles)
+        if placed and self.min_start:
+            cands = [h for h in cands if min(hexdist(h, x) for x in placed) >= self.min_start] or cands
+        if placed and p.profile in ("aggressive", "brawler"):
+            near = min(min(hexdist(h, x) for x in placed) for h in cands)
+            return self.rng.choice([h for h in cands if min(hexdist(h, x) for x in placed) == near])
+        if placed:
+            best = max(min(hexdist(h, x) for x in placed) for h in cands)
+            cands = [h for h in cands if min(hexdist(h, x) for x in placed) >= best - 1]
+        top = max(len(self.tiles[h]) for h in cands)
+        return self.rng.choice([h for h in cands if len(self.tiles[h]) == top])
+
+    # --- helpers ---------------------------------------------------------
+    def alive(self):
+        return [p for p in self.players if p.alive]
+
+    def path_len(self, a, b):
+        seen, q = {a: 0}, deque([a])
+        while q:
+            h = q.popleft()
+            if h == b:
+                return seen[h]
+            for nb in nbrs(h):
+                if nb in self.tiles and nb not in seen:
+                    seen[nb] = seen[h] + 1
+                    q.append(nb)
+        return 0
+
+    def reachable(self, start, steps):
+        seen = {start: 0}
+        q = deque([start])
+        while q:
+            h = q.popleft()
+            if seen[h] == steps:
+                continue
+            for nb in nbrs(h):
+                if nb in self.tiles and nb not in seen:
+                    seen[nb] = seen[h] + 1
+                    q.append(nb)
+        return list(seen)
+
+    def connected_without(self, h):
+        rest = [t for t in self.tiles if t != h]
+        if not rest:
+            return False
+        seen, q = {rest[0]}, deque([rest[0]])
+        while q:
+            for nb in nbrs(q.popleft()):
+                if nb in self.tiles and nb != h and nb not in seen:
+                    seen.add(nb)
+                    q.append(nb)
+        return len(seen) == len(rest)
+
+    def edge_tiles(self, allow_pawns=False):
+        pawns = {p.pos for p in self.alive()}
+        out = [h for h in self.tiles if (allow_pawns or h not in pawns) and h not in self.drops
+               and any(nb not in self.tiles for nb in nbrs(h))]
+        if self.storm in ("connected", "center"):
+            out = [h for h in out if self.connected_without(h)]
+        return out
+
+    def push_active(self):
+        if self.push is None:
+            return False
+        if self.push == "auto":
+            return not self.edge_tiles()
+        return self.round >= int(self.push)
+
+    # --- turn ------------------------------------------------------------
+    def play_turn(self, p, rnd):
+        rng = self.rng
+        if self.no_refill:
+            pass  # Shield only comes from Heal cards
+        elif self.shield_persist and self.shield_decay:
+            p.shield = max(p.stats["shd"], p.shield - 1)
+        else:
+            p.shield = max(p.shield, p.stats["shd"]) if self.shield_persist else p.stats["shd"]
+        before = len(p.hand)
+        hs = 6 if getattr(p, "ability", None) == "quick_draw" else 5
+        p.draw_to(hs, rng)
+        extra = self.min_draw + (1 if getattr(p, "ability", None) == "quick_draw3" else 0) - (len(p.hand) - before)
+        if extra > 0:
+            p.draw_to(len(p.hand) + extra, rng)
+            live = sorted((c for c in p.hand if c[0] != "D"), key=lambda c: (c[0] == "H", c[1]))
+            while len(p.hand) > hs and live:
+                c = live.pop(0)
+                p.hand.remove(c)
+                p.discard.append(c)
+                self.m["upkeep_discards"] += 1
+        if sum(1 for c in p.hand if c[0] == "D") >= 3:
+            if self.elim_timing == "upkeep":
+                self.eliminate(p, rnd)
+                return
+            self.m["last_chance_turns"] += 1
+        self.m["turns"] += 1
+        self.current = p
+
+        self.do_upgrades(p)
+        plan = self.choose_plan(p)
+        plays, dest, target, loot_kind = plan
+
+        played = [c for grp in plays for c in grp]
+        for c in played:
+            p.hand.remove(("H", c[1]) if c[0] == "X" else c)
+        mov = p.stats["mov"] + sum(v for k, v in played if k == "M")
+        atk = p.stats["atk"] + sum(v for k, v in played if k == "A")
+        if getattr(p, "ability", None) == "berserker":
+            atk += sum(1 for c in p.hand if c[0] == "D")
+        elif getattr(p, "ability", None) == "berserker2":
+            atk += 2 * sum(1 for c in p.hand if c[0] == "D")
+        hb = p.stats["shd"] if self.no_refill else 0  # Heal upgrades add +1 per level to every Heal card
+        hb += 1 if getattr(p, "ability", None) == "medic_value" else 0
+        heal = sum(v + hb for k, v in played if k == "H")
+        if getattr(p, "ability", None) == "medic_first" and any(k == "H" for k, v in played):
+            heal += 1  # Medic: your first Heal card each turn is worth +1
+        if self.heal_split:  # each Heal card's value is split: Dead removal first, the rest becomes Shield
+            dead_now = sum(1 for c in p.hand if c[0] == "D")
+            to_heal = min(heal, dead_now)
+            if getattr(p, "ability", None) == "medic_once" and any(k == "H" for k, v in played) and dead_now > to_heal:
+                to_heal += 1  # Medic: once per turn, heal 1 extra Dead card
+            if getattr(p, "ability", None) == "medic_healplus":
+                to_heal = min(dead_now, to_heal + sum(1 for k, v in played if k == "H"))  # +1 Dead removal per Heal card
+            p.shield = min(self.shield_cap + (2 if getattr(p, "ability", None) in ("tank_cap6", "tank_cap6s") else 0), p.shield + heal - to_heal)
+            heal = to_heal
+        p.shield = min(self.shield_cap, p.shield + sum(v + hb for k, v in played if k in ("SXH" if self.heal_both else "SX")))
+        self.m["cards_played"] += len(played)
+        self.m["plays_used"] += len(plays)
+        self.m["play_slots"] += 2
+
+        healed = 0
+        ab = getattr(p, "ability", None)
+        if ab in ("field_medic", "field_medic_keep", "medic_nohold"):
+            heal += MEDIC_BONUS * sum(1 for k, v in played if k == "H")
+        elif ab == "medic_plus1":
+            heal += sum(1 for k, v in played if k == "H")
+        for _ in range(heal):
+            if ("D", 0) in p.hand:
+                p.hand.remove(("D", 0))
+                healed += 1
+            elif self.heal_discard and ("D", 0) in p.discard:
+                p.discard.remove(("D", 0))
+                healed += 1
+        self.m["dead_healed"] += healed
+        if heal and not healed:
+            self.m["wasted_heals"] += 1
+
+        p_start = p.pos
+        p.pos = dest
+        if target is not None and self.round <= self.grace:
+            target = None
+        if self.heal_no_attack and any(c[0] == "H" for c in played):
+            target = None
+        hits = []
+        if target is not None and self.split_attack:
+            # spend just enough on other in-range players who are close to elimination, the rest on the main target
+            rest = atk
+            others = sorted((q for q in self.alive() if q is not p and q is not target),
+                            key=lambda q: -sum(1 for c in q.hand + q.discard if c[0] == "D"))
+            for q in others:
+                r = hexdist(dest, q.pos)
+                need = r + q.shield + 1
+                if sum(1 for c in q.hand if c[0] == "D") >= 1 and rest - need > hexdist(dest, target.pos):
+                    hits.append((q, need)); rest -= need
+            hits.append((target, rest))
+        elif target is not None:
+            hits.append((target, atk))
+        for target, pts in hits:
+            dmg = pts - hexdist(dest, target.pos)
+            if dmg > 0:
+                dmg += char_bonus(p, hexdist(dest, target.pos))
+            if dmg > 0:
+                absorbed = min(target.shield, dmg)
+                target.shield -= absorbed
+                dealt = dmg - absorbed
+                target.discard += [("D", 0)] * dealt
+                if dealt:
+                    target.last_hit_by = p
+                if dealt >= 2 and getattr(p, "ability", None) == "siphon" and ("D", 0) in p.hand:
+                    p.hand.remove(("D", 0))
+                    self.m["siphons"] += 1
+                self.m["attacks"] += 1
+                self.m["dead_dealt"] += dealt
+                self.m["dead_absorbed"] += absorbed
+                if dealt and self.first_attack_round is None:
+                    self.first_attack_round = rnd
+        if loot_kind == "P":
+            pool = self.piles.pop(dest)
+            self.rng.shuffle(pool)
+            got = [c for c in pool if c[0] != "D"][:self.pile]  # Dead cards are redrawn
+            p.discard += got
+            self.m["pile_loots"] += 1
+            self.m["pile_cards"] += len(got)
+        elif loot_kind == "G":
+            cards = self.drops[dest]
+            p.discard.append(cards.pop(max(range(len(cards)), key=lambda i: cards[i][1])))
+            self.m["drop_loots"] += 1
+            if not cards:
+                del self.drops[dest]
+        elif loot_kind is not None:
+            self.tiles[dest].remove(loot_kind)
+            self.take_loot(p, loot_kind, rnd)
+        if getattr(p, "ability", None) == "scavenge" and self.tiles.get(dest):
+            k2 = self.tiles[dest][0]
+            self.tiles[dest].remove(k2)
+            self.take_loot(p, k2, rnd)
+
+        if self.retreat and PROFILES[p.profile] is not None and PROFILES[p.profile].get("retreat", True):
+            left = mov - self.path_len(p_start, dest) - (self.pile_move_cost if loot_kind == "P" else 0)
+            if left > 0:
+                foes = [q for q in self.alive() if q is not p]
+                p.pos = min(self.reachable(dest, left), key=lambda h: sum(
+                    max(0, q.stats["atk"] + 2 - hexdist(h, q.pos) - p.shield) for q in foes) + self.rng.random() * 0.01)
+                self.m["retreats"] += p.pos != dest
+
+        if self.elim_timing == "end" and sum(1 for c in p.hand if c[0] == "D") >= 3:
+            self.eliminate(p, rnd)  # hand (with its Dead cards) goes into the loot pile / supply
+            p.hand = []
+            return
+
+        spent = [("H", c[1]) if c[0] == "X" else c for c in played
+                 if not (self.shield_card_remove and c[0] == "X")
+                 if c[0] != "H" or self.heal_keep or (self.heal_both and not healed)
+                 or getattr(p, "ability", None) in ("field_medic_keep", "medic_nohold", "medic_plus1")]
+        if self.sticky_dead:
+            live = sorted((c for c in p.hand if c[0] != "D"), key=lambda c: (c[0] == "H", c[1]), reverse=True)
+            if getattr(p, "ability", None) == "medic_nohold":  # recycled Heal cards can't be kept
+                live = [c for c in live if c[0] != "H"] + [c for c in live if c[0] == "H"]
+            if self.end_limit:  # discard down to end_limit cards; Dead cards stay and count toward it
+                lim = self.end_limit + {"keep4": 1, "keep5": 2}.get(getattr(p, "ability", None), 0)
+                room = max(0, lim - sum(1 for c in p.hand if c[0] == "D"))
+                kept = live[:min(room, self.hold)]
+            elif self.hold_no_heal:
+                live = [c for c in live if c[0] != "H"] + [c for c in live if c[0] == "H"]
+                kept = [c for c in live if c[0] != "H"][:self.hold]
+            else:
+                kept = live[:self.hold]
+            p.discard += spent + [c for c in live if c not in kept or live.count(c) > kept.count(c)][:len(live) - len(kept)]
+            p.hand = [c for c in p.hand if c[0] == "D"] + kept
+            self.m["held"] += len(kept)
+        else:
+            p.discard += spent + p.hand
+            p.hand = []
+
+        sched = lambda d: d[max(r for r in d if r <= self.round)]
+        n_storm = sched(self.storm_sched) if self.storm == "flip" else self.storm_per_turn
+        for _ in range(n_storm):
+            self.storm_step()
+        if self.storm == "flip" and p.pos in self.storm_tiles:
+            dmg = sched(self.dmg_sched)
+            if getattr(p, "ability", None) == "storm_runner" or (getattr(p, "ability", None) == "storm_runner_early" and self.round < 7):
+                dmg = max(0, dmg - 1)
+            p.discard += [("D", 0)] * dmg
+            self.m["storm_hits"] += dmg
+
+    def storm_step(self):
+        p = self.current
+        if self.storm == "flip" and self.storm_mode == "rings":
+            if not hasattr(self, "ring"):  # ring 0 = edge tiles, ring 1 = tiles touching ring 0, ...
+                self.ring = {h: 0 for h in self.tiles if any(nb not in self.tiles for nb in nbrs(h))}
+                q = deque(self.ring)
+                while q:
+                    h = q.popleft()
+                    for nb in nbrs(h):
+                        if nb in self.tiles and nb not in self.ring:
+                            self.ring[nb] = self.ring[h] + 1
+                            q.append(nb)
+            todo = [h for h in self.tiles if h not in self.storm_tiles]
+            if todo:
+                lo = min(self.ring.get(h, 99) for h in todo)
+                self.storm_tiles.add(self.pick_storm_tile(p, [h for h in todo if self.ring.get(h, 99) == lo]))
+            else:
+                self.m["storm_skipped"] += 1
+            return
+        if self.storm == "flip" and self.storm_mode == "markremove":
+            edge = [h for h in self.tiles if any(nb not in self.tiles for nb in nbrs(h))]
+            fresh = [h for h in edge if h not in self.storm_tiles]
+            if fresh:
+                self.storm_tiles.add(self.pick_storm_tile(p, fresh))
+                return
+            old = [h for h in edge if len(self.tiles) > 1 and self.connected_without(h)]
+            if not old:
+                self.m["storm_skipped"] += 1
+                return
+            h = self.pick_storm_tile(p, old)
+            self.tiles.pop(h); self.storm_tiles.discard(h); self.piles.pop(h, None); self.drops.pop(h, None)
+            self.m["tiles_removed"] += 1
+            for q in self.alive():
+                if q.pos == h:
+                    self.m["pushes"] += 1
+                    opts = [nb for nb in nbrs(h) if nb in self.tiles]
+                    foes = [x.pos for x in self.alive() if x is not q]
+                    q.pos = max(opts, key=lambda t: (t not in self.storm_tiles,
+                                                    min((hexdist(t, f) for f in foes), default=0)) + (self.rng.random() * 0.01,))
+            return
+        if self.storm == "flip":
+            outer = [h for h in self.tiles if h not in self.storm_tiles and
+                     any(nb not in self.tiles or nb in self.storm_tiles for nb in nbrs(h))]
+            if outer:
+                self.storm_tiles.add(self.pick_storm_tile(p, outer))
+            else:
+                self.m["storm_skipped"] += 1
+            return
+        push = self.push_active()
+        edges = self.edge_tiles(allow_pawns=push)
+        if edges:
+            h = self.pick_storm_tile(p, edges)
+            self.tiles.pop(h)
+            self.piles.pop(h, None)
+            for q in self.alive():
+                if q.pos == h:  # pushed pawn moves to an adjacent tile of its owner's choosing
+                    self.m["pushes"] += 1
+                    opts = [nb for nb in nbrs(h) if nb in self.tiles]
+                    foes = [x.pos for x in self.alive() if x is not q]
+                    q.pos = max(opts, key=lambda t: min((hexdist(t, f) for f in foes), default=0) + self.rng.random() * 0.01)
+        else:
+            self.m["storm_skipped"] += 1
+
+    def take_loot(self, p, kind, rnd):
+        self.m["loots"] += 1
+        if self.display_n == 0:
+            card = self.decks[kind].pop() if self.decks[kind] else None
+        elif self.display[kind]:
+            card = max(self.display[kind], key=lambda c: c[1])  # take the best face-up card
+            self.display[kind].remove(card)
+            if self.decks[kind]:
+                self.display[kind].append(self.decks[kind].pop())
+        else:
+            card = None
+        if card is None:
+            self.m["loot_empty"] += 1
+            self.supply_out_round.setdefault(kind, rnd)
+            return
+        p.discard.append(card)
+
+    def supply_drop(self):
+        alive = self.alive()
+        placer = alive[self.drop_count % len(alive)]
+        self.drop_count += 1
+        if self.drop_rule == "inner":  # not a storm tile, not an edge tile; a new drop clears the old one
+            self.drops = {}
+            far = [h for h in self.tiles if h not in self.storm_tiles and all(nb in self.tiles for nb in nbrs(h))] or \
+                  [h for h in self.tiles if h not in self.storm_tiles] or list(self.tiles)
+        else:
+            far = [h for h in self.tiles if h not in self.drops and hexdist(h, placer.pos) >= 3] or \
+                  [h for h in self.tiles if h not in self.drops]
+        if not far:
+            return
+        spot = min(far, key=lambda h: hexdist(h, placer.pos) + self.rng.random() * 0.01)
+        i = alive.index(placer)
+        for q in alive[i + 1:] + alive[:i]:  # clockwise nudges: move 1 hex toward yourself or pass
+            opts = [nb for nb in nbrs(spot) if nb in self.tiles and nb not in self.drops]
+            best = min(opts, key=lambda h: hexdist(h, q.pos), default=None)
+            if best is not None and hexdist(best, q.pos) < hexdist(spot, q.pos):
+                spot = best
+        self.drops[spot] = [self.gold.pop() for _ in range(2) if self.gold]
+        self.m["drops"] += 1
+
+    def eliminate(self, p, rnd):
+        p.alive = False
+        killer = getattr(p, "last_hit_by", None)
+        if self.elim_loot and killer is not None and killer.alive:
+            pool = [c for c in p.draw + p.discard + p.hand if c[0] != "D"]
+            self.rng.shuffle(pool)
+            killer.discard += pool[:self.elim_loot]
+            self.m["elim_loot_cards"] += len(pool[:self.elim_loot])
+        if self.kill_upgrade and killer is not None and killer.alive:
+            for st in ("atk", "shd", "mov"):  # +1 to a stat of the killer's choice
+                if killer.stats[st] < 4:
+                    killer.stats[st] += 1
+                    self.m["kill_upgrades"] += 1
+                    break
+        self.m["eliminations"] += 1
+        if self.pile:
+            if p.pos in self.tiles:
+                self.piles.setdefault(p.pos, []).extend(p.draw + p.discard + p.hand)
+        elif p.pos in self.tiles and not self.no_cache:
+            self.tiles[p.pos] += ["M", "A", "H"]
+
+    # --- bot decisions ---------------------------------------------------
+    def do_upgrades(self, p):
+        w = PROFILES[p.profile]
+        for g in sorted("AMH", key=lambda g: -(w["up"][g] if w else self.rng.random())):
+            stat = STAT[g]
+            smax = 1 if (stat == "shd" and getattr(p, "ability", None) == "tank_fixed") else (self.base_shd_max if stat == "shd" else 4)
+            while p.stats[stat] < smax:
+                cards = sorted([c for c in p.hand if c[0] != "D" and GROUP[c[0]] == g], key=lambda c: c[1])
+                ab = getattr(p, "ability", None)
+                once = ab == "tinkerer_once" and getattr(p, "last_upg_turn", -1) != self.m["turns"]
+                perstat = ab == "tinkerer_perstat" and not p.upgrades.get(g)
+                if ab == "tinkerer_once" and not once and p.upgrades:
+                    pass
+                ucost = self.upgrade_cost - (1 if (ab == "tinkerer" and not p.upgrades) or ab == "tinkerer_all" or once or perstat else 0) \
+                        + (1 if ab == "tank_slow" else 0)
+                if sum(v for _, v in cards) < ucost:
+                    break
+                if w is None and self.rng.random() < 0.5:
+                    break
+                pay, tot = [], 0
+                for c in sorted(cards, key=lambda c: -c[1]):  # fewest cards that reach 4
+                    pay.append(c)
+                    tot += c[1]
+                    if tot >= ucost:
+                        break
+                for c in pay:
+                    p.hand.remove(c)
+                    if self.upgrade_pay == "discard":
+                        p.discard.append(c)
+                self.m["overpay"] += tot - ucost
+                p.stats[stat] += 1
+                p.upgrades[g] += 1
+                p.last_upg_turn = self.m["turns"]
+                self.m[f"upgrade_{g}"] += 1
+
+    def play_options(self, p):
+        if self.play_all:
+            opts = {()}
+            for c in p.hand:
+                if c[0] == "D":
+                    continue
+                alts = [(c,)]
+                if self.merged_heal and c[0] == "H" and not self.heal_both and not self.heal_split:
+                    alts.append((("X", c[1]),))  # Heal card spent as Shield
+                opts |= {tuple(sorted(o + a)) for o in opts for a in alts}
+            from collections import Counter as _C
+            have = _C(c for c in p.hand if c[0] != "D")
+            def ok(o):
+                need = _C(("H", v) if k == "X" else (k, v) for k, v in o)
+                return all(have[x] >= n for x, n in need.items())
+            opts = {o for o in opts if ok(o)}
+            return [tuple((c,) for c in o) for o in opts]
+        return self.play_options_limited(p)
+
+    def play_options_limited(self, p):
+        """All legal sets of up to 2 plays. Upgraded groups play as one bundle."""
+        units = []
+        bundled = set()
+        for c in p.hand:
+            if c[0] == "D":
+                continue
+            g = GROUP[c[0]]
+            if p.stats[STAT[g]] > BASE[STAT[g]]:
+                if g not in bundled:
+                    bundled.add(g)
+                    grp = sorted((x for x in p.hand if x[0] != "D" and GROUP[x[0]] == g), key=lambda c: -c[1])
+                    units.append(tuple(grp[:self.bundle_cap]))
+                    units += [(x,) for x in grp[self.bundle_cap:]]
+            else:
+                units.append((c,))
+        opts = [()]
+        for i in range(len(units)):
+            opts.append((units[i],))
+            for j in range(i + 1, len(units)):
+                opts.append((units[i], units[j]))
+        return opts
+
+    def choose_plan(self, p):
+        rng = self.rng
+        foes = [q for q in self.alive() if q is not p]
+        opts = self.play_options(p)
+        w = PROFILES[p.profile]
+        if w is None:
+            plays = rng.choice(opts)
+            flat = [c for g in plays for c in g]
+            mov = p.stats["mov"] + sum(v for k, v in flat if k == "M")
+            atk = p.stats["atk"] + sum(v for k, v in flat if k == "A")
+            dest = rng.choice(self.reachable(p.pos, mov))
+            inr = [q for q in foes if atk - hexdist(dest, q.pos) > 0]
+            tgt = rng.choice(inr) if inr else None
+            loot = "P" if dest in self.piles else "G" if dest in self.drops else (rng.choice(self.tiles[dest]) if self.tiles[dest] else None)
+            return plays, dest, tgt, loot
+
+        dead_in_hand = sum(1 for c in p.hand if c[0] == "D")
+        if self.heal_discard:
+            dead_in_hand += sum(1 for c in p.discard if c[0] == "D")
+        best, best_s = None, -1e9
+        reach_cache = {}
+        for plays in opts:
+            flat = [c for g in plays for c in g]
+            mov = p.stats["mov"] + sum(v for k, v in flat if k == "M")
+            atk = p.stats["atk"] + sum(v for k, v in flat if k == "A")
+            if getattr(p, "ability", None) == "berserker":
+                atk += dead_in_hand
+            elif getattr(p, "ability", None) == "berserker2":
+                atk += 2 * dead_in_hand
+            hb = (p.stats["shd"] if self.no_refill else 0) + (1 if getattr(p, "ability", None) == "medic_value" else 0)
+            heal = sum(v + hb for k, v in flat if k == "H")
+            split_shd = 0
+            if self.heal_split:
+                split_shd = max(0, heal - dead_in_hand)
+                heal = min(heal, dead_in_hand)
+            if self.heal_no_move and heal:
+                mov = 0
+            shd = p.shield + sum(v + hb for k, v in flat if k in ("SXH" if self.heal_both else "SX")) + split_shd
+            if mov not in reach_cache:
+                reach_cache[mov] = self.reachable(p.pos, mov)
+            base_s = w["heal"] * min(heal, dead_in_hand)
+            if self.elim_timing == "end" and dead_in_hand >= 3 and dead_in_hand - heal < 3:
+                base_s += 100  # survive the end-of-turn elimination check + w["shield"] * (shd - p.shield) * 0.5
+            for dest in reach_cache[mov]:
+                s = base_s
+                tgt, tdmg = None, 0
+                for q in foes:
+                    if self.heal_no_attack and heal:
+                        break
+                    d = atk - hexdist(dest, q.pos) - q.shield
+                    if atk - hexdist(dest, q.pos) > 0:
+                        d += char_bonus(p, hexdist(dest, q.pos))
+                    # prefer targets already close to elimination
+                    val = d + 0.3 * sum(1 for c in q.discard + q.draw if c[0] == "D") / 5
+                    if d > 0 and val > tdmg:
+                        tgt, tdmg = q, val
+                s += w["att"] * tdmg
+                loot = None
+                if dest in self.piles and (self.pile_move_cost == 0 or
+                                           dest in self.reachable(p.pos, max(0, mov - self.pile_move_cost))):
+                    loot = "P"
+                    s += w["loot"] * (1 + self.pile * 0.8)
+                elif dest in self.drops:
+                    loot = "G"
+                    s += w["loot"] * 3.5
+                elif self.tiles[dest]:
+                    shown = lambda k: max((c[1] for c in self.display[k]), default=0) if self.display_n else 1.5
+                    loot = max(self.tiles[dest], key=shown)
+                    s += w["loot"] * (1 + shown(loot) * 0.5)
+                danger = sum(max(0, q.stats["atk"] + 2 - hexdist(dest, q.pos) - shd) for q in foes)
+                if dest in self.storm_tiles:
+                    danger += 1.5
+                if self.hold and not self.hold_no_heal:  # value of Heal cards left in hand to keep for later
+                    s += w["heal"] * 0.5 * max(0, sum(1 for c in p.hand if c[0] == "H")
+                                                   - sum(1 for c in flat if c[0] in "HX"))
+                s -= w["danger"] * danger
+                s += rng.random() * 0.01
+                if s > best_s:
+                    best_s, best = s, (plays, dest, tgt, loot)
+        return best
+
+    def pick_storm_tile(self, p, edges):
+        if self.storm == "center":  # closing circle: remove the edge tile farthest from the board's centre
+            cq = sum(h[0] for h in self.tiles) / len(self.tiles)
+            cr = sum(h[1] for h in self.tiles) / len(self.tiles)
+            far = lambda h: (abs(h[0] - cq) + abs(h[1] - cr) + abs(h[0] - cq + h[1] - cr)) / 2
+            return max(edges, key=lambda h: far(h) + self.rng.random() * 0.01)
+        w = PROFILES[p.profile]
+        if w is None:
+            return self.rng.choice(edges)
+        foes = [q for q in self.alive() if q is not p]
+        # Remove tiles far from me and near foes, preferring loot-rich ones (deny loot).
+        def score(h):
+            me = hexdist(h, p.pos)
+            near_foe = min((hexdist(h, q.pos) for q in foes), default=0)
+            return me - near_foe + len(self.tiles[h]) * 0.5 + self.rng.random() * 0.01
+        return max(edges, key=score)
+
+    # --- run -------------------------------------------------------------
+    def run(self):
+        rnd = 0
+        while len(self.alive()) > 1 and rnd < MAX_ROUNDS:
+            rnd += 1
+            self.round = rnd
+            if rnd in self.drop_rounds and self.gold:
+                self.supply_drop()
+            for p in self.players:
+                if p.alive and len(self.alive()) > 1:
+                    self.play_turn(p, rnd)
+        winner = self.alive()[0] if len(self.alive()) == 1 else None
+        return dict(
+            rounds=rnd,
+            stalled=winner is None,
+            winner_seat=winner.seat if winner else None,
+            winner_profile=winner.profile if winner else None,
+            winner_char=getattr(winner, "char", None) if winner else None,
+            first_attack_round=self.first_attack_round,
+            tiles_left=len(self.tiles),
+            supply_out_round=self.supply_out_round,
+            **self.m,
+        )
+
+
+def campaign(n, runs, seed, population, **kw):
+    rng = random.Random(seed)
+    results = []
+    for i in range(runs):
+        if population == "mixed":
+            prof = [rng.choice(["aggressive", "balanced", "cautious"]) for _ in range(n)]
+        else:
+            prof = [population] * n
+        results.append(Game(n, prof, random.Random(rng.random()), **kw).run())
+    done = [r for r in results if not r["stalled"]]
+    seat = Counter(r["winner_seat"] for r in done)
+    tot = lambda k: sum(r.get(k, 0) for r in results)
+    rounds = [r["rounds"] for r in done]
+    out = dict(
+        players=n, runs=runs, seed=seed, population=population, config=kw,
+        stall_rate=round(1 - len(done) / runs, 3),
+        rounds_mean=round(mean(rounds), 1) if rounds else None,
+        rounds_median=median(rounds) if rounds else None,
+        rounds_p10_p90=[sorted(rounds)[len(rounds) // 10], sorted(rounds)[len(rounds) * 9 // 10]] if rounds else None,
+        turns_mean=round(tot("turns") / runs, 1),
+        first_attack_round_median=median([r["first_attack_round"] for r in results if r["first_attack_round"]] or [0]),
+        seat_win_rate={s: round(seat[s] / max(1, len(done)), 3) for s in range(n)},
+        fair_share=round(1 / n, 3),
+        profile_wins=dict(Counter(r["winner_profile"] for r in done)),
+        upgrades_per_game={g: round(tot(f"upgrade_{g}") / runs, 2) for g in "AMH"},
+        attacks_per_turn=round(tot("attacks") / max(1, tot("turns")), 2),
+        dead_dealt_per_game=round(tot("dead_dealt") / runs, 1),
+        shield_absorb_share=round(tot("dead_absorbed") / max(1, tot("dead_absorbed") + tot("dead_dealt")), 2),
+        play_slot_use=round(tot("plays_used") / max(1, tot("play_slots")), 2),
+        loot_empty_rate=round(tot("loot_empty") / max(1, tot("loots")), 2),
+        supply_runs_out_pct={k: round(sum(1 for r in results if k in r["supply_out_round"]) / runs, 2) for k in "AMH"},
+        drops_per_game=round(tot("drops") / runs, 1),
+        drop_loots_per_game=round(tot("drop_loots") / runs, 1),
+        last_chance_turns_per_game=round(tot("last_chance_turns") / runs, 1),
+        dead_healed_per_game=round(tot("dead_healed") / runs, 1),
+        storm_hits_per_game=round(tot("storm_hits") / runs, 1),
+        pushes_per_game=round(tot("pushes") / runs, 1),
+        storm_skipped_per_game=round(tot("storm_skipped") / runs, 1),
+        tiles_left_at_end_mean=round(mean(r["tiles_left"] for r in results), 1),
+    )
+    return out
+
+
+def parse_sched(x):
+    return {int(r): int(v) for r, v in (kv.split(":") for kv in x.split(","))} if x else None
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--players", type=int, nargs="+", default=[3, 5, 8, 10])
+    ap.add_argument("--runs", type=int, default=500)
+    ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--population", default="mixed", choices=["mixed", *PROFILES])
+    ap.add_argument("--tiles-per-player", type=int, default=15)
+    ap.add_argument("--tiles-total", type=int, default=None)
+    ap.add_argument("--deck-size", type=int, default=12)
+    ap.add_argument("--storm", default="choose", choices=["choose", "center", "connected", "flip"])
+    ap.add_argument("--upgrade-cost", type=int, default=4)
+    ap.add_argument("--push", default=None, help="auto | round number")
+    ap.add_argument("--upgrade-pay", default="remove", choices=["remove", "discard"])
+    ap.add_argument("--values", type=lambda x: [int(v) for v in x.split(",")], default=None, help="e.g. 6,4,2")
+    ap.add_argument("--place-reverse", action="store_true")
+    ap.add_argument("--storm-per-turn", type=int, default=1)
+    ap.add_argument("--loot", default="d4-1", choices=["d4-1", "coin", "d6", "d4-2", "tiles"])
+    ap.add_argument("--drop-rounds", type=lambda x: [int(v) for v in x.split(",")], default=[])
+    ap.add_argument("--elim-loot", type=int, default=0)
+    ap.add_argument("--pile", type=int, default=0, help="loot-pile first pick size (0 = kill cache)")
+    ap.add_argument("--bundle-cap", type=int, default=99)
+    ap.add_argument("--heal-discard", action="store_true")
+    ap.add_argument("--kill-upgrade", action="store_true")
+    ap.add_argument("--elim-timing", default="upkeep", choices=["upkeep", "end"])
+    ap.add_argument("--play-all", action="store_true")
+    ap.add_argument("--sticky-dead", action="store_true")
+    ap.add_argument("--merged-heal", action="store_true")
+    ap.add_argument("--heal-keep", action="store_true", help="Heal cards used to heal are discarded, not removed")
+    ap.add_argument("--min-start", type=int, default=0)
+    ap.add_argument("--hold", type=int, default=0)
+    ap.add_argument("--grace", type=int, default=0, help="no attacks in rounds 1..N")
+    ap.add_argument("--storm-sched", default=None, help="round:markers per turn, e.g. 1:0,5:1,9:2")
+    ap.add_argument("--dmg-sched", default=None, help="round:storm damage, e.g. 1:1,9:2")
+    ap.add_argument("--heal-no-attack", action="store_true")
+    ap.add_argument("--heal-no-move", action="store_true")
+    ap.add_argument("--hold-no-heal", action="store_true")
+    ap.add_argument("--heal-values", type=lambda x: [int(v) for v in x.split(",")], default=None, help="Heal deck counts of value 1,2,3")
+    ap.add_argument("--min-draw", type=int, default=0)
+    ap.add_argument("--drop-rule", default="near3", choices=["near3", "inner"])
+    ap.add_argument("--display", type=int, default=1, help="face-up cards per supply deck")
+    ap.add_argument("--shield-persist", action="store_true")
+    ap.add_argument("--shield-cap", type=int, default=99)
+    ap.add_argument("--tile-mix", default="even", choices=["even", "armory", "arsenal", "lean_heal"])
+    ap.add_argument("--deck-sizes", type=lambda x: [int(v) for v in x.split(",")], default=None, help="Attack,Move,Heal deck sizes")
+    ap.add_argument("--heal-both", action="store_true", help="Heal cards heal AND shield")
+    ap.add_argument("--end-limit", type=int, default=0, help="discard down to N cards at end of turn (Dead count)")
+    ap.add_argument("--out")
+    a = ap.parse_args()
+    kw = dict(tiles_per_player=a.tiles_per_player, tiles_total=a.tiles_total, deck_size=a.deck_size,
+              storm=a.storm, upgrade_pay=a.upgrade_pay,
+              upgrade_cost=a.upgrade_cost, push=a.push,
+              values=a.values, place_reverse=a.place_reverse, storm_per_turn=a.storm_per_turn, loot=a.loot,
+              drop_rounds=a.drop_rounds, elim_loot=a.elim_loot,
+              pile=a.pile, bundle_cap=a.bundle_cap, heal_discard=a.heal_discard, kill_upgrade=a.kill_upgrade,
+              elim_timing=a.elim_timing, play_all=a.play_all, sticky_dead=a.sticky_dead,
+              merged_heal=a.merged_heal, heal_keep=a.heal_keep,
+              min_start=a.min_start, hold=a.hold, grace=a.grace,
+              storm_sched=parse_sched(a.storm_sched), dmg_sched=parse_sched(a.dmg_sched),
+              heal_no_attack=a.heal_no_attack, heal_no_move=a.heal_no_move, hold_no_heal=a.hold_no_heal, heal_values=a.heal_values,
+              min_draw=a.min_draw, drop_rule=a.drop_rule, display_n=a.display, shield_persist=a.shield_persist, shield_cap=a.shield_cap, tile_mix=a.tile_mix, deck_sizes=a.deck_sizes, heal_both=a.heal_both,
+              end_limit=a.end_limit)
+    res = dict(rules_version=RULES_VERSION, simulation_version=SIM_VERSION,
+               campaigns=[campaign(n, a.runs, a.seed, a.population, **kw) for n in a.players])
+    s = json.dumps(res, indent=1)
+    if a.out:
+        open(a.out, "w").write(s)
+    print(s)
+
+
+if __name__ == "__main__":
+    main()

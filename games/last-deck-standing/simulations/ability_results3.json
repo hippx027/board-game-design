@@ -1,0 +1,54 @@
+{
+ "2": {
+  "Point blank (+1 dmg on your tile)": 1.152619589977221,
+  "Long shot (+1 dmg off your tile)": 1.1727078891257996,
+  "Scavenge (loot twice)": 0.9783549783549783,
+  "Runner (Base Move 2)": 0.8979591836734694,
+  "Field medic (Heal cards heal +2, Base Move 2)": 1.037344398340249,
+  "Storm runner (storm dmg -1)": 0.9178082191780822,
+  "Siphon (hit 2+: heal 1)": 0.9601873536299765,
+  "Armored (start with 1 Shield, no refill)": 0.961038961038961,
+  "Heavy hitter (Base Attack 2)": 1.2304609218436873,
+  "Deep pockets (keep 4 at end of turn)": 0.7816593886462883,
+  "Tinkerer (first upgrade costs 3)": 0.8699763593380615
+ },
+ "3": {
+  "Point blank (+1 dmg on your tile)": 1.1521739130434783,
+  "Long shot (+1 dmg off your tile)": 0.9970845481049563,
+  "Scavenge (loot twice)": 1.004424778761062,
+  "Runner (Base Move 2)": 0.8763523956723339,
+  "Field medic (Heal cards heal +2, Base Move 2)": 1.0153846153846153,
+  "Storm runner (storm dmg -1)": 0.9892638036809815,
+  "Siphon (hit 2+: heal 1)": 0.9449152542372882,
+  "Armored (start with 1 Shield, no refill)": 1.1623931623931623,
+  "Heavy hitter (Base Attack 2)": 0.9845201238390093,
+  "Deep pockets (keep 4 at end of turn)": 0.8002915451895044,
+  "Tinkerer (first upgrade costs 3)": 1.0608695652173914
+ },
+ "4": {
+  "Point blank (+1 dmg on your tile)": 0.915929203539823,
+  "Long shot (+1 dmg off your tile)": 1.0734966592427617,
+  "Scavenge (loot twice)": 1.0967007963594995,
+  "Runner (Base Move 2)": 0.9779735682819384,
+  "Field medic (Heal cards heal +2, Base Move 2)": 1.0481283422459893,
+  "Storm runner (storm dmg -1)": 1.1272727272727272,
+  "Siphon (hit 2+: heal 1)": 0.9545454545454546,
+  "Armored (start with 1 Shield, no refill)": 1.0817884405670666,
+  "Heavy hitter (Base Attack 2)": 1.1059085841694538,
+  "Deep pockets (keep 4 at end of turn)": 0.7700312174817898,
+  "Tinkerer (first upgrade costs 3)": 0.871413390010627
+ },
+ "5": {
+  "Point blank (+1 dmg on your tile)": 0.9558823529411764,
+  "Long shot (+1 dmg off your tile)": 0.9022222222222221,
+  "Scavenge (loot twice)": 1.0445205479452055,
+  "Runner (Base Move 2)": 0.8608695652173913,
+  "Field medic (Heal cards heal +2, Base Move 2)": 0.9965928449744463,
+  "Storm runner (storm dmg -1)": 1.2601994560290117,
+  "Siphon (hit 2+: heal 1)": 1.0444444444444445,
+  "Armored (start with 1 Shield, no refill)": 1.2811693895098883,
+  "Heavy hitter (Base Attack 2)": 1.1265004616805172,
+  "Deep pockets (keep 4 at end of turn)": 0.7314897413024085,
+  "Tinkerer (first upgrade costs 3)": 0.799469964664311
+ }
+}

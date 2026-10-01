@@ -1,0 +1,220 @@
+{
+ "rules_version": "v1 (2026-09-29)",
+ "simulation_version": "lds-sim 0.1",
+ "campaigns": [
+  {
+   "players": 3,
+   "runs": 500,
+   "seed": 42,
+   "population": "mixed",
+   "config": {
+    "tiles_per_player": 15,
+    "tiles_total": null,
+    "deck_size": 12,
+    "storm": "center",
+    "upgrade_pay": "discard"
+   },
+   "stall_rate": 0.012,
+   "rounds_mean": 14.8,
+   "rounds_median": 13.0,
+   "rounds_p10_p90": [
+    9,
+    22
+   ],
+   "turns_mean": 40.1,
+   "first_attack_round_median": 4.0,
+   "seat_win_rate": {
+    "0": 0.379,
+    "1": 0.393,
+    "2": 0.229
+   },
+   "fair_share": 0.333,
+   "profile_wins": {
+    "aggressive": 136,
+    "cautious": 161,
+    "balanced": 197
+   },
+   "upgrades_per_game": {
+    "A": 4.42,
+    "M": 3.24,
+    "H": 1.97
+   },
+   "attacks_per_turn": 0.34,
+   "dead_dealt_per_game": 33.0,
+   "shield_absorb_share": 0.13,
+   "play_slot_use": 0.77,
+   "loot_empty_rate": 0.02,
+   "supply_runs_out_pct": {
+    "A": 0.05,
+    "M": 0.1,
+    "H": 0.09
+   },
+   "storm_skipped_per_game": 7.3,
+   "tiles_left_at_end_mean": 12.2
+  },
+  {
+   "players": 5,
+   "runs": 500,
+   "seed": 42,
+   "population": "mixed",
+   "config": {
+    "tiles_per_player": 15,
+    "tiles_total": null,
+    "deck_size": 12,
+    "storm": "center",
+    "upgrade_pay": "discard"
+   },
+   "stall_rate": 0.082,
+   "rounds_mean": 19.6,
+   "rounds_median": 17,
+   "rounds_p10_p90": [
+    12,
+    28
+   ],
+   "turns_mean": 90.8,
+   "first_attack_round_median": 3.0,
+   "seat_win_rate": {
+    "0": 0.224,
+    "1": 0.288,
+    "2": 0.207,
+    "3": 0.148,
+    "4": 0.133
+   },
+   "fair_share": 0.2,
+   "profile_wins": {
+    "cautious": 179,
+    "aggressive": 116,
+    "balanced": 164
+   },
+   "upgrades_per_game": {
+    "A": 7.63,
+    "M": 5.56,
+    "H": 3.18
+   },
+   "attacks_per_turn": 0.28,
+   "dead_dealt_per_game": 61.1,
+   "shield_absorb_share": 0.11,
+   "play_slot_use": 0.75,
+   "loot_empty_rate": 0.19,
+   "supply_runs_out_pct": {
+    "A": 0.73,
+    "M": 0.71,
+    "H": 0.68
+   },
+   "storm_skipped_per_game": 29.5,
+   "tiles_left_at_end_mean": 13.6
+  },
+  {
+   "players": 8,
+   "runs": 500,
+   "seed": 42,
+   "population": "mixed",
+   "config": {
+    "tiles_per_player": 15,
+    "tiles_total": null,
+    "deck_size": 12,
+    "storm": "center",
+    "upgrade_pay": "discard"
+   },
+   "stall_rate": 0.302,
+   "rounds_mean": 23.8,
+   "rounds_median": 19,
+   "rounds_p10_p90": [
+    14,
+    37
+   ],
+   "turns_mean": 196.1,
+   "first_attack_round_median": 2.0,
+   "seat_win_rate": {
+    "0": 0.146,
+    "1": 0.198,
+    "2": 0.16,
+    "3": 0.135,
+    "4": 0.138,
+    "5": 0.086,
+    "6": 0.092,
+    "7": 0.046
+   },
+   "fair_share": 0.125,
+   "profile_wins": {
+    "cautious": 143,
+    "aggressive": 88,
+    "balanced": 118
+   },
+   "upgrades_per_game": {
+    "A": 11.33,
+    "M": 7.79,
+    "H": 3.9
+   },
+   "attacks_per_turn": 0.2,
+   "dead_dealt_per_game": 91.8,
+   "shield_absorb_share": 0.09,
+   "play_slot_use": 0.71,
+   "loot_empty_rate": 0.45,
+   "supply_runs_out_pct": {
+    "A": 1.0,
+    "M": 0.99,
+    "H": 0.99
+   },
+   "storm_skipped_per_game": 93.7,
+   "tiles_left_at_end_mean": 17.5
+  },
+  {
+   "players": 10,
+   "runs": 500,
+   "seed": 42,
+   "population": "mixed",
+   "config": {
+    "tiles_per_player": 15,
+    "tiles_total": null,
+    "deck_size": 12,
+    "storm": "center",
+    "upgrade_pay": "discard"
+   },
+   "stall_rate": 0.418,
+   "rounds_mean": 30.8,
+   "rounds_median": 24,
+   "rounds_p10_p90": [
+    15,
+    54
+   ],
+   "turns_mean": 266.0,
+   "first_attack_round_median": 1.0,
+   "seat_win_rate": {
+    "0": 0.141,
+    "1": 0.199,
+    "2": 0.127,
+    "3": 0.093,
+    "4": 0.072,
+    "5": 0.093,
+    "6": 0.107,
+    "7": 0.052,
+    "8": 0.076,
+    "9": 0.041
+   },
+   "fair_share": 0.1,
+   "profile_wins": {
+    "cautious": 130,
+    "aggressive": 67,
+    "balanced": 94
+   },
+   "upgrades_per_game": {
+    "A": 13.21,
+    "M": 9.24,
+    "H": 4.36
+   },
+   "attacks_per_turn": 0.18,
+   "dead_dealt_per_game": 109.1,
+   "shield_absorb_share": 0.08,
+   "play_slot_use": 0.7,
+   "loot_empty_rate": 0.55,
+   "supply_runs_out_pct": {
+    "A": 1.0,
+    "M": 1.0,
+    "H": 1.0
+   },
+   "storm_skipped_per_game": 132.1,
+   "tiles_left_at_end_mean": 16.1
+  }
+ ]
+}

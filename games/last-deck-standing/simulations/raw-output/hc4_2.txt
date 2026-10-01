@@ -1,0 +1,11 @@
+2p	Brawler (+1 dmg on your tile)	1.09
+2p	Sniper (+1 dmg off your tile)	1.06
+2p	Scavenger (2nd cube)	1.00
+2p	Runner (Move 2)	0.88
+2p	Storm Chaser (storm -1)	0.75
+2p	Leech (siphon)	0.94
+2p	Heavy (Attack 2)	1.34
+2p	Tank v5 (start 1 Shield, Shield max 6)	0.95
+2p	Mechanic v2 (all upgrades cost 3)	0.77
+2p	Medic v4 (first Heal card each turn +1 value)	1.03
+2p	Berserker v2 (+2 Attack per Dead in hand)	1.20

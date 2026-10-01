@@ -1,0 +1,2 @@
+2p | no Heal upgrade; shield REUSE, heal one-time       | stall=0.00 rounds=11 p90=17 turns=22 healed=6.8 dealt=19 storm=14 absorbed=0.16 upg A/M/H=2.3/1.7/0.0 seats=[0.56, 0.43] aggr=0.27 bala=0.33 caut=0.41
+2p | no Heal upgrade; ONE-TIME for heal and shield      | stall=0.00 rounds=9 p90=14 turns=19 healed=4.6 dealt=18 storm=9 absorbed=0.14 upg A/M/H=2.1/1.6/0.0 seats=[0.56, 0.45] aggr=0.36 bala=0.29 caut=0.35

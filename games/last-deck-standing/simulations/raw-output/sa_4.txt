@@ -1,0 +1,4 @@
+4p | current                            | stall=0.00 rounds=14 turns=42 attacks/turn=0.50 dealt=42 absorbed=0.21 healed=10.0 healUpg=3.0 seats=[0.29, 0.23, 0.28, 0.2] aggr=0.13 bala=0.42 caut=0.46
+4p | no refill + Heal upgrade +1/card   | stall=0.00 rounds=14 turns=42 attacks/turn=0.50 dealt=44 absorbed=0.17 healed=10.8 healUpg=2.9 seats=[0.3, 0.25, 0.25, 0.2] aggr=0.13 bala=0.40 caut=0.47
+4p | split attacks                      | stall=0.00 rounds=14 turns=42 attacks/turn=0.51 dealt=42 absorbed=0.21 healed=10.1 healUpg=3.0 seats=[0.29, 0.24, 0.27, 0.2] aggr=0.13 bala=0.41 caut=0.45
+4p | both                               | stall=0.00 rounds=14 turns=42 attacks/turn=0.51 dealt=44 absorbed=0.18 healed=10.7 healUpg=2.9 seats=[0.31, 0.25, 0.24, 0.2] aggr=0.13 bala=0.40 caut=0.47

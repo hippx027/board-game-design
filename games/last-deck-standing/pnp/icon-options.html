@@ -1,0 +1,63 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Icon options</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,700,0..1,0&family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,700,0..1,0&display=block">
+<style>
+:root { --ink:#15121c; --atk:#ff3b30; --mov:#9b4dff; --heal:#20c060; --shd:#1e88ff; --dead:#2a2a33; }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 24px 16px 40px; background: #2b2540; font-family: "Nunito", system-ui, sans-serif; color: #fff; }
+h1 { font: 38px "Bangers", Impact, sans-serif; letter-spacing: 2px; color: #ffe066; text-align: center; margin: 0 0 6px;
+     -webkit-text-stroke: 2px var(--ink); text-shadow: 4px 4px 0 var(--ink); }
+.sub { text-align: center; color: #d9d2ff; margin: 0 0 18px; font-size: 14px; }
+.row { display: grid; grid-template-columns: 110px repeat(6, 1fr); gap: 12px; align-items: center; max-width: 1000px; margin: 0 auto 14px; }
+.label { font: 24px "Bangers", Impact, sans-serif; letter-spacing: 1px; color: #fff; -webkit-text-stroke: 1px var(--ink); text-shadow: 2px 2px 0 var(--ink); }
+.opt { text-align: center; }
+.tile { height: 104px; border-radius: 12px; border: 4px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); position: relative; overflow: hidden;
+        display: flex; align-items: center; justify-content: center;
+        background: repeating-conic-gradient(from 0deg at 50% 50%, var(--c) 0 10deg, color-mix(in srgb, var(--c) 72%, #fff) 10deg 20deg); }
+.plate { width: 74%; height: 76%; border-radius: 10px; background: #fff; border: 4px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+         display: flex; align-items: center; justify-content: center; transform: rotate(-2deg); }
+.i { font-family: "Material Symbols Rounded"; font-size: 54px; line-height: 1; color: var(--c);
+     font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 48;
+     text-shadow: 2px 0 var(--ink), -2px 0 var(--ink), 0 2px var(--ink), 0 -2px var(--ink),
+                  1.5px 1.5px var(--ink), -1.5px 1.5px var(--ink), 1.5px -1.5px var(--ink), -1.5px -1.5px var(--ink); }
+.name { font: 800 12px "Nunito", sans-serif; color: #cfc7ff; margin-top: 6px; }
+.num { display: inline-block; background: #ffe066; color: var(--ink); border-radius: 4px; padding: 0 5px; margin-right: 3px; font-weight: 900; }
+h2 { font: 26px "Bangers", Impact, sans-serif; letter-spacing: 1.5px; color: #ffe066; text-align: center; margin: 30px 0 12px;
+     -webkit-text-stroke: 1px var(--ink); text-shadow: 3px 3px 0 var(--ink); }
+.styles .i.outline { font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 48; text-shadow: none; color: var(--ink); }
+.styles .i.flat { text-shadow: none; }
+.styles .i.sharp { font-family: "Material Symbols Sharp"; }
+.styles .i.ink { color: var(--ink); text-shadow: none; }
+.styles .plate.dark { background: var(--ink); }
+.styles .plate.dark .i { text-shadow: none; }
+</style></head><body>
+<h1>ICON OPTIONS</h1>
+<p class="sub">Pick one per row by its number (for example "Attack 3, Move 5, Heal 2"). All icons are from the free Material Symbols set.</p>
+<div id="rows"></div>
+<h2>Style options (same icons, different treatment)</h2>
+<div id="styles"></div>
+<script>
+const rows = [
+  ["Attack", "var(--atk)", [["swords","Crossed swords"],["sports_mma","Boxing glove"],["bolt","Lightning"],["target","Target"],["explosion","Explosion"],["hand_gesture","Punch"]]],
+  ["Move", "var(--mov)", [["sprint","Runner"],["directions_run","Running figure"],["double_arrow","Double arrow"],["fast_forward","Fast forward"],["footprint","Footprints"],["rocket_launch","Rocket"]]],
+  ["Heal", "var(--heal)", [["medical_services","First-aid kit"],["favorite","Heart"],["healing","Bandage"],["add_circle","Plus"],["ecg_heart","Heartbeat"],["syringe","Syringe"]]],
+  ["Shield", "var(--shd)", [["shield","Shield"],["shield_with_heart","Heart shield"],["security","Guard shield"],["verified_user","Check shield"],["health_and_safety","Cross shield"],["gpp_good","Tick shield"]]],
+  ["Dead", "var(--dead)", [["skull","Skull"],["heart_broken","Broken heart"],["dangerous","Stop sign"],["close","X mark"],["sentiment_very_dissatisfied","KO face"],["coronavirus","Virus"]]],
+];
+const el = document.getElementById("rows");
+for (const [label, color, opts] of rows) {
+  el.insertAdjacentHTML("beforeend", `<div class="row"><div class="label">${label}</div>` + opts.map(([ic, nm], i) =>
+    `<div class="opt"><div class="tile" style="--c:${color}"><div class="plate"><span class="i">${ic}</span></div></div>
+     <div class="name"><span class="num">${i + 1}</span>${nm}</div></div>`).join("") + `</div>`);
+}
+const st = document.getElementById("styles");
+const styles = [["Current: filled + ink outline", "", ""], ["Filled, no outline", "flat", ""], ["Outline only (ink)", "outline", ""],
+                ["Sharp corners", "sharp", ""], ["Solid ink", "ink", ""], ["Dark plate", "", "dark"]];
+for (const [label, color, ic] of [["Attack","var(--atk)","swords"],["Move","var(--mov)","sprint"],["Heal","var(--heal)","favorite"]]) {
+  st.insertAdjacentHTML("beforeend", `<div class="row styles"><div class="label">${label}</div>` + styles.map(([nm, icls, pcls], i) =>
+    `<div class="opt"><div class="tile" style="--c:${color}"><div class="plate ${pcls}"><span class="i ${icls}">${ic}</span></div></div>
+     <div class="name"><span class="num">${String.fromCharCode(65 + i)}</span>${nm}</div></div>`).join("") + `</div>`);
+}
+</script>
+</body></html>

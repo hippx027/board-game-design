@@ -1,0 +1,14 @@
+5p	Brawler	0.99
+5p	Sniper	0.80
+5p	Scavenger	0.99
+5p	Runner	0.71
+5p	Storm Chaser	1.24
+5p	Leech	1.08
+5p	Heavy	0.89
+5p	Tank	1.25
+5p	Medic now (+2, recycles)	0.94
+5p	Medic M1 (+2, recycles, can't keep Heals)	1.16
+5p	Medic M2 (+1, recycles)	1.14
+5p	Mechanic now (all cost 3)	0.87
+5p	Mechanic C1 (cost 3 once per turn)	1.02
+5p	Mechanic C2 (first upgrade of each stat costs 3)	0.85

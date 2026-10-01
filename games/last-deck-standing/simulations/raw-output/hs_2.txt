@@ -1,0 +1,2 @@
+2p | one-time, pick heal OR shield    | stall=0.00 rounds=10 turns=20 healed=4.5 shieldShare=0.15 storm=10 seats=[0.54, 0.46] aggr=0.38 bala=0.27 caut=0.35
+2p | one-time, SPLIT heal + shield    | stall=0.00 rounds=10 turns=20 healed=4.6 shieldShare=0.17 storm=10 seats=[0.54, 0.46] aggr=0.35 bala=0.26 caut=0.39

@@ -1,0 +1,100 @@
+{
+ "rules_version": "v1 (2026-09-29)",
+ "simulation_version": "lds-sim 0.1",
+ "campaigns": [
+  {
+   "players": 5,
+   "runs": 300,
+   "seed": 31,
+   "population": "mixed",
+   "config": {
+    "tiles_per_player": 10,
+    "tiles_total": null,
+    "deck_size": 18,
+    "storm": "flip",
+    "upgrade_pay": "discard",
+    "upgrade_cost": 4,
+    "push": null,
+    "values": null,
+    "place_reverse": false,
+    "storm_per_turn": 1,
+    "loot": "tiles",
+    "drop_rounds": [],
+    "elim_loot": 0,
+    "pile": 5,
+    "bundle_cap": 99,
+    "heal_discard": false,
+    "kill_upgrade": false,
+    "elim_timing": "end",
+    "play_all": true,
+    "sticky_dead": true,
+    "merged_heal": true,
+    "heal_keep": false,
+    "min_start": 3,
+    "hold": 5,
+    "grace": 0,
+    "storm_sched": {
+     "1": 1,
+     "7": 2
+    },
+    "dmg_sched": {
+     "1": 1,
+     "7": 2
+    },
+    "heal_no_attack": false,
+    "heal_no_move": false,
+    "hold_no_heal": false,
+    "heal_values": [
+     9,
+     6,
+     3
+    ]
+   },
+   "stall_rate": 0.0,
+   "rounds_mean": 13.4,
+   "rounds_median": 14.0,
+   "rounds_p10_p90": [
+    10,
+    17
+   ],
+   "turns_mean": 51.1,
+   "first_attack_round_median": 1.0,
+   "seat_win_rate": {
+    "0": 0.197,
+    "1": 0.2,
+    "2": 0.23,
+    "3": 0.21,
+    "4": 0.163
+   },
+   "fair_share": 0.2,
+   "profile_wins": {
+    "aggressive": 32,
+    "cautious": 149,
+    "balanced": 119
+   },
+   "upgrades_per_game": {
+    "A": 2.67,
+    "M": 2.48,
+    "H": 2.47
+   },
+   "attacks_per_turn": 0.52,
+   "dead_dealt_per_game": 48.2,
+   "shield_absorb_share": 0.1,
+   "play_slot_use": 1.26,
+   "loot_empty_rate": 0.0,
+   "supply_runs_out_pct": {
+    "A": 0.03,
+    "M": 0.05,
+    "H": 0.01
+   },
+   "drops_per_game": 0.0,
+   "drop_loots_per_game": 0.0,
+   "last_chance_turns_per_game": 5.5,
+   "dead_healed_per_game": 15.0,
+   "storm_hits_per_game": 34.1,
+   "pushes_per_game": 0.0,
+   "storm_skipped_per_game": 17.4,
+   "tiles_left_at_end_mean": 50
+  }
+ ]
+}
