@@ -44,5 +44,8 @@ The flags above match the current rules (use `--tiles-per-player` 15 for 2–3p,
 
 - With holding (Heal cards included, the designer's call: holding heals is a Fortnite-style strategy), cautious play wins ~52% at 5p in bots. Watch it in human tests; don't "fix" it by banning heal holding (SIM-009).
 
+- The rulebook has a **First Game (learning rules)** box (no drops, loot piles, upgrades, loot display, critical call or characters; SIM-024). **Characters** are an optional variant: 10 cards, deal 2 keep 1, tuned in SIM-018/019/023/025. Blind read-throughs keep finding human exploits the bots miss (holding loops, Shield turtle, Medic and Mechanic loops), so run one after any rules change.
+- Card art direction and the print generator (`sim/pnp_sheets.py`) produce two PDFs in `pnp/`: colour (comic, rarity title + tinted frame, "+N" badges) and ink-saver.
+
 ## Open questions
 Supply-drop placement (rotating, in notes) · upgrade cost 4 vs 5 · whether turtling is fun or dull · real seconds per turn (target 30–60 min).

@@ -7,6 +7,7 @@
 | Build / version | Rules v1 (2026-09-29) |
 | Experiment ID | — (exploratory) |
 | Stage | mid (mechanisms mostly locked; first human test) |
+| Rules used | First Game (learning rules) / full rules / + characters |
 | Framework | Good / Bad / Meh during play → Three-Bucket Triage after |
 | Players | (count, familiarity with deck builders) |
 | Duration | setup: ___ min · play: ___ min |
