@@ -182,7 +182,7 @@ def main(style="plain"):
              '<li><b>Start:</b> put the marker on 1.</li>'
              '<li><b>Advance:</b> move the marker up 1 at the start of each of the start player\'s turns after the first '
              '(if the start player is out, move it when play reaches their seat).</li>'
-             '<li><b>Storm, rounds 1&ndash;6:</b> at the end of your turn place <b>1</b> storm marker. '
+             '<li><b>Storm, rounds 1&ndash;6:</b> at the end of your turn place <b>1</b> storm marker in the outermost ring that still has unmarked tiles (finish a ring before starting the next). '
              'End your turn on a storm tile: <b>1</b> Dead card to your discard pile.</li>'
              '<li><b>Storm, round 7+ (STORM FAST):</b> place <b>2</b> markers per turn; storm damage is <b>2</b>. '
              'Storm damage ignores Shield.</li>'

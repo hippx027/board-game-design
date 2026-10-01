@@ -139,14 +139,20 @@ Example: a value-3 Move card plus a value-1 Move card raises Base Move by 1. So 
 Paid cards go to your discard pile, not out of the game; they come back when you reshuffle. Cards you pay with can't also be played this turn and add nothing to your Move, Attack or Shield. You may overpay, but extra value is lost. Base Move and Base Attack max out at 4, and the Heal bonus at +3; you can't upgrade past the maximum.
 
 ## The Storm
-The storm closes in from the outside of the board, like a shrinking circle. At the end of your turn, place storm markers on tiles, then check for storm damage.
+The storm closes in from the outside of the board **one ring at a time**, like a shrinking circle. At the end of your turn, place storm markers on tiles, then check for storm damage.
 
 | Rounds | Markers you place each turn | Storm damage |
 |---|---|---|
 | 1–6 | 1 | 1 Dead card |
 | 7+ (the storm closes fast) | 2 | 2 Dead cards |
 
-**Placing markers:** you choose where each marker goes, and you may use them to cut off opponents. Put each marker on an unmarked tile that is on the edge of the board (at least one of its six sides has no tile next to it, including sides facing a hole) or touches a marked tile. You choose which. It doesn't matter what's on the tile: pawns, loot cubes and loot piles all stay. Once every tile is marked, stop placing markers. From then on, everyone takes storm damage every turn: this is the endgame.
+**Rings:**
+- **Ring 1** is every tile on the edge of the board: any tile with at least one side not touching another tile, including sides facing a hole.
+- **Ring 2** is every tile touching a Ring 1 tile. **Ring 3** is every tile touching Ring 2, and so on. The board never changes, so the rings never change either.
+
+**Placing markers:** put each marker on an unmarked tile in the **current ring**: the outermost ring that still has unmarked tiles. You choose which tile in that ring. You can't mark a tile in the next ring while any tile in the current ring is unmarked. If you have 2 markers and the current ring has only 1 tile left, mark it, then put the second marker in the next ring. It doesn't matter what's on the tile: pawns, loot cubes and loot piles all stay. Once every tile is marked, stop placing markers. From then on, everyone takes storm damage every turn: this is the endgame.
+
+*Tip: if players struggle to see the current ring, put a small token on every Ring 1 tile after building the board.*
 
 **Storm tiles:** a marked tile is a storm tile. You can move through, stop on and loot storm tiles normally. If you **end your turn on a storm tile**, take the storm damage for this round as Dead cards into your discard pile. Storm damage ignores Shield and doesn't use up any Shield points.
 
@@ -189,7 +195,7 @@ Each player's set has 15 tiles and 21 loot icons: 6 Move, 11 Attack, 4 Heal.
 **Actions (any order):** play any cards · move · attack (split it among players if you like) · 1 loot (1 cube, 1 pile claim or 1 drop card) · upgrade
 **Supply drops:** rounds 3, 5, 7, 9, 11 (one per starting player); placed on a tile that's not storm or edge, then everyone may nudge it 1 tile
 **Heal card:** value + your Heal bonus: heal (Dead from hand → supply, card leaves the game) or shield (+Shield, max 4; stays until used; never refills)
-**Storm:** place markers on edge tiles or tiles touching a marked tile: 1 per turn (rounds 1–6), 2 per turn (round 7+). End your turn on a storm tile: 1 Dead card (round 7+: 2) to your discard pile; Shield doesn't block it
+**Storm:** finish the outermost ring before starting the next; place 1 per turn (rounds 1–6), 2 per turn (round 7+). End your turn on a storm tile: 1 Dead card (round 7+: 2) to your discard pile; Shield doesn't block it
 **Eliminated:** all your Dead cards to supply; your other cards become a loot pile (claims pick 5, then 3, then 1)
 **End:** eliminated if 3+ Dead in hand (then skip the rest) → discard played cards, then discard down to 3 (Dead cards stay and count) → storm markers → storm damage
 **Damage:** points in that attack − Range, then Shield absorbs; 0 or less can't hit; Dead cards go to the target's discard pile

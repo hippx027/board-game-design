@@ -312,7 +312,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <p>Example: a value-3 Move card plus a value-1 Move card raises Base Move by 1. So do two value-2s, or four value-1s.</p>
 <p>Paid cards go to your discard pile, not out of the game; they come back when you reshuffle. Cards you pay with can&#39;t also be played this turn and add nothing to your Move, Attack or Shield. You may overpay, but extra value is lost. Base Move and Base Attack max out at 4, and the Heal bonus at +3; you can&#39;t upgrade past the maximum.</p>
 <h2 id="the-storm">The Storm</h2>
-<p>The storm closes in from the outside of the board, like a shrinking circle. At the end of your turn, place storm markers on tiles, then check for storm damage.</p>
+<p>The storm closes in from the outside of the board <strong>one ring at a time</strong>, like a shrinking circle. At the end of your turn, place storm markers on tiles, then check for storm damage.</p>
 <div class="tbl"><table>
 <thead>
 <tr>
@@ -332,7 +332,13 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <td>2 Dead cards</td>
 </tr>
 </tbody></table></div>
-<p><strong>Placing markers:</strong> you choose where each marker goes, and you may use them to cut off opponents. Put each marker on an unmarked tile that is on the edge of the board (at least one of its six sides has no tile next to it, including sides facing a hole) or touches a marked tile. You choose which. It doesn&#39;t matter what&#39;s on the tile: pawns, loot cubes and loot piles all stay. Once every tile is marked, stop placing markers. From then on, everyone takes storm damage every turn: this is the endgame.</p>
+<p><strong>Rings:</strong></p>
+<ul>
+<li><strong>Ring 1</strong> is every tile on the edge of the board: any tile with at least one side not touching another tile, including sides facing a hole.</li>
+<li><strong>Ring 2</strong> is every tile touching a Ring 1 tile. <strong>Ring 3</strong> is every tile touching Ring 2, and so on. The board never changes, so the rings never change either.</li>
+</ul>
+<p><strong>Placing markers:</strong> put each marker on an unmarked tile in the <strong>current ring</strong>: the outermost ring that still has unmarked tiles. You choose which tile in that ring. You can&#39;t mark a tile in the next ring while any tile in the current ring is unmarked. If you have 2 markers and the current ring has only 1 tile left, mark it, then put the second marker in the next ring. It doesn&#39;t matter what&#39;s on the tile: pawns, loot cubes and loot piles all stay. Once every tile is marked, stop placing markers. From then on, everyone takes storm damage every turn: this is the endgame.</p>
+<p><em>Tip: if players struggle to see the current ring, put a small token on every Ring 1 tile after building the board.</em></p>
 <p><strong>Storm tiles:</strong> a marked tile is a storm tile. You can move through, stop on and loot storm tiles normally. If you <strong>end your turn on a storm tile</strong>, take the storm damage for this round as Dead cards into your discard pile. Storm damage ignores Shield and doesn&#39;t use up any Shield points.</p>
 <h2 id="supply-drops">Supply Drops</h2>
 <p>A supply drop lands at the start of rounds <strong>3, 5, 7, 9 and 11</strong>, before the start player&#39;s upkeep. The number of drops is set by the <strong>starting</strong> player count: with 2 players, only rounds 3 and 5; with 3 players, rounds 3, 5 and 7; and so on. When a new drop lands, any card left in the previous drop is removed from the game.</p>
@@ -390,7 +396,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <strong>Actions (any order):</strong> play any cards &#183; move &#183; attack (split it among players if you like) &#183; 1 loot (1 cube, 1 pile claim or 1 drop card) &#183; upgrade<br>
 <strong>Supply drops:</strong> rounds 3, 5, 7, 9, 11 (one per starting player); placed on a tile that&#39;s not storm or edge, then everyone may nudge it 1 tile<br>
 <strong>Heal card:</strong> value + your Heal bonus: heal (Dead from hand &#8594; supply, card leaves the game) or shield (+Shield, max 4; stays until used; never refills)<br>
-<strong>Storm:</strong> place markers on edge tiles or tiles touching a marked tile: 1 per turn (rounds 1&#8211;6), 2 per turn (round 7+). End your turn on a storm tile: 1 Dead card (round 7+: 2) to your discard pile; Shield doesn&#39;t block it<br>
+<strong>Storm:</strong> finish the outermost ring before starting the next; place 1 per turn (rounds 1&#8211;6), 2 per turn (round 7+). End your turn on a storm tile: 1 Dead card (round 7+: 2) to your discard pile; Shield doesn&#39;t block it<br>
 <strong>Eliminated:</strong> all your Dead cards to supply; your other cards become a loot pile (claims pick 5, then 3, then 1)<br>
 <strong>End:</strong> eliminated if 3+ Dead in hand (then skip the rest) &#8594; discard played cards, then discard down to 3 (Dead cards stay and count) &#8594; storm markers &#8594; storm damage<br>
 <strong>Damage:</strong> points in that attack &#8722; Range, then Shield absorbs; 0 or less can&#39;t hit; Dead cards go to the target&#39;s discard pile<br>
