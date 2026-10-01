@@ -147,10 +147,10 @@ The storm closes in from the outside of the board **one ring at a time**, like a
 | 7+ (the storm closes fast) | 2 | 2 Dead cards |
 
 **Rings:**
-- **Ring 1** is every tile on the edge of the board: any tile with at least one side not touching another tile, including sides facing a hole.
-- **Ring 2** is every tile touching a Ring 1 tile. **Ring 3** is every tile touching Ring 2, and so on. The board never changes, so the rings never change either.
+- **Ring 1** is every tile on the edge of the board: any tile with at least one open side. A side is open if no tile is there, whether that's the board's outside or a hole inside the board. (So tiles beside a hole are Ring 1, even near the middle.)
+- **Ring 2** is every tile not in Ring 1 that touches a Ring 1 tile. **Ring 3** is every tile not yet in a ring that touches Ring 2, and so on. Rings depend only on where tiles are, never on markers, so they never change.
 
-**Placing markers:** put each marker on an unmarked tile in the **current ring**: the outermost ring that still has unmarked tiles. You choose which tile in that ring. You can't mark a tile in the next ring while any tile in the current ring is unmarked. If you have 2 markers and the current ring has only 1 tile left, mark it, then put the second marker in the next ring. It doesn't matter what's on the tile: pawns, loot cubes and loot piles all stay. Once every tile is marked, stop placing markers. From then on, everyone takes storm damage every turn: this is the endgame.
+**Placing markers:** place your markers one at a time. Each goes on an unmarked tile in the **current ring**: the outermost ring that still has unmarked tiles at that moment. You choose which tile in that ring. So if you have 2 markers and the current ring has 1 tile left, the first finishes that ring and the second goes in the next ring. If no unmarked tiles remain, place no more. It doesn't matter what's on the tile: pawns, loot cubes and loot piles all stay. Once every tile is marked, stop placing markers. From then on, everyone takes storm damage every turn: this is the endgame.
 
 *Tip: if players struggle to see the current ring, put a small token on every Ring 1 tile after building the board.*
 
