@@ -132,7 +132,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <tr>
 <td>Stat tracker</td>
 <td>1 per player</td>
-<td>Tracks Base Move, Base Attack and Base Shield (each 0&#8211;4) and current Shield points (0&#8211;4)</td>
+<td>Tracks Base Move and Base Attack (each 0&#8211;4), Heal bonus (0&#8211;3) and current Shield points (0&#8211;4)</td>
 </tr>
 <tr>
 <td>Round track and marker</td>
@@ -175,15 +175,15 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li>Place the round marker on round 1 of the round track.</li>
 <li>Shuffle the Legendary deck face down. Shuffle the three supply decks separately and place them face down. Turn the top <strong>2</strong> cards of each deck face up in a row beside it. Those 6 cards are the <strong>loot display</strong>.</li>
 <li><strong>Characters (optional variant; skip for your first games).</strong> Shuffle the character cards and deal 2 to each player. Keep 1 face up in front of you and return the other to the box.</li>
-<li>Each player sets their stats to Base Move 1, Base Attack 1, Base Shield 0, then applies their character&#39;s changes if you&#39;re using characters.</li>
+<li>Each player sets their stats to Base Move 1, Base Attack 1, Heal bonus 0, Shield 0, then applies their character&#39;s changes if you&#39;re using characters.</li>
 <li>Each player shuffles their 10-card base deck and draws 5 cards.</li>
 <li>The start player takes the first turn. Advance the round marker at the start of each of the start player&#39;s turns after the first (or when play reaches their seat, if they&#39;ve been eliminated).</li>
 </ol>
 <h2 id="your-turn">Your Turn</h2>
 <p>Play goes clockwise. Each turn has three phases.</p>
 <h3>Phase 1: Upkeep</h3>
+<p>Your Shield points never refill on their own. They only come from Heal cards and stay until damage uses them.</p>
 <ol>
-<li><strong>Shield refill:</strong> if your Shield points are below your Base Shield, raise them to your Base Shield. Shield points never go down at upkeep; they stay until damage uses them.</li>
 <li><strong>Draw:</strong> draw until you have 5 cards in hand. Cards you kept from last turn and Dead cards count toward the 5. (You end each turn with 3 cards or fewer, so you always draw at least 2 unless your deck and discard pile both run out.) If your draw pile runs out, shuffle your discard pile to make a new one and keep drawing. If both are empty, stop drawing.</li>
 <li><strong>Critical:</strong> if 3 or more cards in your hand are Dead cards, announce &quot;critical&quot; to the table. This is only a warning: what counts is how many Dead cards you hold at the end of your turn.</li>
 </ol>
@@ -192,7 +192,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <ul>
 <li><strong>Play any number of cards</strong> from your hand, including none. Dead cards can&#39;t be played.</li>
 <li><strong>Move</strong> up to your total Move: Base Move plus the Move cards you played this turn. Each point of Move takes your pawn to an adjacent tile; you can&#39;t cross a gap where there&#39;s no tile. Any number of pawns may share a tile. You may move some before playing cards and the rest after.</li>
-<li><strong>Attack once</strong> (see Attacking). You may attack even if you played no Attack cards, since your Base Attack still counts.</li>
+<li><strong>Attack</strong> (see Attacking). You may split your Attack among several players. You may attack even if you played no Attack cards, since your Base Attack still counts.</li>
 <li><strong>Loot once</strong> (see Looting).</li>
 <li><strong>Upgrade</strong> any number of times (see Upgrading).</li>
 </ul>
@@ -222,7 +222,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 <tr>
 <td><strong>Heal</strong> (starting deck and Heal deck)</td>
-<td>Choose one mode for its whole value when you play it. Unused value is lost. <strong>Heal:</strong> return up to that many Dead cards <strong>from your hand</strong> to the Dead supply, then remove this card from the game. <strong>Shield:</strong> add that many points to your Shield tracker (maximum 4). They stay until damage uses them; the card is discarded at the end of your turn with your other cards.</td>
+<td>Its value is the card&#39;s number plus your Heal bonus. Choose one mode for its whole value when you play it. Unused value is lost. <strong>Heal:</strong> return up to that many Dead cards <strong>from your hand</strong> to the Dead supply, then remove this card from the game. <strong>Shield:</strong> add that many points to your Shield tracker (maximum 4). They stay until damage uses them; the card is discarded at the end of your turn with your other cards.</td>
 </tr>
 </tbody></table></div>
 <p>Any card you put into play counts as played, even if you didn&#39;t use all of its value.</p>
@@ -265,7 +265,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 <tr>
 <td>&#9632; <strong>The Tank</strong></td>
-<td><strong>Armored:</strong> your Base Shield starts at 1, but all your upgrades (any stat) cost 5 instead of 4.</td>
+<td><strong>Armored:</strong> you start the game with 2 Shield points, but all your upgrades (any stat) cost 5 instead of 4.</td>
 </tr>
 <tr>
 <td>&#9679; <strong>The Heavy</strong></td>
@@ -279,15 +279,16 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <h2 id="attacking">Attacking</h2>
 <ol>
 <li>Total Attack = Base Attack + Attack cards played this turn.</li>
-<li>Pick a target. <strong>Range</strong> is the hex distance from your tile to theirs, counted straight across any gaps. The same tile is range 0, and an adjacent tile is range 1.</li>
-<li><strong>Damage = Total Attack &#8722; Range.</strong> If that is 0 or less, the target is out of range and you can&#39;t attack them.<ul>
-<li>Example: Attack 4 hits range 0 for 4, range 2 for 2, range 3 for 1, and can&#39;t reach range 4.</li>
+<li><strong>Split it if you like:</strong> divide your Total Attack among any number of players, at most one attack per player each turn. Each attack below uses only the points you gave it.</li>
+<li>For each attack, pick its target. <strong>Range</strong> is the hex distance from your tile to theirs, counted straight across any gaps. The same tile is range 0, and an adjacent tile is range 1.</li>
+<li><strong>Damage = points given to that attack &#8722; Range.</strong> If that is 0 or less, the target is out of range and you can&#39;t attack them.<ul>
+<li>Example: Attack 4 hits range 0 for 4, range 2 for 2, range 3 for 1, and can&#39;t reach range 4. Split instead, it could put 2 into a player at range 1 (1 damage) and 2 into a player on your tile (2 damage).</li>
 </ul>
 </li>
 <li>Subtract range first. Then each of the target&#39;s Shield points cancels 1 damage and is spent.</li>
 <li>The target puts the remaining damage as Dead cards from the supply <strong>into their discard pile</strong>. They show up when the deck reshuffles.</li>
 </ol>
-<p>You only get one attack, so play your Attack cards before you attack.</p>
+<p>Splitting costs range again for every target, so it&#39;s best for finishing off players or hitting several on your tile. Play your Attack cards before you attack.</p>
 <h2 id="looting">Looting</h2>
 <p>Once per turn, you may do <strong>one</strong> of these on the tile you&#39;re on:</p>
 <ul>
@@ -306,10 +307,10 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <ul>
 <li>Attack cards &#8594; Base Attack</li>
 <li>Move cards &#8594; Base Move</li>
-<li>Heal cards &#8594; Base Shield</li>
+<li>Heal cards &#8594; <strong>Heal bonus</strong>: +1 to the value of every Heal card you play (heal or shield), up to +3</li>
 </ul>
 <p>Example: a value-3 Move card plus a value-1 Move card raises Base Move by 1. So do two value-2s, or four value-1s.</p>
-<p>Paid cards go to your discard pile, not out of the game; they come back when you reshuffle. Cards you pay with can&#39;t also be played this turn and add nothing to your Move, Attack or Shield. You may overpay, but extra value is lost. Each stat maxes out at 4; you can&#39;t upgrade a stat that&#39;s already 4.</p>
+<p>Paid cards go to your discard pile, not out of the game; they come back when you reshuffle. Cards you pay with can&#39;t also be played this turn and add nothing to your Move, Attack or Shield. You may overpay, but extra value is lost. Base Move and Base Attack max out at 4, and the Heal bonus at +3; you can&#39;t upgrade past the maximum.</p>
 <h2 id="the-storm">The Storm</h2>
 <p>The storm closes in from the outside of the board, like a shrinking circle. At the end of your turn, place storm markers on tiles, then check for storm damage.</p>
 <div class="tbl"><table>
@@ -385,15 +386,15 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 </tbody></table></div>
 <h2 id="quick-reference">Quick Reference</h2>
-<p class="qr"><strong>Upkeep:</strong> refill Shield up to Base Shield &#8594; draw up to 5 (held and Dead cards count) &#8594; 3+ Dead: announce &quot;critical&quot;<br>
-<strong>Actions (any order):</strong> play any cards &#183; move &#183; 1 attack &#183; 1 loot (1 cube, 1 pile claim or 1 drop card) &#183; upgrade<br>
+<p class="qr"><strong>Upkeep:</strong> draw up to 5 (held and Dead cards count) &#8594; 3+ Dead: announce &quot;critical&quot;<br>
+<strong>Actions (any order):</strong> play any cards &#183; move &#183; attack (split it among players if you like) &#183; 1 loot (1 cube, 1 pile claim or 1 drop card) &#183; upgrade<br>
 <strong>Supply drops:</strong> rounds 3, 5, 7, 9, 11 (one per starting player); placed on a tile that&#39;s not storm or edge, then everyone may nudge it 1 tile<br>
-<strong>Heal card:</strong> heal (Dead from hand &#8594; supply, card leaves the game) or shield (+Shield, max 4; stays until used)<br>
+<strong>Heal card:</strong> value + your Heal bonus: heal (Dead from hand &#8594; supply, card leaves the game) or shield (+Shield, max 4; stays until used; never refills)<br>
 <strong>Storm:</strong> place markers on edge tiles or tiles touching a marked tile: 1 per turn (rounds 1&#8211;6), 2 per turn (round 7+). End your turn on a storm tile: 1 Dead card (round 7+: 2) to your discard pile; Shield doesn&#39;t block it<br>
 <strong>Eliminated:</strong> all your Dead cards to supply; your other cards become a loot pile (claims pick 5, then 3, then 1)<br>
 <strong>End:</strong> eliminated if 3+ Dead in hand (then skip the rest) &#8594; discard played cards, then discard down to 3 (Dead cards stay and count) &#8594; storm markers &#8594; storm damage<br>
-<strong>Damage:</strong> Attack &#8722; Range, then Shield absorbs; 0 or less can&#39;t hit; Dead cards go to the target&#39;s discard pile<br>
-<strong>Upgrade:</strong> pay your upgrade cost (normally 4) in value of one type from hand &#8594; +1 stat (max 4); paid cards go to discard</p>
+<strong>Damage:</strong> points in that attack &#8722; Range, then Shield absorbs; 0 or less can&#39;t hit; Dead cards go to the target&#39;s discard pile<br>
+<strong>Upgrade:</strong> pay your upgrade cost (normally 4) in value of one type from hand &#8594; +1 Move or Attack (max 4) or +1 Heal bonus (max +3); paid cards go to discard</p>
 <hr>
 <section class="designer">
 <h2 id="designer-notes">Designer Notes</h2>

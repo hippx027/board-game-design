@@ -110,7 +110,8 @@ class Game:
                  values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False, elim_timing="upkeep",
                  play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False,
                  min_start=0, hold=0, grace=0, storm_sched=None, dmg_sched=None, heal_no_attack=False, heal_no_move=False, hold_no_heal=False,
-                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False, characters=None, end_limit=0, shield_decay=False, base_shd_max=4, shield_card_remove=False, legendary_values=None, no_cache=False):
+                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False, characters=None, end_limit=0, shield_decay=False, base_shd_max=4, shield_card_remove=False, legendary_values=None, no_cache=False, no_refill=False, split_attack=False):
+        self.no_refill, self.split_attack = no_refill, split_attack
         self.no_cache = no_cache
         self.shield_decay, self.base_shd_max, self.shield_card_remove = shield_decay, base_shd_max, shield_card_remove
         self.end_limit = end_limit
@@ -267,7 +268,9 @@ class Game:
     # --- turn ------------------------------------------------------------
     def play_turn(self, p, rnd):
         rng = self.rng
-        if self.shield_persist and self.shield_decay:
+        if self.no_refill:
+            pass  # Shield only comes from Heal cards
+        elif self.shield_persist and self.shield_decay:
             p.shield = max(p.stats["shd"], p.shield - 1)
         else:
             p.shield = max(p.shield, p.stats["shd"]) if self.shield_persist else p.stats["shd"]
@@ -300,8 +303,9 @@ class Game:
             p.hand.remove(("H", c[1]) if c[0] == "X" else c)
         mov = p.stats["mov"] + sum(v for k, v in played if k == "M")
         atk = p.stats["atk"] + sum(v for k, v in played if k == "A")
-        heal = sum(v for k, v in played if k == "H")
-        p.shield = min(self.shield_cap, p.shield + sum(v for k, v in played if k in ("SXH" if self.heal_both else "SX")))
+        hb = p.stats["shd"] if self.no_refill else 0  # Heal upgrades add +1 per level to every Heal card
+        heal = sum(v + hb for k, v in played if k == "H")
+        p.shield = min(self.shield_cap, p.shield + sum(v + hb for k, v in played if k in ("SXH" if self.heal_both else "SX")))
         self.m["cards_played"] += len(played)
         self.m["plays_used"] += len(plays)
         self.m["play_slots"] += 2
@@ -329,8 +333,22 @@ class Game:
             target = None
         if self.heal_no_attack and any(c[0] == "H" for c in played):
             target = None
-        if target is not None:
-            dmg = atk - hexdist(dest, target.pos)
+        hits = []
+        if target is not None and self.split_attack:
+            # spend just enough on other in-range players who are close to elimination, the rest on the main target
+            rest = atk
+            others = sorted((q for q in self.alive() if q is not p and q is not target),
+                            key=lambda q: -sum(1 for c in q.hand + q.discard if c[0] == "D"))
+            for q in others:
+                r = hexdist(dest, q.pos)
+                need = r + q.shield + 1
+                if sum(1 for c in q.hand if c[0] == "D") >= 1 and rest - need > hexdist(dest, target.pos):
+                    hits.append((q, need)); rest -= need
+            hits.append((target, rest))
+        elif target is not None:
+            hits.append((target, atk))
+        for target, pts in hits:
+            dmg = pts - hexdist(dest, target.pos)
             if dmg > 0:
                 dmg += char_bonus(p, hexdist(dest, target.pos))
             if dmg > 0:
@@ -605,10 +623,11 @@ class Game:
             flat = [c for g in plays for c in g]
             mov = p.stats["mov"] + sum(v for k, v in flat if k == "M")
             atk = p.stats["atk"] + sum(v for k, v in flat if k == "A")
-            heal = sum(v for k, v in flat if k == "H")
+            hb = p.stats["shd"] if self.no_refill else 0
+            heal = sum(v + hb for k, v in flat if k == "H")
             if self.heal_no_move and heal:
                 mov = 0
-            shd = p.shield + sum(v for k, v in flat if k in ("SXH" if self.heal_both else "SX"))
+            shd = p.shield + sum(v + hb for k, v in flat if k in ("SXH" if self.heal_both else "SX"))
             if mov not in reach_cache:
                 reach_cache[mov] = self.reachable(p.pos, mov)
             base_s = w["heal"] * min(heal, dead_in_hand)

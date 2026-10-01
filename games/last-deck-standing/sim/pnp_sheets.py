@@ -148,7 +148,8 @@ def main(style="plain"):
     qr_html = "".join("<p>" + re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", html.escape(l)) + "</p>" for l in qr if l.strip())
     tracker = ('<div class="tracker"><h3>Player: ________</h3>' + "".join(
         f'<div class="track"><b>Base {s}</b>' + "".join(f"<span>{i}</span>" for i in range(5)) + "</div>"
-        for s in ("Move", "Attack", "Shield")) +
+        for s in ("Move", "Attack")) +
+        '<div class="track"><b>Heal bonus</b>' + "".join(f"<span>+{i}</span>" for i in range(4)) + "</div>" +
         '<div class="track"><b>Shield now</b>' + "".join(f"<span>{i}</span>" for i in range(5)) + "</div></div>")
     rounds = "".join(
         f'<span class="rnd{" hot" if r == 7 else ""}{" drop" if r in (3, 5, 7, 9, 11) else ""}">{r}'
@@ -163,7 +164,7 @@ def main(style="plain"):
              ("&#9733;", "Nova", "Field medic", "Each Heal card you use to heal removes up to its value +2 Dead cards from your hand, then goes to your discard pile instead of leaving the game. You can't keep Heal cards at end of turn."),
              ("&#9729;&#xFE0E;", "Gale", "Storm runner", "You take 1 less storm damage (none in rounds 1&ndash;6)."),
              ("&#9889;&#xFE0E;", "Vex", "Siphon", "When your attack puts 2+ Dead cards on a player after their Shield, return 1 Dead card from your hand to the supply."),
-             ("&#9632;", "Bastion", "Armored", "Your Base Shield starts at 1, but all your upgrades (any stat) cost 5 instead of 4."),
+             ("&#9632;", "Bastion", "Armored", "You start the game with 2 Shield points, but all your upgrades (any stat) cost 5 instead of 4."),
              ("&#9679;", "Brute", "Heavy hitter", "Your Base Attack starts at 2."),
              ("&#9881;", "Rig", "Tinkerer", "The first upgrade of each stat costs you 3 instead of 4.")]
     char_cards = [char_card_color(CHAR_ICON[nm], nm, ab, tx) for sym, nm, ab, tx in chars] if color else \
