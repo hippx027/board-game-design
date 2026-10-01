@@ -1,0 +1,11 @@
+== pool with Tank T2: Base Shield 1, upgrades cost 5
+  Medic (heal +2, Heal cards discarded)               5p=1.31 
+  Tank T2: Base Shield 1, upgrades cost 5             5p=1.30 
+  Storm Chaser                                        5p=1.25 
+  Leech                                               5p=0.99 
+  Heavy                                               5p=0.96 
+  Scavenger                                           5p=0.92 
+  Mechanic (all upgrades cost 3)                      5p=0.91 
+  Runner                                              5p=0.83 
+  Brawler                                             5p=0.79 
+  Sniper                                              5p=0.76 

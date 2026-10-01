@@ -1,0 +1,3 @@
+3p | current (Heal bonus upgrade; healing removes card) | stall=0.00 rounds=11 p90=16 turns=30 healed=7.8 dealt=30 storm=14 absorbed=0.16 upg A/M/H=3.1/2.2/2.1 seats=[0.31, 0.32, 0.37] aggr=0.11 bala=0.38 caut=0.52
+3p | no Heal upgrade; healing removes card              | stall=0.00 rounds=12 p90=18 turns=33 healed=8.9 dealt=31 storm=18 absorbed=0.17 upg A/M/H=3.2/2.3/0.0 seats=[0.35, 0.28, 0.36] aggr=0.09 bala=0.38 caut=0.53
+3p | no Heal upgrade; Heal cards always discarded       | stall=0.00 rounds=14 p90=21 turns=37 healed=12.2 dealt=33 storm=25 absorbed=0.19 upg A/M/H=3.3/2.4/0.0 seats=[0.37, 0.28, 0.35] aggr=0.11 bala=0.37 caut=0.52

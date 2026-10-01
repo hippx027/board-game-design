@@ -1,0 +1,4 @@
+3p | current: markers, edge or touching             | stall=0.00 rounds=12 p90=16 turns=30 stormDead=15 attackDead=30 pushes=0.0 removed=0 seats=[0.38, 0.28, 0.35] aggr=0.12 bala=0.41 caut=0.47
+3p | A: remove edge tiles (no damage, push-off r8)  | stall=0.00 rounds=13 p90=20 turns=34 stormDead=0 attackDead=41 pushes=4.1 removed=0 seats=[0.35, 0.33, 0.32] aggr=0.12 bala=0.42 caut=0.47
+3p | B: mark, then remove marked edges              | stall=0.00 rounds=11 p90=17 turns=31 stormDead=14 attackDead=31 pushes=1.6 removed=6 seats=[0.36, 0.29, 0.35] aggr=0.13 bala=0.38 caut=0.50
+3p | C: ring by ring                                | stall=0.00 rounds=11 p90=16 turns=30 stormDead=14 attackDead=30 pushes=0.0 removed=0 seats=[0.36, 0.3, 0.34] aggr=0.12 bala=0.38 caut=0.50
