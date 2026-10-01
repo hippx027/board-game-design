@@ -30,6 +30,7 @@ python3 lds_sim.py --players 3 4 5 --runs 300 --seed 42 \
 The flags above match the current rules (use `--tiles-per-player` 15 for 2–3p, 12 for 4p, 10 for 5p). Other levers: `--tiles-per-player`, `--drop-rounds 4,8,12` (gold supply drops), `--elim-loot`, `--storm-per-turn`, `--values 6,4,2`. Bot styles are in `PROFILES` (random, aggressive, balanced, cautious, brawler, skirmisher). Also: `--heal-discard`, `--kill-upgrade` (rejected variants, kept for regression).
 
 ## How the designer works (preferences)
+- **Git:** commit on `main` and push to the `fork` remote (hippx027/board-game-design). `origin` is the upstream skill repo; never push there. No feature branches.
 - **The designer makes the rules calls.** Surface contradictions as clear options with a recommendation; don't silently decide. Defaults you choose must be flagged in the rules or notes.
 - **Ideas the designer likes but hasn't committed to go in Designer Notes → Ideas for Later**, not the main rules.
 - **Test before adopting** when a change affects balance: one variable per run, report stalls, median rounds, turns, and seat and play-style win rates. Never auto-fix rules from sim anomalies; propose and let the designer decide.
