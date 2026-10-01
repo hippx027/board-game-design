@@ -110,7 +110,8 @@ class Game:
                  values=None, place_reverse=False, storm_per_turn=1, loot="d4-1", drop_rounds=(), elim_loot=0, retreat=True, kill_upgrade=False, pile=0, pile_move_cost=0, bundle_cap=99, heal_discard=False, elim_timing="upkeep",
                  play_all=False, sticky_dead=False, merged_heal=False, heal_keep=False,
                  min_start=0, hold=0, grace=0, storm_sched=None, dmg_sched=None, heal_no_attack=False, heal_no_move=False, hold_no_heal=False,
-                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False, characters=None, end_limit=0, shield_decay=False, base_shd_max=4, shield_card_remove=False, legendary_values=None, no_cache=False, no_refill=False, split_attack=False):
+                 heal_values=None, min_draw=0, drop_rule="near3", display_n=1, shield_persist=False, shield_cap=99, tile_mix="even", deck_sizes=None, heal_both=False, characters=None, end_limit=0, shield_decay=False, base_shd_max=4, shield_card_remove=False, legendary_values=None, no_cache=False, no_refill=False, split_attack=False, storm_mode="any"):
+        self.storm_mode = storm_mode
         self.no_refill, self.split_attack = no_refill, split_attack
         self.no_cache = no_cache
         self.shield_decay, self.base_shd_max, self.shield_card_remove = shield_decay, base_shd_max, shield_card_remove
@@ -437,6 +438,44 @@ class Game:
 
     def storm_step(self):
         p = self.current
+        if self.storm == "flip" and self.storm_mode == "rings":
+            if not hasattr(self, "ring"):  # ring 0 = edge tiles, ring 1 = tiles touching ring 0, ...
+                self.ring = {h: 0 for h in self.tiles if any(nb not in self.tiles for nb in nbrs(h))}
+                q = deque(self.ring)
+                while q:
+                    h = q.popleft()
+                    for nb in nbrs(h):
+                        if nb in self.tiles and nb not in self.ring:
+                            self.ring[nb] = self.ring[h] + 1
+                            q.append(nb)
+            todo = [h for h in self.tiles if h not in self.storm_tiles]
+            if todo:
+                lo = min(self.ring.get(h, 99) for h in todo)
+                self.storm_tiles.add(self.pick_storm_tile(p, [h for h in todo if self.ring.get(h, 99) == lo]))
+            else:
+                self.m["storm_skipped"] += 1
+            return
+        if self.storm == "flip" and self.storm_mode == "markremove":
+            edge = [h for h in self.tiles if any(nb not in self.tiles for nb in nbrs(h))]
+            fresh = [h for h in edge if h not in self.storm_tiles]
+            if fresh:
+                self.storm_tiles.add(self.pick_storm_tile(p, fresh))
+                return
+            old = [h for h in edge if len(self.tiles) > 1 and self.connected_without(h)]
+            if not old:
+                self.m["storm_skipped"] += 1
+                return
+            h = self.pick_storm_tile(p, old)
+            self.tiles.pop(h); self.storm_tiles.discard(h); self.piles.pop(h, None); self.drops.pop(h, None)
+            self.m["tiles_removed"] += 1
+            for q in self.alive():
+                if q.pos == h:
+                    self.m["pushes"] += 1
+                    opts = [nb for nb in nbrs(h) if nb in self.tiles]
+                    foes = [x.pos for x in self.alive() if x is not q]
+                    q.pos = max(opts, key=lambda t: (t not in self.storm_tiles,
+                                                    min((hexdist(t, f) for f in foes), default=0)) + (self.rng.random() * 0.01,))
+            return
         if self.storm == "flip":
             outer = [h for h in self.tiles if h not in self.storm_tiles and
                      any(nb not in self.tiles or nb in self.storm_tiles for nb in nbrs(h))]
