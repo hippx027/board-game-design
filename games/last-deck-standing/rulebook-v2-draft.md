@@ -2,6 +2,8 @@
 
 Designers: Brandon and Chris. Drafted 2026-10-12 from playtest 001 notes (`playtest-notes-001.md`) and the designer's answers. `rulebook-draft.md` (v1) stays as the turn-based baseline.
 
+**Turn floor: none for the first session (designer's call).** Starting cubes: ⚑ half the tiles (sim default; not yet answered).
+
 **Every number in [brackets] is a placeholder to be tuned. Every line marked ⚑ is my assumption, awaiting the designer's call.** Updated with the designer's answers (round 2).
 
 ## Overview
@@ -69,7 +71,7 @@ Play Move cards. Move up to 1 (your Base Move) plus the total value of Move card
 
 ## Looting
 - Cubes on the board mark **available loot**.
-- **Loot a cube by moving through or onto its tile:** each cube you pass through or stop on ⚑ is removed from the board and you take the **top card of the matching loot deck** (purple Move, red Attack, green Heal) **into your hand**. (To playtest: this replaces "must stop on the loot tile".)
+- **Loot a cube by moving into its tile** (designer's call): each cube on a tile you move into, passing through or stopping, is removed from the board and you take the **top card of the matching loot deck** (purple Move, red Attack, green Heal) **into your hand**. You can loot as many tiles as you can reach in a turn. The tile you start on doesn't count, so you can't loot a cube you are standing on. **Exception:** gold cubes from a drop or an elimination drop that are on your tile are picked up without moving ⚑ (when: any time on your turn).
 - Looted cards in hand can be played right away, and that is the point: a Heal you loot is a Heal you can use. Played cards (other than Heals) go to your discard pile and become part of your deck.
 - There is no hand limit. At end of turn you discard any unplayed cards you don't want to keep, but never Dead cards. Played cards go to your discard pile.
 - Cubes are returned to the supply. New cubes appear with each **Drop**.
@@ -118,10 +120,11 @@ When a player is eliminated:
 
 
 ## The Storm (timer)
-- The storm alarm sounds **every [3] minutes** ⚑.
+- The storm alarm sounds **every 2 minutes** (designer's call).
 - On the alarm, **pause the table**, place storm markers on **every tile of the current outer ring** at once, then resume.
-- Ending your turn on a storm tile puts [1] Dead card in your discard pile. Later rings [2] ⚑.
-- Once every tile is marked, the storm is on you, and everyone takes damage at the end of each turn.
+- **Moving into a storm tile gives you 1 Dead card** per storm tile you move into (designer's call; the sentence was cut off, so ⚑ confirm the rest). The Dead card goes in your discard pile. Later rings [2] ⚑.
+- ⚑ Open: does standing still on a storm tile cost anything? As written, no. Sim: this works (stalls 0–4%), but test an end-of-turn charge too (`--storm-mode end`).
+- Once every tile is marked, every move costs a Dead card.
 
 ## Drops (timer)
 - The 2-minute Drop clock starts with the game and repeats.
@@ -129,7 +132,7 @@ When a player is eliminated:
   1. The first player picks a tile and places the drop marker there. The first player rotates each drop ⚑.
   2. The next player moves the drop up to **3 tiles**.
   3. The table places **gold cubes**: one per player in the game (2 players: 2 cubes; 3 players: 3 cubes) ⚑. Place them all on the drop's tile or its neighbours ⚑ (my test: on the tile, so a drop is a fight magnet).
-- Looting a gold cube works like any cube: pass through or stop on it, remove it and take the top card of the Gold deck into your hand.
+- Looting a gold cube works like any cube: move into its tile, remove it and take the top card of the Gold deck into your hand. If a drop lands on your tile, you pick it up without moving.
 - Regular cubes are **not** refreshed by drops. They are only the starting cubes. Playtest variant: a cube refresh (for example, the table adds [N] regular cubes with each drop).
 
 ## Teams (variant)
@@ -150,4 +153,4 @@ When a player is eliminated:
 - **B:** a team has a **single shared hand**.
 - **C:** members play simultaneously, with no rotation (solo rules, shared win).
 
-**Storm:** test timer intervals of 2 / 3 / 4 minutes and edge-ring-all-at-once, against what the sim can model once it supports realtime.
+**Storm:** interval is 2 minutes; test 3 / 4 as variants. Test charging at end of turn vs on entering.

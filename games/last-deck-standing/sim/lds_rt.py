@@ -323,7 +323,7 @@ class Game:
         atk = (1 if a.base_one else 0) + sum(c[1] for c in p.hand if c[0] == "A")
         foes = self.enemies(p)
         # best loot along shortest paths: DP on BFS layers
-        best = {p.pos: (len(self.cubes.get(p.pos, [])), None)}
+        best = {p.pos: (2 * self.cubes.get(p.pos, []).count("G"), None)}
         for h in sorted(reach, key=lambda x: reach[x]):
             if h == p.pos:
                 continue
@@ -342,7 +342,13 @@ class Game:
             s += prof["att"] * hit
             near = sum(1 for q in foes if hexdist(h, q.pos) <= 2)
             s -= prof["danger"] * near
-            if h in self.storm:
+            if a.storm_mode == "enter":
+                n_st, g = 0, h
+                while g is not None and g != p.pos:
+                    n_st += g in self.storm
+                    g = best[g][1]
+                s -= (3 if stormy else 1.2) * n_st
+            elif h in self.storm:
                 s -= 6 if stormy else 2.5
             if not hit and foes and prof["att"] >= 2:  # approach
                 s -= 0.3 * min(hexdist(h, q.pos) for q in foes)
@@ -369,8 +375,13 @@ class Game:
             acts += 1
         for h in path:
             for k in list(self.cubes.get(h, [])):
+                if h == p.pos and k != "G":
+                    continue  # regular cubes are only looted by moving into a tile; a drop under you is picked up
                 if self.take(p, k, h):
                     self.cubes[h].remove(k)
+            if a.storm_mode == "enter" and h != path[0] and h in self.storm:
+                p.discard.append(("D", 0))  # 1 Dead per storm tile you move into
+                self.m["storm_dead"] += 1
         p.pos = dest
         self.m["moved"] += dist
         dur = a.turn_base + a.sec_per_act * (acts + dist) + a.sec_per_act * len(path)
@@ -465,7 +476,7 @@ class Game:
             if self.teams and a.team_mode == "A":
                 self.advance_team(p)
             return
-        if p.pos in self.storm:
+        if a.storm_mode == "end" and p.pos in self.storm:
             dmg = 1 + (self.rings_marked >= a.storm_double)
             p.discard.extend([("D", 0)] * dmg)
             self.m["storm_dead"] += dmg
@@ -528,7 +539,7 @@ def main():
     ap.add_argument("--attack-opt", default="A", choices=["none", "A", "B", "C"])
     ap.add_argument("--pause-attack", type=float, default=8)
     ap.add_argument("--delay-attack", type=float, default=5)
-    ap.add_argument("--storm-interval", type=float, default=180)
+    ap.add_argument("--storm-interval", type=float, default=120)
     ap.add_argument("--storm-pause", type=float, default=15)
     ap.add_argument("--storm-double", type=int, default=3, help="storm damage becomes 2 once this many rings are marked")
     ap.add_argument("--drop-interval", type=float, default=120)
@@ -538,6 +549,7 @@ def main():
     ap.add_argument("--base-one", action="store_true", default=True, help="Base Move 1 and Base Attack 1 (designer locked this in)")
     ap.add_argument("--loot-ones", action="store_true", help="half the loot 2s become 1s")
     ap.add_argument("--elim", type=int, default=3, help="Dead cards in hand at end of turn that eliminate you")
+    ap.add_argument("--storm-mode", default="enter", choices=["enter", "end"], help="enter: 1 Dead per storm tile you move into; end: ending your turn on one")
     ap.add_argument("--keep", type=int, default=3, help="cards a bot keeps at end of turn")
     ap.add_argument("--range-cost", type=int, default=2, help="damage lost per tile of range (v1: 1, now 2)")
     ap.add_argument("--elim-drop", type=int, default=2, help="gold cubes dropped where a player is eliminated")
