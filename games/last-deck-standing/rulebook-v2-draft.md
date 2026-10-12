@@ -122,9 +122,8 @@ When a player is eliminated:
 ## The Storm (timer)
 - The storm alarm sounds **every 2 minutes** (designer's call).
 - On the alarm, **pause the table**, place storm markers on **every tile of the current outer ring** at once, then resume.
-- **Moving into a storm tile gives you 1 Dead card** per storm tile you move into (designer's call; the sentence was cut off, so ⚑ confirm the rest). The Dead card goes in your discard pile. Later rings [2] ⚑.
-- ⚑ Open: does standing still on a storm tile cost anything? As written, no. Sim: this works (stalls 0–4%), but test an end-of-turn charge too (`--storm-mode end`).
-- Once every tile is marked, every move costs a Dead card.
+- **1 Dead card for each storm tile you move into** (designer's call), and **1 more if you end your turn on a storm tile**. Dead cards go in your discard pile. Standing in the storm and not moving still costs the end-of-turn card. Later rings [2] ⚑.
+- Once every tile is marked, every move costs a Dead card, plus one more at the end of your turn.
 
 ## Drops (timer)
 - The 2-minute Drop clock starts with the game and repeats.
@@ -153,4 +152,4 @@ When a player is eliminated:
 - **B:** a team has a **single shared hand**.
 - **C:** members play simultaneously, with no rotation (solo rules, shared win).
 
-**Storm:** interval is 2 minutes; test 3 / 4 as variants. Test charging at end of turn vs on entering.
+**Storm:** interval is 2 minutes; test 3 / 4 as variants. Both charges are in (enter + end of turn).

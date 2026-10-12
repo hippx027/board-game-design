@@ -342,13 +342,13 @@ class Game:
             s += prof["att"] * hit
             near = sum(1 for q in foes if hexdist(h, q.pos) <= 2)
             s -= prof["danger"] * near
-            if a.storm_mode == "enter":
+            if a.storm_mode in ("enter", "both"):
                 n_st, g = 0, h
                 while g is not None and g != p.pos:
                     n_st += g in self.storm
                     g = best[g][1]
                 s -= (3 if stormy else 1.2) * n_st
-            elif h in self.storm:
+            if a.storm_mode in ("end", "both") and h in self.storm:
                 s -= 6 if stormy else 2.5
             if not hit and foes and prof["att"] >= 2:  # approach
                 s -= 0.3 * min(hexdist(h, q.pos) for q in foes)
@@ -379,7 +379,7 @@ class Game:
                     continue  # regular cubes are only looted by moving into a tile; a drop under you is picked up
                 if self.take(p, k, h):
                     self.cubes[h].remove(k)
-            if a.storm_mode == "enter" and h != path[0] and h in self.storm:
+            if a.storm_mode in ("enter", "both") and h != path[0] and h in self.storm:
                 p.discard.append(("D", 0))  # 1 Dead per storm tile you move into
                 self.m["storm_dead"] += 1
         p.pos = dest
@@ -476,7 +476,7 @@ class Game:
             if self.teams and a.team_mode == "A":
                 self.advance_team(p)
             return
-        if a.storm_mode == "end" and p.pos in self.storm:
+        if a.storm_mode in ("end", "both") and p.pos in self.storm:
             dmg = 1 + (self.rings_marked >= a.storm_double)
             p.discard.extend([("D", 0)] * dmg)
             self.m["storm_dead"] += dmg
@@ -549,7 +549,7 @@ def main():
     ap.add_argument("--base-one", action="store_true", default=True, help="Base Move 1 and Base Attack 1 (designer locked this in)")
     ap.add_argument("--loot-ones", action="store_true", help="half the loot 2s become 1s")
     ap.add_argument("--elim", type=int, default=3, help="Dead cards in hand at end of turn that eliminate you")
-    ap.add_argument("--storm-mode", default="enter", choices=["enter", "end"], help="enter: 1 Dead per storm tile you move into; end: ending your turn on one")
+    ap.add_argument("--storm-mode", default="both", choices=["enter", "end", "both"], help="enter: 1 Dead per storm tile you move into; end: ending your turn on one")
     ap.add_argument("--keep", type=int, default=3, help="cards a bot keeps at end of turn")
     ap.add_argument("--range-cost", type=int, default=2, help="damage lost per tile of range (v1: 1, now 2)")
     ap.add_argument("--elim-drop", type=int, default=2, help="gold cubes dropped where a player is eliminated")
