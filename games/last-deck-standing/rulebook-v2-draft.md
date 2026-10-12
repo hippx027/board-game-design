@@ -112,11 +112,10 @@ You can split your Attack among several players, as in v1 (one attack per player
 
 ## Elimination Drop
 When a player is eliminated:
-1. Remove their pawn and return all their Dead cards to the Dead supply. ⚑ Their other cards leave the game.
-2. **Loot drop:** place **2 gold cubes** on the tile where they fell ⚑. It's a drop with no pause and no nudging. Whoever moves through or onto the tile takes them like any gold cube (top card of the Gold deck into your hand).
+1. Remove their pawn and return all their Dead cards to the Dead supply. Their other cards leave the game, **except any gold (Legendary) cards they own** (hand, deck or discard): those stay on the tile as the first cards of the loot pool.
+2. **Loot drop:** place **2 gold cubes** on the tile where they fell ⚑. It's a drop with no pause and no nudging. Whoever moves through or onto the tile takes them like any gold cube: the fallen player's gold cards come first, then the top of the Gold deck. If they left more than 2 gold cards, add one cube per extra card.
 3. Gold cubes only come out while the Gold deck has cards left.
 
-(Alternative to test later: their own cards form the loot instead of the Gold deck.)
 
 ## The Storm (timer)
 - The storm alarm sounds **every [3] minutes** ⚑.

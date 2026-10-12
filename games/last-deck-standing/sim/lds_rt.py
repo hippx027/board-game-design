@@ -117,7 +117,8 @@ class Game:
         for h in rng.sample(tl, int(len(tl) * a.start_cubes)):
             self.cubes[h] = [rng.choices(KINDS, weights=[6, 11, 4])[0]]
         self.decks = {k: loot_deck(k, rng, a.loot_ones) for k in KINDS}
-        self.gold = [(k, v) for k in KINDS for v in (3, 3, 3, 3, 4, 4, 4, 4)]  # 24 cards
+        self.gold = [(k, v, "g") for k in KINDS for v in (3, 3, 3, 3, 4, 4, 4, 4)]  # 24 cards, tagged gold
+        self.piles = {}  # tile -> gold cards left by eliminated players, looted first
         rng.shuffle(self.gold)
         self.market_deck = market_deck(rng)
         self.market = [self.market_deck.pop() for _ in range(3)]
@@ -234,7 +235,7 @@ class Game:
         within = [h for h in self.reach(spot, 3)]
         if second is not first or len(al) == 1:
             spot = min(within, key=lambda h: (hexdist(h, second.pos), self.rng.random()))
-        k = min(self.n, len(self.gold) - sum(c.count("G") for c in self.cubes.values()))
+        k = min(self.n, self.gold_left())
         if k > 0:
             self.cubes.setdefault(spot, []).extend(["G"] * k)
         for _ in range(a.cube_refresh):
@@ -244,11 +245,17 @@ class Game:
         self.push(self.t + a.drop_interval, "drop")
 
     # --- bot turn ---
-    def take(self, p, kind):
+    def gold_left(self):
+        return len(self.gold) + sum(len(v) for v in self.piles.values()) - sum(c.count("G") for c in self.cubes.values())
+
+    def take(self, p, kind, pos=None):
         if kind == "G":
-            if not self.gold:
+            if self.piles.get(pos):
+                p.hand.append(self.piles[pos].pop())
+            elif self.gold:
+                p.hand.append(self.gold.pop())
+            else:
                 return False
-            p.hand.append(self.gold.pop())
         else:
             if not self.decks[kind]:
                 return False
@@ -362,7 +369,7 @@ class Game:
             acts += 1
         for h in path:
             for k in list(self.cubes.get(h, [])):
-                if self.take(p, k):
+                if self.take(p, k, h):
                     self.cubes[h].remove(k)
         p.pos = dest
         self.m["moved"] += dist
@@ -446,7 +453,10 @@ class Game:
         a = self.a
         if p.dead() >= a.elim:
             p.alive = False
-            k = min(self.a.elim_drop, len(self.gold) - sum(c.count("G") for c in self.cubes.values()))
+            mine = [c for c in p.hand + p.draw + p.discard if len(c) == 3]  # their gold cards populate the pool first
+            if mine:
+                self.piles.setdefault(p.pos, []).extend(mine)
+            k = min(max(self.a.elim_drop, len(mine)), self.gold_left() + len(mine))
             if k > 0:
                 self.cubes.setdefault(p.pos, []).extend(["G"] * k)  # loot drop where the player fell
             self.m["elim_attack" if p.pos not in self.storm else "elim_storm"] += 1
