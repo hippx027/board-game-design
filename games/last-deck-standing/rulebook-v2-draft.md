@@ -12,6 +12,28 @@ Designers: Brandon and Chris. Drafted 2026-10-12 from playtest 001 notes (`playt
 - **You are eliminated** if you end a turn with 3 or more Dead cards in your hand.
 - **Realtime:** there are no rounds. Everyone plays their own turns at the same time and at their own pace. There is no turn timer. The storm and loot drops run on a table timer.
 
+## First Game (learning rules, 3–4 players, no teams)
+For your first paper session, play it like this. Everything else plays exactly as written.
+
+| Leave out | Instead |
+|---|---|
+| Teams | Everyone plays for themselves |
+| Gold cubes and the Gold deck | No timed drops, no elimination drop; the only loot is the starting cubes |
+| Elimination loot | When a player is eliminated, all their cards leave the game |
+| The "critical" call | Just check for 3+ Dead cards at the end of your turn |
+| Other attack options | Use attack option A (declare "Attack", pause the table, resolve, resume) |
+
+Keep: the 2-minute storm timer, the Market (3 face up, no tiers), the hand cap of 5, and Range cost 2 per tile. Cubes go on half the tiles. No turn timer.
+
+What to watch for (these are the questions this session answers):
+1. **Does the Market get used?** Sim: about 3 buys per player per game. Count yours.
+2. **How much of the game is paused?** Sim: a third of table time. Note whether attack pauses feel like realtime.
+3. **How long does a game take?** Sim: about 7–9 minutes at 37 s a turn. Write down the real number.
+4. **Hoarding:** does the hand cap of 5 change what you loot or hold?
+5. **Storm:** does it push people together or just kill them?
+
+Simulated first games (SIM-030, addendum 11) end in about 7.4 (3p) and 8.6 (4p) minutes with 1% stalls. Add the full rules from the second session.
+
 ## What changed from v1
 | v1 | v2 |
 |---|---|
