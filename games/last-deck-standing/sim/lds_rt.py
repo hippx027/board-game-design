@@ -190,6 +190,9 @@ class Game:
             t, _, kind, p = heapq.heappop(self.heap)
             if t + self.pause > a.max_time:
                 self.m["stalled"] = 1
+                if a.debug_stall:
+                    import sys
+                    print("STALL", [(q.seat, q.team, q.alive, q.pos in self.storm, sum(1 for c in q.hand if c[0] == "D"), len(q.hand), len(q.draw), len(q.discard)) for q in self.players], "rings", self.rings_marked, "tiles", len(self.tiles), file=sys.stderr)
                 break
             self.t = t
             if p is not None and not p.alive:
@@ -554,6 +557,7 @@ def main():
     ap.add_argument("--loot-ones", action="store_true", help="half the loot 2s become 1s")
     ap.add_argument("--elim", type=int, default=3, help="Dead cards in hand at end of turn that eliminate you")
     ap.add_argument("--storm-mode", default="both", choices=["enter", "end", "both"], help="enter: 1 Dead per storm tile you move into; end: ending your turn on one")
+    ap.add_argument("--debug-stall", action="store_true")
     ap.add_argument("--keep", type=int, default=3, help="cards a bot keeps at end of turn")
     ap.add_argument("--range-cost", type=int, default=2, help="damage lost per tile of range (v1: 1, now 2)")
     ap.add_argument("--elim-drop", type=int, default=2, help="gold cubes dropped where a player is eliminated")
