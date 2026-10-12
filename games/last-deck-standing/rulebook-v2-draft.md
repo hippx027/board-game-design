@@ -2,7 +2,7 @@
 
 Designers: Brandon and Chris. Drafted 2026-10-12 from playtest 001 notes (`playtest-notes-001.md`) and the designer's answers. `rulebook-draft.md` (v1) stays as the turn-based baseline.
 
-**Turn floor: none for the first session (designer's call).** Starting cubes: ⚑ half the tiles (sim default; not yet answered).
+**Turn floor: none for the first session (designer's call).** Starting cubes: half the tiles (decided).
 
 **Every number in [brackets] is a placeholder to be tuned. Every line marked ⚑ is my assumption, awaiting the designer's call.** Updated with the designer's answers (round 2).
 
@@ -34,7 +34,7 @@ Designers: Brandon and Chris. Drafted 2026-10-12 from playtest 001 notes (`playt
 | Gold deck | 24 | Value 3 and 4 cards (4 each of Move 3/4, Attack 3/4, Heal 3/4); taken from gold cubes in drops and elimination drops |
 | Market deck | 20 | Value 2 and 3 cards; 3 face up; see Market |
 | Dead cards | 60 | Plain backs |
-| Loot cubes | [per board] | One colour per type (purple Move, red Attack, green Heal); mark available loot on the board |
+| Loot cubes | half the number of tiles | One colour per type (purple Move, red Attack, green Heal); mark available loot on the board |
 | Gold cubes | 1 per player per drop | Mark drops; taking one gives the top card of the Gold deck |
 | Board tiles | per player count | Same hex tiles as v1, but without printed loot icons ⚑ |
 | Pawn | 1 per player | |
@@ -44,7 +44,7 @@ Designers: Brandon and Chris. Drafted 2026-10-12 from playtest 001 notes (`playt
 
 ## Setup
 1. Build the board as in v1 (players alternate placing tiles, each touching the last), but with no loot icons.
-2. Place loot cubes on [N] tiles ⚑ (see Looting).
+2. Place loot cubes on **half the tiles** (designer's call, tested in SIM-030 addendum 7). Randomise the colours, about 6 purple Move, 11 red Attack, 4 green Heal per 21 cubes.
 3. Place pawns at least 3 tiles apart, in the order players choose.
 4. Shuffle your 10-card base deck and draw 5.
 5. Lay out the Market.
@@ -135,11 +135,13 @@ When a player is eliminated:
 - Regular cubes are **not** refreshed by drops. They are only the starting cubes. Playtest variant: a cube refresh (for example, the table adds [N] regular cubes with each drop).
 
 ## Teams (variant)
-- 2 teams of 2–3.
-- Teammates take **turns one at a time**: member 1 takes a full turn, then member 2, then member 3.
-- The teams play against each other **in realtime**: both teams are running at once.
-- A team is eliminated when all its members are.
+- **Any team shape from 2 to 10 players**: 2 teams of 2–5 (for example 5v5), 3 teams of 3 (3v3v3), or duos up to 10 players (5 teams). Teams don't have to be equal ⚑, but the sim has only tested equal teams.
+- Every player has their own deck, hand and pawn.
+- **Simultaneous (mode C)** is the recommended starting mode ⚑: all teammates play their own turns at the same time, at their own pace, and the team wins together. It's the solo rules with a shared win.
+- **Rotation (mode A)**, from the playtest notes: teammates take turns one at a time (member 1 takes a full turn, then member 2, then member 3), while the teams run in realtime against each other. Worse as teams get bigger, see below.
+- A team is eliminated when all its members are. Allies don't attack each other and a teammate may not be targeted by a team's own Attack cards ⚑.
 - Teammates can help: a teammate on your tile can play a Heal on you ⚑.
+- The board grows with the player count (10 tiles per player at 5+ players); the table timer is the same for every team size.
 
 ## Playtest options still to run
 **#2 — Attack timing:**

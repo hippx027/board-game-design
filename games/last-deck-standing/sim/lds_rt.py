@@ -502,7 +502,7 @@ def run_game(n, seed, a):
     w = g.run()
     r = dict(n=n, wall=g.wall(), play=g.t, stalled=bool(g.m["stalled"]),
              winner_seat=w.seat if w else None, winner_profile=w.profile if w else None,
-             winner_team=w.team if w else None, m=dict(g.m),
+             winner_team=w.team if w else None, teams=g.teams, m=dict(g.m),
              speeds=[p.speed for p in g.players], turns=[p.turns for p in g.players],
              winner_speed_rank=None)
     if w:
@@ -519,6 +519,10 @@ def summarize(rs):
     out = dict(players=n, runs=len(rs), stalled=round(100 * sum(r["stalled"] for r in rs) / len(rs), 1),
                wall_min_p10_med_p90=(pct(0.1), pct(0.5), pct(0.9)),
                pause_pct=round(100 * mean((r["wall"] - r["play"]) / r["wall"] for r in done), 1) if done else None)
+    if any(r.get("teams") for r in rs):
+        out["teams"] = rs[0]["teams"]
+        tw = Counter(r["winner_team"] for r in done)
+        out["team_win%"] = [round(100 * tw.get(t, 0) / len(done), 1) for t in range(rs[0]["teams"])] if done else None
     out["seat_win%"] = [round(100 * sum(1 for r in done if r["winner_seat"] == s) / len(done), 1) for s in range(n)] if done else None
     pc = Counter(r["winner_profile"] for r in done)
     out["profile_win%"] = {k: round(100 * v / len(done), 1) for k, v in pc.items()}
