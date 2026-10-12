@@ -135,13 +135,14 @@ When a player is eliminated:
 - Regular cubes are **not** refreshed by drops. They are only the starting cubes. Playtest variant: a cube refresh (for example, the table adds [N] regular cubes with each drop).
 
 ## Teams (variant)
-- **Any team shape from 2 to 10 players**: 2 teams of 2–5 (for example 5v5), 3 teams of 3 (3v3v3), or duos up to 10 players (5 teams). Teams don't have to be equal ⚑, but the sim has only tested equal teams.
+- **Any team shape from 2 to 10 players**: 2 teams of 2–5 (for example 5v5), 3 teams of 3 (3v3v3), or duos up to 10 players (5 teams). **Teams are equal in size** for the first sessions (designer's call).
 - Every player has their own deck, hand and pawn.
-- **Simultaneous (mode C)** is the recommended starting mode ⚑: all teammates play their own turns at the same time, at their own pace, and the team wins together. It's the solo rules with a shared win.
-- **Rotation (mode A)**, from the playtest notes: teammates take turns one at a time (member 1 takes a full turn, then member 2, then member 3), while the teams run in realtime against each other. Worse as teams get bigger, see below.
-- A team is eliminated when all its members are. Allies don't attack each other and a teammate may not be targeted by a team's own Attack cards ⚑.
+- **Rotation (designer's call):** each team takes turns one player at a time. Member 1 takes a full turn, then member 2, and so on, then back to member 1. Each player goes after the previous teammate has finished. Different teams run in realtime against each other, so every team has one player acting at a time.
+- A team is eliminated when all its members are. When a member is eliminated, the rotation skips them.
+- **You can't attack a teammate** (designer's call), with Attack cards or anything else.
 - Teammates can help: a teammate on your tile can play a Heal on you ⚑.
 - The board grows with the player count (10 tiles per player at 5+ players); the table timer is the same for every team size.
+- ⚑ **Known risk, SIM-030 addendum 8:** rotation gets slow with big teams. Your next turn only comes after every teammate has gone, so the storm kills players who haven't acted yet, and 5v5 stalls in about a quarter of sim games. Fine at 2v2 and 3v3. Playtest the big layouts and see; options to test if needed are listed below.
 
 ## Playtest options still to run
 **#2 — Attack timing:**
@@ -150,8 +151,9 @@ When a player is eliminated:
 - **C:** attacks are **simultaneous**: you each name a target, then reveal.
 
 **#3 — Team rotation:**
-- **A:** members take turns one at a time, as drafted.
+- **A (locked, designer's call):** members take turns one at a time, as drafted.
 - **B:** a team has a **single shared hand**.
-- **C:** members play simultaneously, with no rotation (solo rules, shared win).
+- **C:** members play simultaneously, with no rotation (solo rules, shared win); the sim says this scales to 10 players with few stalls.
+- **Big-team fixes to test if rotation stalls:** a slower storm for teams of 4+ (for example 3 min), or damage only on entering a storm tile.
 
 **Storm:** interval is 2 minutes; test 3 / 4 as variants. Both charges are in (enter + end of turn).
