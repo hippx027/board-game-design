@@ -53,9 +53,17 @@ COSTS = {
 }
 
 
-def loot_deck(kind, rng, ones):
+CHEAP_COSTS = {  # one card cheaper than COSTS
+    ("A", 2): "AA", ("M", 2): "MH", ("H", 2): "HA",
+    ("A", 3): "AAM", ("M", 3): "MMH", ("H", 3): "HHA",
+}
+
+
+def loot_deck(kind, rng, ones, weak=False):
     size, threes = {"M": (12, 4), "A": (16, 6), "H": (10, 4)}[kind]
     vals = [3] * threes + [2] * (size - threes)
+    if weak:  # weaker loot: no 3s, half the cards are 1s
+        vals, ones = [2] * size, True
     if ones:  # playtest variant: half the 2s become 1s
         twos = [i for i, v in enumerate(vals) if v == 2]
         for i in twos[: len(twos) // 2]:
@@ -116,7 +124,7 @@ class Game:
         tl = sorted(self.tiles)
         for h in rng.sample(tl, int(len(tl) * a.start_cubes)):
             self.cubes[h] = [rng.choices(KINDS, weights=[6, 11, 4])[0]]
-        self.decks = {k: loot_deck(k, rng, a.loot_ones) for k in KINDS}
+        self.decks = {k: loot_deck(k, rng, a.loot_ones, a.loot_weak) for k in KINDS}
         self.gold = [(k, v, "g") for k in KINDS for v in (3, 3, 3, 3, 4, 4, 4, 4)]  # 24 cards, tagged gold
         self.piles = {}  # tile -> gold cards left by eliminated players, looted first
         rng.shuffle(self.gold)
@@ -565,6 +573,8 @@ def main():
     ap.add_argument("--storm-mode", default="both", choices=["enter", "end", "both"], help="enter: 1 Dead per storm tile you move into; end: ending your turn on one")
     ap.add_argument("--debug-stall", action="store_true")
     ap.add_argument("--loot-cap", type=int, default=5, help="hand size cap for looting; extra loot goes to the discard pile (0 = no cap)")
+    ap.add_argument("--loot-weak", action="store_true", help="loot values 1 and 2 only (half 1s, half 2s)")
+    ap.add_argument("--cheap-market", action="store_true", help="every Market cost is one card smaller")
     ap.add_argument("--keep", type=int, default=3, help="cards a bot keeps at end of turn")
     ap.add_argument("--range-cost", type=int, default=2, help="damage lost per tile of range (v1: 1, now 2)")
     ap.add_argument("--elim-drop", type=int, default=2, help="gold cubes dropped where a player is eliminated")
@@ -578,6 +588,8 @@ def main():
     ap.add_argument("--mix", action="store_true", help="mix aggressive/balanced/cautious across seats")
     ap.add_argument("--out")
     a = ap.parse_args()
+    if a.cheap_market:
+        COSTS.update(CHEAP_COSTS)
     res = {}
     for n in a.players:
         rs = [run_game(n, a.seed * 1000 + i, a) for i in range(a.runs)]
