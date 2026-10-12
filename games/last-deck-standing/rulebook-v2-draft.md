@@ -18,21 +18,21 @@ For your first paper session, play it like this. Everything else plays exactly a
 | Leave out | Instead |
 |---|---|
 | Teams | Everyone plays for themselves |
-| Gold cubes and the Gold deck | No timed drops, no elimination drop; the only loot is the starting cubes |
-| Elimination loot | When a player is eliminated, all their cards leave the game |
 | The "critical" call | Just check for 3+ Dead cards at the end of your turn |
 | Other attack options | Use attack option A (declare "Attack", pause the table, resolve, resume) |
+
+**Drops stay in** (designer's call: they matter at every player count): the 2-minute drop timer, gold cubes, the Gold deck and the elimination drop.
 
 Keep: the 2-minute storm timer, the Market (3 face up, no tiers), the hand cap of 5, and Range cost 2 per tile. Cubes go on half the tiles. No turn timer.
 
 What to watch for (these are the questions this session answers):
-1. **Does the Market get used?** Sim: about 3 buys per player per game. Count yours.
+1. **Does the Market get used?** Sim: about 3 buys per player per game (9 at 3p, 11 at 4p). Count yours.
 2. **How much of the game is paused?** Sim: a third of table time. Note whether attack pauses feel like realtime.
-3. **How long does a game take?** Sim: about 7–9 minutes at 37 s a turn. Write down the real number.
+3. **How long does a game take?** Sim: about 8–10 minutes at 37 s a turn. Write down the real number.
 4. **Hoarding:** does the hand cap of 5 change what you loot or hold?
 5. **Storm:** does it push people together or just kill them?
 
-Simulated first games (SIM-030, addendum 11) end in about 7.4 (3p) and 8.6 (4p) minutes with 1% stalls. Add the full rules from the second session.
+Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) minutes, with stalls of 0.3% (3p) and 3.7% (4p). Add the full rules from the second session.
 
 ## What changed from v1
 | v1 | v2 |
@@ -54,7 +54,7 @@ Simulated first games (SIM-030, addendum 11) end in about 7.4 (3p) and 8.6 (4p) 
 | Base deck | 10 per player | **4 Move 1, 4 Attack 1, 2 Heal 1** |
 | Loot decks | 3, one per type | Move 12, Attack 16, Heal 10 ⚑, each shuffled face down. Values 2 and 3 only (no 1s). Playtest variant: replace half the 2s with 1s, since looting is faster now |
 | Gold deck | 24 | Value 3 and 4 cards (4 each of Move 3/4, Attack 3/4, Heal 3/4); taken from gold cubes in drops and elimination drops |
-| Market deck | 20 | Value 2 and 3 cards; 3 face up; see Market |
+| Market deck | 21 | Value 2 and 3 cards; 3 face up; see Market |
 | Dead cards | 60 | Plain backs |
 | Loot cubes | half the number of tiles | One colour per type (purple Move, red Attack, green Heal); mark available loot on the board |
 | Gold cubes | 1 per player per drop | Mark drops; taking one gives the top card of the Gold deck |
