@@ -254,15 +254,21 @@ class Game:
     def take(self, p, kind, pos=None):
         if kind == "G":
             if self.piles.get(pos):
-                p.hand.append(self.piles[pos].pop())
+                c = self.piles[pos].pop()
             elif self.gold:
-                p.hand.append(self.gold.pop())
+                c = self.gold.pop()
             else:
                 return False
         else:
             if not self.decks[kind]:
                 return False
-            p.hand.append(self.decks[kind].pop())
+            c = self.decks[kind].pop()
+        cap = self.a.loot_cap
+        if cap and len(p.hand) >= cap:
+            p.discard.append(c)  # hand full: overflow goes to the discard pile
+            self.m["loot_overflow"] += 1
+        else:
+            p.hand.append(c)
         self.m["loots"] += 1
         return True
 
@@ -531,7 +537,7 @@ def summarize(rs):
     out["profile_win%"] = {k: round(100 * v / len(done), 1) for k, v in pc.items()}
     out["fastest_player_win%"] = round(100 * sum(1 for r in done if r["winner_speed_rank"] == 0) / len(done), 1) if done else None
     out["slowest_player_win%"] = round(100 * sum(1 for r in done if r["winner_speed_rank"] == n - 1) / len(done), 1) if done else None
-    keys = ["turns", "attacks", "whiffs", "dodges", "loots", "buys", "heals", "drops", "storm_rings", "elim_attack", "elim_storm"]
+    keys = ["turns", "attacks", "whiffs", "dodges", "loots", "buys", "heals", "drops", "storm_rings", "elim_attack", "elim_storm", "loot_overflow"]
     out["per_game"] = {k: round(mean(r["m"].get(k, 0) for r in rs), 1) for k in keys}
     fe = [r["m"]["first_elim"] / 60 for r in done if "first_elim" in r["m"]]
     out["first_elim_min_med"] = round(median(fe), 1) if fe else None
@@ -558,6 +564,7 @@ def main():
     ap.add_argument("--elim", type=int, default=3, help="Dead cards in hand at end of turn that eliminate you")
     ap.add_argument("--storm-mode", default="both", choices=["enter", "end", "both"], help="enter: 1 Dead per storm tile you move into; end: ending your turn on one")
     ap.add_argument("--debug-stall", action="store_true")
+    ap.add_argument("--loot-cap", type=int, default=5, help="hand size cap for looting; extra loot goes to the discard pile (0 = no cap)")
     ap.add_argument("--keep", type=int, default=3, help="cards a bot keeps at end of turn")
     ap.add_argument("--range-cost", type=int, default=2, help="damage lost per tile of range (v1: 1, now 2)")
     ap.add_argument("--elim-drop", type=int, default=2, help="gold cubes dropped where a player is eliminated")

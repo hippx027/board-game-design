@@ -22,7 +22,7 @@ Designers: Brandon and Chris. Drafted 2026-10-12 from playtest 001 notes (`playt
 | Loot tiles with fixed loot icons; take a card to your discard pile | Loot cubes marking available loot; take the top card of that type's deck **into your hand** (to test) |
 | Face-up loot display | Gone. You take the top card, unseen. (A face-up Market replaces it) |
 | Dead cards have marked backs | Plain backs. You announce when 3 are in your hand |
-| Discard down to 3 at end of turn | Discard as many as you like (never Dead cards) |
+| Discard down to 3 at end of turn | Hand cap of 5; discard as many as you like (never Dead cards); looted cards over the cap go to your discard pile |
 | Range costs 1 damage per tile | Range costs **2** damage per tile |
 | Cards 1–4 value | Starting cards are 1; everything you gain at the Market is 2 or higher |
 
@@ -73,7 +73,7 @@ Play Move cards. Move up to 1 (your Base Move) plus the total value of Move card
 - Cubes on the board mark **available loot**.
 - **Loot a cube by moving into its tile** (designer's call): each cube on a tile you move into, passing through or stopping, is removed from the board and you take the **top card of the matching loot deck** (purple Move, red Attack, green Heal) **into your hand**. You can loot as many tiles as you can reach in a turn. The tile you start on doesn't count, so you can't loot a cube you are standing on. **Exception:** gold cubes from a drop or an elimination drop that are on your tile are picked up without moving ⚑ (when: any time on your turn).
 - Looted cards in hand can be played right away, and that is the point: a Heal you loot is a Heal you can use. Played cards (other than Heals) go to your discard pile and become part of your deck.
-- There is no hand limit. At end of turn you discard any unplayed cards you don't want to keep, but never Dead cards. Played cards go to your discard pile.
+- **Hand cap of 5** (designer's call, to start with). Dead cards in your hand count toward it. If your hand is full when you loot, the looted card goes **straight to your discard pile** instead of your hand ⚑ (overflow rule; you are never forced to discard to loot). At end of turn you may still discard unplayed cards you don't want, but never Dead cards. Played cards go to your discard pile.
 - Cubes are returned to the supply. New cubes appear with each **Drop**.
 
 ## Market
@@ -157,3 +157,8 @@ When a player is eliminated:
 - **Big-team fixes to test if rotation stalls:** a slower storm for teams of 4+ (for example 3 min), or damage only on entering a storm tile.
 
 **Storm:** interval is 2 minutes; test 3 / 4 as variants. Both charges are in (enter + end of turn).
+
+## Ideas for Later (not rules)
+- **Give cards to a player on your tile:** put non-Dead cards from your hand into another player's discard pile if you share a tile. Designer's idea (2026-10-12), kept for later. The 5-card hand cap applies, though it can't matter because cards go to their discard pile ⚑. Open questions: teammates only, or anyone? Is it an action? A limit per turn? (Market costs count cards, so gifting helps the receiver; see SIM-030 notes.)
+- **Market tiers** return later (the designer said "not later").
+- **Cube refresh** with each drop, as a playtest variant.
