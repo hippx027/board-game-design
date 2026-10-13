@@ -9,6 +9,7 @@ the Gold deck (24), 60 Dead cards (plain backs: every card back is the same). St
 pnp_sheets.py (comic frames, Material Symbols Sharp, rarity colours), so nothing here is hand-drawn artwork.
 """
 import html
+import random
 import os
 import subprocess
 
@@ -28,7 +29,11 @@ TEXT = {
 def card(kind, v, source, owner=None, gold=False):
     color, tier = GOLD if gold else RARITY[v]
     tag = f"{source} &middot; {TYPE[kind]}"
-    c = comic(TYPE[kind].upper(), TYPE_COLOR[kind], MSYM[kind], TEXT[kind].format(v=v), color, f"+{v}", tag, owner, cls="rar")
+    text = TEXT[kind].format(v=v)
+    if source == "Market":
+        pay = next(p for n, p, k, val in COSTS if k == kind and val == v)
+        text += f'<br><b>Cost:</b> {pay}'
+    c = comic(TYPE[kind].upper(), TYPE_COLOR[kind], MSYM[kind], text, color, f"+{v}", tag, owner, cls="rar")
     return c.replace('style="--type:', f'style="--rar:{color}; --type:', 1)
 
 
@@ -55,8 +60,8 @@ def decks():
     return base, loot, market, gold
 
 
-COSTS = [("Attack 2", "any 3 cards", "A", 2), ("Move 2", "any 3 cards", "M", 2), ("Heal 2", "any 3 cards", "H", 2),
-         ("Attack 3", "any 4 cards", "A", 3), ("Move 3", "any 4 cards", "M", 3), ("Heal 3", "any 4 cards", "H", 3)]
+COSTS = [("Attack 2", "2 Attack + 1 Move", "A", 2), ("Move 2", "2 Move + 1 Heal", "M", 2), ("Heal 2", "1 Heal + 1 Attack + 1 Move", "H", 2),
+         ("Attack 3", "3 Attack + 1 Move", "A", 3), ("Move 3", "3 Move + 1 Heal", "M", 3), ("Heal 3", "2 Heal + 1 Attack + 1 Move", "H", 3)]
 
 
 def market_mat():
@@ -67,7 +72,7 @@ def market_mat():
     return ("<section class='page mat'><h1>MARKET</h1>"
             f"<div class='slots'>{slots}<div class='slot deck'><span>DECK<br>21 cards</span></div></div>"
             "<div class='mrules'><b>How to buy</b><ul>"
-            "<li>Any time on your turn, pay the cards below <b>from your hand</b>. Pay with <b>any non-Dead cards</b>: 3 for a 2, 4 for a 3. Pay with your weakest.</li>"
+            "<li>Any time on your turn, pay the cards below <b>from your hand</b>. Costs count <b>cards, not value</b>, so pay with 1s. Never Dead cards. The cost is also printed on each Market card.</li>"
             "<li>Paid cards <b>leave the game</b>. The bought card goes into your <b>hand</b>.</li>"
             "<li>Refill the face-up row from the deck after each buy.</li></ul></div>"
             f"<table class='costs'><tr><th>Buy</th><th>Pay</th><th>Rarity</th></tr>{rows}</table></section>")
@@ -93,14 +98,19 @@ def reference():
 
 
 def tiles():
-    # about half the tiles (38 of 75) get a printed cube spot: set a loot cube on it at setup
+    # 38 of 75 tiles get a printed cube spot in a loot colour (11 Move, 20 Attack, 7 Heal ~ 6/11/4 per 21): put that colour cube on it
+    rng = random.Random(7)
+    cols = ["M"] * 11 + ["A"] * 20 + ["H"] * 7
+    rng.shuffle(cols)
     flat = []
     for i, letter in enumerate("ABCDE"):
         spots = 8 if i % 2 == 0 else 7
         for n in range(15):
             t = tile_color([], letter)
             if n < spots:
-                t = t.replace('<div class="hloots"></div>', '<div class="hloots"><span class="cspot">CUBE</span></div>')
+                k = cols.pop()
+                t = t.replace('<div class="hloots"></div>',
+                              f'<div class="hloots"><span class="cspot" style="--type:{TYPE_COLOR[k]}"><span class="msym">{MSYM[k]}</span></span></div>')
             flat.append(t)
     return sheets(flat, 35, "tiles")
 
@@ -118,8 +128,10 @@ body { font-family: Helvetica, Arial, sans-serif; color: #1b1f2a; }
 .piecesheet .page { width: 10.4in; margin: 0 auto; }
 .piecesheet .page.tiles { gap: 0.03in; }
 h1 { font: 44pt "Bangers", Impact, sans-serif; letter-spacing: 3px; width: 100%; text-align: center; margin: 0.2in 0 0.15in; }
-.cspot { width: 0.7in; height: 0.7in; border-radius: 50%; border: 3px dashed #15121c; background: rgba(255,255,255,.55);
-         display: flex; align-items: center; justify-content: center; font: 11pt "Bangers", Impact, sans-serif; letter-spacing: 1px; color: #15121c; }
+.cspot { width: 0.7in; height: 0.7in; border-radius: 50%; border: 4px dashed var(--type); background: rgba(255,255,255,.6);
+         display: flex; align-items: center; justify-content: center; }
+.cspot .msym { font-family: "Material Symbols Sharp"; font-size: 24pt; line-height: 1; color: var(--type);
+               font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 48; }
 .slots { display: flex; gap: 0.2in; width: 100%; justify-content: center; margin: 0.1in 0 0.3in; }
 .slot { width: 2.3in; height: 3.3in; border: 3px dashed #777; border-radius: 0.12in; display: flex; align-items: center; justify-content: center;
         font: 18pt "Bangers", Impact, sans-serif; letter-spacing: 2px; color: #777; text-align: center; }

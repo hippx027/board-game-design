@@ -23,7 +23,7 @@ For your first paper session, play it like this. Everything else plays exactly a
 
 **Drops stay in** (designer's call: they matter at every player count): the 2-minute drop timer, gold cubes, the Gold deck and the elimination drop.
 
-Keep: the 4-minute storm timer, the Market (3 face up, no tiers, pay any cards), the hand cap of 5, and Range cost 2 per tile. Cubes go on half the tiles. No turn timer.
+Keep: the 4-minute storm timer, the Market (3 face up, no tiers, specific costs printed on each card), the hand cap of 5, and Range cost 2 per tile. Cubes go on half the tiles. No turn timer.
 
 What to watch for (these are the questions this session answers):
 1. **Does the Market get used?** Sim: about 3 buys per player per game (9 at 3p, 11 at 4p). Count yours.
@@ -58,7 +58,7 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 | Dead cards | 60 | Plain backs |
 | Loot cubes | half the number of tiles | One colour per type (purple Move, red Attack, green Heal); mark available loot on the board |
 | Gold cubes | 1 per player per drop | Mark drops; taking one gives the top card of the Gold deck |
-| Board tiles | per player count | 75 hex tiles (5 sets of 15); 38 of them have a printed cube spot (a dashed circle), no loot icons |
+| Board tiles | per player count | 75 hex tiles (5 sets of 15); 38 of them have a printed cube spot in a loot colour (11 Move, 20 Attack, 7 Heal) |
 | Pawn | 1 per player | |
 | Spinner | 1 | Battle bus: sits on the centre tile; its line sets where pawns may start (a paper arrow on a pin, or a pencil, works) |
 | Table timer | 1 | A phone with two repeating alarms: **Drop** and **Storm** |
@@ -66,8 +66,8 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 | Cards print | 11×17 paper | Card sheets (replaces the old size) |
 
 ## Setup
-1. Build the board as in v1 (players alternate placing tiles, each touching the last). About half the tiles have a printed **cube spot** (a dashed circle); the other half are blank.
-2. Put a loot cube on **every cube spot** (half the tiles; designer's call, tested in SIM-030 addendum 7). The spot only says where; the colour is random: draw cubes blind, about 6 purple Move, 11 red Attack, 4 green Heal per 21 cubes. When a cube is looted the spot stays empty; no new cubes appear except from Drops.
+1. Build the board as in v1 (players alternate placing tiles, each touching the last). About half the tiles have a printed **cube spot** in a loot colour (purple Move, red Attack, green Heal); the other half are blank.
+2. Put a loot cube of the **matching colour** on every cube spot (half the tiles; designer's call, tested in SIM-030 addendum 7). The colours are printed on the tiles, which sets the mix: 11 purple Move, 20 red Attack, 7 green Heal on 38 tiles (about 6/11/4 per 21). When a cube is looted the spot stays empty; no new cubes appear except from Drops.
 3. **Battle bus:** put a spinner on the centre tile (the first tile placed) and spin it. Its line runs across the board through the centre. In a **2 or 3 player** game, pawns start **on the line**. With **4 or more players**, they start **on the line or 1 tile away from it**. No minimum distance between pawns (designer's call), but each pawn starts on its own tile; players place in the order they choose. (I read "play on the line" as starting positions, so confirm that is what you meant.)
 4. Shuffle your 10-card base deck and draw 5.
 5. Lay out the Market.
@@ -104,15 +104,19 @@ You may trade cards from your hand to buy a Market card, any time during your tu
 
 - **No tiers for now** (designer's call; tiers return later). The Market deck is one shuffled deck; **3 cards are face up** and are replaced from the deck as they're bought.
 - Market cards are **value 2 or 3**, never 1. Deck (21 cards, default): 6× Attack 2, 4× Move 2, 4× Heal 2, 3× Attack 3, 2× Move 3, 2× Heal 3.
-- **Cost is a number of cards from your hand, any type, never Dead cards** (designer's call, 2026-10-13: SIM-030 addendum 20; sim: about 4.5 buys per player instead of 3, no stalls at 3-4 players, games about 30% shorter). Value doesn't matter, so pay with your weakest cards:
+- **Each Market card has its own cost: a combo of specific cards from your hand, counted by number, not value** (Splendor-style; designer's call, 2026-10-13, replacing "pay any cards"). So paying value 1s is the efficient trade, and paying a 3 is a waste. The cost is printed on the card. Never Dead cards. Costs (default; cheaper costs stalled the sim, SIM-030 addendum 12-13):
 
 | Buy | Pay |
 |---|---|
-| Attack 2, Move 2, Heal 2 | any 3 cards |
-| Attack 3, Move 3, Heal 3 | any 4 cards |
+| Attack 2 | 2 Attack + 1 Move |
+| Move 2 | 2 Move + 1 Heal |
+| Heal 2 | 1 Heal + 1 Attack + 1 Move |
+| Attack 3 | 3 Attack + 1 Move |
+| Move 3 | 3 Move + 1 Heal |
+| Heal 3 | 2 Heal + 1 Attack + 1 Move |
 
 - Paid cards **leave the game** (this thins your deck: fewer junk cards, stronger draws).
-- The bought card goes **into your hand**, so you can play it this turn. It counts toward the hand cap of 5 (if your hand is full, put it in your discard pile instead).
+- The bought card goes **into your hand**, so you can play it this turn. It counts toward the hand cap of 5 (if your hand is full, put it in your discard pile instead). Sim: about 3 buys per player, same as the discard pile.
 
 The game inside the game: **collect the right cards to turn many low cards into a few strong ones.**
 
