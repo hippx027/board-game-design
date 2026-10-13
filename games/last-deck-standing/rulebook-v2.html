@@ -65,7 +65,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <td>Use attack option A (declare &quot;Attack&quot;, pause the table, resolve, resume)</td>
 </tr>
 </tbody></table></div>
-<p><strong>Drops stay in</strong> (designer&#39;s call: they matter at every player count): the 2-minute drop timer, gold cubes, the Gold deck and the elimination drop.</p>
+<p><strong>Drops stay in</strong> (designer&#39;s call: they matter at every player count): the 2-minute drop timer, legendary cubes, the Legendary deck and the elimination drop.</p>
 <p>Keep: the 4-minute storm timer, the Market (3 face up, no tiers, specific costs printed on each card), the hand cap of 5, and Range cost 2 per tile. Cubes go on half the tiles. No turn timer.</p>
 <p>What to watch for (these are the questions this session answers):</p>
 <ol>
@@ -145,9 +145,9 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <td>Move 14, Attack 26, Heal 10 (50 cards, one per cube spot; was 12/16/10 until the tile count went up), each shuffled face down. <strong>Values 1 and 2 only, half each</strong> (designer&#39;s call: no 3s in loot; Move 7&#215;1 + 7&#215;2, Attack 13&#215;1 + 13&#215;2, Heal 5&#215;1 + 5&#215;2; the half-and-half split is my default). To get 3s you must use the Market, kill someone (elimination drop) or reach a drop. Old loot (2s and 3s) is kept as a variant</td>
 </tr>
 <tr>
-<td>Gold deck</td>
+<td>Legendary deck</td>
 <td>24</td>
-<td>Value 3 and 4 cards (4 each of Move 3/4, Attack 3/4, Heal 3/4); taken from gold cubes in drops and elimination drops</td>
+<td>Value 3 and 4 cards (4 each of Move 3/4, Attack 3/4, Heal 3/4); taken from legendary cubes in drops and elimination drops</td>
 </tr>
 <tr>
 <td>Market deck</td>
@@ -165,9 +165,9 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <td>One colour per type (purple Move, red Attack, green Heal); mark available loot on the board</td>
 </tr>
 <tr>
-<td>Gold cubes</td>
+<td>Legendary cubes</td>
 <td>1 per player per drop</td>
-<td>Mark drops; taking one gives the top card of the Gold deck</td>
+<td>Mark drops; taking one gives the top card of the Legendary deck</td>
 </tr>
 <tr>
 <td>Board tiles</td>
@@ -203,7 +203,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <h2 id="setup">Setup</h2>
 <ol>
 <li>Build the board as in v1 (players alternate placing tiles, each touching the last). About half the tiles have a printed <strong>cube spot</strong> in a loot colour (purple Move, red Attack, green Heal); the other half are blank.</li>
-<li>Put a loot cube of the <strong>matching colour</strong> on every cube spot (half the tiles; designer&#39;s call, tested in SIM-030 addendum 7). The colours are printed on the tiles, which sets the mix: 14 purple Move, 26 red Attack, 10 green Heal on 50 tiles (about 6/11/4 per 21), matching the loot decks card for card when every tile is used. When a cube is looted the spot stays empty; no new loot cubes appear (only gold cubes, from Drops).</li>
+<li>Put a loot cube of the <strong>matching colour</strong> on every cube spot (half the tiles; designer&#39;s call, tested in SIM-030 addendum 7). The colours are printed on the tiles, which sets the mix: 14 purple Move, 26 red Attack, 10 green Heal on 50 tiles (about 6/11/4 per 21), matching the loot decks card for card when every tile is used. When a cube is looted the spot stays empty; no new loot cubes appear (only legendary cubes, from Drops).</li>
 <li><strong>Battle bus:</strong> put a spinner on the centre tile (the first tile placed) and spin it. Its line runs across the board through the centre. In a <strong>2 or 3 player</strong> game, pawns start <strong>on the line</strong>. With <strong>4 or more players</strong>, they start <strong>on the line or 1 tile away from it</strong>. No minimum distance between pawns (designer&#39;s call), but each pawn starts on its own tile; players place in the order they choose. (Designer confirmed 2026-10-13: the line sets starting positions.)</li>
 <li>Shuffle your 10-card base deck and draw 5.</li>
 <li>Lay out the Market.</li>
@@ -244,10 +244,10 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <h2 id="looting">Looting</h2>
 <ul>
 <li>Cubes on the board mark <strong>available loot</strong>.</li>
-<li><strong>Loot a cube by moving into its tile</strong> (designer&#39;s call): each cube on a tile you move into, passing through or stopping, is removed from the board and you take the <strong>top card of the matching loot deck</strong> (purple Move, red Attack, green Heal) <strong>into your hand</strong>. You can loot as many tiles as you can reach in a turn. The tile you start on doesn&#39;t count, so you can&#39;t loot a cube you are standing on. <strong>Exception:</strong> gold cubes from a drop or an elimination drop that are on your tile are picked up without moving, as soon as they land (default).</li>
+<li><strong>Loot a cube by moving into its tile</strong> (designer&#39;s call): each cube on a tile you move into, passing through or stopping, is removed from the board and you take the <strong>top card of the matching loot deck</strong> (purple Move, red Attack, green Heal) <strong>into your hand</strong>. You can loot as many tiles as you can reach in a turn. The tile you start on doesn&#39;t count, so you can&#39;t loot a cube you are standing on. <strong>Exception:</strong> legendary cubes from a drop or an elimination drop that are on your tile are picked up without moving, as soon as they land (default).</li>
 <li>Looted cards in hand can be played right away, and that is the point: a Heal you loot is a Heal you can use. Played cards (other than Heals) go to your discard pile and become part of your deck.</li>
 <li><strong>Hand cap of 5</strong> (designer&#39;s call, to start with). Dead cards in your hand count toward it. If your hand is full when you loot, the looted card goes <strong>straight to your discard pile</strong> instead of your hand (default overflow rule; you are never forced to discard to loot). At end of turn you must discard down to 3 unplayed cards; Dead cards stay and don&#39;t count toward the 3. Played cards go to your discard pile.</li>
-<li>Cubes are returned to the supply. The only new cubes are <strong>gold cubes</strong> from Drops.</li>
+<li>Cubes are returned to the supply. The only new cubes are <strong>legendary cubes</strong> from Drops.</li>
 </ul>
 <h2 id="market">Market</h2>
 <p>You may trade cards from your hand to buy a Market card, any time during your turn.</p>
@@ -312,9 +312,9 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <h2 id="elimination-drop">Elimination Drop</h2>
 <p>When a player is eliminated:</p>
 <ol>
-<li>Remove their pawn and return all their Dead cards to the Dead supply. Their other cards leave the game, <strong>except any gold (Legendary) cards they own</strong> (hand, deck or discard): those stay on the tile as the first cards of the loot pool.</li>
-<li><strong>Loot drop:</strong> place <strong>2 gold cubes</strong> on the tile where they fell (default). It&#39;s a drop with no pause and no nudging. Whoever moves through or onto the tile takes them like any gold cube: the fallen player&#39;s gold cards come first, then the top of the Gold deck. If they left more than 2 gold cards, add one cube per extra card.</li>
-<li>Gold cubes only come out while the Gold deck has cards left.</li>
+<li>Remove their pawn and return all their Dead cards to the Dead supply. Their other cards leave the game, <strong>except any Legendary cards they own</strong> (hand, deck or discard): those stay on the tile as the first cards of the loot pool.</li>
+<li><strong>Loot drop:</strong> place <strong>2 legendary cubes</strong> on the tile where they fell (default). It&#39;s a drop with no pause and no nudging. Whoever moves through or onto the tile takes them like any legendary cube: the fallen player&#39;s legendary cards come first, then the top of the Legendary deck. If they left more than 2 legendary cards, add one cube per extra card.</li>
+<li>Legendary cubes only come out while the Legendary deck has cards left.</li>
 </ol>
 <h2 id="the-storm-timer-">The Storm (timer)</h2>
 <ul>
@@ -334,10 +334,10 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li><strong>4 or more players:</strong> each other player moves it up to <strong>1 tile</strong>, in turn order.</li>
 </ul>
 </li>
-<li>The table places <strong>gold cubes</strong>: one per player in the game (2 players: 2 cubes; 3 players: 3 cubes) (default). Place them all <strong>on the drop&#39;s tile</strong> (default; a drop is a fight magnet).</li>
+<li>The table places <strong>legendary cubes</strong>: one per player in the game (2 players: 2 cubes; 3 players: 3 cubes) (default). Place them all <strong>on the drop&#39;s tile</strong> (default; a drop is a fight magnet).</li>
 </ol>
 </li>
-<li>Looting a gold cube works like any cube: move into its tile, remove it and take the top card of the Gold deck into your hand. If a drop lands on your tile, you pick it up without moving.</li>
+<li>Looting a legendary cube works like any cube: move into its tile, remove it and take the top card of the Legendary deck into your hand. If a drop lands on your tile, you pick it up without moving.</li>
 <li>Regular cubes are <strong>not</strong> refreshed by drops. They are only the starting cubes. Playtest variant: a cube refresh (for example, the table adds [N] regular cubes with each drop).</li>
 </ul>
 <h2 id="teams-variant-">Teams (variant)</h2>
@@ -354,6 +354,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <hr>
 <section class="designer">
 <h2 id="playtest-options-still-to-run">Playtest options still to run</h2>
+<p><strong>Note: a turn never has to end (blind read-through, 2026-10-13).</strong> With no turn timer, elimination and the storm&#39;s end-of-turn charge only happen when you end your turn. A player at 3 Dead who says &quot;critical&quot; and never ends can&#39;t be eliminated or taxed, and a table of two such players can&#39;t finish. The opposite also works: ending turns instantly gives a free Base Move 1 and Base Attack 1 each time, so turn count becomes the skill. <strong>Current default:</strong> the turn ends at &quot;End&quot; or the next Storm/Drop alarm (at most 2 minutes). <strong>Other options to test:</strong> a turn timer (the designer ruled it out for now); a limit of one declared Attack per turn; a minimum turn length (a turn floor, now set to none). <strong>Watch for:</strong> anyone camping on a turn, or rushing micro-turns to farm moves.</p>
 <p><strong>#2 &#8212; Attack timing:</strong></p>
 <ul>
 <li><strong>A (drafted above):</strong> pause the table, resolve.</li>

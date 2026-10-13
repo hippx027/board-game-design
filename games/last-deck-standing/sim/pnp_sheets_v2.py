@@ -5,7 +5,7 @@ Usage: python3 pnp_sheets_v2.py
          ../pnp/v2/last-deck-standing-v2-pieces-11.5x17.{html,pdf} Market mat, reference sheets, blank hex tiles, storm markers on 11.5 x 17
 
 Contents follow rulebook-v2-draft.md: 10 base decks (up to 10 players), three loot decks, the Market deck (21),
-the Gold deck (24), 60 Dead cards (plain backs: every card back is the same). Style and icons are reused from
+the Legendary deck (24), 60 Dead cards (plain backs: every card back is the same). Style and icons are reused from
 pnp_sheets.py (comic frames, Material Symbols Sharp, rarity colours), so nothing here is hand-drawn artwork.
 """
 import html
@@ -56,7 +56,7 @@ def decks():
     for k, v, n in (("A", 2, 6), ("M", 2, 4), ("H", 2, 4), ("A", 3, 3), ("M", 3, 2), ("H", 3, 2)):
         market += [card(k, v, "Market")] * n
     for k in "MAH":
-        gold += [card(k, 3, "Gold", gold=True)] * 4 + [card(k, 4, "Gold", gold=True)] * 4
+        gold += [card(k, 3, "Legendary", gold=True)] * 4 + [card(k, 4, "Legendary", gold=True)] * 4
     return base, loot, market, gold
 
 
@@ -87,11 +87,11 @@ QUICK = [
                    "End: 3+ Dead in hand = <b>out</b>. Otherwise discard down to 3 cards (Dead stay, not counted) and go again. Your turn also ends at the next Storm or Drop alarm."]),
     ("Move and loot", ["Base Move 1 + Move cards played. One adjacent tile per point.",
                        "Moving <b>into</b> a tile with a cube takes it: draw the top card of that loot deck into your hand. Hand cap 5; extra loot goes to your discard pile.",
-                       "Gold cubes on your own tile can be taken without moving."]),
+                       "Legendary cubes on your own tile can be taken without moving."]),
     ("Attack", ["Say <b>Attack</b>; the table pauses. Damage = Attack total &minus; 2 per tile of range (Base Attack 1 + cards).",
                 "Put that many Dead cards in the target's <b>discard pile</b>. Then resume."]),
     ("Timers", ["<b>Storm (every 4 min):</b> pause, mark the whole outer ring. Moving into a storm tile = 1 Dead; ending your turn on one = 1 more.",
-                "<b>Drop (every 2 min):</b> first player (rotates) places it. Then the others move it in turn order: 2p one player 3 tiles; 3p each 2 tiles; 4+ each 1 tile. Table puts one gold cube per player on it."]),
+                "<b>Drop (every 2 min):</b> first player (rotates) places it. Then the others move it in turn order: 2p one player 3 tiles; 3p each 2 tiles; 4+ each 1 tile. Table puts one legendary cube per player on it."]),
     ("Market", ["Any time on your turn, pay the cost printed on a <b>face-up</b> Market card with cards from your hand (never Dead).",
                 "Paid cards <b>leave the game</b>. The bought card goes into your <b>hand</b> (hand cap 5)."]),
 

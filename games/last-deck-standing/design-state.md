@@ -23,7 +23,7 @@ Updated 2026-10-12 · Designers: Brandon and Chris · Milestone: v2 (realtime) d
 - Loot: cubes on half the tiles, on printed cube spots in a loot colour (50 of 100 tiles: 14 Move, 26 Attack, 10 Heal; 2026-10-13); you loot by moving *into* a tile (start tile excluded); loot goes into your hand; **hand cap 5** with overflow going to the discard pile (SIM-030 addendum 10)
 - Loot decks Move 14 / Attack 26 / Heal 10 (50, one per cube spot; 100 tiles, 50 spots), values 1 and 2, half each (designer's call, 2026-10-13: 3s only from the Market, kills or drops; SIM-030 add. 19)
 - Market: no tiers for now, one 21-card deck (values 2 and 3), 3 face up; Splendor-style specific costs printed on each card (designer's call 2026-10-13; pay-any was tried and rejected as a feel, SIM-030 add. 20), paid cards leave the game, bought card goes to hand
-- Gold deck 24 (3s and 4s); drops every 2 min (1st player places, then each other player moves it in turn order: 2p one mover x3 tiles, 3p two movers x2 tiles, 4+ every other player x1 tile, gold cubes = player count, on the tile); elimination drop (2 gold cubes where a player fell, their gold cards first)
+- Legendary deck 24 (3s and 4s); drops every 2 min (1st player places, then each other player moves it in turn order: 2p one mover x3 tiles, 3p two movers x2 tiles, 4+ every other player x1 tile, legendary cubes = player count, on the tile); elimination drop (2 legendary cubes where a player fell, their legendary cards first)
 - Storm: whole outer ring marked each alarm; 1 Dead card per storm tile you move into, plus 1 more if you end your turn on one
 - Teams: any equal-size layout, rotation (each member goes after the previous teammate), no attacking teammates
 - Turn floor: none for the first session
