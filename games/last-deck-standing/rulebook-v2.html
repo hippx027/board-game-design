@@ -142,7 +142,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <tr>
 <td>Loot decks</td>
 <td>3, one per type</td>
-<td>Move 12, Attack 16, Heal 10 (default), each shuffled face down. <strong>Values 1 and 2 only, half each</strong> (designer&#39;s call: no 3s in loot; Move 6&#215;1 + 6&#215;2, Attack 8&#215;1 + 8&#215;2, Heal 5&#215;1 + 5&#215;2; the half-and-half split is my default). To get 3s you must use the Market, kill someone (elimination drop) or reach a drop. Old loot (2s and 3s) is kept as a variant</td>
+<td>Move 14, Attack 26, Heal 10 (50 cards, one per cube spot; was 12/16/10 until the tile count went up), each shuffled face down. <strong>Values 1 and 2 only, half each</strong> (designer&#39;s call: no 3s in loot; Move 7&#215;1 + 7&#215;2, Attack 13&#215;1 + 13&#215;2, Heal 5&#215;1 + 5&#215;2; the half-and-half split is my default). To get 3s you must use the Market, kill someone (elimination drop) or reach a drop. Old loot (2s and 3s) is kept as a variant</td>
 </tr>
 <tr>
 <td>Gold deck</td>
@@ -161,7 +161,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 <tr>
 <td>Loot cubes</td>
-<td>half the number of tiles</td>
+<td>half the number of tiles in play (up to 50)</td>
 <td>One colour per type (purple Move, red Attack, green Heal); mark available loot on the board</td>
 </tr>
 <tr>
@@ -172,7 +172,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <tr>
 <td>Board tiles</td>
 <td>per player count</td>
-<td>75 hex tiles (5 sets of 15); 38 of them have a printed cube spot in a loot colour (11 Move, 20 Attack, 7 Heal)</td>
+<td>100 hex tiles (5 sets, A&#8211;E, of 20), enough for 10 players at 10 tiles each; 50 of them have a printed cube spot in a loot colour (14 Move, 26 Attack, 10 Heal)</td>
 </tr>
 <tr>
 <td>Pawn</td>
@@ -203,8 +203,8 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <h2 id="setup">Setup</h2>
 <ol>
 <li>Build the board as in v1 (players alternate placing tiles, each touching the last). About half the tiles have a printed <strong>cube spot</strong> in a loot colour (purple Move, red Attack, green Heal); the other half are blank.</li>
-<li>Put a loot cube of the <strong>matching colour</strong> on every cube spot (half the tiles; designer&#39;s call, tested in SIM-030 addendum 7). The colours are printed on the tiles, which sets the mix: 11 purple Move, 20 red Attack, 7 green Heal on 38 tiles (about 6/11/4 per 21). When a cube is looted the spot stays empty; no new loot cubes appear (only gold cubes, from Drops).</li>
-<li><strong>Battle bus:</strong> put a spinner on the centre tile (the first tile placed) and spin it. Its line runs across the board through the centre. In a <strong>2 or 3 player</strong> game, pawns start <strong>on the line</strong>. With <strong>4 or more players</strong>, they start <strong>on the line or 1 tile away from it</strong>. No minimum distance between pawns (designer&#39;s call), but each pawn starts on its own tile; players place in the order they choose. (I read &quot;play on the line&quot; as starting positions, so confirm that is what you meant.)</li>
+<li>Put a loot cube of the <strong>matching colour</strong> on every cube spot (half the tiles; designer&#39;s call, tested in SIM-030 addendum 7). The colours are printed on the tiles, which sets the mix: 14 purple Move, 26 red Attack, 10 green Heal on 50 tiles (about 6/11/4 per 21), matching the loot decks card for card when every tile is used. When a cube is looted the spot stays empty; no new loot cubes appear (only gold cubes, from Drops).</li>
+<li><strong>Battle bus:</strong> put a spinner on the centre tile (the first tile placed) and spin it. Its line runs across the board through the centre. In a <strong>2 or 3 player</strong> game, pawns start <strong>on the line</strong>. With <strong>4 or more players</strong>, they start <strong>on the line or 1 tile away from it</strong>. No minimum distance between pawns (designer&#39;s call), but each pawn starts on its own tile; players place in the order they choose. (Designer confirmed 2026-10-13: the line sets starting positions.)</li>
 <li>Shuffle your 10-card base deck and draw 5.</li>
 <li>Lay out the Market.</li>
 <li>Start the timer: the 2-minute Drop clock starts with the game. Everyone starts together.</li>
@@ -216,6 +216,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li><strong>End:</strong> if you have 3 or more Dead cards in hand, you are eliminated. Otherwise put your played cards in your discard pile, <strong>discard down to 3</strong> unplayed cards (designer&#39;s call; Dead cards never get discarded and don&#39;t count toward the 3, default), and start your next turn right away.</li>
 </ol>
 <p>Nobody waits for you. If you take a long turn, the others take several.</p>
+<p><strong>Turn limit (default, 2026-10-13: blind read-through found a player could sit on a turn forever and never be eliminated or taxed by the storm):</strong> your turn ends when you say <strong>&quot;End&quot;</strong> or when the <strong>next table alarm sounds</strong> (Storm or Drop, whichever comes first), after you finish the action you were in. The end-of-turn steps below then happen at once. So no turn can last longer than 2 minutes, and there is still no turn timer of its own.</p>
 <h2 id="cards">Cards</h2>
 <div class="tbl"><table>
 <thead>

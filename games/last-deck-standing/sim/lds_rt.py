@@ -60,7 +60,7 @@ CHEAP_COSTS = {  # one card cheaper than COSTS
 
 
 def loot_deck(kind, rng, ones, weak=False):
-    size, threes = {"M": (12, 4), "A": (16, 6), "H": (10, 4)}[kind]
+    size, threes = {"M": (14, 4), "A": (26, 6), "H": (10, 4)}[kind]
     vals = [3] * threes + [2] * (size - threes)
     if weak:  # weaker loot: no 3s, half the cards are 1s
         vals, ones = [2] * size, True

@@ -51,7 +51,7 @@ def decks():
     for n in range(1, 11):
         o = f"Player {n}"
         base += [card("M", 1, "Starting", o)] * 4 + [card("A", 1, "Starting", o)] * 4 + [card("H", 1, "Starting", o)] * 2
-    for k, size in (("M", 12), ("A", 16), ("H", 10)):  # loot is 1s and 2s only; 3s come from the Market, kills or drops
+    for k, size in (("M", 14), ("A", 26), ("H", 10)):  # loot is 1s and 2s only; 3s come from the Market, kills or drops
         loot += [card(k, 1, "Loot")] * (size // 2) + [card(k, 2, "Loot")] * (size - size // 2)
     for k, v, n in (("A", 2, 6), ("M", 2, 4), ("H", 2, 4), ("A", 3, 3), ("M", 3, 2), ("H", 3, 2)):
         market += [card(k, v, "Market")] * n
@@ -84,7 +84,7 @@ def market_mat():
 QUICK = [
     ("Your turn", ["Draw up to 5 cards. Say <b>critical</b> if 3+ Dead are in hand.",
                    "Play cards, move, loot, buy, attack, in any order.",
-                   "End: 3+ Dead in hand = <b>out</b>. Otherwise discard down to 3 cards (Dead stay, not counted) and go again. No turn timer."]),
+                   "End: 3+ Dead in hand = <b>out</b>. Otherwise discard down to 3 cards (Dead stay, not counted) and go again. Your turn also ends at the next Storm or Drop alarm."]),
     ("Move and loot", ["Base Move 1 + Move cards played. One adjacent tile per point.",
                        "Moving <b>into</b> a tile with a cube takes it: draw the top card of that loot deck into your hand. Hand cap 5; extra loot goes to your discard pile.",
                        "Gold cubes on your own tile can be taken without moving."]),
@@ -105,14 +105,14 @@ def reference():
 
 
 def tiles():
-    # 38 of 75 tiles get a printed cube spot in a loot colour (11 Move, 20 Attack, 7 Heal ~ 6/11/4 per 21): put that colour cube on it
+    # 50 of 100 tiles get a printed cube spot in a loot colour (14 Move, 26 Attack, 10 Heal ~ 6/11/4 per 21): put that colour cube on it
     rng = random.Random(7)
-    cols = ["M"] * 11 + ["A"] * 20 + ["H"] * 7
+    cols = ["M"] * 14 + ["A"] * 26 + ["H"] * 10
     rng.shuffle(cols)
     flat = []
     for i, letter in enumerate("ABCDE"):
-        spots = 8 if i % 2 == 0 else 7
-        for n in range(15):
+        spots = 10
+        for n in range(20):
             t = tile_color([], letter)
             if n < spots:
                 k = cols.pop()

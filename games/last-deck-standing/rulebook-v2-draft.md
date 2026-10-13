@@ -52,13 +52,13 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 | Item | Qty | Notes |
 |---|---|---|
 | Base deck | 10 per player | **4 Move 1, 4 Attack 1, 2 Heal 1** |
-| Loot decks | 3, one per type | Move 12, Attack 16, Heal 10 (default), each shuffled face down. **Values 1 and 2 only, half each** (designer's call: no 3s in loot; Move 6×1 + 6×2, Attack 8×1 + 8×2, Heal 5×1 + 5×2; the half-and-half split is my default). To get 3s you must use the Market, kill someone (elimination drop) or reach a drop. Old loot (2s and 3s) is kept as a variant |
+| Loot decks | 3, one per type | Move 14, Attack 26, Heal 10 (50 cards, one per cube spot; was 12/16/10 until the tile count went up), each shuffled face down. **Values 1 and 2 only, half each** (designer's call: no 3s in loot; Move 7×1 + 7×2, Attack 13×1 + 13×2, Heal 5×1 + 5×2; the half-and-half split is my default). To get 3s you must use the Market, kill someone (elimination drop) or reach a drop. Old loot (2s and 3s) is kept as a variant |
 | Gold deck | 24 | Value 3 and 4 cards (4 each of Move 3/4, Attack 3/4, Heal 3/4); taken from gold cubes in drops and elimination drops |
 | Market deck | 21 | Value 2 and 3 cards; 3 face up; see Market |
 | Dead cards | 60 | Plain backs |
-| Loot cubes | half the number of tiles | One colour per type (purple Move, red Attack, green Heal); mark available loot on the board |
+| Loot cubes | half the number of tiles in play (up to 50) | One colour per type (purple Move, red Attack, green Heal); mark available loot on the board |
 | Gold cubes | 1 per player per drop | Mark drops; taking one gives the top card of the Gold deck |
-| Board tiles | per player count | 75 hex tiles (5 sets of 15); 38 of them have a printed cube spot in a loot colour (11 Move, 20 Attack, 7 Heal) |
+| Board tiles | per player count | 100 hex tiles (5 sets, A–E, of 20), enough for 10 players at 10 tiles each; 50 of them have a printed cube spot in a loot colour (14 Move, 26 Attack, 10 Heal) |
 | Pawn | 1 per player | |
 | Spinner | 1 | Battle bus: sits on the centre tile; its line sets where pawns may start (a paper arrow on a pin, or a pencil, works) |
 | Table timer | 1 | A phone with two repeating alarms: **Drop** and **Storm** |
@@ -67,8 +67,8 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 
 ## Setup
 1. Build the board as in v1 (players alternate placing tiles, each touching the last). About half the tiles have a printed **cube spot** in a loot colour (purple Move, red Attack, green Heal); the other half are blank.
-2. Put a loot cube of the **matching colour** on every cube spot (half the tiles; designer's call, tested in SIM-030 addendum 7). The colours are printed on the tiles, which sets the mix: 11 purple Move, 20 red Attack, 7 green Heal on 38 tiles (about 6/11/4 per 21). When a cube is looted the spot stays empty; no new loot cubes appear (only gold cubes, from Drops).
-3. **Battle bus:** put a spinner on the centre tile (the first tile placed) and spin it. Its line runs across the board through the centre. In a **2 or 3 player** game, pawns start **on the line**. With **4 or more players**, they start **on the line or 1 tile away from it**. No minimum distance between pawns (designer's call), but each pawn starts on its own tile; players place in the order they choose. (I read "play on the line" as starting positions, so confirm that is what you meant.)
+2. Put a loot cube of the **matching colour** on every cube spot (half the tiles; designer's call, tested in SIM-030 addendum 7). The colours are printed on the tiles, which sets the mix: 14 purple Move, 26 red Attack, 10 green Heal on 50 tiles (about 6/11/4 per 21), matching the loot decks card for card when every tile is used. When a cube is looted the spot stays empty; no new loot cubes appear (only gold cubes, from Drops).
+3. **Battle bus:** put a spinner on the centre tile (the first tile placed) and spin it. Its line runs across the board through the centre. In a **2 or 3 player** game, pawns start **on the line**. With **4 or more players**, they start **on the line or 1 tile away from it**. No minimum distance between pawns (designer's call), but each pawn starts on its own tile; players place in the order they choose. (Designer confirmed 2026-10-13: the line sets starting positions.)
 4. Shuffle your 10-card base deck and draw 5.
 5. Lay out the Market.
 6. Start the timer: the 2-minute Drop clock starts with the game. Everyone starts together.
@@ -79,6 +79,8 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 3. **End:** if you have 3 or more Dead cards in hand, you are eliminated. Otherwise put your played cards in your discard pile, **discard down to 3** unplayed cards (designer's call; Dead cards never get discarded and don't count toward the 3, default), and start your next turn right away.
 
 Nobody waits for you. If you take a long turn, the others take several.
+
+**Turn limit (default, 2026-10-13: blind read-through found a player could sit on a turn forever and never be eliminated or taxed by the storm):** your turn ends when you say **"End"** or when the **next table alarm sounds** (Storm or Drop, whichever comes first), after you finish the action you were in. The end-of-turn steps below then happen at once. So no turn can last longer than 2 minutes, and there is still no turn timer of its own.
 
 ## Cards
 | Card | When played |
