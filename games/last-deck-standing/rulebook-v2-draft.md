@@ -151,7 +151,10 @@ When a player is eliminated:
 - The 2-minute Drop clock starts with the game and repeats.
 - On the alarm, pause the table:
   1. The first player picks a tile and places the drop marker there. The first player rotates each drop (default).
-  2. The next player moves the drop up to **3 tiles**.
+  2. Then the players after them, in turn order, each move the drop (designer's call), up to:
+     - **2 players:** the other player moves it **3 tiles**.
+     - **3 players:** each of the other two moves it up to **2 tiles**.
+     - **4 or more players:** each other player moves it up to **1 tile**, in turn order.
   3. The table places **gold cubes**: one per player in the game (2 players: 2 cubes; 3 players: 3 cubes) (default). Place them all **on the drop's tile** (default; a drop is a fight magnet).
 - Looting a gold cube works like any cube: move into its tile, remove it and take the top card of the Gold deck into your hand. If a drop lands on your tile, you pick it up without moving.
 - Regular cubes are **not** refreshed by drops. They are only the starting cubes. Playtest variant: a cube refresh (for example, the table adds [N] regular cubes with each drop).

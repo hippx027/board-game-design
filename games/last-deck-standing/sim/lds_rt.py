@@ -242,10 +242,14 @@ class Game:
         self.drop_placer += 1
         ok = [h for h in self.tiles if h not in self.storm and self.rings[h] > 1] or list(self.tiles)
         spot = min(ok, key=lambda h: (hexdist(h, first.pos), self.rng.random()))
-        second = al[self.drop_placer % len(al)]
-        within = [h for h in self.reach(spot, 3)]
-        if second is not first or len(al) == 1:
-            spot = min(within, key=lambda h: (hexdist(h, second.pos), self.rng.random()))
+        if a.drop_moves == "scaled":  # 2p: one mover, 3 tiles; 3p: two movers, 2 tiles each; 4+: every other player, 1 tile
+            movers, steps = (1, 3) if self.n <= 2 else (2, 2) if self.n == 3 else (self.n - 1, 1)
+        else:
+            movers, steps = 1, 3
+        for k in range(movers):  # movers follow the placer in turn order; the next drop's placer is the first mover, as before
+            mv = al[(self.drop_placer + k) % len(al)]
+            if mv is not first or len(al) == 1:
+                spot = min(self.reach(spot, steps), key=lambda h: (hexdist(h, mv.pos), self.rng.random()))
         k = min(self.n, self.gold_left())
         if k > 0:
             self.cubes.setdefault(spot, []).extend(["G"] * k)
@@ -564,6 +568,7 @@ def main():
     ap.add_argument("--storm-pause", type=float, default=15)
     ap.add_argument("--storm-double", type=int, default=3, help="storm damage becomes 2 once this many rings are marked")
     ap.add_argument("--drop-interval", type=float, default=120)
+    ap.add_argument("--drop-moves", default="classic", choices=["classic", "scaled"], help="classic: one player moves the drop 3 tiles; scaled: by player count (2p 1x3, 3p 2x2, 4+ each other player x1)")
     ap.add_argument("--drop-pause", type=float, default=10)
     ap.add_argument("--cube-refresh", type=int, default=0, help="regular cubes the table adds per drop (variant)")
     ap.add_argument("--start-cubes", type=float, default=0.5, help="cubes per tile at setup")
