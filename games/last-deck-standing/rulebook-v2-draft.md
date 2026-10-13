@@ -8,7 +8,7 @@ Designers: Brandon and Chris. Drafted 2026-10-12 from playtest 001 notes (`playt
 
 ## Overview
 - **Players:** 2–10 (solo or equal-size teams) · **Time:** no target for now (designer's call, 2026-10-12). Sim says about 7–11 min at 37 s turns; see SIM-030
-- **Goal:** Be the last player (or team) standing. You knock opponents out by putting Dead cards in their decks.
+- **Goal:** Be the last player (or team) standing. You knock opponents out by putting Dead cards in their decks. **The game ends the moment only one player or team is left,** and they win (designer's call, 2026-10-13); they don't have to finish their turn.
 - **You are eliminated** if you end a turn with 3 or more Dead cards in your hand.
 - **Realtime:** there are no rounds. Everyone plays their own turns at the same time and at their own pace, each with a 1-minute sand timer. The storm and loot drops run on a table timer.
 
@@ -55,11 +55,11 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 | Loot decks | 3, one per type | Move 14, Attack 26, Heal 10 (50 cards, one per cube spot; was 12/16/10 until the tile count went up), each shuffled face down. **Values 1 and 2 only, half each** (designer's call: no 3s in loot; Move 7×1 + 7×2, Attack 13×1 + 13×2, Heal 5×1 + 5×2; the half-and-half split is my default). To get 3s you must use the Market, kill someone (elimination drop) or reach a drop. Old loot (2s and 3s) is kept as a variant |
 | Legendary deck | 48 (72 at 8+ players) | Value 3 and 4 cards (8 each of Move 3/4, Attack 3/4, Heal 3/4 in the 48; add a second 24 at 8-10 players). Sized by SIM-030 addendum 23; taken from legendary cubes in drops and elimination drops |
 | Market deck | 21 | Value 2 and 3 cards; 3 face up; see Market |
-| Dead cards | 60 | Plain backs |
+| Dead cards | 100 | Plain backs. Raised from 60 (SIM-030 addendum 27: about 80 are out at once in a 10-player game). If the supply ever runs out, play on: no more Dead can be dealt until some are healed or an eliminated player returns theirs |
 | Loot cubes | half the number of tiles in play (up to 50) | One colour per type (purple Move, red Attack, green Heal); mark available loot on the board |
 | Legendary cubes | 1 per player per drop | Mark drops; taking one gives the top card of the Legendary deck |
-| Sand timers | 1 per player | 1-minute sand timers (or a phone timer each); flip at the start of your turn |
-| Board tiles | per player count | 100 hex tiles (5 sets, A–E, of 20), enough for 10 players at 10 tiles each; 50 of them have a printed cube spot in a loot colour (14 Move, 26 Attack, 10 Heal) |
+| Sand timers | 1 per player | 1-minute sand timers (or a phone timer each); flip at the start of your turn. A simple timer app is planned (per-player turn timers, Storm and Drop alarms, one pause button for everyone) |
+| Board tiles | 15 per player at 2–3 players, 12 at 4, 10 at 5+ | 100 hex tiles (5 sets, A–E, of 20), enough for 10 players at 10 tiles each; 50 of them have a printed cube spot in a loot colour (14 Move, 26 Attack, 10 Heal) |
 | Pawn | 1 per player | |
 | Spinner | 1 | Battle bus: sits on the centre tile; its line sets where pawns may start (a paper arrow on a pin, or a pencil, works) |
 | Table timer | 1 | A phone with two repeating alarms: **Drop** and **Storm** |
@@ -67,12 +67,13 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 | Cards print | 11×17 paper | Card sheets (replaces the old size) |
 
 ## Setup
-1. Build the board as in v1 (players alternate placing tiles, each touching the last). About half the tiles have a printed **cube spot** in a loot colour (purple Move, red Attack, green Heal); the other half are blank.
+1. Build the board as in v1 (players alternate placing tiles, each touching the last): **15 tiles per player at 2–3 players, 12 at 4, 10 at 5 or more** (designer let me pick, 2026-10-13). Use whole sets where you can; with fewer than 100 tiles some loot cards are left over in the decks. About half the tiles have a printed **cube spot** in a loot colour (purple Move, red Attack, green Heal); the other half are blank.
 2. Put a loot cube of the **matching colour** on every cube spot (half the tiles; designer's call, tested in SIM-030 addendum 7). The colours are printed on the tiles, which sets the mix: 14 purple Move, 26 red Attack, 10 green Heal on 50 tiles (about 6/11/4 per 21), matching the loot decks card for card when every tile is used. When a cube is looted the spot stays empty; no new loot cubes appear (only legendary cubes, from Drops).
 3. **Battle bus:** put a spinner on the centre tile (the first tile placed) and spin it. Its line runs across the board through the centre. In a **2 or 3 player** game, pawns start **on the line**. With **4 or more players**, they start **on the line or 1 tile away from it**. No minimum distance between pawns (designer's call), but each pawn starts on its own tile; players place in the order they choose. (Designer confirmed 2026-10-13: the line sets starting positions.)
 4. Shuffle your 10-card base deck and draw 5. **When your draw pile is empty, shuffle your discard pile (Dead cards included) to make a new one** (designer's call, 2026-10-13).
 5. Lay out the Market.
-6. Start the timer: the 2-minute Drop clock starts with the game. Everyone starts together.
+6. **Seat order:** go around the table clockwise from the player who placed the first tile. This is the "turn order" for Drops (designer's call, 2026-10-13).
+7. Start the timer: the 2-minute Drop clock starts with the game. Everyone starts together.
 
 ## Your Turn (played at your own speed)
 1. **Draw** up to 5 cards. If you have 3 or more Dead cards in your hand, say **"critical"** out loud (default).
@@ -107,7 +108,7 @@ You may trade cards from your hand to buy a Market card, any time during your tu
 
 - **No tiers for now** (designer's call; tiers return later). The Market deck is one shuffled deck; **3 cards are face up** and are replaced from the deck as they're bought.
 - Market cards are **value 2 or 3**, never 1. Deck (21 cards, default): 6× Attack 2, 4× Move 2, 4× Heal 2, 3× Attack 3, 2× Move 3, 2× Heal 3.
-- **Each Market card has its own cost: a combo of specific cards from your hand, counted by number, not value** (Splendor-style; designer's call, 2026-10-13, replacing "pay any cards"). So paying value 1s is the efficient trade, and paying a 3 is a waste. The cost is printed on the card. Never Dead cards. Costs (default; cheaper costs stalled the sim, SIM-030 addendum 12-13):
+- **Each Market card has its own cost: a combo of specific cards from your hand, counted by number, not value** (Splendor-style; designer's call, 2026-10-13, replacing "pay any cards"). So paying value 1s is the efficient trade, and paying a 3 is a waste. The cost is printed on the card. Never Dead cards. **You may pay with Legendary cards too** (designer's call, 2026-10-13). Costs (default; cheaper costs stalled the sim, SIM-030 addendum 12-13):
 
 | Buy | Pay |
 |---|---|
@@ -132,7 +133,7 @@ To attack, you declare **"Attack"** and **pause the table** (Captain Sonar style
 3. You put the Dead cards into the target's **discard pile**, yourself. They show up when that deck reshuffles.
 4. Everyone resumes.
 
-You can split your Attack among several players, as in v1 (one attack per player). **Locked for the first paper session: option A (pause).** Options B (the target may dodge with a Move card) and C (resolves 5 s later) are listed below to try in later sessions. In the sim none of them changes who wins; only A costs time.
+You can split your Attack among several players, as in v1 (one attack per player). **The range cost is paid per target** (designer's call, 2026-10-13): each target takes your Attack total (pool) minus 2 per tile of its own range, and you choose how to divide the Attack among them. **Locked for the first paper session: option A (pause).** Options B (the target may dodge with a Move card) and C (resolves 5 s later) are listed below to try in later sessions. In the sim none of them changes who wins; only A costs time.
 
 ## Dead Cards
 - **Healed Dead cards go back to the Dead supply** (the stack), not to a discard pile (designer's call, 2026-10-13).
@@ -145,7 +146,7 @@ You can split your Attack among several players, as in v1 (one attack per player
 When a player is eliminated:
 1. Remove their pawn and return all their Dead cards to the Dead supply. Their other cards leave the game, **except any Legendary cards they own** (hand, deck or discard): those stay on the tile as the first cards of the loot pool.
 2. **Loot drop:** place **2 legendary cubes** on the tile where they fell (default). It's a drop with no pause and no nudging. Whoever moves through or onto the tile takes them like any legendary cube: the fallen player's legendary cards come first, then the top of the Legendary deck. If they left more than 2 legendary cards, add one cube per extra card.
-3. Legendary cubes only come out while the Legendary deck has cards left.
+3. The fallen player's own Legendary cards always drop. Extra cubes taken from the Legendary deck only come out while that deck has cards left (designer's call, 2026-10-13).
 
 
 ## The Storm (timer)
@@ -157,8 +158,8 @@ When a player is eliminated:
 ## Drops (timer)
 - The 2-minute Drop clock starts with the game and repeats.
 - On the alarm, pause the table:
-  1. The first player picks a tile and places the drop marker there. The first player rotates each drop (default).
-  2. Then the players after them, in turn order, each move the drop (designer's call), up to:
+  1. One player (the **placer**) picks a tile and places the drop marker there. The placer rotates each drop, one seat clockwise (default).
+  2. Then the players after them, in seat order, each move the drop (designer's call), up to:
      - **2 players:** the other player moves it **3 tiles**.
      - **3 players:** each of the other two moves it up to **2 tiles**.
      - **4 or more players:** each other player moves it up to **1 tile**, in turn order.
@@ -173,7 +174,7 @@ When a player is eliminated:
 - A team is eliminated when all its members are. When a member is eliminated, the rotation skips them.
 - **You can't attack a teammate** (designer's call), with Attack cards or anything else.
 - Teammates can help: a teammate on your tile can play a Heal on you (default).
-- The board grows with the player count (10 tiles per player at 5+ players); the table timer is the same for every team size.
+- The board grows with the player count (15 tiles per player at 2–3 players, 12 at 4, 10 at 5+; my pick, as in v1 and the sim); the table timer is the same for every team size.
 - **Known risk, SIM-030 addendum 8:** rotation gets slow with big teams. Your next turn only comes after every teammate has gone, so the storm kills players who haven't acted yet, and 5v5 stalls in about a quarter of sim games. Fine at 2v2 and 3v3. Playtest the big layouts and see; options to test if needed are listed below.
 
 ## Playtest options still to run

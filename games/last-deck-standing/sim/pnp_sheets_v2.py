@@ -191,7 +191,7 @@ def build(name, size, body_pages, cls, extra_css=""):
 def main():
     os.makedirs(OUT, exist_ok=True)
     base, loot, market, gold = decks()
-    deads = [dead()] * 60
+    deads = [dead()] * 100
     cards = sheets(base, 16, "") + sheets(loot, 16, "") + sheets(market, 16, "") + sheets(gold, 16, "") + sheets(deads, 16, "")
     print(f"cards: base {len(base)} loot {len(loot)} market {len(market)} gold {len(gold)} dead {len(deads)} on {len(cards)} pages")
     build("last-deck-standing-v2-cards-11x17", "11in 17in", cards, "cardsheet")

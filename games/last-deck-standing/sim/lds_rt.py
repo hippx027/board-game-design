@@ -518,6 +518,8 @@ class Game:
 
     def ev_end(self, p):
         a = self.a
+        out = sum(sum(1 for c in q.hand + q.draw + q.discard if c[0] == "D") for q in self.players if q.alive)
+        self.m["dead_peak"] = max(self.m["dead_peak"], out)  # Dead cards out of the supply at once
         if p.dead() >= a.elim:
             p.alive = False
             mine = [c for c in p.hand + p.draw + p.discard if len(c) == 3]  # their gold cards populate the pool first
@@ -586,7 +588,7 @@ def summarize(rs):
     out["profile_win%"] = {k: round(100 * v / len(done), 1) for k, v in pc.items()}
     out["fastest_player_win%"] = round(100 * sum(1 for r in done if r["winner_speed_rank"] == 0) / len(done), 1) if done else None
     out["slowest_player_win%"] = round(100 * sum(1 for r in done if r["winner_speed_rank"] == n - 1) / len(done), 1) if done else None
-    keys = ["turns", "attacks", "whiffs", "dodges", "loots", "buys", "heals", "drops", "storm_rings", "elim_attack", "elim_storm", "loot_overflow", "atk_total", "atk_n", "drawn_M", "drawn_A", "drawn_H", "loot_empty_M", "loot_empty_A", "loot_empty_H", "legendary_drawn", "drop_short"]
+    keys = ["turns", "attacks", "whiffs", "dodges", "loots", "buys", "heals", "drops", "storm_rings", "elim_attack", "elim_storm", "loot_overflow", "atk_total", "atk_n", "drawn_M", "drawn_A", "drawn_H", "loot_empty_M", "loot_empty_A", "loot_empty_H", "legendary_drawn", "drop_short", "dead_peak"]
     out["per_game"] = {k: round(mean(r["m"].get(k, 0) for r in rs), 1) for k in keys}
     fe = [r["m"]["first_elim"] / 60 for r in done if "first_elim" in r["m"]]
     out["first_elim_min_med"] = round(median(fe), 1) if fe else None
