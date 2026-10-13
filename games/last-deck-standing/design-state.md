@@ -84,7 +84,7 @@ Updated 2026-09-29 · Designers: Brandon and Chris · Milestone: 1 → 3 (paper 
 - Loot: pre-made tiles (21 icons per 15-tile set: 6 Move / 11 Attack / 4 Heal); cube → card into your discard pile
 - Upgrades: pay 4+ value of one type, paid cards to discard, max 4
 - Storm: markers placed ring by ring from the outside in (finish the outer ring before the next; SIM-027) (tiles stay); 1 per turn, then 2 per turn from round 7; ending a turn on a storm tile = 1 Dead (2 from round 7) to discard; Shield doesn't block it
-- Battle bus spinner on the centre tile: pawns start on its line (2–3p) or within 1 tile of it (4+), still ≥3 tiles apart, normal placement order (SIM-030 add. 17)
+- Battle bus spinner on the centre tile: pawns start on its line (2–3p) or within 1 tile of it (4+), no minimum distance between pawns (each on its own tile), normal placement order (SIM-030 add. 17)
 - Supply drops: Legendary deck (values 3/3/4/4 per type, SIM-022), one per player at rounds 3, 5, 7, 9, 11; placement rotates from the start player; placed on a tile that's not storm or edge; nudge 1 tile each (SIM-011/013)
 - Holding: at end of turn discard down to 3 cards (Dead cards stay and count); at upkeep draw to 5, so you always draw at least 2 (SIM-020)
 - Elimination loot pile: 5 / 3 / 1 picks

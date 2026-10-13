@@ -68,7 +68,7 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 ## Setup
 1. Build the board as in v1 (players alternate placing tiles, each touching the last), but with no loot icons.
 2. Place loot cubes on **half the tiles** (designer's call, tested in SIM-030 addendum 7). Randomise the colours, about 6 purple Move, 11 red Attack, 4 green Heal per 21 cubes.
-3. **Battle bus:** put a spinner on the centre tile (the first tile placed) and spin it. Its line runs across the board through the centre. In a **2 or 3 player** game, pawns start **on the line**. With **4 or more players**, they start **on the line or 1 tile away from it**. Pawns are still at least 3 tiles apart, placed in the order players choose (designer's call; I read "play on the line" as starting positions, so confirm that is what you meant).
+3. **Battle bus:** put a spinner on the centre tile (the first tile placed) and spin it. Its line runs across the board through the centre. In a **2 or 3 player** game, pawns start **on the line**. With **4 or more players**, they start **on the line or 1 tile away from it**. No minimum distance between pawns (designer's call), but each pawn starts on its own tile; players place in the order they choose. (I read "play on the line" as starting positions, so confirm that is what you meant.)
 4. Shuffle your 10-card base deck and draw 5.
 5. Lay out the Market.
 6. Start the timer: the 2-minute Drop clock starts with the game. Everyone starts together.

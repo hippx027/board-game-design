@@ -144,7 +144,7 @@ class Game:
             zone = [h for h in tl if min(hexdist(h, x) for x in line) <= slack] or tl
         for p in self.players:
             placed = [q.pos for q in self.players if q.pos]
-            c = [h for h in zone if not placed or min(hexdist(h, x) for x in placed) >= 3] or [h for h in zone if h not in placed] or tl
+            c = [h for h in zone if not placed or min(hexdist(h, x) for x in placed) >= max(a.start_gap, 1)] or [h for h in zone if h not in placed] or tl
             p.pos = rng.choice(c)
             p.draw_to(5, rng)
         self.next_drop, self.next_storm = a.drop_interval, a.storm_interval
@@ -576,6 +576,7 @@ def main():
     ap.add_argument("--drop-interval", type=float, default=120)
     ap.add_argument("--drop-moves", default="classic", choices=["classic", "scaled"], help="classic: one player moves the drop 3 tiles; scaled: by player count (2p 1x3, 3p 2x2, 4+ each other player x1)")
     ap.add_argument("--bus", action="store_true", help="spinner line: pawns start on a random line through the centre (2-3p) or within 1 tile of it (4+)")
+    ap.add_argument("--start-gap", type=int, default=0, help="minimum tiles between starting pawns (0 = any free tile)")
     ap.add_argument("--drop-pause", type=float, default=10)
     ap.add_argument("--cube-refresh", type=int, default=0, help="regular cubes the table adds per drop (variant)")
     ap.add_argument("--start-cubes", type=float, default=0.5, help="cubes per tile at setup")
