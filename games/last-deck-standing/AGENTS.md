@@ -16,7 +16,7 @@ A battle royale deck builder by Brandon and Chris. Players flood rivals' decks w
 | `playtest-log-001.md`, `feedback-sheet.md` | First human session kit |
 | `sim/lds_rt.py` | v2 realtime Monte Carlo sim (play clock, table timers, teams); findings in `simulations/SIM-030.md` addenda |
 | `sim/pnp_sheets_v2.py` | v2 print sheets → `pnp/last-deck-standing-v2-cards-11x17.pdf` (cards) and `-pieces-11.5x17.pdf` (Market mat, reference, blank tiles, storm markers); Chrome headless |
-| `sim/lds_sim.py` | v1 turn-based sim; | Seeded Monte Carlo simulator (heuristic bots; system evidence only) |
+| `sim/lds_sim.py` | v1 turn-based Monte Carlo simulator (heuristic bots; system evidence only) |
 | `simulations/SIM-00N.md`, `READTHROUGH-001.md` | Test write-ups; raw JSON in `simulations/data*/` |
 
 To rebuild after editing the rules: `node sim/build_html.js rulebook-draft.md rulebook.html` (pre-renders static, ASCII-safe HTML; needs `npm install marked@12`) and `node sim/md2docx.js rulebook-draft.md "Last Deck Standing Rules v1.docx"` (needs `npm install docx`). The Claude artifact page is no longer updated; the local files are the source of truth.
