@@ -171,6 +171,8 @@ When a player is eliminated:
 - **Known risk, SIM-030 addendum 8:** rotation gets slow with big teams. Your next turn only comes after every teammate has gone, so the storm kills players who haven't acted yet, and 5v5 stalls in about a quarter of sim games. Fine at 2v2 and 3v3. Playtest the big layouts and see; options to test if needed are listed below.
 
 ## Playtest options still to run
+
+- **Upgrade more (SIM-030 addendum 20):** the sim's best lever is paying Market costs with **any cards** (same counts, any type) and optionally putting the bought card in your **hand**. +30–50% buys, no stalls at 3–4 players, but games ~30% shorter. Not adopted; designer to decide.
 **#2 — Attack timing:**
 - **A (drafted above):** pause the table, resolve.
 - **B:** the attack goes in an **action queue** and a target gets 5 seconds to respond with a card (a Shield-like block).

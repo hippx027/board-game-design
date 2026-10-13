@@ -129,7 +129,7 @@ class Game:
         self.piles = {}  # tile -> gold cards left by eliminated players, looted first
         rng.shuffle(self.gold)
         self.market_deck = market_deck(rng)
-        self.market = [self.market_deck.pop() for _ in range(3)]
+        self.market = [self.market_deck.pop() for _ in range(a.market_slots)]
         names = list(PROFILES)
         self.teams = a.teams if n >= 2 * a.teams else 0
         self.players = []
@@ -291,12 +291,17 @@ class Game:
         return True
 
     def buy(self, p):
-        prof = PROFILES[p.profile]
+        a, prof = self.a, PROFILES[p.profile]
         bought = 0
         while True:
             opts = []
             for i, c in enumerate(self.market):
                 need = Counter(COSTS[c])
+                if a.pay_any:  # wildcard payment: the same number of cards, any type (Heals stay home while hurt)
+                    pool = [x for x in p.hand if x[0] != "D" and not (x[0] == "H" and p.dead() >= prof["heal_at"])]
+                    if len(pool) >= sum(need.values()):
+                        opts.append((c[1], -prof["buy"].index(c[0]), i))
+                    continue
                 if p.dead() >= prof["heal_at"] and need["H"]:
                     continue
                 have = Counter(x[0] for x in p.hand if x[0] != "D")
@@ -306,11 +311,19 @@ class Game:
                 break
             _, _, i = max(opts)
             card = self.market[i]
-            for k, n in Counter(COSTS[card]).items():
-                cards = sorted((x for x in p.hand if x[0] == k), key=lambda x: x[1])[:n]
-                for x in cards:
-                    p.hand.remove(x)  # paid cards leave the game
-            p.discard.append(card)
+            pays = []
+            if a.pay_any:
+                pool = [x for x in p.hand if x[0] != "D" and not (x[0] == "H" and p.dead() >= prof["heal_at"])]
+                pays = sorted(pool, key=lambda x: (x[1], x[0] == card[0]))[: len(COSTS[card])]
+            else:
+                for k, n in Counter(COSTS[card]).items():
+                    pays += sorted((x for x in p.hand if x[0] == k), key=lambda x: x[1])[:n]
+            if True:
+                for x in pays:
+                    p.hand.remove(x)  # paid cards leave the game (or go to the discard pile with --buy-pays discard)
+                    if a.buy_pays == "discard":
+                        p.discard.append(x)
+            (p.hand if a.buy_to == "hand" else p.discard).append(card)
             self.market[i] = self.market_deck.pop() if self.market_deck else None
             self.market = [c for c in self.market if c]
             self.m["buys"] += 1
@@ -342,7 +355,7 @@ class Game:
         p.draw_to(5, rng)
         if p.dead() >= a.elim:
             self.m["critical"] += 1
-        acts = self.buy(p) + self.heal(p)
+        acts = (self.buy(p) if a.buy_timing == "start" else 0) + self.heal(p)
         # movement planning: free base move 1 if --base-one, plus Move cards in hand
         mcards = sorted((c for c in p.hand if c[0] == "M"), key=lambda c: c[1])
         bm = 1 if a.base_one else 0
@@ -460,6 +473,8 @@ class Game:
         a = self.a
         atk_cards = [c for c in p.hand if c[0] == "A"]
         atk = (1 if a.base_one else 0) + sum(c[1] for c in atk_cards)
+        self.m["atk_total"] += atk
+        self.m["atk_n"] += 1
         if a.attack_opt == "B":  # target's response: dodge with a Move card
             mv = sorted((c for c in q.hand if c[0] == "M"), key=lambda c: c[1])
             if mv and q.dead() >= 1:
@@ -507,6 +522,8 @@ class Game:
             dmg = 1 + (self.rings_marked >= a.storm_double)
             p.discard.extend([("D", 0)] * dmg)
             self.m["storm_dead"] += dmg
+        if a.buy_timing == "end":  # spend the cards you were about to discard
+            self.buy(p)
         keep = sorted((c for c in p.hand if c[0] != "D"), key=lambda c: (c[0] != "H", c[1]))[: a.keep]
         keepset = Counter(keep)
         for c in list(p.hand):
@@ -555,7 +572,7 @@ def summarize(rs):
     out["profile_win%"] = {k: round(100 * v / len(done), 1) for k, v in pc.items()}
     out["fastest_player_win%"] = round(100 * sum(1 for r in done if r["winner_speed_rank"] == 0) / len(done), 1) if done else None
     out["slowest_player_win%"] = round(100 * sum(1 for r in done if r["winner_speed_rank"] == n - 1) / len(done), 1) if done else None
-    keys = ["turns", "attacks", "whiffs", "dodges", "loots", "buys", "heals", "drops", "storm_rings", "elim_attack", "elim_storm", "loot_overflow"]
+    keys = ["turns", "attacks", "whiffs", "dodges", "loots", "buys", "heals", "drops", "storm_rings", "elim_attack", "elim_storm", "loot_overflow", "atk_total", "atk_n"]
     out["per_game"] = {k: round(mean(r["m"].get(k, 0) for r in rs), 1) for k in keys}
     fe = [r["m"]["first_elim"] / 60 for r in done if "first_elim" in r["m"]]
     out["first_elim_min_med"] = round(median(fe), 1) if fe else None
@@ -577,6 +594,11 @@ def main():
     ap.add_argument("--drop-moves", default="classic", choices=["classic", "scaled"], help="classic: one player moves the drop 3 tiles; scaled: by player count (2p 1x3, 3p 2x2, 4+ each other player x1)")
     ap.add_argument("--bus", action="store_true", help="spinner line: pawns start on a random line through the centre (2-3p) or within 1 tile of it (4+)")
     ap.add_argument("--start-gap", type=int, default=0, help="minimum tiles between starting pawns (0 = any free tile)")
+    ap.add_argument("--market-slots", type=int, default=3, help="face-up Market cards")
+    ap.add_argument("--buy-pays", default="leave", choices=["leave", "discard"], help="paid Market cards leave the game, or go to the discard pile")
+    ap.add_argument("--buy-timing", default="start", choices=["start", "end"], help="bots buy at the start of their turn (before acting) or at the end with leftover cards")
+    ap.add_argument("--buy-to", default="discard", choices=["discard", "hand"], help="where a bought Market card goes")
+    ap.add_argument("--pay-any", action="store_true", help="Market costs are the same number of cards but any type")
     ap.add_argument("--drop-pause", type=float, default=10)
     ap.add_argument("--cube-refresh", type=int, default=0, help="regular cubes the table adds per drop (variant)")
     ap.add_argument("--start-cubes", type=float, default=0.5, help="cubes per tile at setup")
