@@ -67,7 +67,7 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 
 ## Setup
 1. Build the board as in v1 (players alternate placing tiles, each touching the last). About half the tiles have a printed **cube spot** in a loot colour (purple Move, red Attack, green Heal); the other half are blank.
-2. Put a loot cube of the **matching colour** on every cube spot (half the tiles; designer's call, tested in SIM-030 addendum 7). The colours are printed on the tiles, which sets the mix: 11 purple Move, 20 red Attack, 7 green Heal on 38 tiles (about 6/11/4 per 21). When a cube is looted the spot stays empty; no new cubes appear except from Drops.
+2. Put a loot cube of the **matching colour** on every cube spot (half the tiles; designer's call, tested in SIM-030 addendum 7). The colours are printed on the tiles, which sets the mix: 11 purple Move, 20 red Attack, 7 green Heal on 38 tiles (about 6/11/4 per 21). When a cube is looted the spot stays empty; no new loot cubes appear (only gold cubes, from Drops).
 3. **Battle bus:** put a spinner on the centre tile (the first tile placed) and spin it. Its line runs across the board through the centre. In a **2 or 3 player** game, pawns start **on the line**. With **4 or more players**, they start **on the line or 1 tile away from it**. No minimum distance between pawns (designer's call), but each pawn starts on its own tile; players place in the order they choose. (I read "play on the line" as starting positions, so confirm that is what you meant.)
 4. Shuffle your 10-card base deck and draw 5.
 5. Lay out the Market.
@@ -97,7 +97,7 @@ Play Move cards. Move up to 1 (your Base Move) plus the total value of Move card
 - **Loot a cube by moving into its tile** (designer's call): each cube on a tile you move into, passing through or stopping, is removed from the board and you take the **top card of the matching loot deck** (purple Move, red Attack, green Heal) **into your hand**. You can loot as many tiles as you can reach in a turn. The tile you start on doesn't count, so you can't loot a cube you are standing on. **Exception:** gold cubes from a drop or an elimination drop that are on your tile are picked up without moving, as soon as they land (default).
 - Looted cards in hand can be played right away, and that is the point: a Heal you loot is a Heal you can use. Played cards (other than Heals) go to your discard pile and become part of your deck.
 - **Hand cap of 5** (designer's call, to start with). Dead cards in your hand count toward it. If your hand is full when you loot, the looted card goes **straight to your discard pile** instead of your hand (default overflow rule; you are never forced to discard to loot). At end of turn you must discard down to 3 unplayed cards; Dead cards stay and don't count toward the 3. Played cards go to your discard pile.
-- Cubes are returned to the supply. New cubes appear with each **Drop**.
+- Cubes are returned to the supply. The only new cubes are **gold cubes** from Drops.
 
 ## Market
 You may trade cards from your hand to buy a Market card, any time during your turn.
@@ -116,7 +116,7 @@ You may trade cards from your hand to buy a Market card, any time during your tu
 | Heal 3 | 2 Heal + 1 Attack + 1 Move |
 
 - Paid cards **leave the game** (this thins your deck: fewer junk cards, stronger draws).
-- The bought card goes **into your hand**, so you can play it this turn. It counts toward the hand cap of 5 (if your hand is full, put it in your discard pile instead). Sim: about 3 buys per player, same as the discard pile.
+- The bought card goes **into your hand**, so you can play it this turn. It counts toward the hand cap of 5 (if your hand is full, put it in your discard pile instead). (Sim: about 3 buys per player whether the bought card goes to your hand or your discard pile.)
 
 The game inside the game: **collect the right cards to turn many low cards into a few strong ones.**
 
