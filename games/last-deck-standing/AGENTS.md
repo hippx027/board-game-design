@@ -8,12 +8,15 @@ A battle royale deck builder by Brandon and Chris. Players flood rivals' decks w
 ## Files
 | File | Purpose |
 |---|---|
-| `rulebook-draft.md` | **Source of truth** for the rules (v1). Main rules above `---`; Designer Notes (Ideas for Later, Playtest Questions) below |
+| `rulebook-v2-draft.md` | **Current rules (v2, realtime)** after playtest 001; `design-state.md` has the v2 status at top, v1 archived below. `playtest-notes-001.md` has the designers' verbatim notes |
+| `rulebook-draft.md` | v1 (turn-based) rules, kept for reference. Main rules above `---`; Designer Notes (Ideas for Later, Playtest Questions) below |
 | `rulebook.html` | Published playtester page, pre-rendered from the Markdown by `sim/build_html.js`. Live at https://claude.ai/artifact/Vxqh1KqNT3K8XXwGD8Ub2y |
 | `design-state.md` | Locked / Rejected / Open decisions, evidence table, risks, next experiment |
 | `components-sheet.md`, `pnp-checklist.md` | Paper prototype build |
 | `playtest-log-001.md`, `feedback-sheet.md` | First human session kit |
-| `sim/lds_sim.py` | Seeded Monte Carlo simulator (heuristic bots; system evidence only) |
+| `sim/lds_rt.py` | v2 realtime Monte Carlo sim (play clock, table timers, teams); findings in `simulations/SIM-030.md` addenda |
+| `sim/pnp_sheets_v2.py` | v2 print sheets → `pnp/last-deck-standing-v2-cards-11x17.pdf` (cards) and `-pieces-11.5x17.pdf` (Market mat, reference, blank tiles, storm markers); Chrome headless |
+| `sim/lds_sim.py` | v1 turn-based sim; | Seeded Monte Carlo simulator (heuristic bots; system evidence only) |
 | `simulations/SIM-00N.md`, `READTHROUGH-001.md` | Test write-ups; raw JSON in `simulations/data*/` |
 
 To rebuild after editing the rules: `node sim/build_html.js rulebook-draft.md rulebook.html` (pre-renders static, ASCII-safe HTML; needs `npm install marked@12`) and `node sim/md2docx.js rulebook-draft.md "Last Deck Standing Rules v1.docx"` (needs `npm install docx`). The Claude artifact page is no longer updated; the local files are the source of truth.
