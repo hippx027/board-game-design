@@ -279,8 +279,10 @@ class Game:
                 return False
         else:
             if not self.decks[kind]:
+                self.m["loot_empty_" + kind] += 1
                 return False
             c = self.decks[kind].pop()
+            self.m["drawn_" + kind] += 1
         cap = self.a.loot_cap
         if cap and len(p.hand) >= cap:
             p.discard.append(c)  # hand full: overflow goes to the discard pile
@@ -572,7 +574,7 @@ def summarize(rs):
     out["profile_win%"] = {k: round(100 * v / len(done), 1) for k, v in pc.items()}
     out["fastest_player_win%"] = round(100 * sum(1 for r in done if r["winner_speed_rank"] == 0) / len(done), 1) if done else None
     out["slowest_player_win%"] = round(100 * sum(1 for r in done if r["winner_speed_rank"] == n - 1) / len(done), 1) if done else None
-    keys = ["turns", "attacks", "whiffs", "dodges", "loots", "buys", "heals", "drops", "storm_rings", "elim_attack", "elim_storm", "loot_overflow", "atk_total", "atk_n"]
+    keys = ["turns", "attacks", "whiffs", "dodges", "loots", "buys", "heals", "drops", "storm_rings", "elim_attack", "elim_storm", "loot_overflow", "atk_total", "atk_n", "drawn_M", "drawn_A", "drawn_H", "loot_empty_M", "loot_empty_A", "loot_empty_H"]
     out["per_game"] = {k: round(mean(r["m"].get(k, 0) for r in rs), 1) for k in keys}
     fe = [r["m"]["first_elim"] / 60 for r in done if "first_elim" in r["m"]]
     out["first_elim_min_med"] = round(median(fe), 1) if fe else None
