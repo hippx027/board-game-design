@@ -31,7 +31,7 @@ Updated 2026-10-12 · Designers: Brandon and Chris · Milestone: v2 (realtime) d
 - First Game box in the v2 draft: solo, drops in, attack option A, no teams
 
 ## v2 Open / Ideas
-Market as a board location (several instances) · giving cards to a player on your tile · market tiers · cube refresh with each drop · attack options B and C · hand cap lower or higher than 5 · teams in simultaneous mode · Market costs (cheaper costs stall the sim, so unresolved) · characters from v1 are not carried into v2
+Hand lock (2 Dead + 3 junk is unkillable): left as is; the Storm and loot-and-upgrade incentives are meant to punish campers, watch in playtests · starting-tile cubes stuck: accepted · Market as a board location (several instances) · giving cards to a player on your tile · market tiers · cube refresh with each drop · attack options B and C · hand cap lower or higher than 5 · teams in simultaneous mode · Market costs (cheaper costs stall the sim, so unresolved) · characters from v1 are not carried into v2
 
 ## v2 Evidence (SIM-030, `simulations/SIM-030.md`)
 | Addendum | Finding |
