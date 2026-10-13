@@ -78,6 +78,8 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 2. **Act** in any order: play cards, move, attack, loot, trade at the Market.
 3. **End:** if you have 3 or more Dead cards in hand, you are eliminated. Otherwise put your played cards in your discard pile, **discard down to 3** unplayed cards (designer's call; Dead cards never get discarded and don't count toward the 3, default), and start your next turn right away.
 
+**Hit? Take your turn (designer's call, 2026-10-13):** when Dead cards are put in your discard pile (an Attack or the Storm), you have **30 seconds** to finish what you are doing and **take your turn**: say **"End"** and run the end-of-turn steps. You can't sit on a turn while taking hits. The 30 seconds starts when the Dead cards land (default: the clock stops while the table is paused). It does not stop the hand lock by itself (a player at 2 Dead keeps 3 cards and still draws none); see Ideas for Later.
+
 Nobody waits for you. If you take a long turn, the others take several.
 
 **Turn limit (default, 2026-10-13: blind read-through found a player could sit on a turn forever and never be eliminated or taxed by the storm):** your turn ends when you say **"End"** or when the **next table alarm sounds** (Storm or Drop, whichever comes first), after you finish the action you were in. The end-of-turn steps below then happen at once. So no turn can last longer than 2 minutes, and there is still no turn timer of its own.
@@ -136,7 +138,7 @@ You can split your Attack among several players, as in v1 (one attack per player
 ## Dead Cards
 - **Healed Dead cards go back to the Dead supply** (the stack), not to a discard pile (designer's call, 2026-10-13).
 - Dead cards have plain backs, like all other cards (marked backs would stop people shuffling them to the top).
-- If you hold 3 or more, you **announce "critical"** when you draw or receive them. Everyone knows you're one hit from being out.
+- If you hold 3 or more, you **announce "critical"** when you draw them. Everyone knows you're one hit from being out.
 - Dead cards can't be played or discarded, and stay in your hand until you heal them.
 - **Elimination:** you still take turns, just in realtime. If you end your turn with 3 or more Dead cards in hand, you're out. Nothing else eliminates you.
 
@@ -195,7 +197,7 @@ When a player is eliminated:
 
 ## Ideas for Later (not rules)
 - **Give cards to a player on your tile:** put non-Dead cards from your hand into another player's discard pile if you share a tile. Designer's idea (2026-10-12), kept for later. The 5-card hand cap applies, though it can't matter because cards go to their discard pile. Open questions: teammates only, or anyone? Is it an action? A limit per turn? (Market costs count cards, so gifting helps the receiver; see SIM-030 notes.)
-- **Hand lock (watch in playtests):** Dead cards count toward the 5-card draw but not toward the keep-3, so a player holding 2 Dead plus 3 junk cards can sit unkillable. Designer's intent: players who move will loot and upgrade more, and players who sit still get caught by the Storm, so no fix yet. If playtests show people camping, try Dead not counting toward the draw-to-5 (needs a sim). Starting-tile cubes that can't be looted by moving in are accepted as is.
+- **Hand lock (the blind read-through found it is full immunity, not just hard to kill: Attack and Storm Dead go to the discard pile and a locked player never draws, so no third Dead reaches the hand):** Dead cards count toward the 5-card draw but not toward the keep-3, so a player holding 2 Dead plus 3 junk cards can sit unkillable. Designer's intent: players who move will loot and upgrade more, and players who sit still get caught by the Storm, so no fix yet. If playtests show people camping, try Dead not counting toward the draw-to-5 (needs a sim). Starting-tile cubes that can't be looted by moving in are accepted as is.
 - **Market tiers** return later (the designer said "not later").
 - **Cube refresh** with each drop, as a playtest variant.
 - **Market as a location:** instead of buying anywhere, the Market is a board tile you have to be on to buy. **Multiple Market tiles** (several instances, so there's no single crowd). Designer's idea (2026-10-12), kept for later. Design notes: buying becomes rarer (the sim already shows only about 3 buys per player per game), a central tile would be stormed last, and 10-player games need several tiles. If tried, buy only while standing on a tile and let the first to declare take a face-up card. Not simulated yet.

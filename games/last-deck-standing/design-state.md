@@ -31,7 +31,7 @@ Updated 2026-10-12 · Designers: Brandon and Chris · Milestone: v2 (realtime) d
 - First Game box in the v2 draft: solo, drops in, attack option A, no teams
 
 ## v2 Open / Ideas
-Hand lock (2 Dead + 3 junk is unkillable): left as is; the Storm and loot-and-upgrade incentives are meant to punish campers, watch in playtests · starting-tile cubes stuck: accepted · Market as a board location (several instances) · giving cards to a player on your tile · market tiers · cube refresh with each drop · attack options B and C · hand cap lower or higher than 5 · teams in simultaneous mode · Market costs (cheaper costs stall the sim, so unresolved) · characters from v1 are not carried into v2
+Blind read-through (2026-10-13) found 15 issues: hand lock is full immunity (Attack/Storm Dead go to discard, a locked player draws nothing); tie when two players are eliminated at once; alarm order undefined; free micro-turns; Attack gaps; setup counts below full size; Legendary wording; Market wording. New default: hit by Dead = take your turn within 30 s (does not fix the lock alone) · Hand lock (2 Dead + 3 junk is unkillable): left as is; the Storm and loot-and-upgrade incentives are meant to punish campers, watch in playtests · starting-tile cubes stuck: accepted · Market as a board location (several instances) · giving cards to a player on your tile · market tiers · cube refresh with each drop · attack options B and C · hand cap lower or higher than 5 · teams in simultaneous mode · Market costs (cheaper costs stall the sim, so unresolved) · characters from v1 are not carried into v2
 
 ## v2 Evidence (SIM-030, `simulations/SIM-030.md`)
 | Addendum | Finding |
