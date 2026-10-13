@@ -58,7 +58,7 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 | Dead cards | 60 | Plain backs |
 | Loot cubes | half the number of tiles | One colour per type (purple Move, red Attack, green Heal); mark available loot on the board |
 | Gold cubes | 1 per player per drop | Mark drops; taking one gives the top card of the Gold deck |
-| Board tiles | per player count | Same hex tiles as v1, but without printed loot icons |
+| Board tiles | per player count | 75 hex tiles (5 sets of 15); 38 of them have a printed cube spot (a dashed circle), no loot icons |
 | Pawn | 1 per player | |
 | Spinner | 1 | Battle bus: sits on the centre tile; its line sets where pawns may start (a paper arrow on a pin, or a pencil, works) |
 | Table timer | 1 | A phone with two repeating alarms: **Drop** and **Storm** |
@@ -66,8 +66,8 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 | Cards print | 11×17 paper | Card sheets (replaces the old size) |
 
 ## Setup
-1. Build the board as in v1 (players alternate placing tiles, each touching the last), but with no loot icons.
-2. Place loot cubes on **half the tiles** (designer's call, tested in SIM-030 addendum 7). Randomise the colours, about 6 purple Move, 11 red Attack, 4 green Heal per 21 cubes.
+1. Build the board as in v1 (players alternate placing tiles, each touching the last). About half the tiles have a printed **cube spot** (a dashed circle); the other half are blank.
+2. Put a loot cube on **every cube spot** (half the tiles; designer's call, tested in SIM-030 addendum 7). The spot only says where; the colour is random: draw cubes blind, about 6 purple Move, 11 red Attack, 4 green Heal per 21 cubes. When a cube is looted the spot stays empty; no new cubes appear except from Drops.
 3. **Battle bus:** put a spinner on the centre tile (the first tile placed) and spin it. Its line runs across the board through the centre. In a **2 or 3 player** game, pawns start **on the line**. With **4 or more players**, they start **on the line or 1 tile away from it**. No minimum distance between pawns (designer's call), but each pawn starts on its own tile; players place in the order they choose. (I read "play on the line" as starting positions, so confirm that is what you meant.)
 4. Shuffle your 10-card base deck and draw 5.
 5. Lay out the Market.
