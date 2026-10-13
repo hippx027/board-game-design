@@ -438,6 +438,8 @@ class Game:
         self.m["moved"] += dist
         dur = a.turn_base + a.sec_per_act * (acts + dist) + a.sec_per_act * len(path)
         dur *= p.speed * rng.uniform(0.8, 1.25)
+        if a.turn_cap:
+            dur = min(dur, a.turn_cap)  # sand timer: a turn can't run past it (modelled as a clipped duration, actions kept)
         dur = max(dur, a.turn_floor)  # a turn can't end before the floor (sand timer)
         p.dur = dur
         self.push(self.t + dur * 0.5, "attack", p)
@@ -627,6 +629,7 @@ def main():
     ap.add_argument("--keep", type=int, default=3, help="cards a bot keeps at end of turn")
     ap.add_argument("--range-cost", type=int, default=2, help="damage lost per tile of range (v1: 1, now 2)")
     ap.add_argument("--elim-drop", type=int, default=2, help="gold cubes dropped where a player is eliminated")
+    ap.add_argument("--turn-cap", type=float, default=60, help="sand timer seconds per turn (0 = none)")
     ap.add_argument("--turn-floor", type=float, default=0, help="minimum seconds per turn")
     ap.add_argument("--turn-base", type=float, default=20)
     ap.add_argument("--sec-per-act", type=float, default=5)

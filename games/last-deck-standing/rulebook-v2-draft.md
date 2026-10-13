@@ -10,7 +10,7 @@ Designers: Brandon and Chris. Drafted 2026-10-12 from playtest 001 notes (`playt
 - **Players:** 2–10 (solo or equal-size teams) · **Time:** no target for now (designer's call, 2026-10-12). Sim says about 7–11 min at 37 s turns; see SIM-030
 - **Goal:** Be the last player (or team) standing. You knock opponents out by putting Dead cards in their decks.
 - **You are eliminated** if you end a turn with 3 or more Dead cards in your hand.
-- **Realtime:** there are no rounds. Everyone plays their own turns at the same time and at their own pace. There is no turn timer. The storm and loot drops run on a table timer.
+- **Realtime:** there are no rounds. Everyone plays their own turns at the same time and at their own pace, each with a 1-minute sand timer. The storm and loot drops run on a table timer.
 
 ## First Game (learning rules, 3–4 players, no teams)
 For your first paper session, play it like this. Everything else plays exactly as written.
@@ -58,6 +58,7 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 | Dead cards | 60 | Plain backs |
 | Loot cubes | half the number of tiles in play (up to 50) | One colour per type (purple Move, red Attack, green Heal); mark available loot on the board |
 | Legendary cubes | 1 per player per drop | Mark drops; taking one gives the top card of the Legendary deck |
+| Sand timers | 1 per player | 1-minute sand timers (or a phone timer each); flip at the start of your turn |
 | Board tiles | per player count | 100 hex tiles (5 sets, A–E, of 20), enough for 10 players at 10 tiles each; 50 of them have a printed cube spot in a loot colour (14 Move, 26 Attack, 10 Heal) |
 | Pawn | 1 per player | |
 | Spinner | 1 | Battle bus: sits on the centre tile; its line sets where pawns may start (a paper arrow on a pin, or a pencil, works) |
@@ -78,11 +79,9 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 2. **Act** in any order: play cards, move, attack, loot, trade at the Market.
 3. **End:** if you have 3 or more Dead cards in hand, you are eliminated. Otherwise put your played cards in your discard pile, **discard down to 3 cards in your hand** (designer's call: **Dead cards count toward the 3**, they always have, but they are never discarded; with 2 Dead you keep 1 other card), and start your next turn right away.
 
-**Hit? Take your turn (designer's call, 2026-10-13):** when Dead cards are put in your discard pile (an Attack or the Storm), you have **30 seconds** to finish what you are doing and **take your turn**: say **"End"** and run the end-of-turn steps. You can't sit on a turn while taking hits. The 30 seconds starts when the Dead cards land (default: the clock stops while the table is paused). It does not stop the hand lock by itself (a player at 2 Dead keeps 3 cards and still draws none); see Ideas for Later.
+**Sand timer (designer's call, 2026-10-13):** every player has a **1-minute sand timer**. Flip it when your turn starts. When it runs out, finish the action you are in and say **"End"**; the end-of-turn steps happen at once. You can End early (flip nothing; your next turn starts right away and you flip again). When the table pauses for an Attack or an alarm, everyone lays their timer on its side, and stands it back up on resume. The Storm and Drop alarms no longer end anyone's turn; they are table events only. This replaces the earlier ideas of a 30-second "you were hit" rule and ending your turn at the next alarm.
 
-Nobody waits for you. If you take a long turn, the others take several.
-
-**Turn limit (default, 2026-10-13: blind read-through found a player could sit on a turn forever and never be eliminated or taxed by the storm):** your turn ends when you say **"End"** or when the **next table alarm sounds** (Storm or Drop, whichever comes first), after you finish the action you were in. The end-of-turn steps below then happen at once. So no turn can last longer than 2 minutes, and there is still no turn timer of its own.
+Nobody waits for you. If you take a long turn, the others take several, and no turn lasts more than a minute of play.
 
 ## Cards
 | Card | When played |
@@ -180,7 +179,7 @@ When a player is eliminated:
 ## Playtest options still to run
 
 
-**Note: a turn never has to end (blind read-through, 2026-10-13).** With no turn timer, elimination and the storm's end-of-turn charge only happen when you end your turn. A player at 3 Dead who says "critical" and never ends can't be eliminated or taxed, and a table of two such players can't finish. The opposite also works: ending turns instantly gives a free Base Move 1 and Base Attack 1 each time, so turn count becomes the skill. **Current default:** the turn ends at "End" or the next Storm/Drop alarm (at most 2 minutes). **Other options to test:** a turn timer (the designer ruled it out for now); a limit of one declared Attack per turn; a minimum turn length (a turn floor, now set to none). **Watch for:** anyone camping on a turn, or rushing micro-turns to farm moves.
+**Note: ending turns early (blind read-through, 2026-10-13).** The sand timer caps a turn, but ending instantly still gives a free Base Move 1 and Base Attack 1 each time, so turn count can become the skill. **Playtest options:** timer length (45, 60 or 90 seconds); a minimum turn length (a floor: you can't End until the timer has run N seconds); a limit of one declared Attack per turn. **Watch for:** rushing micro-turns to farm moves, and new players feeling rushed by the timer.
 
 **#2 — Attack timing:**
 - **A (drafted above):** pause the table, resolve.

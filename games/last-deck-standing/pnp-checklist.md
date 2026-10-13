@@ -17,6 +17,7 @@ Two printable versions (v1) in `pnp/v1/`: **`last-deck-standing-pnp-color.pdf`**
 - [ ] **Pawns:** 5
 - [ ] **Stat trackers:** 5 sheets with three 0–4 tracks and a Shield counter; paperclips as markers
 - [ ] **Round track:** 1–25, with round 7 labelled "Storm closes fast"
+- [ ] **Sand timers:** 1-minute, one per player (or a phone timer each)
 - [ ] **Storm markers:** 50 (coloured glass beads or translucent hex cut-outs)
 - [ ] **Reference cards:** 5 copies of the Quick Reference
 

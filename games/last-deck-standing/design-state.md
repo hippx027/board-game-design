@@ -13,7 +13,7 @@ Updated 2026-10-12 · Designers: Brandon and Chris · Milestone: v2 (realtime) d
 | Players / time | 2–5 solo, or teams (equal sizes) up to 10 players · no time target for now (sim: about 8–12 min at 37 s turns) |
 
 ## v2 Locked (designer's calls)
-- Realtime: no rounds; everyone plays their own turns at their own pace, no turn timer; a table timer drives drops (every 2 min) and the storm (every 4 min); pausing freezes the play clock
+- Realtime: no rounds; everyone plays their own turns at their own pace, each player has a 1-minute sand timer per turn (flip at turn start, End when it runs out; laid down during pauses; alarms no longer end turns); a table timer drives drops (every 2 min) and the storm (every 4 min); pausing freezes the play clock
 - Attacks: declare "Attack", pause the table, resolve, resume (option A). B (dodge with a Move card) and C (resolves 5 s later) are for later
 - Damage = Attack − **2 per tile of range**; Dead cards go into the target's discard pile, placed by the attacker
 - Base deck 4 Move 1 / 4 Attack 1 / 2 Heal 1; Base Move 1 and Base Attack 1, fixed; no stat tracker and no Shield
