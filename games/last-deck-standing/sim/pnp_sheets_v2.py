@@ -64,9 +64,12 @@ COSTS = [("Attack 2", "2 Attack + 1 Move", "A", 2), ("Move 2", "2 Move + 1 Heal"
          ("Attack 3", "3 Attack + 1 Move", "A", 3), ("Move 3", "3 Move + 1 Heal", "M", 3), ("Heal 3", "2 Heal + 1 Attack + 1 Move", "H", 3)]
 
 
+MARKET_COUNTS = {("A", 2): 6, ("M", 2): 4, ("H", 2): 4, ("A", 3): 3, ("M", 3): 2, ("H", 3): 2}  # the 21-card Market deck
+
+
 def market_mat():
     rows = "".join(
-        f'<tr><td><span class="pill" style="background:{TYPE_COLOR[k]}">{n}</span></td><td>{pay}</td><td class="cp">{html.escape(str(RARITY[v][1]))}</td></tr>'
+        f'<tr><td><span class="pill" style="background:{TYPE_COLOR[k]}">{n}</span></td><td>{pay}</td><td class="cp">{MARKET_COUNTS[(k, v)]} of 21</td></tr>'
         for n, pay, k, v in COSTS)
     slots = "".join('<div class="slot"><span>FACE UP</span></div>' for _ in range(3))
     return ("<section class='page mat'><h1>MARKET</h1>"
@@ -75,7 +78,7 @@ def market_mat():
             "<li>Any time on your turn, pay the cards below <b>from your hand</b>. Costs count <b>cards, not value</b>, so pay with 1s. Never Dead cards. The cost is also printed on each Market card.</li>"
             "<li>Paid cards <b>leave the game</b>. The bought card goes into your <b>hand</b>.</li>"
             "<li>Refill the face-up row from the deck after each buy.</li></ul></div>"
-            f"<table class='costs'><tr><th>Buy</th><th>Pay</th><th>Rarity</th></tr>{rows}</table></section>")
+            f"<table class='costs'><tr><th>Buy</th><th>Pay</th><th>In the deck</th></tr>{rows}</table></section>")
 
 
 QUICK = [
@@ -89,12 +92,16 @@ QUICK = [
                 "Put that many Dead cards in the target's <b>discard pile</b>. Then resume."]),
     ("Timers", ["<b>Storm (every 4 min):</b> pause, mark the whole outer ring. Moving into a storm tile = 1 Dead; ending your turn on one = 1 more.",
                 "<b>Drop (every 2 min):</b> first player (rotates) places it. Then the others move it in turn order: 2p one player 3 tiles; 3p each 2 tiles; 4+ each 1 tile. Table puts one gold cube per player on it."]),
+    ("Market", ["Any time on your turn, pay the cost printed on a <b>face-up</b> Market card with cards from your hand (never Dead).",
+                "Paid cards <b>leave the game</b>. The bought card goes into your <b>hand</b> (hand cap 5)."]),
+
 ]
 
 
 def reference():
     blocks = "".join(f"<div class='qr'><h3>{t}</h3><ul>" + "".join(f"<li>{x}</li>" for x in xs) + "</ul></div>" for t, xs in QUICK)
-    return f"<section class='page ref'><h1>QUICK REFERENCE</h1><div class='qrs'>{blocks}{blocks}</div></section>"
+    copy = f"<div class='refcopy'><h1>QUICK REFERENCE</h1><div class='qrs'>{blocks}</div></div>"
+    return f"<section class='page ref'>{copy}<div class='cutline'>cut here</div>{copy}</section>"
 
 
 def tiles():
@@ -143,6 +150,9 @@ h1 { font: 44pt "Bangers", Impact, sans-serif; letter-spacing: 3px; width: 100%;
 .costs td { padding: 0.17in 0.15in; border-bottom: 1px solid #bbb; }
 .costs td.cp { color: #666; font-size: 12pt; }
 .pill { display: inline-block; color: #fff; font: 20pt "Bangers", Impact, sans-serif; letter-spacing: 1px; padding: 0.04in 0.18in; border-radius: 0.1in; border: 3px solid #15121c; }
+.refcopy { width: 100%; height: 7.9in; }
+.refcopy h1 { font-size: 34pt; margin: 0.05in 0 0.1in; }
+.cutline { width: 100%; border-top: 2px dashed #888; text-align: center; font: 10pt Helvetica, Arial, sans-serif; color: #888; margin: 0.15in 0; }
 .qrs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.2in; width: 100%; margin-top: 0.1in; }
 .qr { border: 2px solid #1b1f2a; border-radius: 0.1in; padding: 0.12in 0.18in; font-size: 11pt; break-inside: avoid; }
 .qr h3 { font: 17pt "Bangers", Impact, sans-serif; letter-spacing: 1px; margin-bottom: 0.05in; }
