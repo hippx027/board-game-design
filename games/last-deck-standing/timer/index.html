@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10131a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>LDS Table Timer</title>
+<style>
+:root {
+  --bg: #10131a; --panel: #1a1f2b; --line: #2b3242; --text: #eef1f7; --dim: #8e98ad;
+  --storm: #a56bff; --drop: #ffb300; --warn: #ff5252; --ok: #43d17a;
+}
+* { box-sizing: border-box; margin: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--text); font: 16px/1.3 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+       padding: env(safe-area-inset-top) 16px env(safe-area-inset-bottom); overflow-x: hidden; user-select: none; }
+button { font: inherit; color: inherit; border: 0; cursor: pointer; }
+.hide { display: none !important; }
+.mono { font-variant-numeric: tabular-nums; font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+/* setup */
+#setup { max-width: 520px; margin: 0 auto; padding: 20px 0 40px; }
+#setup h1 { font-size: 26px; letter-spacing: .5px; margin-bottom: 4px; }
+#setup p.sub { color: var(--dim); margin-bottom: 18px; }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.row label { color: var(--dim); }
+.seg { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.seg button { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; min-width: 44px; }
+.seg button.on { background: var(--text); color: var(--bg); border-color: var(--text); }
+.names { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0; }
+.names input { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px; color: var(--text); font: inherit; width: 100%; }
+.big { width: 100%; padding: 16px; border-radius: 14px; font-size: 18px; font-weight: 700; background: var(--ok); color: #06210f; margin-top: 10px; }
+.big.alt { background: var(--panel); color: var(--text); border: 1px solid var(--line); }
+
+/* game */
+#game { max-width: 900px; margin: 0 auto; padding: 10px 0 24px; display: flex; flex-direction: column; gap: 10px; min-height: 100%; }
+.bar { display: flex; gap: 8px; align-items: center; justify-content: space-between; }
+.bar .clock { font-size: 15px; color: var(--dim); }
+.tabs { display: flex; gap: 6px; }
+.tabs button { background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: 14px; color: var(--dim); }
+.tabs button.on { color: var(--text); border-color: var(--text); }
+.globals { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.g { background: var(--panel); border-radius: 16px; padding: 12px 14px; border: 2px solid var(--line); }
+.g .k { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); }
+.g .v { font-size: 52px; font-weight: 800; line-height: 1.05; margin-top: 2px; }
+.g .s { font-size: 13px; color: var(--dim); margin-top: 2px; }
+.g.storm { border-color: var(--storm); } .g.storm .v { color: var(--storm); }
+.g.drop { border-color: var(--drop); } .g.drop .v { color: var(--drop); }
+.g.soon { animation: pulse 0.8s infinite alternate; }
+@keyframes pulse { from { box-shadow: 0 0 0 0 transparent; } to { box-shadow: 0 0 0 6px rgba(255,255,255,.18); } }
+.compact .g .v { font-size: 30px; } .compact .g { padding: 8px 12px; }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.actions button { padding: 16px; border-radius: 14px; font-weight: 800; font-size: 18px; letter-spacing: 1px; }
+#pauseBtn { background: var(--panel); border: 2px solid var(--text); }
+#atkBtn { background: var(--warn); color: #fff; }
+.players { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; flex: 1; align-content: start; }
+.players.many { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.t { position: relative; background: var(--panel); border-radius: 16px; padding: 12px; border: 3px solid var(--c); min-height: 120px; display: flex; flex-direction: column; justify-content: space-between; }
+.t .n { font-weight: 700; font-size: 17px; color: var(--c); padding-right: 30px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.t .team { font-size: 12px; color: var(--dim); }
+.t .time { font-size: 44px; font-weight: 800; line-height: 1; }
+.t .meta { font-size: 12px; color: var(--dim); }
+.t .bar2 { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin: 6px 0 4px; }
+.t .bar2 i { display: block; height: 100%; background: var(--c); width: 100%; }
+.t.late { animation: flash .5s infinite alternate; } .t.late .time { color: var(--warn); }
+@keyframes flash { from { background: var(--panel); } to { background: #3a1a1f; } }
+.t.wait { opacity: .45; } .t.wait .time { font-size: 22px; }
+.t.out { opacity: .25; }
+.t .x { position: absolute; top: 6px; right: 6px; background: transparent; border: 1px solid var(--line); border-radius: 8px; width: 28px; height: 28px; color: var(--dim); font-size: 14px; }
+.t .x.sure { width: auto; padding: 0 8px; background: var(--warn); color: #fff; border-color: var(--warn); }
+.hint { color: var(--dim); font-size: 13px; text-align: center; }
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 999px; font-weight: 600; z-index: 20; }
+
+/* overlays */
+#ov { position: fixed; inset: 0; background: rgba(10,12,18,.96); z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 24px; text-align: center; gap: 14px; overflow-y: auto; }
+#ov h2 { font-size: 15px; letter-spacing: 3px; text-transform: uppercase; color: var(--dim); }
+#ov .head { font-size: 54px; font-weight: 900; line-height: 1.05; }
+#ov .body { font-size: 20px; max-width: 480px; }
+#ov .body li { text-align: left; margin: 6px 0; }
+#ov .body ul { list-style: none; padding: 0; }
+#ov .go { width: 100%; max-width: 420px; padding: 20px; border-radius: 16px; font-size: 22px; font-weight: 800; background: var(--ok); color: #06210f; }
+#ov .pick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; max-width: 460px; }
+#ov .pick button { padding: 16px; border-radius: 14px; border: 3px solid var(--c); background: var(--panel); font-weight: 700; font-size: 18px; }
+#ov textarea { width: 100%; max-width: 520px; height: 220px; background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 10px; padding: 10px; font: 13px ui-monospace, Menlo, monospace; user-select: text; }
+.cancel { background: transparent; color: var(--dim); padding: 10px; }
+@media (max-width: 380px) { .g .v { font-size: 42px; } .t .time { font-size: 36px; } }
+</style>
+</head>
+<body>
+
+<div id="setup">
+  <h1>Last Deck Standing</h1>
+  <p class="sub">Table timer v0: turn timers, Storm and Drop alarms, one pause for everyone.</p>
+  <div class="row"><label>Players</label><div class="seg" id="sPlayers"></div></div>
+  <div class="row"><label>Teams (equal size)</label><div class="seg" id="sTeams"></div></div>
+  <div class="row"><label>Turn timer</label><div class="seg" id="sTurn"></div></div>
+  <div class="row"><label>Storm every</label><div class="seg" id="sStorm"></div></div>
+  <div class="row"><label>Drop every</label><div class="seg" id="sDrop"></div></div>
+  <div class="row"><label>Minimum turn (floor)</label><div class="seg" id="sFloor"></div></div>
+  <div class="names" id="names"></div>
+  <button class="big" id="startBtn">Start game</button>
+  <button class="big alt hide" id="resumeBtn">Resume saved game</button>
+  <p class="hint" style="margin-top:14px">Players sit in seat order, clockwise, for Drops. The Drop placer rotates one seat each drop.</p>
+</div>
+
+<div id="game" class="hide">
+  <div class="bar">
+    <div class="clock mono" id="gclock">0:00 · 0 pauses</div>
+    <div class="tabs"><button id="tabTable" class="on">Table</button><button id="tabPlayers">Players</button></div>
+  </div>
+  <div class="globals" id="globals">
+    <div class="g storm" id="gStorm"><div class="k">Storm</div><div class="v mono">4:00</div><div class="s">ring 1</div></div>
+    <div class="g drop" id="gDrop"><div class="k">Drop</div><div class="v mono">2:00</div><div class="s">drop 1</div></div>
+  </div>
+  <div class="actions"><button id="pauseBtn">PAUSE</button><button id="atkBtn">ATTACK!</button></div>
+  <div class="players" id="grid"></div>
+  <p class="hint" id="more"></p>
+  <p class="hint">Tap your tile to End your turn. Your next turn starts at once.</p>
+</div>
+
+<div id="ov" class="hide"></div>
+<div class="toast hide" id="toast"></div>
+
+<script>
+"use strict";
+const COLORS = ["#ef5350", "#42a5f5", "#66bb6a", "#ffca28", "#ab47bc", "#26c6da", "#ff7043", "#9ccc65", "#ec407a", "#bcaaa4"];
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const fmt = (ms) => { const neg = ms < 0, s = Math.ceil(Math.abs(ms) / 1000); return (neg ? "+" : "") + Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+
+// ---------- state ----------
+// All timers run on GAME time (S.g, ms), which only advances while the table is unpaused, so one pause freezes everything.
+let S = null, last = 0, view = "table", cfg = { players: 4, teams: 0, turn: 60, storm: 240, drop: 120, floor: 0, names: [] };
+
+function newGame(c) {
+  const pl = [];
+  for (let i = 0; i < c.players; i++) {
+    pl.push({ id: i, name: (c.names[i] || "").trim() || "Player " + (i + 1), team: c.teams ? i % c.teams : -1, alive: true,
+              ts: 0, turns: 0, durs: [], over: 0, attacks: 0, late: false });
+  }
+  const teamCur = [];
+  for (let t = 0; t < c.teams; t++) teamCur.push(pl.find((p) => p.team === t).id);
+  return { cfg: c, g: 0, paused: false, queue: [], stormN: 0, dropN: 0, pl, teamCur, pauseWall: 0, pauses: 0, log: [], over: null };
+}
+
+const alive = () => S.pl.filter((p) => p.alive);
+const active = (p) => p.alive && (S.cfg.teams === 0 || S.teamCur[p.team] === p.id);
+const nextStorm = () => (S.stormN + 1) * S.cfg.storm * 1000 / 1000;
+const nextDrop = () => (S.dropN + 1) * S.cfg.drop;
+const logEv = (t, extra) => S.log.push(Object.assign({ g: S.g, t }, extra || {}));
+
+// advance game time by dt ms (pure of the DOM, so the self-test can drive it)
+function advance(dt) {
+  if (!S || S.over) return;
+  if (S.paused) { S.pauseWall += dt; return; }
+  const target = S.g + dt, nxt = Math.min(nextStorm(), nextDrop());
+  if (target >= nxt * 1000) {
+    S.g = nxt * 1000;
+    const storm = nextStorm() <= nxt, drop = nextDrop() <= nxt;
+    const q = [];
+    if (storm) { S.stormN++; q.push({ type: "storm", n: S.stormN }); logEv("storm", { n: S.stormN }); }
+    if (drop) {
+      S.dropN++;
+      const a = alive(), placer = a[(S.dropN - 1) % a.length];
+      const order = []; for (let k = 1; k < a.length; k++) order.push(a[(a.indexOf(placer) + k) % a.length]);
+      q.push({ type: "drop", n: S.dropN, placer: placer.id, movers: order.map((p) => p.id), tiles: a.length === 2 ? 3 : a.length === 3 ? 2 : 1, cubes: a.length });
+      logEv("drop", { n: S.dropN });
+    }
+    pauseWith(q);
+    return;
+  }
+  S.g = target;
+  for (const p of S.pl) {
+    if (active(p) && !p.late && S.g - p.ts >= S.cfg.turn * 1000) { p.late = true; p.over++; S.beep = "turn"; }
+  }
+}
+
+function pauseWith(events) {
+  if (!S.paused) { S.paused = true; S.pauses++; }
+  S.queue = S.queue.concat(events);
+  S.beep = events[0] && events[0].type;
+}
+function resume() {
+  S.queue.shift();
+  if (!S.queue.length) { S.paused = false; last = Date.now(); logEv("resume"); }
+  S.beep = null;
+}
+
+function endTurn(id) {
+  const p = S.pl[id];
+  if (!active(p) || S.paused || S.over) return false;
+  const el = S.g - p.ts;
+  if (S.cfg.floor && el < S.cfg.floor * 1000) return "floor";
+  p.turns++; p.durs.push(el); p.late = false;
+  if (S.cfg.teams) {
+    const mem = S.pl.filter((q) => q.team === p.team && q.alive);
+    const nx = mem[(mem.indexOf(p) + 1) % mem.length];
+    S.teamCur[p.team] = nx.id; nx.ts = S.g; nx.late = false;
+  } else p.ts = S.g;
+  return true;
+}
+
+function eliminate(id) {
+  const p = S.pl[id];
+  if (!p.alive) return;
+  p.alive = false; logEv("out", { p: id });
+  if (S.cfg.teams && S.teamCur[p.team] === id) {
+    const mem = S.pl.filter((q) => q.team === p.team && q.alive);
+    if (mem.length) { S.teamCur[p.team] = mem[0].id; mem[0].ts = S.g; mem[0].late = false; }
+  }
+  const left = S.cfg.teams ? [...new Set(alive().map((q) => q.team))] : alive().map((q) => q.id);
+  if (left.length <= 1) {
+    S.over = { winner: left.length === 0 ? null : S.cfg.teams ? { team: left[0] } : { id: left[0] }, g: S.g };
+    S.paused = true; S.queue = [{ type: "over" }]; logEv("over");
+  }
+}
+
+function declareAttack(id) { S.pl[id].attacks++; logEv("attack", { p: id }); pauseWith([{ type: "attack", p: id }]); }
+
+// ---------- summary ----------
+function summary() {
+  const L = [];
+  L.push("Last Deck Standing timer log");
+  L.push(`Game time ${fmt(S.g)} (pauses ${S.pauses}, paused ${fmt(S.pauseWall)}). Storm rings ${S.stormN}, drops ${S.dropN}. Turn timer ${S.cfg.turn}s, storm ${S.cfg.storm / 60} min, drop ${S.cfg.drop / 60} min.`);
+  if (S.over) L.push("Winner: " + (S.over.winner ? (S.over.winner.team !== undefined ? teamName(S.over.winner.team) : S.pl[S.over.winner.id].name) : "none"));
+  for (const p of S.pl) {
+    const avg = p.durs.length ? Math.round(p.durs.reduce((a, b) => a + b, 0) / p.durs.length / 1000) : 0;
+    L.push(`${p.name}${p.team >= 0 ? " (" + teamName(p.team) + ")" : ""}: ${p.alive ? "alive" : "out"}, ${p.turns} turns, avg ${avg}s, ${p.over} timed out, ${p.attacks} attacks`);
+  }
+  L.push("Events: " + S.log.filter((e) => e.t !== "resume").map((e) => `${fmt(e.g)} ${e.t}${e.p !== undefined ? " " + S.pl[e.p].name : ""}${e.n ? " #" + e.n : ""}`).join("; "));
+  return L.join("\n");
+}
+const teamName = (t) => "Team " + "ABCDEFGHIJ"[t];
+
+// ---------- audio / feedback ----------
+let ac = null;
+function tone(f, d, t0, type) {
+  if (!ac) return;
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.type = type || "square"; o.frequency.value = f; g.gain.value = 0.15;
+  o.connect(g); g.connect(ac.destination);
+  const t = ac.currentTime + (t0 || 0); o.start(t); g.gain.setValueAtTime(0.15, t); g.gain.exponentialRampToValueAtTime(0.001, t + d); o.stop(t + d + 0.02);
+}
+function cue(kind) {
+  try {
+    if (kind === "turn") { tone(880, 0.12, 0); tone(660, 0.18, 0.14); if (navigator.vibrate) navigator.vibrate(120); }
+    else if (kind === "storm") { tone(110, 0.5, 0, "sawtooth"); tone(98, 0.7, 0.5, "sawtooth"); if (navigator.vibrate) navigator.vibrate([300, 100, 300]); }
+    else if (kind === "drop") { tone(523, 0.15, 0); tone(659, 0.15, 0.17); tone(784, 0.3, 0.34); if (navigator.vibrate) navigator.vibrate([150, 80, 150, 80, 150]); }
+    else if (kind === "attack") { tone(300, 0.1, 0); tone(300, 0.1, 0.15); if (navigator.vibrate) navigator.vibrate(200); }
+  } catch (e) { /* audio is a nicety */ }
+}
+let wake = null;
+async function keepAwake() { try { if (navigator.wakeLock && !wake) { wake = await navigator.wakeLock.request("screen"); wake.addEventListener("release", () => { wake = null; }); } } catch (e) { wake = null; } }
+document.addEventListener("visibilitychange", () => { if (!document.hidden && S && !S.over) keepAwake(); });
+
+// ---------- setup UI ----------
+function seg(id, opts, key, conv) {
+  const el = $(id); el.innerHTML = "";
+  for (const [label, val] of opts) {
+    const b = document.createElement("button"); b.textContent = label; if (cfg[key] === val) b.className = "on";
+    b.onclick = () => { cfg[key] = val; if (key === "players") cfg.teams = 0; drawSetup(); };
+    el.appendChild(b);
+  }
+}
+function drawSetup() {
+  seg("#sPlayers", [2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => [n, n]), "players");
+  const ts = [["Solo", 0]]; for (let t = 2; t <= cfg.players / 2; t++) if (cfg.players % t === 0) ts.push([t + " teams", t]);
+  seg("#sTeams", ts, "teams");
+  seg("#sTurn", [[45, 45], [60, 60], [90, 90]].map(([a, b]) => [a + "s", b]), "turn");
+  seg("#sStorm", [[2, 120], [3, 180], [4, 240], [5, 300]].map(([a, b]) => [a + " min", b]), "storm");
+  seg("#sDrop", [[1, 60], [2, 120], [3, 180]].map(([a, b]) => [a + " min", b]), "drop");
+  seg("#sFloor", [["Off", 0], ["10s", 10], ["20s", 20], ["30s", 30]], "floor");
+  const nm = $("#names"); const keep = cfg.names.slice(); nm.innerHTML = "";
+  for (let i = 0; i < cfg.players; i++) {
+    const inp = document.createElement("input"); inp.placeholder = "Player " + (i + 1) + (cfg.teams ? " · " + teamName(i % cfg.teams) : ""); inp.value = keep[i] || "";
+    inp.oninput = () => { cfg.names[i] = inp.value; }; nm.appendChild(inp);
+  }
+}
+
+// ---------- game UI ----------
+let tileKey = "";
+function buildGrid() {
+  const grid = $("#grid"); const many = S.cfg.players > 4 || view === "players";
+  const list = view === "table" ? S.pl.slice(0, 4) : S.pl;
+  grid.className = "players" + (view === "players" ? " many" : "");
+  grid.innerHTML = list.map((p) => `<div class="t" data-id="${p.id}" style="--c:${COLORS[p.id]}"><button class="x" data-x="${p.id}" aria-label="Out">✕</button>` +
+    `<div><div class="n">${esc(p.name)}</div><div class="team">${p.team >= 0 ? teamName(p.team) : "&nbsp;"}</div></div>` +
+    `<div><div class="time mono">1:00</div><div class="bar2"><i></i></div><div class="meta">turn 1</div></div></div>`).join("");
+  $("#more").textContent = view === "table" && S.pl.length > 4 ? `+${S.pl.length - 4} more players in the Players view` : "";
+  $("#globals").className = "globals" + (view === "players" ? " compact" : "");
+  tileKey = view + ":" + S.pl.length;
+}
+function render() {
+  if (!S) return;
+  if (tileKey !== view + ":" + S.pl.length) buildGrid();
+  const turn = S.cfg.turn * 1000;
+  $("#gclock").textContent = `${fmt(S.g)} · ${S.pauses} pauses`;
+  const ts = nextStorm() * 1000 / 1000 * 1000 - S.g, td = nextDrop() * 1000 - S.g;
+  $("#gStorm").querySelector(".v").textContent = fmt(ts); $("#gStorm").querySelector(".s").textContent = "ring " + (S.stormN + 1);
+  $("#gDrop").querySelector(".v").textContent = fmt(td); $("#gDrop").querySelector(".s").textContent = "drop " + (S.dropN + 1);
+  $("#gStorm").classList.toggle("soon", ts < 10000 && !S.paused); $("#gDrop").classList.toggle("soon", td < 10000 && !S.paused);
+  $("#pauseBtn").textContent = S.paused ? "PAUSED" : "PAUSE";
+  for (const el of document.querySelectorAll(".t")) {
+    const p = S.pl[+el.dataset.id], act = active(p), left = turn - (S.g - p.ts);
+    el.classList.toggle("out", !p.alive); el.classList.toggle("wait", p.alive && !act); el.classList.toggle("late", act && left <= 0 && !S.paused);
+    el.querySelector(".time").textContent = !p.alive ? "OUT" : act ? fmt(left) : "next up";
+    el.querySelector(".bar2 i").style.width = (act ? Math.max(0, Math.min(100, left / turn * 100)) : 0) + "%";
+    el.querySelector(".meta").textContent = p.alive ? `turn ${p.turns + (act ? 1 : 0)}${p.over ? " · " + p.over + " late" : ""}` : "";
+  }
+  const ov = S.paused ? S.queue[0] : null;
+  if (S.beep) { cue(S.beep); S.beep = null; }
+  showOverlay(ov);
+}
+
+let ovKey = "";
+function showOverlay(ev) {
+  const el = $("#ov");
+  const key = ev ? JSON.stringify(ev) + S.queue.length : (S && S.paused && S.queue.length === 0 ? "manual" : "");
+  if (!S.paused) { el.classList.add("hide"); ovKey = ""; return; }
+  if (key === ovKey) return;
+  ovKey = key; el.classList.remove("hide");
+  const name = (i) => `<b style="color:${COLORS[i]}">${esc(S.pl[i].name)}</b>`;
+  const more = S.queue.length > 1 ? `<h2>${S.queue.length - 1} more to do after this</h2>` : "";
+  if (!ev) { el.innerHTML = `<h2>Table paused</h2><div class="head">PAUSED</div><button class="go" id="go">Resume</button>`; }
+  else if (ev.type === "storm") el.innerHTML = `<h2>Storm alarm</h2><div class="head" style="color:var(--storm)">STORM!</div><div class="body">Place storm markers on <b>every tile of the outer ring</b> (ring ${ev.n}). Everyone, check your tile.</div>${more}<button class="go" id="go">Done, resume</button>`;
+  else if (ev.type === "drop") el.innerHTML = `<h2>Drop alarm</h2><div class="head" style="color:var(--drop)">DROP!</div><div class="body"><ul><li>${name(ev.placer)} places the drop marker.</li>` +
+    ev.movers.map((m) => `<li>${name(m)} moves it up to <b>${ev.tiles}</b> tile${ev.tiles > 1 ? "s" : ""}.</li>`).join("") +
+    `<li>Table places <b>${ev.cubes}</b> legendary cube${ev.cubes > 1 ? "s" : ""} on the drop tile.</li></ul></div>${more}<button class="go" id="go">Done, resume</button>`;
+  else if (ev.type === "attack") el.innerHTML = `<h2>Attack declared</h2><div class="head">${name(ev.p)}</div><div class="body">Name the targets, count range, put the Dead cards in their discard piles. Damage = Attack total − 2 per tile of range.</div><button class="go" id="go">Resolved, resume</button>`;
+  else if (ev.type === "pick") el.innerHTML = `<h2>Who is attacking?</h2><div class="pick">${alive().map((p) => `<button data-atk="${p.id}" style="--c:${COLORS[p.id]}">${esc(p.name)}</button>`).join("")}</div><button class="cancel" id="cancel">Cancel</button>`;
+  else if (ev.type === "over") {
+    const w = S.over.winner; const wn = !w ? "Nobody" : w.team !== undefined ? teamName(w.team) : esc(S.pl[w.id].name);
+    el.innerHTML = `<h2>Game over</h2><div class="head">${wn} wins</div><div class="body mono">Game time ${fmt(S.over.g)}</div><textarea readonly id="sum">${esc(summary())}</textarea><button class="go" id="copy">Copy log</button><button class="cancel" id="again">New game</button>`;
+  }
+}
+
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.remove("hide"); clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.add("hide"), 1500); }
+function save() { try { if (S && !S.over) localStorage.setItem("lds-timer", JSON.stringify(S)); else localStorage.removeItem("lds-timer"); } catch (e) { /* private mode */ } }
+
+function startGame(state) {
+  S = state; last = Date.now(); tileKey = ""; ovKey = "";
+  $("#setup").classList.add("hide"); $("#game").classList.remove("hide");
+  view = S.cfg.players > 4 ? "players" : "table"; setTabs();
+  if (ac === null) { try { ac = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { ac = false; } }
+  if (ac && ac.state === "suspended") ac.resume();
+  keepAwake(); render();
+}
+function setTabs() { $("#tabTable").classList.toggle("on", view === "table"); $("#tabPlayers").classList.toggle("on", view === "players"); tileKey = ""; }
+
+// ---------- wiring ----------
+$("#startBtn").onclick = () => { cfg.names = cfg.names.slice(0, cfg.players); startGame(newGame(JSON.parse(JSON.stringify(cfg)))); };
+$("#resumeBtn").onclick = () => { try { const s = JSON.parse(localStorage.getItem("lds-timer")); s.paused = true; if (!s.queue.length) s.queue = []; startGame(s); } catch (e) { toast("Could not load"); } };
+$("#tabTable").onclick = () => { view = "table"; setTabs(); render(); };
+$("#tabPlayers").onclick = () => { view = "players"; setTabs(); render(); };
+$("#pauseBtn").onclick = () => { if (S.over) return; if (S.paused) return; pauseWith([{ type: "manual" }].slice(1)); S.queue = []; logEv("pause"); render(); };
+$("#atkBtn").onclick = () => { if (S.over || S.paused) return; pauseWith([{ type: "pick" }]); render(); };
+$("#grid").onclick = (e) => {
+  const x = e.target.closest(".x");
+  if (x) {
+    if (x.classList.contains("sure")) { eliminate(+x.dataset.x); render(); }
+    else { x.classList.add("sure"); x.textContent = "Out?"; setTimeout(() => { x.classList.remove("sure"); x.textContent = "✕"; }, 3000); }
+    return;
+  }
+  const t = e.target.closest(".t"); if (!t) return;
+  const r = endTurn(+t.dataset.id);
+  if (r === "floor") toast("Minimum turn is " + S.cfg.floor + "s"); else render();
+};
+$("#ov").onclick = (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  if (b.id === "go") { resume(); render(); }
+  else if (b.dataset.atk !== undefined) { S.queue = []; declareAttack(+b.dataset.atk); render(); }
+  else if (b.id === "cancel") { S.queue = []; S.paused = false; S.pauses--; last = Date.now(); render(); }
+  else if (b.id === "copy") { const t = $("#sum"); t.select(); try { navigator.clipboard.writeText(t.value); toast("Copied"); } catch (er) { document.execCommand("copy"); } }
+  else if (b.id === "again") { try { localStorage.removeItem("lds-timer"); } catch (er) {} location.reload(); }
+};
+// the manual pause shows the plain "Paused" screen when the queue is empty
+setInterval(() => { if (!S || $("#game").classList.contains("hide")) return; const now = Date.now(), dt = now - last; last = now; advance(dt); render(); }, 100);
+setInterval(save, 2000);
+try { if (localStorage.getItem("lds-timer")) $("#resumeBtn").classList.remove("hide"); } catch (e) {}
+drawSetup();
+
+// ---------- self-test: open index.html#selftest and read the result ----------
+if (location.hash === "#selftest") {
+  const out = [], ok = (n, c) => out.push((c ? "PASS " : "FAIL ") + n);
+  S = newGame({ players: 4, teams: 0, turn: 60, storm: 240, drop: 120, floor: 0, names: [] });
+  advance(119900); ok("no alarm before 2:00", !S.paused);
+  advance(200); ok("drop alarm at 2:00 pauses", S.paused && S.queue.length === 1 && S.queue[0].type === "drop" && S.g === 120000);
+  ok("drop: placer P1, 3 movers, 1 tile, 4 cubes", S.queue[0].placer === 0 && S.queue[0].movers.length === 3 && S.queue[0].tiles === 1 && S.queue[0].cubes === 4);
+  const g0 = S.g; advance(5000); ok("pause freezes game time", S.g === g0 && S.pauseWall === 5000);
+  resume(); ok("resume unpauses", !S.paused);
+  advance(120000); ok("storm and drop coincide at 4:00, storm first", S.paused && S.queue.length === 2 && S.queue[0].type === "storm" && S.queue[1].type === "drop" && S.queue[1].placer === 1);
+  resume(); ok("first resume keeps pause for the drop", S.paused && S.queue.length === 1); resume(); ok("second resume runs", !S.paused);
+  const p = S.pl[0]; p.ts = S.g; advance(61000); ok("turn timer flags late after 60s", p.late && p.over === 1);
+  endTurn(0); ok("End resets the turn", !p.late && p.turns === 1 && S.g - p.ts === 0);
+  declareAttack(2); ok("attack pauses and counts", S.paused && S.pl[2].attacks === 1); resume();
+  eliminate(1); eliminate(2); ok("two out, game on", !S.over); eliminate(3); ok("last one standing wins", S.over && S.over.winner.id === 0 && S.paused);
+  S = newGame({ players: 6, teams: 2, turn: 60, storm: 240, drop: 120, floor: 10, names: [] });
+  ok("teams: only the current member is active", active(S.pl[0]) && !active(S.pl[2]) && active(S.pl[1]));
+  advance(5000); ok("floor blocks an early End", endTurn(0) === "floor"); advance(6000); ok("End after the floor works and rotates", endTurn(0) === true && active(S.pl[2]) && !active(S.pl[0]));
+  eliminate(1); eliminate(3); eliminate(5); ok("team wins when the other team is out", S.over && S.over.winner.team === 0);
+  S = null; document.body.innerHTML = "<pre id='t'>" + out.join("\n") + "</pre>";
+}
+</script>
+</body>
+</html>
