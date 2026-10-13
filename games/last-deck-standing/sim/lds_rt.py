@@ -44,6 +44,8 @@ PROFILES = {  # att: want hits, loot: want cubes, danger: avoid enemies, heal: h
     "aggressive": dict(att=3.0, loot=1.0, danger=0.3, heal_at=2, buy="AMH"),
     "balanced": dict(att=2.0, loot=1.5, danger=1.0, heal_at=2, buy="AHM"),
     "cautious": dict(att=1.2, loot=1.5, danger=2.0, heal_at=1, buy="HAM"),
+    # test bot for the hand-lock worry: sits still (moves only to leave a storm tile), never loots or buys, heals at 2
+    "camper": dict(att=1.0, loot=0.0, danger=0.0, heal_at=2, buy="", camp=True),
 }
 
 # Market costs: bought card -> cards paid (counted by number, any value)
@@ -130,12 +132,13 @@ class Game:
         rng.shuffle(self.gold)
         self.market_deck = market_deck(rng)
         self.market = [self.market_deck.pop() for _ in range(a.market_slots)]
-        names = list(PROFILES)
+        names = ["aggressive", "balanced", "cautious"]
         self.teams = a.teams if n >= 2 * a.teams else 0
         self.players = []
         for i in range(n):
             team = (i % self.teams) if self.teams else i
-            self.players.append(Player(i, names[i % 3] if a.mix else a.profile, rng.uniform(0.7, 1.3), team, rng))
+            prof = "camper" if i >= n - a.campers else (names[i % 3] if a.mix else a.profile)
+            self.players.append(Player(i, prof, rng.uniform(0.7, 1.3), team, rng))
         zone = tl
         if a.bus:  # battle bus: a spinner on the centre tile picks a line; pawns start on it (2-3p) or within 1 tile of it (4+)
             d = rng.choice(DIRS[::2])
@@ -297,6 +300,8 @@ class Game:
 
     def buy(self, p):
         a, prof = self.a, PROFILES[p.profile]
+        if not prof["buy"]:
+            return 0
         bought = 0
         while True:
             opts = []
@@ -400,6 +405,8 @@ class Game:
             if not self.storm and self.rings_marked == 0:
                 pass
             s -= 0.05 * d
+            if prof.get("camp") and h != p.pos:
+                s -= 8  # campers stay put unless the storm forces them
             scores.append((s + rng.random() * 0.01, h))
         dest = max(scores)[1]
         dist = reach[dest]
@@ -626,6 +633,7 @@ def main():
     ap.add_argument("--teams", type=int, default=0, help="number of teams (players split evenly)")
     ap.add_argument("--team-mode", default="A", choices=["A", "C"], help="A: members rotate one stream; C: all members play at once")
     ap.add_argument("--profile", default="balanced")
+    ap.add_argument("--campers", type=int, default=0, help="last N seats play the camper test bot")
     ap.add_argument("--mix", action="store_true", help="mix aggressive/balanced/cautious across seats")
     ap.add_argument("--out")
     a = ap.parse_args()
