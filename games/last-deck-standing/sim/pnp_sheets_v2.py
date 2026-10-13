@@ -2,10 +2,11 @@
 
 Usage: python3 pnp_sheets_v2.py
   writes ../pnp/v2/last-deck-standing-v2-cards-11x17.{html,pdf}    card sheets, 4x4 cards (2.5 x 3.5 in) per 11 x 17 page
-         ../pnp/v2/last-deck-standing-v2-pieces-11.5x17.{html,pdf} Market mat, reference sheets, blank hex tiles, storm markers on 11.5 x 17
+         ../pnp/v2/last-deck-standing-v2-pieces-11.5x17.{html,pdf} Market mat, reference sheets, storm markers on 11.5 x 17
+         ../pnp/v2/last-deck-standing-v2-tiles-sticker-8.5x11.{html,pdf} 100 hex tiles, 1.75 in across the flats, 20 per US Letter sticker sheet
 
 Contents follow rulebook-v2-draft.md: 10 base decks (up to 10 players), three loot decks, the Market deck (21),
-the Legendary deck (24), 60 Dead cards (plain backs: every card back is the same). Style and icons are reused from
+the Legendary deck (72: use 48 up to 7 players), 60 Dead cards (plain backs: every card back is the same). Style and icons are reused from
 pnp_sheets.py (comic frames, Material Symbols Sharp, rarity colours), so nothing here is hand-drawn artwork.
 """
 import html
@@ -56,7 +57,7 @@ def decks():
     for k, v, n in (("A", 2, 6), ("M", 2, 4), ("H", 2, 4), ("A", 3, 3), ("M", 3, 2), ("H", 3, 2)):
         market += [card(k, v, "Market")] * n
     for k in "MAH":
-        gold += [card(k, 3, "Legendary", gold=True)] * 4 + [card(k, 4, "Legendary", gold=True)] * 4
+        gold += [card(k, 3, "Legendary", gold=True)] * 12 + [card(k, 4, "Legendary", gold=True)] * 12  # 72: 48 for up to 7 players, all 72 at 8+
     return base, loot, market, gold
 
 
@@ -88,7 +89,7 @@ QUICK = [
     ("Move and loot", ["Base Move 1 + Move cards played. One adjacent tile per point.",
                        "Moving <b>into</b> a tile with a cube takes it: draw the top card of that loot deck into your hand. Hand cap 5; extra loot goes to your discard pile.",
                        "Legendary cubes on your own tile can be taken without moving."]),
-    ("Attack", ["Say <b>Attack</b>; the table pauses. Damage = Attack total &minus; 2 per tile of range (Base Attack 1 + cards).",
+    ("Attack", ["Say <b>Attack</b>; the table pauses. Damage = Attack total &minus; 2 per tile of range (Base Attack 1 once per turn + cards).",
                 "Put that many Dead cards in the target's <b>discard pile</b>. Then resume."]),
     ("Timers", ["<b>Storm (every 4 min):</b> pause, mark the whole outer ring. Moving into a storm tile = 1 Dead; ending your turn on one = 1 more.",
                 "<b>Drop (every 2 min):</b> first player (rotates) places it. Then the others move it in turn order: 2p one player 3 tiles; 3p each 2 tiles; 4+ each 1 tile. Table puts one legendary cube per player on it."]),
@@ -119,7 +120,14 @@ def tiles():
                 t = t.replace('<div class="hloots"></div>',
                               f'<div class="hloots"><span class="cspot" style="--type:{TYPE_COLOR[k]}"><span class="msym">{MSYM[k]}</span></span></div>')
             flat.append(t)
-    return sheets(flat, 35, "tiles")
+    # one set of 20 per US Letter sticker sheet: honeycomb rows of 4, odd rows shifted half a hex
+    pages = []
+    for i in range(0, len(flat), 20):
+        rows = ""
+        for r in range(5):
+            rows += f"<div class='hrow{' odd' if r % 2 else ''}'>" + "".join(flat[i + r * 4:i + r * 4 + 4]) + "</div>"
+        pages.append(f"<section class='page tilepage'>{rows}</section>")
+    return pages
 
 
 def minis():
@@ -133,7 +141,10 @@ body { font-family: Helvetica, Arial, sans-serif; color: #1b1f2a; }
 .cardsheet .page { width: 10in; margin: 0 auto; }
 .cardsheet .page > .cc { margin: 0; outline: 1px dashed #aaa; }
 .piecesheet .page { width: 10.4in; margin: 0 auto; }
-.piecesheet .page.tiles { gap: 0.03in; }
+.tilesheet .page { display: block; width: 7.9in; margin: 0 auto; }
+.tilesheet .hrow { display: flex; margin-top: -0.5052in; } .tilesheet .hrow:first-child { margin-top: 0; }
+.tilesheet .hrow.odd { margin-left: 0.875in; }
+.tilesheet .hexc { width: 1.75in; height: 2.0207in; flex: none; }
 h1 { font: 44pt "Bangers", Impact, sans-serif; letter-spacing: 3px; width: 100%; text-align: center; margin: 0.2in 0 0.15in; }
 .cspot { width: 0.7in; height: 0.7in; border-radius: 50%; border: 4px dashed var(--type); background: rgba(255,255,255,.6);
          display: flex; align-items: center; justify-content: center; }
@@ -184,8 +195,9 @@ def main():
     cards = sheets(base, 16, "") + sheets(loot, 16, "") + sheets(market, 16, "") + sheets(gold, 16, "") + sheets(deads, 16, "")
     print(f"cards: base {len(base)} loot {len(loot)} market {len(market)} gold {len(gold)} dead {len(deads)} on {len(cards)} pages")
     build("last-deck-standing-v2-cards-11x17", "11in 17in", cards, "cardsheet")
-    pieces = [market_mat(), reference()] + tiles() + minis()
+    pieces = [market_mat(), reference()] + minis()
     build("last-deck-standing-v2-pieces-11.5x17", "11.5in 17in", pieces, "piecesheet")
+    build("last-deck-standing-v2-tiles-sticker-8.5x11", "8.5in 11in", tiles(), "tilesheet")  # 5 sheets of 20, 1.75in hexes on sticker paper
 
 
 if __name__ == "__main__":

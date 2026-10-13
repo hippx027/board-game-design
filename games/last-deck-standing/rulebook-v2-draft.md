@@ -53,7 +53,7 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 |---|---|---|
 | Base deck | 10 per player | **4 Move 1, 4 Attack 1, 2 Heal 1** |
 | Loot decks | 3, one per type | Move 14, Attack 26, Heal 10 (50 cards, one per cube spot; was 12/16/10 until the tile count went up), each shuffled face down. **Values 1 and 2 only, half each** (designer's call: no 3s in loot; Move 7×1 + 7×2, Attack 13×1 + 13×2, Heal 5×1 + 5×2; the half-and-half split is my default). To get 3s you must use the Market, kill someone (elimination drop) or reach a drop. Old loot (2s and 3s) is kept as a variant |
-| Legendary deck | 24 | Value 3 and 4 cards (4 each of Move 3/4, Attack 3/4, Heal 3/4); taken from legendary cubes in drops and elimination drops |
+| Legendary deck | 48 (72 at 8+ players) | Value 3 and 4 cards (8 each of Move 3/4, Attack 3/4, Heal 3/4 in the 48; add a second 24 at 8-10 players). Sized by SIM-030 addendum 23; taken from legendary cubes in drops and elimination drops |
 | Market deck | 21 | Value 2 and 3 cards; 3 face up; see Market |
 | Dead cards | 60 | Plain backs |
 | Loot cubes | half the number of tiles in play (up to 50) | One colour per type (purple Move, red Attack, green Heal); mark available loot on the board |
@@ -69,7 +69,7 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 1. Build the board as in v1 (players alternate placing tiles, each touching the last). About half the tiles have a printed **cube spot** in a loot colour (purple Move, red Attack, green Heal); the other half are blank.
 2. Put a loot cube of the **matching colour** on every cube spot (half the tiles; designer's call, tested in SIM-030 addendum 7). The colours are printed on the tiles, which sets the mix: 14 purple Move, 26 red Attack, 10 green Heal on 50 tiles (about 6/11/4 per 21), matching the loot decks card for card when every tile is used. When a cube is looted the spot stays empty; no new loot cubes appear (only legendary cubes, from Drops).
 3. **Battle bus:** put a spinner on the centre tile (the first tile placed) and spin it. Its line runs across the board through the centre. In a **2 or 3 player** game, pawns start **on the line**. With **4 or more players**, they start **on the line or 1 tile away from it**. No minimum distance between pawns (designer's call), but each pawn starts on its own tile; players place in the order they choose. (Designer confirmed 2026-10-13: the line sets starting positions.)
-4. Shuffle your 10-card base deck and draw 5.
+4. Shuffle your 10-card base deck and draw 5. **When your draw pile is empty, shuffle your discard pile (Dead cards included) to make a new one** (designer's call, 2026-10-13).
 5. Lay out the Market.
 6. Start the timer: the 2-minute Drop clock starts with the game. Everyone starts together.
 
@@ -86,7 +86,7 @@ Nobody waits for you. If you take a long turn, the others take several.
 | Card | When played |
 |---|---|
 | **Move N** | Move N extra tiles this turn (on top of your Base Move 1) |
-| **Attack N** | Add N to your attack this turn (on top of your Base Attack 1) |
+| **Attack N** | Add N to your attack this turn (on top of your Base Attack 1, which you get **once per turn**, not once per declared Attack) |
 | **Heal N** | One-time use. Remove up to N Dead cards from your hand. The card leaves the game. There is no Shield |
 
 Starting cards are value 1. Cards gained from the Market are value 2 or higher.
@@ -98,7 +98,7 @@ Play Move cards. Move up to 1 (your Base Move) plus the total value of Move card
 - Cubes on the board mark **available loot**.
 - **Loot a cube by moving into its tile** (designer's call): each cube on a tile you move into, passing through or stopping, is removed from the board and you take the **top card of the matching loot deck** (purple Move, red Attack, green Heal) **into your hand**. You can loot as many tiles as you can reach in a turn. The tile you start on doesn't count, so you can't loot a cube you are standing on. **Exception:** legendary cubes from a drop or an elimination drop that are on your tile are picked up without moving, as soon as they land (default).
 - Looted cards in hand can be played right away, and that is the point: a Heal you loot is a Heal you can use. Played cards (other than Heals) go to your discard pile and become part of your deck.
-- **Hand cap of 5** (designer's call, to start with). Dead cards in your hand count toward it. If your hand is full when you loot, the looted card goes **straight to your discard pile** instead of your hand (default overflow rule; you are never forced to discard to loot). At end of turn you must discard down to 3 unplayed cards; Dead cards stay and don't count toward the 3. Played cards go to your discard pile.
+- **Your hand never goes over 5 cards, ever** (designer's call: always follow the hand cap). Dead cards in your hand count toward it. If your hand is full when you loot, the looted card goes **straight to your discard pile** instead of your hand (default overflow rule; you are never forced to discard to loot). At end of turn you must discard down to 3 unplayed cards; Dead cards stay and don't count toward the 3. Played cards go to your discard pile.
 - Cubes are returned to the supply. The only new cubes are **legendary cubes** from Drops.
 
 ## Market
@@ -118,7 +118,9 @@ You may trade cards from your hand to buy a Market card, any time during your tu
 | Heal 3 | 2 Heal + 1 Attack + 1 Move |
 
 - Paid cards **leave the game** (this thins your deck: fewer junk cards, stronger draws).
-- The bought card goes **into your hand**, so you can play it this turn. It counts toward the hand cap of 5 (if your hand is full, put it in your discard pile instead). (Sim: about 3 buys per player whether the bought card goes to your hand or your discard pile.)
+- The bought card goes **into your hand**, so you can play it this turn. Buying always shrinks your hand (you pay 3 or 4 cards and get 1), so the hand cap never blocks a buy. (Sim: about 3 buys per player whether the bought card goes to your hand or your discard pile.)
+- **A Heal you buy is like any Heal:** it leaves the game when you play it, and a Heal you pay as part of a cost leaves the game too.
+- **If the Market deck runs out,** face-up cards that are bought are not replaced (default; the 21-card deck is rarely emptied at 2-4 players).
 
 The game inside the game: **collect the right cards to turn many low cards into a few strong ones.**
 
@@ -126,12 +128,13 @@ The game inside the game: **collect the right cards to turn many low cards into 
 To attack, you declare **"Attack"** and **pause the table** (Captain Sonar style; designer's pick for the first session):
 1. Everyone freezes, including the timers.
 2. You name the target(s), count the range, and resolve the attack with the **damage = your Attack total − 2 × Range** (each tile of distance costs 2, changed from v1's 1); 0 or less can't hit. Example: Attack 4 does 4 at range 0, 2 at range 1, and can't reach range 2.
-3. You put the Dead cards into the target's **discard pile**, yourself. They show up when that deck reshuffles, as in v1.
+3. You put the Dead cards into the target's **discard pile**, yourself. They show up when that deck reshuffles.
 4. Everyone resumes.
 
 You can split your Attack among several players, as in v1 (one attack per player). **Locked for the first paper session: option A (pause).** Options B (the target may dodge with a Move card) and C (resolves 5 s later) are listed below to try in later sessions. In the sim none of them changes who wins; only A costs time.
 
 ## Dead Cards
+- **Healed Dead cards go back to the Dead supply** (the stack), not to a discard pile (designer's call, 2026-10-13).
 - Dead cards have plain backs, like all other cards (marked backs would stop people shuffling them to the top).
 - If you hold 3 or more, you **announce "critical"** when you draw or receive them. Everyone knows you're one hit from being out.
 - Dead cards can't be played or discarded, and stay in your hand until you heal them.

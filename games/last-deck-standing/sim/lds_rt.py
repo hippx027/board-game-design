@@ -125,7 +125,7 @@ class Game:
         for h in rng.sample(tl, int(len(tl) * a.start_cubes)):
             self.cubes[h] = [rng.choices(KINDS, weights=[6, 11, 4])[0]]
         self.decks = {k: loot_deck(k, rng, a.loot_ones, a.loot_weak) for k in KINDS}
-        self.gold = [(k, v, "g") for k in KINDS for v in (3, 3, 3, 3, 4, 4, 4, 4)]  # 24 cards, tagged gold
+        self.gold = [(k, v, "g") for k in KINDS for v in (3, 3, 3, 3, 4, 4, 4, 4)] * a.legendary_mult  # 24 cards, tagged gold
         self.piles = {}  # tile -> gold cards left by eliminated players, looted first
         rng.shuffle(self.gold)
         self.market_deck = market_deck(rng)
@@ -257,6 +257,8 @@ class Game:
             if mv is not first or len(al) == 1:
                 spot = min(self.reach(spot, steps), key=lambda h: (hexdist(h, mv.pos), self.rng.random()))
         k = min(self.n, self.gold_left())
+        if k < self.n:
+            self.m["drop_short"] += 1  # drop with fewer legendary cubes than players (supply nearly out)
         if k > 0:
             self.cubes.setdefault(spot, []).extend(["G"] * k)
         for _ in range(a.cube_refresh):
@@ -275,6 +277,7 @@ class Game:
                 c = self.piles[pos].pop()
             elif self.gold:
                 c = self.gold.pop()
+                self.m["legendary_drawn"] += 1
             else:
                 return False
         else:
@@ -574,7 +577,7 @@ def summarize(rs):
     out["profile_win%"] = {k: round(100 * v / len(done), 1) for k, v in pc.items()}
     out["fastest_player_win%"] = round(100 * sum(1 for r in done if r["winner_speed_rank"] == 0) / len(done), 1) if done else None
     out["slowest_player_win%"] = round(100 * sum(1 for r in done if r["winner_speed_rank"] == n - 1) / len(done), 1) if done else None
-    keys = ["turns", "attacks", "whiffs", "dodges", "loots", "buys", "heals", "drops", "storm_rings", "elim_attack", "elim_storm", "loot_overflow", "atk_total", "atk_n", "drawn_M", "drawn_A", "drawn_H", "loot_empty_M", "loot_empty_A", "loot_empty_H"]
+    keys = ["turns", "attacks", "whiffs", "dodges", "loots", "buys", "heals", "drops", "storm_rings", "elim_attack", "elim_storm", "loot_overflow", "atk_total", "atk_n", "drawn_M", "drawn_A", "drawn_H", "loot_empty_M", "loot_empty_A", "loot_empty_H", "legendary_drawn", "drop_short"]
     out["per_game"] = {k: round(mean(r["m"].get(k, 0) for r in rs), 1) for k in keys}
     fe = [r["m"]["first_elim"] / 60 for r in done if "first_elim" in r["m"]]
     out["first_elim_min_med"] = round(median(fe), 1) if fe else None
@@ -601,6 +604,7 @@ def main():
     ap.add_argument("--buy-timing", default="start", choices=["start", "end"], help="bots buy at the start of their turn (before acting) or at the end with leftover cards")
     ap.add_argument("--buy-to", default="discard", choices=["discard", "hand"], help="where a bought Market card goes")
     ap.add_argument("--pay-any", action="store_true", help="Market costs are the same number of cards but any type")
+    ap.add_argument("--legendary-mult", type=int, default=2, help="Legendary deck size in multiples of 24")
     ap.add_argument("--drop-pause", type=float, default=10)
     ap.add_argument("--cube-refresh", type=int, default=0, help="regular cubes the table adds per drop (variant)")
     ap.add_argument("--start-cubes", type=float, default=0.5, help="cubes per tile at setup")

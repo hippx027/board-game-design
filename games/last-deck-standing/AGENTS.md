@@ -16,7 +16,7 @@ A battle royale deck builder by Brandon and Chris. Players flood rivals' decks w
 | `components-sheet.md`, `pnp-checklist.md` | Paper prototype build |
 | `playtest-log-001.md`, `feedback-sheet.md` | First human session kit |
 | `sim/lds_rt.py` | v2 realtime Monte Carlo sim (play clock, table timers, teams); findings in `simulations/SIM-030.md` addenda |
-| `sim/pnp_sheets_v2.py` | v2 print sheets → `pnp/v2/last-deck-standing-v2-cards-11x17.pdf` (cards) and `-pieces-11.5x17.pdf` (Market mat, reference, blank tiles, storm markers); Chrome headless |
+| `sim/pnp_sheets_v2.py` | v2 print sheets → `pnp/v2/last-deck-standing-v2-cards-11x17.pdf` (cards) and `-pieces-11.5x17.pdf` (Market mat, reference, storm markers) and `-tiles-sticker-8.5x11.pdf` (100 hex tiles, 1.75 in across flats, 20 per Letter sticker sheet); Chrome headless |
 | `sim/lds_sim.py` | v1 turn-based Monte Carlo simulator (heuristic bots; system evidence only) |
 | `simulations/SIM-00N.md`, `READTHROUGH-001.md` | Test write-ups; raw JSON in `simulations/data*/` |
 
