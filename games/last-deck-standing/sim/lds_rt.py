@@ -536,7 +536,7 @@ class Game:
             self.m["storm_dead"] += dmg
         if a.buy_timing == "end":  # spend the cards you were about to discard
             self.buy(p)
-        keep = sorted((c for c in p.hand if c[0] != "D"), key=lambda c: (c[0] != "H", c[1]))[: a.keep]
+        keep = sorted((c for c in p.hand if c[0] != "D"), key=lambda c: (c[0] != "H", c[1]))[: a.keep if a.dead_free_keep else max(0, a.keep - p.dead())]
         keepset = Counter(keep)
         for c in list(p.hand):
             if c[0] == "D":
@@ -623,6 +623,7 @@ def main():
     ap.add_argument("--loot-cap", type=int, default=5, help="hand size cap for looting; extra loot goes to the discard pile (0 = no cap)")
     ap.add_argument("--loot-weak", action="store_true", help="loot values 1 and 2 only (half 1s, half 2s)")
     ap.add_argument("--cheap-market", nargs="?", const="all", choices=["all", "two"], help="every Market cost is one card smaller (all), or only the value-2 cards (two)")
+    ap.add_argument("--dead-free-keep", action="store_true", help="old behaviour: Dead cards do not count toward the 3 kept (creates the hand lock)")
     ap.add_argument("--keep", type=int, default=3, help="cards a bot keeps at end of turn")
     ap.add_argument("--range-cost", type=int, default=2, help="damage lost per tile of range (v1: 1, now 2)")
     ap.add_argument("--elim-drop", type=int, default=2, help="gold cubes dropped where a player is eliminated")

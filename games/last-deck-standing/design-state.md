@@ -18,7 +18,7 @@ Updated 2026-10-12 · Designers: Brandon and Chris · Milestone: v2 (realtime) d
 - Damage = Attack − **2 per tile of range**; Dead cards go into the target's discard pile, placed by the attacker
 - Base deck 4 Move 1 / 4 Attack 1 / 2 Heal 1; Base Move 1 and Base Attack 1, fixed; no stat tracker and no Shield
 - Heal is one-time: removes Dead cards from your hand, then leaves the game
-- Hand: draw up to 5; at end of turn discard down to 3 non-Dead cards (Dead stay, not counted; SIM-030 add. 15 modelled this as keep 3)
+- Hand: draw up to 5; at end of turn discard down to 3 cards in hand, Dead cards count toward the 3 (always have; you always draw 2+). Blind read-through found my draft had this wrong, creating a hand lock; fixed 2026-10-13
 - Elimination: 3+ Dead cards in hand at the end of your own turn; Dead cards have plain backs; announce "critical" at 3 in hand; no hand limit on Dead cards but you can't discard them
 - Loot: cubes on half the tiles, on printed cube spots in a loot colour (50 of 100 tiles: 14 Move, 26 Attack, 10 Heal; 2026-10-13); you loot by moving *into* a tile (start tile excluded); loot goes into your hand; **hand cap 5** with overflow going to the discard pile (SIM-030 addendum 10)
 - Loot decks Move 14 / Attack 26 / Heal 10 (50, one per cube spot; 100 tiles, 50 spots), values 1 and 2, half each (designer's call, 2026-10-13: 3s only from the Market, kills or drops; SIM-030 add. 19)

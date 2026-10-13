@@ -85,7 +85,7 @@ def market_mat():
 QUICK = [
     ("Your turn", ["Draw up to 5 cards. Say <b>critical</b> if 3+ Dead are in hand.",
                    "Play cards, move, loot, buy, attack, in any order.",
-                   "End: 3+ Dead in hand = <b>out</b>. Otherwise discard down to 3 cards (Dead stay, not counted) and go again. Your turn also ends at the next Storm or Drop alarm."]),
+                   "End: 3+ Dead in hand = <b>out</b>. Otherwise discard down to 3 cards (Dead stay and count toward the 3) and go again. Your turn also ends at the next Storm or Drop alarm."]),
     ("Move and loot", ["Base Move 1 + Move cards played. One adjacent tile per point.",
                        "Moving <b>into</b> a tile with a cube takes it: draw the top card of that loot deck into your hand. Hand cap 5; extra loot goes to your discard pile.",
                        "Legendary cubes on your own tile can be taken without moving."]),
