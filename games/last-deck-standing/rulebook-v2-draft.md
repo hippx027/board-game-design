@@ -52,7 +52,7 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 | Item | Qty | Notes |
 |---|---|---|
 | Base deck | 10 per player | **4 Move 1, 4 Attack 1, 2 Heal 1** |
-| Loot decks | 3, one per type | Move 12, Attack 16, Heal 10 (default), each shuffled face down. Values 2 and 3 only (no 1s). Playtest variant: replace half the 2s with 1s, since looting is faster now |
+| Loot decks | 3, one per type | Move 12, Attack 16, Heal 10 (default), each shuffled face down. **Values 1 and 2 only, half each** (designer's call: no 3s in loot; Move 6×1 + 6×2, Attack 8×1 + 8×2, Heal 5×1 + 5×2; the half-and-half split is my default). To get 3s you must use the Market, kill someone (elimination drop) or reach a drop. Old loot (2s and 3s) is kept as a variant |
 | Gold deck | 24 | Value 3 and 4 cards (4 each of Move 3/4, Attack 3/4, Heal 3/4); taken from gold cubes in drops and elimination drops |
 | Market deck | 21 | Value 2 and 3 cards; 3 face up; see Market |
 | Dead cards | 60 | Plain backs |

@@ -46,8 +46,8 @@ def decks():
     for n in range(1, 11):
         o = f"Player {n}"
         base += [card("M", 1, "Starting", o)] * 4 + [card("A", 1, "Starting", o)] * 4 + [card("H", 1, "Starting", o)] * 2
-    for k, size, threes in (("M", 12, 4), ("A", 16, 6), ("H", 10, 4)):
-        loot += [card(k, 3, "Loot")] * threes + [card(k, 2, "Loot")] * (size - threes)
+    for k, size in (("M", 12), ("A", 16), ("H", 10)):  # loot is 1s and 2s only; 3s come from the Market, kills or drops
+        loot += [card(k, 1, "Loot")] * (size // 2) + [card(k, 2, "Loot")] * (size - size // 2)
     for k, v, n in (("A", 2, 6), ("M", 2, 4), ("H", 2, 4), ("A", 3, 3), ("M", 3, 2), ("H", 3, 2)):
         market += [card(k, v, "Market")] * n
     for k in "MAH":
