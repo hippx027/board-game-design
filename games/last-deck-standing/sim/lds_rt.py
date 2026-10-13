@@ -136,9 +136,15 @@ class Game:
         for i in range(n):
             team = (i % self.teams) if self.teams else i
             self.players.append(Player(i, names[i % 3] if a.mix else a.profile, rng.uniform(0.7, 1.3), team, rng))
+        zone = tl
+        if a.bus:  # battle bus: a spinner on the centre tile picks a line; pawns start on it (2-3p) or within 1 tile of it (4+)
+            d = rng.choice(DIRS[::2])
+            line = {(d[0] * k, d[1] * k) for k in range(-40, 41)}
+            slack = 0 if n <= 3 else 1
+            zone = [h for h in tl if min(hexdist(h, x) for x in line) <= slack] or tl
         for p in self.players:
             placed = [q.pos for q in self.players if q.pos]
-            c = [h for h in tl if not placed or min(hexdist(h, x) for x in placed) >= 3] or tl
+            c = [h for h in zone if not placed or min(hexdist(h, x) for x in placed) >= 3] or [h for h in zone if h not in placed] or tl
             p.pos = rng.choice(c)
             p.draw_to(5, rng)
         self.next_drop, self.next_storm = a.drop_interval, a.storm_interval
@@ -569,6 +575,7 @@ def main():
     ap.add_argument("--storm-double", type=int, default=3, help="storm damage becomes 2 once this many rings are marked")
     ap.add_argument("--drop-interval", type=float, default=120)
     ap.add_argument("--drop-moves", default="classic", choices=["classic", "scaled"], help="classic: one player moves the drop 3 tiles; scaled: by player count (2p 1x3, 3p 2x2, 4+ each other player x1)")
+    ap.add_argument("--bus", action="store_true", help="spinner line: pawns start on a random line through the centre (2-3p) or within 1 tile of it (4+)")
     ap.add_argument("--drop-pause", type=float, default=10)
     ap.add_argument("--cube-refresh", type=int, default=0, help="regular cubes the table adds per drop (variant)")
     ap.add_argument("--start-cubes", type=float, default=0.5, help="cubes per tile at setup")
