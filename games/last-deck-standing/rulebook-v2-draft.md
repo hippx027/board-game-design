@@ -23,7 +23,7 @@ For your first paper session, play it like this. Everything else plays exactly a
 
 **Drops stay in** (designer's call: they matter at every player count): the 2-minute drop timer, gold cubes, the Gold deck and the elimination drop.
 
-Keep: the 4-minute storm timer, the Market (3 face up, no tiers), the hand cap of 5, and Range cost 2 per tile. Cubes go on half the tiles. No turn timer.
+Keep: the 4-minute storm timer, the Market (3 face up, no tiers, pay any cards), the hand cap of 5, and Range cost 2 per tile. Cubes go on half the tiles. No turn timer.
 
 What to watch for (these are the questions this session answers):
 1. **Does the Market get used?** Sim: about 3 buys per player per game (9 at 3p, 11 at 4p). Count yours.
@@ -104,19 +104,15 @@ You may trade cards from your hand to buy a Market card, any time during your tu
 
 - **No tiers for now** (designer's call; tiers return later). The Market deck is one shuffled deck; **3 cards are face up** and are replaced from the deck as they're bought.
 - Market cards are **value 2 or 3**, never 1. Deck (21 cards, default): 6× Attack 2, 4× Move 2, 4× Heal 2, 3× Attack 3, 2× Move 3, 2× Heal 3.
-- **Cost is a combo of cards, counted by number, not value.** So paying value 1s is the efficient trade, and paying a 3 is a waste. Costs (default; cheaper costs stalled the sim, SIM-030 addendum 12-13):
+- **Cost is a number of cards from your hand, any type, never Dead cards** (designer's call, 2026-10-13: SIM-030 addendum 20; sim: about 4.5 buys per player instead of 3, no stalls at 3-4 players, games about 30% shorter). Value doesn't matter, so pay with your weakest cards:
 
 | Buy | Pay |
 |---|---|
-| Attack 2 | 2 Attack + 1 Move |
-| Move 2 | 2 Move + 1 Heal |
-| Heal 2 | 1 Heal + 1 Attack + 1 Move |
-| Attack 3 | 3 Attack + 1 Move |
-| Move 3 | 3 Move + 1 Heal |
-| Heal 3 | 2 Heal + 1 Attack + 1 Move |
+| Attack 2, Move 2, Heal 2 | any 3 cards |
+| Attack 3, Move 3, Heal 3 | any 4 cards |
 
-- Paid cards **leave the game** (default; this thins your deck, which is the aim: fewer junk cards, stronger draws; v1's rejection of leaving the game was about stat upgrades stalling, so watch for it). Cards come from your hand.
-- The bought card goes into your **discard pile** and joins your deck at the next reshuffle.
+- Paid cards **leave the game** (this thins your deck: fewer junk cards, stronger draws).
+- The bought card goes **into your hand**, so you can play it this turn. It counts toward the hand cap of 5 (if your hand is full, put it in your discard pile instead).
 
 The game inside the game: **collect the right cards to turn many low cards into a few strong ones.**
 
@@ -172,7 +168,6 @@ When a player is eliminated:
 
 ## Playtest options still to run
 
-- **Upgrade more (SIM-030 addendum 20):** the sim's best lever is paying Market costs with **any cards** (same counts, any type) and optionally putting the bought card in your **hand**. +30–50% buys, no stalls at 3–4 players, but games ~30% shorter. Not adopted; designer to decide.
 **#2 — Attack timing:**
 - **A (drafted above):** pause the table, resolve.
 - **B:** the attack goes in an **action queue** and a target gets 5 seconds to respond with a card (a Shield-like block).

@@ -55,8 +55,8 @@ def decks():
     return base, loot, market, gold
 
 
-COSTS = [("Attack 2", "2 Attack + 1 Move", "A", 2), ("Move 2", "2 Move + 1 Heal", "M", 2), ("Heal 2", "1 Heal + 1 Attack + 1 Move", "H", 2),
-         ("Attack 3", "3 Attack + 1 Move", "A", 3), ("Move 3", "3 Move + 1 Heal", "M", 3), ("Heal 3", "2 Heal + 1 Attack + 1 Move", "H", 3)]
+COSTS = [("Attack 2", "any 3 cards", "A", 2), ("Move 2", "any 3 cards", "M", 2), ("Heal 2", "any 3 cards", "H", 2),
+         ("Attack 3", "any 4 cards", "A", 3), ("Move 3", "any 4 cards", "M", 3), ("Heal 3", "any 4 cards", "H", 3)]
 
 
 def market_mat():
@@ -67,8 +67,8 @@ def market_mat():
     return ("<section class='page mat'><h1>MARKET</h1>"
             f"<div class='slots'>{slots}<div class='slot deck'><span>DECK<br>21 cards</span></div></div>"
             "<div class='mrules'><b>How to buy</b><ul>"
-            "<li>Any time on your turn, pay the cards below <b>from your hand</b>. Costs count <b>cards, not value</b>, so pay with 1s.</li>"
-            "<li>Paid cards <b>leave the game</b>. The bought card goes to your <b>discard pile</b>.</li>"
+            "<li>Any time on your turn, pay the cards below <b>from your hand</b>. Pay with <b>any non-Dead cards</b>: 3 for a 2, 4 for a 3. Pay with your weakest.</li>"
+            "<li>Paid cards <b>leave the game</b>. The bought card goes into your <b>hand</b>.</li>"
             "<li>Refill the face-up row from the deck after each buy.</li></ul></div>"
             f"<table class='costs'><tr><th>Buy</th><th>Pay</th><th>Rarity</th></tr>{rows}</table></section>")
 

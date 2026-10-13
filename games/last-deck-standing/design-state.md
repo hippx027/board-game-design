@@ -22,7 +22,7 @@ Updated 2026-10-12 · Designers: Brandon and Chris · Milestone: v2 (realtime) d
 - Elimination: 3+ Dead cards in hand at the end of your own turn; Dead cards have plain backs; announce "critical" at 3 in hand; no hand limit on Dead cards but you can't discard them
 - Loot: cubes on half the tiles; you loot by moving *into* a tile (start tile excluded); loot goes into your hand; **hand cap 5** with overflow going to the discard pile (SIM-030 addendum 10)
 - Loot decks Move 12 / Attack 16 / Heal 10, values 1 and 2, half each (designer's call, 2026-10-13: 3s only from the Market, kills or drops; SIM-030 add. 19)
-- Market: no tiers for now, one 21-card deck (values 2 and 3), 3 face up; costs count cards, not value; paid cards leave the game
+- Market: no tiers for now, one 21-card deck (values 2 and 3), 3 face up; designer's call 2026-10-13: pay any non-Dead hand cards (3 for a value 2, 4 for a 3), paid cards leave the game, bought card goes to hand (SIM-030 add. 20)
 - Gold deck 24 (3s and 4s); drops every 2 min (1st player places, then each other player moves it in turn order: 2p one mover x3 tiles, 3p two movers x2 tiles, 4+ every other player x1 tile, gold cubes = player count, on the tile); elimination drop (2 gold cubes where a player fell, their gold cards first)
 - Storm: whole outer ring marked each alarm; 1 Dead card per storm tile you move into, plus 1 more if you end your turn on one
 - Teams: any equal-size layout, rotation (each member goes after the previous teammate), no attacking teammates
