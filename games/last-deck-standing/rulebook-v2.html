@@ -66,7 +66,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 </tbody></table></div>
 <p><strong>Drops stay in</strong> (designer&#39;s call: they matter at every player count): the 2-minute drop timer, legendary cubes, the Legendary deck and the elimination drop.</p>
-<p>Keep: the 4-minute storm timer, the Market (3 face up, no tiers, specific costs printed on each card), the hand cap of 5, and Range cost 2 per tile. Cubes go on half the tiles. No turn timer.</p>
+<p>Keep: the 4-minute storm timer, the Market (3 face up, no tiers, specific costs printed on each card), the hand cap of 5, and Range cost 2 per tile. Cubes go on half the tiles. Each player has a 1-minute sand timer.</p>
 <p>What to watch for (these are the questions this session answers):</p>
 <ol>
 <li><strong>Does the Market get used?</strong> Sim: about 3 buys per player per game (9 at 3p, 11 at 4p). Count yours.</li>
@@ -251,7 +251,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li>Cubes on the board mark <strong>available loot</strong>.</li>
 <li><strong>Loot a cube by moving into its tile</strong> (designer&#39;s call): each cube on a tile you move into, passing through or stopping, is removed from the board and you take the <strong>top card of the matching loot deck</strong> (purple Move, red Attack, green Heal) <strong>into your hand</strong>. You can loot as many tiles as you can reach in a turn. The tile you start on doesn&#39;t count, so you can&#39;t loot a cube you are standing on. <strong>Exception:</strong> legendary cubes from a drop or an elimination drop that are on your tile are picked up without moving, as soon as they land (default).</li>
 <li>Looted cards in hand can be played right away, and that is the point: a Heal you loot is a Heal you can use. Played cards (other than Heals) go to your discard pile and become part of your deck.</li>
-<li><strong>Your hand never goes over 5 cards, ever</strong> (designer&#39;s call: always follow the hand cap). Dead cards in your hand count toward it. If your hand is full when you loot, the looted card goes <strong>straight to your discard pile</strong> instead of your hand (default overflow rule; you are never forced to discard to loot). At end of turn you must discard down to 3 unplayed cards; Dead cards stay and don&#39;t count toward the 3. Played cards go to your discard pile.</li>
+<li><strong>Your hand never goes over 5 cards, ever</strong> (designer&#39;s call: always follow the hand cap). Dead cards in your hand count toward it. If your hand is full when you loot, the looted card goes <strong>straight to your discard pile</strong> instead of your hand (default overflow rule; you are never forced to discard to loot). At end of turn you discard down to 3 cards in hand, and Dead cards count toward the 3 (see Your Turn). Played cards go to your discard pile.</li>
 <li>Cubes are returned to the supply. The only new cubes are <strong>legendary cubes</strong> from Drops.</li>
 </ul>
 <h2 id="market">Market</h2>
@@ -363,13 +363,13 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <section class="designer">
 <h2 id="playtest-options-still-to-run">Playtest options still to run</h2>
 <p><strong>Note: ending turns early (blind read-through, 2026-10-13).</strong> The sand timer caps a turn, but ending instantly still gives a free Base Move 1 and Base Attack 1 each time, so turn count can become the skill. <strong>Playtest options:</strong> timer length (45, 60 or 90 seconds); a minimum turn length (a floor: you can&#39;t End until the timer has run N seconds); a limit of one declared Attack per turn. <strong>Watch for:</strong> rushing micro-turns to farm moves, and new players feeling rushed by the timer.</p>
-<p><strong>#2 &#8212; Attack timing:</strong></p>
+<p><strong>Attack timing:</strong></p>
 <ul>
 <li><strong>A (drafted above):</strong> pause the table, resolve.</li>
 <li><strong>B:</strong> the attack goes in an <strong>action queue</strong> and a target gets 5 seconds to respond with a card (a Shield-like block).</li>
 <li><strong>C:</strong> attacks are <strong>simultaneous</strong>: you each name a target, then reveal.</li>
 </ul>
-<p><strong>#3 &#8212; Team rotation:</strong></p>
+<p><strong>Team rotation:</strong></p>
 <ul>
 <li><strong>A (locked, designer&#39;s call):</strong> members take turns one at a time, as drafted.</li>
 <li><strong>B:</strong> a team has a <strong>single shared hand</strong>.</li>

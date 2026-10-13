@@ -23,7 +23,7 @@ For your first paper session, play it like this. Everything else plays exactly a
 
 **Drops stay in** (designer's call: they matter at every player count): the 2-minute drop timer, legendary cubes, the Legendary deck and the elimination drop.
 
-Keep: the 4-minute storm timer, the Market (3 face up, no tiers, specific costs printed on each card), the hand cap of 5, and Range cost 2 per tile. Cubes go on half the tiles. No turn timer.
+Keep: the 4-minute storm timer, the Market (3 face up, no tiers, specific costs printed on each card), the hand cap of 5, and Range cost 2 per tile. Cubes go on half the tiles. Each player has a 1-minute sand timer.
 
 What to watch for (these are the questions this session answers):
 1. **Does the Market get used?** Sim: about 3 buys per player per game (9 at 3p, 11 at 4p). Count yours.
@@ -99,7 +99,7 @@ Play Move cards. Move up to 1 (your Base Move) plus the total value of Move card
 - Cubes on the board mark **available loot**.
 - **Loot a cube by moving into its tile** (designer's call): each cube on a tile you move into, passing through or stopping, is removed from the board and you take the **top card of the matching loot deck** (purple Move, red Attack, green Heal) **into your hand**. You can loot as many tiles as you can reach in a turn. The tile you start on doesn't count, so you can't loot a cube you are standing on. **Exception:** legendary cubes from a drop or an elimination drop that are on your tile are picked up without moving, as soon as they land (default).
 - Looted cards in hand can be played right away, and that is the point: a Heal you loot is a Heal you can use. Played cards (other than Heals) go to your discard pile and become part of your deck.
-- **Your hand never goes over 5 cards, ever** (designer's call: always follow the hand cap). Dead cards in your hand count toward it. If your hand is full when you loot, the looted card goes **straight to your discard pile** instead of your hand (default overflow rule; you are never forced to discard to loot). At end of turn you must discard down to 3 unplayed cards; Dead cards stay and don't count toward the 3. Played cards go to your discard pile.
+- **Your hand never goes over 5 cards, ever** (designer's call: always follow the hand cap). Dead cards in your hand count toward it. If your hand is full when you loot, the looted card goes **straight to your discard pile** instead of your hand (default overflow rule; you are never forced to discard to loot). At end of turn you discard down to 3 cards in hand, and Dead cards count toward the 3 (see Your Turn). Played cards go to your discard pile.
 - Cubes are returned to the supply. The only new cubes are **legendary cubes** from Drops.
 
 ## Market
@@ -178,15 +178,14 @@ When a player is eliminated:
 
 ## Playtest options still to run
 
-
 **Note: ending turns early (blind read-through, 2026-10-13).** The sand timer caps a turn, but ending instantly still gives a free Base Move 1 and Base Attack 1 each time, so turn count can become the skill. **Playtest options:** timer length (45, 60 or 90 seconds); a minimum turn length (a floor: you can't End until the timer has run N seconds); a limit of one declared Attack per turn. **Watch for:** rushing micro-turns to farm moves, and new players feeling rushed by the timer.
 
-**#2 — Attack timing:**
+**Attack timing:**
 - **A (drafted above):** pause the table, resolve.
 - **B:** the attack goes in an **action queue** and a target gets 5 seconds to respond with a card (a Shield-like block).
 - **C:** attacks are **simultaneous**: you each name a target, then reveal.
 
-**#3 — Team rotation:**
+**Team rotation:**
 - **A (locked, designer's call):** members take turns one at a time, as drafted.
 - **B:** a team has a **single shared hand**.
 - **C:** members play simultaneously, with no rotation (solo rules, shared win); the sim says this scales to 10 players with few stalls.
