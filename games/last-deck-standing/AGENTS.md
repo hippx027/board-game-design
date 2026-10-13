@@ -10,6 +10,7 @@ A battle royale deck builder by Brandon and Chris. Players flood rivals' decks w
 |---|---|
 | `rulebook-v2-draft.md` | **Current rules (v2, realtime)** after playtest 001; `design-state.md` has the v2 status at top, v1 archived below. `playtest-notes-001.md` has the designers' verbatim notes |
 | `rulebook-draft.md` | v1 (turn-based) rules, kept for reference. Main rules above `---`; Designer Notes (Ideas for Later, Playtest Questions) below |
+| `rulebook-v2.html` | v2 rules as a standalone page, built from `rulebook-v2-draft.md` by `sim/build_html_v2.js` (needs `npm install marked@12`) |
 | `rulebook.html` | Published playtester page, pre-rendered from the Markdown by `sim/build_html.js`. Live at https://claude.ai/artifact/Vxqh1KqNT3K8XXwGD8Ub2y |
 | `design-state.md` | Locked / Rejected / Open decisions, evidence table, risks, next experiment |
 | `components-sheet.md`, `pnp-checklist.md` | Paper prototype build |

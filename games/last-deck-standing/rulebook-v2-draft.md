@@ -7,7 +7,7 @@ Designers: Brandon and Chris. Drafted 2026-10-12 from playtest 001 notes (`playt
 **Lines marked "default" are my calls where the designer hadn't decided; they were adopted on 2026-10-12 so the first paper session can start ("do them all"), and the designer can change any of them.** Numbers in [brackets] are still placeholders.
 
 ## Overview
-- **Players:** 2–5 solo, or 2 teams · **Time:** no target for now (designer's call, 2026-10-12). Sim says about 7–11 min at 37 s turns; see SIM-030
+- **Players:** 2–10 (solo or equal-size teams) · **Time:** no target for now (designer's call, 2026-10-12). Sim says about 7–11 min at 37 s turns; see SIM-030
 - **Goal:** Be the last player (or team) standing. You knock opponents out by putting Dead cards in their decks.
 - **You are eliminated** if you end a turn with 3 or more Dead cards in your hand.
 - **Realtime:** there are no rounds. Everyone plays their own turns at the same time and at their own pace. There is no turn timer. The storm and loot drops run on a table timer.
@@ -44,7 +44,7 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 | Loot tiles with fixed loot icons; take a card to your discard pile | Loot cubes marking available loot; take the top card of that type's deck **into your hand** (to test) |
 | Face-up loot display | Gone. You take the top card, unseen. (A face-up Market replaces it) |
 | Dead cards have marked backs | Plain backs. You announce when 3 are in your hand |
-| Discard down to 3 at end of turn | Hand cap of 5; discard as many as you like (never Dead cards); looted cards over the cap go to your discard pile |
+| Discard down to 3 at end of turn | Same: keep up to 3 non-Dead cards, discard the rest (Dead cards stay and don't count toward the 3). Hand cap of 5; looted cards over the cap go to your discard pile |
 | Range costs 1 damage per tile | Range costs **2** damage per tile |
 | Cards 1–4 value | Starting cards are 1; everything you gain at the Market is 2 or higher |
 
@@ -75,7 +75,7 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 ## Your Turn (played at your own speed)
 1. **Draw** up to 5 cards. If you have 3 or more Dead cards in your hand, say **"critical"** out loud (default).
 2. **Act** in any order: play cards, move, attack, loot, trade at the Market.
-3. **End:** if you have 3 or more Dead cards in hand, you are eliminated. Otherwise put your played cards in your discard pile, discard any unplayed cards you don't want (never Dead cards), and start your next turn right away.
+3. **End:** if you have 3 or more Dead cards in hand, you are eliminated. Otherwise put your played cards in your discard pile, **discard down to 3** unplayed cards (designer's call; Dead cards never get discarded and don't count toward the 3, default), and start your next turn right away.
 
 Nobody waits for you. If you take a long turn, the others take several.
 
@@ -95,7 +95,7 @@ Play Move cards. Move up to 1 (your Base Move) plus the total value of Move card
 - Cubes on the board mark **available loot**.
 - **Loot a cube by moving into its tile** (designer's call): each cube on a tile you move into, passing through or stopping, is removed from the board and you take the **top card of the matching loot deck** (purple Move, red Attack, green Heal) **into your hand**. You can loot as many tiles as you can reach in a turn. The tile you start on doesn't count, so you can't loot a cube you are standing on. **Exception:** gold cubes from a drop or an elimination drop that are on your tile are picked up without moving, as soon as they land (default).
 - Looted cards in hand can be played right away, and that is the point: a Heal you loot is a Heal you can use. Played cards (other than Heals) go to your discard pile and become part of your deck.
-- **Hand cap of 5** (designer's call, to start with). Dead cards in your hand count toward it. If your hand is full when you loot, the looted card goes **straight to your discard pile** instead of your hand (default overflow rule; you are never forced to discard to loot). At end of turn you may still discard unplayed cards you don't want, but never Dead cards. Played cards go to your discard pile.
+- **Hand cap of 5** (designer's call, to start with). Dead cards in your hand count toward it. If your hand is full when you loot, the looted card goes **straight to your discard pile** instead of your hand (default overflow rule; you are never forced to discard to loot). At end of turn you must discard down to 3 unplayed cards; Dead cards stay and don't count toward the 3. Played cards go to your discard pile.
 - Cubes are returned to the supply. New cubes appear with each **Drop**.
 
 ## Market
