@@ -82,7 +82,7 @@ QUICK = [
                        "Gold cubes on your own tile can be taken without moving."]),
     ("Attack", ["Say <b>Attack</b>; the table pauses. Damage = Attack total &minus; 2 per tile of range (Base Attack 1 + cards).",
                 "Put that many Dead cards in the target's <b>discard pile</b>. Then resume."]),
-    ("Timers", ["<b>Storm (every 2 min):</b> pause, mark the whole outer ring. Moving into a storm tile = 1 Dead; ending your turn on one = 1 more.",
+    ("Timers", ["<b>Storm (every 4 min):</b> pause, mark the whole outer ring. Moving into a storm tile = 1 Dead; ending your turn on one = 1 more.",
                 "<b>Drop (every 2 min):</b> first player (rotates) places it, next moves it up to 3 tiles, table puts one gold cube per player on it."]),
 ]
 

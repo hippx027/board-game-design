@@ -23,7 +23,7 @@ For your first paper session, play it like this. Everything else plays exactly a
 
 **Drops stay in** (designer's call: they matter at every player count): the 2-minute drop timer, gold cubes, the Gold deck and the elimination drop.
 
-Keep: the 2-minute storm timer, the Market (3 face up, no tiers), the hand cap of 5, and Range cost 2 per tile. Cubes go on half the tiles. No turn timer.
+Keep: the 4-minute storm timer, the Market (3 face up, no tiers), the hand cap of 5, and Range cost 2 per tile. Cubes go on half the tiles. No turn timer.
 
 What to watch for (these are the questions this session answers):
 1. **Does the Market get used?** Sim: about 3 buys per player per game (9 at 3p, 11 at 4p). Count yours.
@@ -142,7 +142,7 @@ When a player is eliminated:
 
 
 ## The Storm (timer)
-- The storm alarm sounds **every 2 minutes** (designer's call).
+- The storm alarm sounds **every 4 minutes** (designer's call; first alarm at 4:00).
 - On the alarm, **pause the table**, place storm markers on **every tile of the current outer ring** at once, then resume.
 - **1 Dead card for each storm tile you move into** (designer's call), and **1 more if you end your turn on a storm tile**. Dead cards go in your discard pile. Standing in the storm and not moving still costs the end-of-turn card.
 - Once every tile is marked, every move costs a Dead card, plus one more at the end of your turn.
@@ -178,7 +178,7 @@ When a player is eliminated:
 - **C:** members play simultaneously, with no rotation (solo rules, shared win); the sim says this scales to 10 players with few stalls.
 - **Big-team fixes to test if rotation stalls:** a slower storm for teams of 4+ (for example 3 min), or damage only on entering a storm tile.
 
-**Storm:** interval is 2 minutes; test 3 / 4 as variants. Both charges are in (enter + end of turn).
+**Storm:** interval is 4 minutes (sim: SIM-030 add. 14; 2 min is the stall-prone alternative). Both charges are in (enter + end of turn).
 
 ## Ideas for Later (not rules)
 - **Give cards to a player on your tile:** put non-Dead cards from your hand into another player's discard pile if you share a tile. Designer's idea (2026-10-12), kept for later. The 5-card hand cap applies, though it can't matter because cards go to their discard pile. Open questions: teammates only, or anyone? Is it an action? A limit per turn? (Market costs count cards, so gifting helps the receiver; see SIM-030 notes.)
