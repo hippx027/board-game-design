@@ -16,7 +16,7 @@ A battle royale deck builder by Brandon and Chris. Players flood rivals' decks w
 | `components-sheet.md`, `pnp-checklist.md` | Paper prototype build |
 | `playtest-log-001.md`, `feedback-sheet.md` | First human session kit |
 | `sim/lds_rt.py` | v2 realtime Monte Carlo sim (play clock, table timers, teams); findings in `simulations/SIM-030.md` addenda |
-| `sim/pnp_sheets_v2.py` | v2 print sheets → `pnp/last-deck-standing-v2-cards-11x17.pdf` (cards) and `-pieces-11.5x17.pdf` (Market mat, reference, blank tiles, storm markers); Chrome headless |
+| `sim/pnp_sheets_v2.py` | v2 print sheets → `pnp/v2/last-deck-standing-v2-cards-11x17.pdf` (cards) and `-pieces-11.5x17.pdf` (Market mat, reference, blank tiles, storm markers); Chrome headless |
 | `sim/lds_sim.py` | v1 turn-based Monte Carlo simulator (heuristic bots; system evidence only) |
 | `simulations/SIM-00N.md`, `READTHROUGH-001.md` | Test write-ups; raw JSON in `simulations/data*/` |
 
@@ -50,7 +50,7 @@ The flags above match the current rules (use `--tiles-per-player` 15 for 2–3p,
 - With holding (Heal cards included, the designer's call: holding heals is a Fortnite-style strategy), cautious play wins ~52% at 5p in bots. Watch it in human tests; don't "fix" it by banning heal holding (SIM-009).
 
 - The rulebook has a **First Game (learning rules)** box (no drops, loot piles, upgrades, loot display, critical call or characters; SIM-024). **Characters** are an optional variant: 10 cards, deal 2 keep 1, tuned in SIM-018/019/023/025. Blind read-throughs keep finding human exploits the bots miss (holding loops, Shield turtle, Medic and Mechanic loops), so run one after any rules change.
-- Card art direction and the print generator (`sim/pnp_sheets.py`) produce two PDFs in `pnp/`: colour (comic, rarity title + tinted frame, "+N" badges) and ink-saver.
+- Card art direction and the print generator (`sim/pnp_sheets.py`) produce two PDFs in `pnp/v1/`: colour (comic, rarity title + tinted frame, "+N" badges) and ink-saver.
 
 ## Open questions
 Supply-drop placement (rotating, in notes) · upgrade cost 4 vs 5 · whether turtling is fun or dull · real seconds per turn (target 30–60 min).

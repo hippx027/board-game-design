@@ -9,7 +9,7 @@ Updated 2026-10-12 · Designers: Brandon and Chris · Milestone: v2 (realtime) d
 |---|---|
 | Rules | `rulebook-v2-draft.md` (v2, realtime) · `rulebook-draft.md` (v1 baseline) |
 | Source | `playtest-notes-001.md` (first human session) and the designer's answers, 2026-10-12 |
-| Prototype | Realtime sim `sim/lds_rt.py` (SIM-030, addenda 1–13) · print sheets `pnp/last-deck-standing-v2-*.pdf` from `sim/pnp_sheets_v2.py` |
+| Prototype | Realtime sim `sim/lds_rt.py` (SIM-030, addenda 1–13) · print sheets `pnp/v2/last-deck-standing-v2-*.pdf` from `sim/pnp_sheets_v2.py` |
 | Players / time | 2–5 solo, or teams (equal sizes) up to 10 players · no time target for now (sim: about 8–12 min at 37 s turns) |
 
 ## v2 Locked (designer's calls)
@@ -95,7 +95,7 @@ Updated 2026-09-29 · Designers: Brandon and Chris · Milestone: 1 → 3 (paper 
 - Tiles per player scale down: 15 (2–3p), 12 (4p), 10 (5p)
 
 ## Art direction (chosen)
-- Comic "kaiju" style study: `pnp/style-mockup-kaiju.html`
+- Comic "kaiju" style study: `pnp/v1/style-mockup-kaiju.html`
 - Type colours: Attack red, Move purple, Heal green, Shield blue
 - Rarity (Fortnite naming): Common gray, Rare blue, Epic purple, Legendary gold, shown Slay-the-Spire style: the title bar (reading ATTACK / MOVE / HEAL) and a tinted frame are the rarity colour, plus the badge and tag (`pnp/rarity-mocks.html`, first row). The value badge reads "+1", "+2", …
 - Characters each have their own palette, art pattern and epithet (Blaze the Brawler, Shade the Sniper, Ember the Scavenger, Tide the Runner, Nova the Medic, Gale the Storm Chaser, Vex the Leech, Bastion the Tank, Brute the Heavy, Rig the Mechanic)

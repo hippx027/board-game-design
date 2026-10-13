@@ -1,8 +1,8 @@
 """Print-and-play sheets for Last Deck Standing v2 (realtime), HTML -> PDF via headless Chrome.
 
 Usage: python3 pnp_sheets_v2.py
-  writes ../pnp/last-deck-standing-v2-cards-11x17.{html,pdf}    card sheets, 4x4 cards (2.5 x 3.5 in) per 11 x 17 page
-         ../pnp/last-deck-standing-v2-pieces-11.5x17.{html,pdf} Market mat, reference sheets, blank hex tiles, storm markers on 11.5 x 17
+  writes ../pnp/v2/last-deck-standing-v2-cards-11x17.{html,pdf}    card sheets, 4x4 cards (2.5 x 3.5 in) per 11 x 17 page
+         ../pnp/v2/last-deck-standing-v2-pieces-11.5x17.{html,pdf} Market mat, reference sheets, blank hex tiles, storm markers on 11.5 x 17
 
 Contents follow rulebook-v2-draft.md: 10 base decks (up to 10 players), three loot decks, the Market deck (21),
 the Gold deck (24), 60 Dead cards (plain backs: every card back is the same). Style and icons are reused from
@@ -14,7 +14,7 @@ import subprocess
 
 from pnp_sheets import COMIC_CSS, MSYM, RARITY, TYPE, TYPE_COLOR, comic, tile_color
 
-OUT = os.path.join(os.path.dirname(__file__), "..", "pnp")
+OUT = os.path.join(os.path.dirname(__file__), "..", "pnp", "v2")
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 GOLD = ("#c98a00", "Legendary")
 

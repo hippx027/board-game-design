@@ -1,15 +1,15 @@
 """Generate print-and-play sheets (HTML → PDF via headless Chrome) for Last Deck Standing.
 
 Usage: python3 pnp_sheets.py
-  writes ../pnp/last-deck-standing-pnp.{html,pdf}        (ink-saver: plain cards)
-     and ../pnp/last-deck-standing-pnp-color.{html,pdf}  (full-colour comic style, see style-mockup-kaiju.html)
+  writes ../pnp/v1/last-deck-standing-pnp.{html,pdf}        (ink-saver: plain cards)
+     and ../pnp/v1/last-deck-standing-pnp-color.{html,pdf}  (full-colour comic style, see style-mockup-kaiju.html)
 Quantities follow components-sheet.md (full 5-player box).
 """
 import html
 import os
 import subprocess
 
-OUT = os.path.join(os.path.dirname(__file__), "..", "pnp")
+OUT = os.path.join(os.path.dirname(__file__), "..", "pnp", "v1")
 # Rarity follows Fortnite: Common gray, Rare blue, Epic purple, Legendary gold.
 # Starting cards use the normal rarity colour (gray, common); the character is shown by name + symbol in the top bar.
 PLAYERS = [(f"Player {i}", f"{i}") for i in range(1, 6)]  # characters now come from ability cards

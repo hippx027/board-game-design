@@ -8,7 +8,7 @@ Goal: print, cut and play one full game with 3–5 people. Fidelity: P4 (paper).
 - [x] Design state — `design-state.md`
 
 ## Physical Build
-Two printable versions in `pnp/`: **`last-deck-standing-pnp-color.pdf`** (full-colour comic style) and **`last-deck-standing-pnp.pdf`** (ink-saver, plain). Print at 100% / Actual size. Regenerate with `python3 sim/pnp_sheets.py`.
+Two printable versions (v1) in `pnp/v1/`: **`last-deck-standing-pnp-color.pdf`** (full-colour comic style) and **`last-deck-standing-pnp.pdf`** (ink-saver, plain). Print at 100% / Actual size. Regenerate with `python3 sim/pnp_sheets.py`.
 
 - [ ] **Cards:** 50 base (labelled Player 1–5) + 60 supply (Attack 24, Move 18, Heal 18) + 60 Dead. Poker-size sleeves over normal playing cards work well: slip a printed slip in front.
 - [ ] **Dead cards:** a visibly different back (e.g. red-backed deck vs blue-backed for everything else)
