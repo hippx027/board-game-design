@@ -1,8 +1,70 @@
 # Design State — Last Deck Standing
 
+Updated 2026-10-12 · Designers: Brandon and Chris · Milestone: v2 (realtime) drafted from playtest 001; first v2 paper session next
+
+**Two rulesets live here.** v2 (realtime) is current: `rulebook-v2-draft.md`. The v1 (turn-based) record is kept below under "Archived v1" for reference; where they disagree, v2 wins.
+
+## v2 Project Status
+| Field | Value |
+|---|---|
+| Rules | `rulebook-v2-draft.md` (v2, realtime) · `rulebook-draft.md` (v1 baseline) |
+| Source | `playtest-notes-001.md` (first human session) and the designer's answers, 2026-10-12 |
+| Prototype | Realtime sim `sim/lds_rt.py` (SIM-030, addenda 1–13) · print sheets `pnp/last-deck-standing-v2-*.pdf` from `sim/pnp_sheets_v2.py` |
+| Players / time | 2–5 solo, or teams (equal sizes) up to 10 players · no time target for now (sim: about 8–12 min at 37 s turns) |
+
+## v2 Locked (designer's calls)
+- Realtime: no rounds; everyone plays their own turns at their own pace, no turn timer; a table timer drives drops (every 2 min) and the storm (every 2 min); pausing freezes the play clock
+- Attacks: declare "Attack", pause the table, resolve, resume (option A). B (dodge with a Move card) and C (resolves 5 s later) are for later
+- Damage = Attack − **2 per tile of range**; Dead cards go into the target's discard pile, placed by the attacker
+- Base deck 4 Move 1 / 4 Attack 1 / 2 Heal 1; Base Move 1 and Base Attack 1, fixed; no stat tracker and no Shield
+- Heal is one-time: removes Dead cards from your hand, then leaves the game
+- Elimination: 3+ Dead cards in hand at the end of your own turn; Dead cards have plain backs; announce "critical" at 3 in hand; no hand limit on Dead cards but you can't discard them
+- Loot: cubes on half the tiles; you loot by moving *into* a tile (start tile excluded); loot goes into your hand; **hand cap 5** with overflow going to the discard pile (SIM-030 addendum 10)
+- Loot decks Move 12 / Attack 16 / Heal 10, values 2 and 3 (playtest variant: half the 2s become 1s)
+- Market: no tiers for now, one 21-card deck (values 2 and 3), 3 face up; costs count cards, not value; paid cards leave the game
+- Gold deck 24 (3s and 4s); drops every 2 min (1st player places, next moves up to 3 tiles, gold cubes = player count, on the tile); elimination drop (2 gold cubes where a player fell, their gold cards first)
+- Storm: whole outer ring marked each alarm; 1 Dead card per storm tile you move into, plus 1 more if you end your turn on one
+- Teams: any equal-size layout, rotation (each member goes after the previous teammate), no attacking teammates
+- Turn floor: none for the first session
+- First Game box in the v2 draft: solo, drops in, attack option A, no teams
+
+## v2 Open / Ideas
+Market as a board location (several instances) · giving cards to a player on your tile · market tiers · cube refresh with each drop · attack options B and C · hand cap lower or higher than 5 · teams in simultaneous mode · Market costs (cheaper costs stall the sim, so unresolved) · characters from v1 are not carried into v2
+
+## v2 Evidence (SIM-030, `simulations/SIM-030.md`)
+| Addendum | Finding |
+|---|---|
+| Headline | Realtime games run about 7–11 min at 37 s turns (3/5 players); attack options A/B/C don't change win rates, A adds time |
+| 2–5 | Turn floor is a roughly linear pace dial; range cost 2 lengthens games 10–50%; a free base Attack 1 is weak at range 2 |
+| 6 | Looting on entering a tile and 2-minute storm play about the same; the enter charge adds some 5p stalls |
+| 6b | Enter + end-of-turn storm charge: 0–1% stalls |
+| 7 | Starting cubes are a weak length dial (about +2.5 min from 20% to 100% of tiles); Market buys barely move |
+| 8 | Teams: rotation stalls with big teams (5v5 24%); simultaneous is fine up to 10 players |
+| 9 | Slower storm trims rotation stalls a little; the enter charge is what stalls them (likely a bot artifact, unverified) |
+| 10 | Hand cap 5 costs almost nothing |
+| 11 | First Game config: 8.4 min (3p), 9.9 min (4p), stalls 0.3% / 3.7% |
+| 12–13 | Weaker loot does nothing; cheaper Market costs raise buys about 50% but cause 15–32% stalls |
+
+System evidence only. Fun, how pauses feel, whether deck upgrading happens (sim: about 3 buys per player) and table handling are unproven; human sessions decide those.
+
+## v2 Risks (≤5)
+1. The Market may barely get used (sim: about 3 buys per player per game); loot out-competes it
+2. Attack pauses are 33–50% of table time in the sim, which may not feel realtime
+3. Rotation teams of 4+ may stall in play (sim 14–24%)
+4. Bots can't judge fun or table handling; several rules are my defaults (marked "default" in the draft)
+5. Games are short (about 8 min), so the deck-building idea may not get room
+
+## v2 Next Experiment
+Paper session 002: First Game, 3–4 players, rulebook-v2-draft.md. Count Market buys per player, real game length, pause share and hoarding; then decide the Market costs.
+
+---
+
+# Archived v1 (turn-based)
+
+
 Updated 2026-09-29 · Designers: Brandon and Chris · Milestone: 1 → 3 (paper MVP ready for first external playtest)
 
-## Project Status
+## v1 Project Status
 | Field | Value |
 |---|---|
 | Pitch | A battle royale deck builder: flood rivals' decks with Dead cards while the storm shrinks the board |

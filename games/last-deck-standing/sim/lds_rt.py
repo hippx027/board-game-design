@@ -574,7 +574,7 @@ def main():
     ap.add_argument("--debug-stall", action="store_true")
     ap.add_argument("--loot-cap", type=int, default=5, help="hand size cap for looting; extra loot goes to the discard pile (0 = no cap)")
     ap.add_argument("--loot-weak", action="store_true", help="loot values 1 and 2 only (half 1s, half 2s)")
-    ap.add_argument("--cheap-market", action="store_true", help="every Market cost is one card smaller")
+    ap.add_argument("--cheap-market", nargs="?", const="all", choices=["all", "two"], help="every Market cost is one card smaller (all), or only the value-2 cards (two)")
     ap.add_argument("--keep", type=int, default=3, help="cards a bot keeps at end of turn")
     ap.add_argument("--range-cost", type=int, default=2, help="damage lost per tile of range (v1: 1, now 2)")
     ap.add_argument("--elim-drop", type=int, default=2, help="gold cubes dropped where a player is eliminated")
@@ -589,7 +589,7 @@ def main():
     ap.add_argument("--out")
     a = ap.parse_args()
     if a.cheap_market:
-        COSTS.update(CHEAP_COSTS)
+        COSTS.update({k: v for k, v in CHEAP_COSTS.items() if a.cheap_market == "all" or k[1] == 2})
     res = {}
     for n in a.players:
         rs = [run_game(n, a.seed * 1000 + i, a) for i in range(a.runs)]
