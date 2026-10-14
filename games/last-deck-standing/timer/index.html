@@ -39,6 +39,7 @@ button { font: inherit; color: inherit; border: 0; cursor: pointer; }
 .bar .clock { font-size: 15px; color: var(--dim); }
 .tabs { display: flex; gap: 6px; }
 .tabs button { background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: 14px; color: var(--dim); }
+#endBtn.sure { background: var(--warn); color: #fff; border-color: var(--warn); }
 .tabs button.on { color: var(--text); border-color: var(--text); }
 .globals { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .g { background: var(--panel); border-radius: 16px; padding: 12px 14px; border: 2px solid var(--line); }
@@ -105,7 +106,7 @@ button { font: inherit; color: inherit; border: 0; cursor: pointer; }
 <div id="game" class="hide">
   <div class="bar">
     <div class="clock mono" id="gclock">0:00 · 0 pauses</div>
-    <div class="tabs"><button id="tabTable" class="on">Table</button><button id="tabPlayers">Players</button></div>
+    <div class="tabs"><button id="endBtn">End game</button><button id="tabTable" class="on">Table</button><button id="tabPlayers">Players</button></div>
   </div>
   <div class="globals" id="globals">
     <div class="g storm" id="gStorm"><div class="k">Storm</div><div class="v mono">4:00</div><div class="s">ring 1</div></div>
@@ -214,6 +215,10 @@ function eliminate(id) {
   }
 }
 
+function endGame() {
+  if (!S || S.over) return;
+  S.over = { winner: null, g: S.g, early: true }; S.paused = true; S.queue = [{ type: "over" }]; logEv("ended");
+}
 function declareAttack() { S.attacks++; logEv("attack"); pauseWith([{ type: "attack" }]); }
 
 // ---------- summary ----------
@@ -221,7 +226,7 @@ function summary() {
   const L = [];
   L.push("Last Deck Standing timer log");
   L.push(`Game time ${fmt(S.g)} (pauses ${S.pauses}, paused ${fmt(S.pauseWall)}). Storm rings ${S.stormN}, drops ${S.dropN}, attacks ${S.attacks || 0}. Turn timer ${S.cfg.turn}s, storm ${S.cfg.storm / 60} min, drop ${S.cfg.drop / 60} min.`);
-  if (S.over) L.push("Winner: " + (S.over.winner ? (S.over.winner.team !== undefined ? teamName(S.over.winner.team) : S.pl[S.over.winner.id].name) : "none"));
+  if (S.over) L.push(S.over.early ? "Ended early by the table" : "Winner: " + (S.over.winner ? (S.over.winner.team !== undefined ? teamName(S.over.winner.team) : S.pl[S.over.winner.id].name) : "none"));
   for (const p of S.pl) {
     const avg = p.durs.length ? Math.round(p.durs.reduce((a, b) => a + b, 0) / p.durs.length / 1000) : 0;
     L.push(`${p.name}${p.team >= 0 ? " (" + teamName(p.team) + ")" : ""}: ${p.alive ? "alive" : "out"}, ${p.turns} turns, avg ${avg}s, ${p.over} timed out`);
@@ -328,7 +333,7 @@ function showOverlay(ev) {
   else if (ev.type === "attack") el.innerHTML = `<h2>Attack declared</h2><div class="head" style="color:var(--warn)">ATTACK!</div><div class="body">Name the targets, count range, put the Dead cards in their discard piles. Damage = Attack total − 2 per tile of range.</div><button class="go" id="go">Resolved, resume</button>`;
   else if (ev.type === "over") {
     const w = S.over.winner; const wn = !w ? "Nobody" : w.team !== undefined ? teamName(w.team) : esc(S.pl[w.id].name);
-    el.innerHTML = `<h2>Game over</h2><div class="head">${wn} wins</div><div class="body mono">Game time ${fmt(S.over.g)}</div><textarea readonly id="sum">${esc(summary())}</textarea><button class="go" id="copy">Copy log</button><button class="cancel" id="again">New game</button>`;
+    el.innerHTML = `<h2>Game over</h2><div class="head">${S.over.early ? "Game ended" : wn + " wins"}</div><div class="body mono">Game time ${fmt(S.over.g)}</div><textarea readonly id="sum">${esc(summary())}</textarea><button class="go" id="copy">Copy log</button><button class="cancel" id="again">New game</button>`;
   }
 }
 
@@ -348,6 +353,11 @@ function setTabs() { $("#tabTable").classList.toggle("on", view === "table"); $(
 // ---------- wiring ----------
 $("#startBtn").onclick = () => { cfg.names = cfg.names.slice(0, cfg.players); startGame(newGame(JSON.parse(JSON.stringify(cfg)))); };
 $("#resumeBtn").onclick = () => { try { const s = JSON.parse(localStorage.getItem("lds-timer")); s.paused = true; if (!s.queue.length) s.queue = []; startGame(s); } catch (e) { toast("Could not load"); } };
+$("#endBtn").onclick = () => {
+  const b = $("#endBtn");
+  if (b.classList.contains("sure")) { b.classList.remove("sure"); b.textContent = "End game"; endGame(); render(); }
+  else { b.classList.add("sure"); b.textContent = "End game?"; setTimeout(() => { b.classList.remove("sure"); b.textContent = "End game"; }, 3000); }
+};
 $("#tabTable").onclick = () => { view = "table"; setTabs(); render(); };
 $("#tabPlayers").onclick = () => { view = "players"; setTabs(); render(); };
 $("#pauseBtn").onclick = () => { if (S.over) return; if (S.paused) return; pauseWith([{ type: "manual" }].slice(1)); S.queue = []; logEv("pause"); render(); };
@@ -393,6 +403,7 @@ if (location.hash === "#selftest") {
   S = newGame({ players: 6, teams: 2, turn: 60, storm: 240, drop: 120, floor: 10, names: [] });
   ok("teams: only the current member is active", active(S.pl[0]) && !active(S.pl[2]) && active(S.pl[1]));
   advance(5000); ok("floor blocks an early End", endTurn(0) === "floor"); advance(6000); ok("End after the floor works and rotates", endTurn(0) === true && active(S.pl[2]) && !active(S.pl[0]));
+  endGame(); ok("end game button stops with no winner", S.over && S.over.early && S.paused); S.over = null; S.paused = false;
   eliminate(1); eliminate(3); eliminate(5); ok("team wins when the other team is out", S.over && S.over.winner.team === 0);
   S = null; document.body.innerHTML = "<pre id='t'>" + out.join("\n") + "</pre>";
 }
