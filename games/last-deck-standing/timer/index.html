@@ -80,8 +80,6 @@ button { font: inherit; color: inherit; border: 0; cursor: pointer; }
 #ov .body li { text-align: left; margin: 6px 0; }
 #ov .body ul { list-style: none; padding: 0; }
 #ov .go { width: 100%; max-width: 420px; padding: 20px; border-radius: 16px; font-size: 22px; font-weight: 800; background: var(--ok); color: #06210f; }
-#ov .pick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; max-width: 460px; }
-#ov .pick button { padding: 16px; border-radius: 14px; border: 3px solid var(--c); background: var(--panel); font-weight: 700; font-size: 18px; }
 #ov textarea { width: 100%; max-width: 520px; height: 220px; background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 10px; padding: 10px; font: 13px ui-monospace, Menlo, monospace; user-select: text; }
 .cancel { background: transparent; color: var(--dim); padding: 10px; }
 @media (max-width: 380px) { .g .v { font-size: 42px; } .t .time { font-size: 36px; } }
@@ -137,11 +135,11 @@ function newGame(c) {
   const pl = [];
   for (let i = 0; i < c.players; i++) {
     pl.push({ id: i, name: (c.names[i] || "").trim() || "Player " + (i + 1), team: c.teams ? i % c.teams : -1, alive: true,
-              ts: 0, turns: 0, durs: [], over: 0, attacks: 0, late: false });
+              ts: 0, turns: 0, durs: [], over: 0, late: false });
   }
   const teamCur = [];
   for (let t = 0; t < c.teams; t++) teamCur.push(pl.find((p) => p.team === t).id);
-  return { cfg: c, g: 0, paused: false, queue: [], stormN: 0, dropN: 0, pl, teamCur, pauseWall: 0, pauses: 0, log: [], over: null };
+  return { cfg: c, g: 0, paused: false, queue: [], stormN: 0, dropN: 0, pl, teamCur, pauseWall: 0, pauses: 0, attacks: 0, log: [], over: null };
 }
 
 const alive = () => S.pl.filter((p) => p.alive);
@@ -216,17 +214,17 @@ function eliminate(id) {
   }
 }
 
-function declareAttack(id) { S.pl[id].attacks++; logEv("attack", { p: id }); pauseWith([{ type: "attack", p: id }]); }
+function declareAttack() { S.attacks++; logEv("attack"); pauseWith([{ type: "attack" }]); }
 
 // ---------- summary ----------
 function summary() {
   const L = [];
   L.push("Last Deck Standing timer log");
-  L.push(`Game time ${fmt(S.g)} (pauses ${S.pauses}, paused ${fmt(S.pauseWall)}). Storm rings ${S.stormN}, drops ${S.dropN}. Turn timer ${S.cfg.turn}s, storm ${S.cfg.storm / 60} min, drop ${S.cfg.drop / 60} min.`);
+  L.push(`Game time ${fmt(S.g)} (pauses ${S.pauses}, paused ${fmt(S.pauseWall)}). Storm rings ${S.stormN}, drops ${S.dropN}, attacks ${S.attacks || 0}. Turn timer ${S.cfg.turn}s, storm ${S.cfg.storm / 60} min, drop ${S.cfg.drop / 60} min.`);
   if (S.over) L.push("Winner: " + (S.over.winner ? (S.over.winner.team !== undefined ? teamName(S.over.winner.team) : S.pl[S.over.winner.id].name) : "none"));
   for (const p of S.pl) {
     const avg = p.durs.length ? Math.round(p.durs.reduce((a, b) => a + b, 0) / p.durs.length / 1000) : 0;
-    L.push(`${p.name}${p.team >= 0 ? " (" + teamName(p.team) + ")" : ""}: ${p.alive ? "alive" : "out"}, ${p.turns} turns, avg ${avg}s, ${p.over} timed out, ${p.attacks} attacks`);
+    L.push(`${p.name}${p.team >= 0 ? " (" + teamName(p.team) + ")" : ""}: ${p.alive ? "alive" : "out"}, ${p.turns} turns, avg ${avg}s, ${p.over} timed out`);
   }
   L.push("Events: " + S.log.filter((e) => e.t !== "resume").map((e) => `${fmt(e.g)} ${e.t}${e.p !== undefined ? " " + S.pl[e.p].name : ""}${e.n ? " #" + e.n : ""}`).join("; "));
   return L.join("\n");
@@ -327,8 +325,7 @@ function showOverlay(ev) {
   else if (ev.type === "drop") el.innerHTML = `<h2>Drop alarm</h2><div class="head" style="color:var(--drop)">DROP!</div><div class="body"><ul><li>${name(ev.placer)} places the drop marker.</li>` +
     ev.movers.map((m) => `<li>${name(m)} moves it up to <b>${ev.tiles}</b> tile${ev.tiles > 1 ? "s" : ""}.</li>`).join("") +
     `<li>Table places <b>${ev.cubes}</b> legendary cube${ev.cubes > 1 ? "s" : ""} on the drop tile.</li></ul></div>${more}<button class="go" id="go">Done, resume</button>`;
-  else if (ev.type === "attack") el.innerHTML = `<h2>Attack declared</h2><div class="head">${name(ev.p)}</div><div class="body">Name the targets, count range, put the Dead cards in their discard piles. Damage = Attack total − 2 per tile of range.</div><button class="go" id="go">Resolved, resume</button>`;
-  else if (ev.type === "pick") el.innerHTML = `<h2>Who is attacking?</h2><div class="pick">${alive().map((p) => `<button data-atk="${p.id}" style="--c:${COLORS[p.id]}">${esc(p.name)}</button>`).join("")}</div><button class="cancel" id="cancel">Cancel</button>`;
+  else if (ev.type === "attack") el.innerHTML = `<h2>Attack declared</h2><div class="head" style="color:var(--warn)">ATTACK!</div><div class="body">Name the targets, count range, put the Dead cards in their discard piles. Damage = Attack total − 2 per tile of range.</div><button class="go" id="go">Resolved, resume</button>`;
   else if (ev.type === "over") {
     const w = S.over.winner; const wn = !w ? "Nobody" : w.team !== undefined ? teamName(w.team) : esc(S.pl[w.id].name);
     el.innerHTML = `<h2>Game over</h2><div class="head">${wn} wins</div><div class="body mono">Game time ${fmt(S.over.g)}</div><textarea readonly id="sum">${esc(summary())}</textarea><button class="go" id="copy">Copy log</button><button class="cancel" id="again">New game</button>`;
@@ -354,7 +351,7 @@ $("#resumeBtn").onclick = () => { try { const s = JSON.parse(localStorage.getIte
 $("#tabTable").onclick = () => { view = "table"; setTabs(); render(); };
 $("#tabPlayers").onclick = () => { view = "players"; setTabs(); render(); };
 $("#pauseBtn").onclick = () => { if (S.over) return; if (S.paused) return; pauseWith([{ type: "manual" }].slice(1)); S.queue = []; logEv("pause"); render(); };
-$("#atkBtn").onclick = () => { if (S.over || S.paused) return; pauseWith([{ type: "pick" }]); render(); };
+$("#atkBtn").onclick = () => { if (S.over || S.paused) return; declareAttack(); render(); };
 $("#grid").onclick = (e) => {
   const x = e.target.closest(".x");
   if (x) {
@@ -369,8 +366,6 @@ $("#grid").onclick = (e) => {
 $("#ov").onclick = (e) => {
   const b = e.target.closest("button"); if (!b) return;
   if (b.id === "go") { resume(); render(); }
-  else if (b.dataset.atk !== undefined) { S.queue = []; declareAttack(+b.dataset.atk); render(); }
-  else if (b.id === "cancel") { S.queue = []; S.paused = false; S.pauses--; last = Date.now(); render(); }
   else if (b.id === "copy") { const t = $("#sum"); t.select(); try { navigator.clipboard.writeText(t.value); toast("Copied"); } catch (er) { document.execCommand("copy"); } }
   else if (b.id === "again") { try { localStorage.removeItem("lds-timer"); } catch (er) {} location.reload(); }
 };
@@ -393,7 +388,7 @@ if (location.hash === "#selftest") {
   resume(); ok("first resume keeps pause for the drop", S.paused && S.queue.length === 1); resume(); ok("second resume runs", !S.paused);
   const p = S.pl[0]; p.ts = S.g; advance(61000); ok("turn timer flags late after 60s", p.late && p.over === 1);
   endTurn(0); ok("End resets the turn", !p.late && p.turns === 1 && S.g - p.ts === 0);
-  declareAttack(2); ok("attack pauses and counts", S.paused && S.pl[2].attacks === 1); resume();
+  declareAttack(); ok("attack pauses and counts", S.paused && S.attacks === 1 && S.queue[0].type === "attack"); resume();
   eliminate(1); eliminate(2); ok("two out, game on", !S.over); eliminate(3); ok("last one standing wins", S.over && S.over.winner.id === 0 && S.paused);
   S = newGame({ players: 6, teams: 2, turn: 60, storm: 240, drop: 120, floor: 10, names: [] });
   ok("teams: only the current member is active", active(S.pl[0]) && !active(S.pl[2]) && active(S.pl[1]));
