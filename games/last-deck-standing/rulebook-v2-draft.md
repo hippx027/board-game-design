@@ -12,7 +12,7 @@ Designers: Brandon and Chris. Drafted 2026-10-12 from playtest 001 notes (`playt
 - Δ **Players:** 2–6 on the fixed board (solo or equal-size teams; 7–10 wait for the bigger hex-group boards, see Ideas for Later) · **Time:** no target for now (designer's call, 2026-10-12). Sim says about 7–11 min at 37 s turns; see SIM-030
 - Δ **Goal:** Be the last player (or team) standing. You knock opponents out by putting Dead cards in their decks. **The game ends the moment only one player or team is left,** and they win (designer's call, 2026-10-13); they don't have to finish their turn.
 - **You are eliminated** if you end a turn with 3 or more Dead cards in your hand.
-- Δ **Realtime:** there are no rounds. Everyone plays their own turns at the same time and at their own pace, each with a 1-minute sand timer. The storm and loot drops run on a table timer.
+- Δ **Realtime:** there are no rounds. Everyone plays their own turns at the same time and at their own pace, with no turn timer (designer's call, 2026-10-22). The storm and loot drops run on a table timer.
 
 ## Δ First Game (learning rules, 3–4 players, no teams)
 For your first paper session, play it like this. Everything else plays exactly as written.
@@ -25,7 +25,7 @@ For your first paper session, play it like this. Everything else plays exactly a
 
 **Drops stay in** (designer's call: they matter at every player count): the 2-minute drop timer, legendary cubes, the Legendary deck and the elimination drop.
 
-Keep: the 4-minute storm timer, the Market (3 face up, no tiers, specific costs printed on each card), the hand cap of 5, and Range cost 2 per tile. Cubes go on the 43 printed cube spots. Each player has a 1-minute sand timer.
+Keep: the 4-minute storm timer, the Market (3 face up, no tiers, specific costs printed on each card), the hand cap of 5, and Range cost 2 per tile. Cubes go on the 43 printed cube spots.
 
 What to watch for (these are the questions this session answers):
 1. **Does the Market get used?** Sim: about 3 buys per player per game (9 at 3p, 11 at 4p). Count yours.
@@ -60,11 +60,11 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 | Δ Dead cards | 100 | Plain backs. Raised from 60 (SIM-030 addendum 27: about 80 are out at once in a 10-player game). If the supply ever runs out, play on: no more Dead can be dealt until some are healed or an eliminated player returns theirs |
 | Δ Loot cubes | 43 | One colour per type (purple Move 12, red Attack 23, green Heal 8); one on every printed cube spot of the board |
 | Legendary cubes | 1 per player per drop | Mark drops; taking one gives the top card of the Legendary deck |
-| Δ Sand timers | 1 per player | 1-minute sand timers (or a phone timer each); flip at the start of your turn. A simple timer app is planned (per-player turn timers, Storm and Drop alarms, one pause button for everyone) |
+| Δ Table timer | 1 | A phone with two repeating alarms, **Storm** and **Drop**, and one pause button. The timer app in `timer/index.html` does this (its per-player turn timers are switched off for now) |
 | Δ Game board | 1 | **One fixed board** (designer's call, 2026-10-22): a hexagon of 61 hexes (radius 4), 43 with a printed cube spot in a loot colour, the rest blank. Print: `last-deck-standing-v2-board-17x11.5.pdf`, one landscape page. Individual hex tiles are gone for now |
 | Pawn | 1 per player | |
 | Δ Spinner | 1 | Battle bus: sits on the centre tile; its line sets where pawns may start (a paper arrow on a pin, or a pencil, works) |
-| Δ Table timer | 1 | A phone with two repeating alarms: **Drop** and **Storm** |
+
 | Δ Storm markers | 61 | One per hex |
 | Δ Cards print | 11×17 paper | Card sheets (replaces the old size) |
 
@@ -82,9 +82,9 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 2. **Act** in any order: play cards, move, attack, loot, trade at the Market.
 3. **End:** if you have 3 or more Dead cards in hand, you are eliminated. Otherwise put your played cards in your discard pile, **discard every card in your hand that isn't Dead** (designer's call, 2026-10-22; replaces "keep up to 3"), and start your next turn right away. Dead cards stay, so you draw back up to 5 (3 or more cards if you hold 2 Dead). Use it or lose it: a Heal or Move you don't play is gone, so spend what you want before you End.
 
-**Sand timer (designer's call, 2026-10-13):** every player has a **1-minute sand timer**. Flip it when your turn starts. When it runs out, finish the action you are in and say **"End"**; the end-of-turn steps happen at once. You can End early (flip nothing; your next turn starts right away and you flip again). When the table pauses for an Attack or an alarm, everyone lays their timer on its side, and stands it back up on resume. The Storm and Drop alarms no longer end anyone's turn; they are table events only. This replaces the earlier ideas of a 30-second "you were hit" rule and ending your turn at the next alarm.
+**No turn timer (designer's call, 2026-10-22; replaces the 1-minute sand timer).** Timers run only the table events: the Storm and the Drops. Turns have no limit, so a slow player simply takes fewer turns than a fast one. You can End early; your next turn starts right away.
 
-Nobody waits for you. If you take a long turn, the others take several, and no turn lasts more than a minute of play.
+Nobody waits for you. If you take a long turn, the others take several.
 
 ## Δ Cards
 | Card | When played |
@@ -181,7 +181,7 @@ When a player is eliminated:
 
 ## Playtest options still to run
 
-**Note: ending turns early (blind read-through, 2026-10-13).** The sand timer caps a turn, but ending instantly still gives a free Base Move 1 and Base Attack 1 each time, so turn count can become the skill. **Playtest options:** timer length (45, 60 or 90 seconds); a minimum turn length (a floor: you can't End until the timer has run N seconds); a limit of one declared Attack per turn. **Watch for:** rushing micro-turns to farm moves, and new players feeling rushed by the timer.
+**Note: pacing without a turn timer (2026-10-22).** Nothing caps a turn now, so a very slow player gets few turns and a fast one many; ending instantly still gives a free Base Move 1 and Base Attack 1. **Playtest options if pace is a problem:** the 1-minute sand timer back; a minimum turn length; a limit of one declared Attack per turn. **Watch for:** rushing micro-turns to farm moves, and one slow player stalling nobody but themselves.
 
 **Attack timing:**
 - **A (drafted above):** pause the table, resolve.

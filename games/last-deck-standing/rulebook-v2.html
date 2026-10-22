@@ -42,7 +42,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li><span class="dv">&#916;</span> <strong>Players:</strong> 2&#8211;6 on the fixed board (solo or equal-size teams; 7&#8211;10 wait for the bigger hex-group boards, see Ideas for Later) &#183; <strong>Time:</strong> no target for now (designer&#39;s call, 2026-10-12). Sim says about 7&#8211;11 min at 37 s turns; see SIM-030</li>
 <li><span class="dv">&#916;</span> <strong>Goal:</strong> Be the last player (or team) standing. You knock opponents out by putting Dead cards in their decks. <strong>The game ends the moment only one player or team is left,</strong> and they win (designer&#39;s call, 2026-10-13); they don&#39;t have to finish their turn.</li>
 <li><strong>You are eliminated</strong> if you end a turn with 3 or more Dead cards in your hand.</li>
-<li><span class="dv">&#916;</span> <strong>Realtime:</strong> there are no rounds. Everyone plays their own turns at the same time and at their own pace, each with a 1-minute sand timer. The storm and loot drops run on a table timer.</li>
+<li><span class="dv">&#916;</span> <strong>Realtime:</strong> there are no rounds. Everyone plays their own turns at the same time and at their own pace, with no turn timer (designer&#39;s call, 2026-10-22). The storm and loot drops run on a table timer.</li>
 </ul>
 <h2><span class="dv">&#916;</span> First Game (learning rules, 3&#8211;4 players, no teams)</h2>
 <p>For your first paper session, play it like this. Everything else plays exactly as written.</p>
@@ -67,7 +67,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 </tbody></table></div>
 <p><strong>Drops stay in</strong> (designer&#39;s call: they matter at every player count): the 2-minute drop timer, legendary cubes, the Legendary deck and the elimination drop.</p>
-<p>Keep: the 4-minute storm timer, the Market (3 face up, no tiers, specific costs printed on each card), the hand cap of 5, and Range cost 2 per tile. Cubes go on the 43 printed cube spots. Each player has a 1-minute sand timer.</p>
+<p>Keep: the 4-minute storm timer, the Market (3 face up, no tiers, specific costs printed on each card), the hand cap of 5, and Range cost 2 per tile. Cubes go on the 43 printed cube spots.</p>
 <p>What to watch for (these are the questions this session answers):</p>
 <ol>
 <li><strong>Does the Market get used?</strong> Sim: about 3 buys per player per game (9 at 3p, 11 at 4p). Count yours.</li>
@@ -171,9 +171,9 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <td>Mark drops; taking one gives the top card of the Legendary deck</td>
 </tr>
 <tr>
-<td><span class="dv">&#916;</span> Sand timers</td>
-<td>1 per player</td>
-<td>1-minute sand timers (or a phone timer each); flip at the start of your turn. A simple timer app is planned (per-player turn timers, Storm and Drop alarms, one pause button for everyone)</td>
+<td><span class="dv">&#916;</span> Table timer</td>
+<td>1</td>
+<td>A phone with two repeating alarms, <strong>Storm</strong> and <strong>Drop</strong>, and one pause button. The timer app in <code>timer/index.html</code> does this (its per-player turn timers are switched off for now)</td>
 </tr>
 <tr>
 <td><span class="dv">&#916;</span> Game board</td>
@@ -190,22 +190,9 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <td>1</td>
 <td>Battle bus: sits on the centre tile; its line sets where pawns may start (a paper arrow on a pin, or a pencil, works)</td>
 </tr>
-<tr>
-<td><span class="dv">&#916;</span> Table timer</td>
-<td>1</td>
-<td>A phone with two repeating alarms: <strong>Drop</strong> and <strong>Storm</strong></td>
-</tr>
-<tr>
-<td><span class="dv">&#916;</span> Storm markers</td>
-<td>61</td>
-<td>One per hex</td>
-</tr>
-<tr>
-<td><span class="dv">&#916;</span> Cards print</td>
-<td>11&#215;17 paper</td>
-<td>Card sheets (replaces the old size)</td>
-</tr>
 </tbody></table></div>
+<p>| <span class="dv">&#916;</span> Storm markers | 61 | One per hex |
+| <span class="dv">&#916;</span> Cards print | 11&#215;17 paper | Card sheets (replaces the old size) |</p>
 <h2 id="setup">Setup</h2>
 <ol>
 <li><span class="dv">&#916;</span> <strong>Lay out the board.</strong> Use the fixed 61-hex board for any player count from 2 to 6 (default: the sim runs fine at 2&#8211;6 players; 2 players on 61 hexes is roomy but the storm still closes it). No building: the old player-built boards and per-player tile counts are gone for now.</li>
@@ -213,7 +200,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li><span class="dv">&#916;</span> <strong>Battle bus:</strong> put a spinner on the centre hex (marked on the board) and spin it. Its line runs across the board through the centre. In a <strong>2 or 3 player</strong> game, pawns start <strong>on the line</strong>. With <strong>4 or more players</strong>, they start <strong>on the line or 1 tile away from it</strong>. No minimum distance between pawns (designer&#39;s call), but each pawn starts on its own tile; players place in the order they choose. (Designer confirmed 2026-10-13: the line sets starting positions.)</li>
 <li><span class="dv">&#916;</span> Shuffle your 10-card base deck and draw 5. <strong>When your draw pile is empty, shuffle your discard pile (Dead cards included) to make a new one</strong> (designer&#39;s call, 2026-10-13).</li>
 <li>Lay out the Market.</li>
-<li><span class="dv">&#916;</span> <strong>Seat order:</strong> go around the table clockwise from the player who spun the spinner (the youngest player spins). This is the &quot;turn order&quot; for Drops (designer&#39;s call, 2026-10-13).</li>
+<li><span class="dv">&#916;</span> <strong>Seat order:</strong> go around the table clockwise from the player who spun the spinner (the youngest player spins; default). This is the &quot;turn order&quot; for Drops (designer&#39;s call, 2026-10-13).</li>
 <li><span class="dv">&#916;</span> Start the timer: the 2-minute Drop clock starts with the game. Everyone starts together.</li>
 </ol>
 <h2><span class="dv">&#916;</span> Your Turn (played at your own speed)</h2>
@@ -222,8 +209,8 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li><strong>Act</strong> in any order: play cards, move, attack, loot, trade at the Market.</li>
 <li><strong>End:</strong> if you have 3 or more Dead cards in hand, you are eliminated. Otherwise put your played cards in your discard pile, <strong>discard every card in your hand that isn&#39;t Dead</strong> (designer&#39;s call, 2026-10-22; replaces &quot;keep up to 3&quot;), and start your next turn right away. Dead cards stay, so you draw back up to 5 (3 or more cards if you hold 2 Dead). Use it or lose it: a Heal or Move you don&#39;t play is gone, so spend what you want before you End.</li>
 </ol>
-<p><strong>Sand timer (designer&#39;s call, 2026-10-13):</strong> every player has a <strong>1-minute sand timer</strong>. Flip it when your turn starts. When it runs out, finish the action you are in and say <strong>&quot;End&quot;</strong>; the end-of-turn steps happen at once. You can End early (flip nothing; your next turn starts right away and you flip again). When the table pauses for an Attack or an alarm, everyone lays their timer on its side, and stands it back up on resume. The Storm and Drop alarms no longer end anyone&#39;s turn; they are table events only. This replaces the earlier ideas of a 30-second &quot;you were hit&quot; rule and ending your turn at the next alarm.</p>
-<p>Nobody waits for you. If you take a long turn, the others take several, and no turn lasts more than a minute of play.</p>
+<p><strong>No turn timer (designer&#39;s call, 2026-10-22; replaces the 1-minute sand timer).</strong> Timers run only the table events: the Storm and the Drops. Turns have no limit, so a slow player simply takes fewer turns than a fast one. You can End early; your next turn starts right away.</p>
+<p>Nobody waits for you. If you take a long turn, the others take several.</p>
 <h2><span class="dv">&#916;</span> Cards</h2>
 <div class="tbl"><table>
 <thead>
@@ -364,7 +351,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <hr>
 <section class="designer">
 <h2 id="playtest-options-still-to-run">Playtest options still to run</h2>
-<p><strong>Note: ending turns early (blind read-through, 2026-10-13).</strong> The sand timer caps a turn, but ending instantly still gives a free Base Move 1 and Base Attack 1 each time, so turn count can become the skill. <strong>Playtest options:</strong> timer length (45, 60 or 90 seconds); a minimum turn length (a floor: you can&#39;t End until the timer has run N seconds); a limit of one declared Attack per turn. <strong>Watch for:</strong> rushing micro-turns to farm moves, and new players feeling rushed by the timer.</p>
+<p><strong>Note: pacing without a turn timer (2026-10-22).</strong> Nothing caps a turn now, so a very slow player gets few turns and a fast one many; ending instantly still gives a free Base Move 1 and Base Attack 1. <strong>Playtest options if pace is a problem:</strong> the 1-minute sand timer back; a minimum turn length; a limit of one declared Attack per turn. <strong>Watch for:</strong> rushing micro-turns to farm moves, and one slow player stalling nobody but themselves.</p>
 <p><strong>Attack timing:</strong></p>
 <ul>
 <li><strong>A (drafted above):</strong> pause the table, resolve.</li>
