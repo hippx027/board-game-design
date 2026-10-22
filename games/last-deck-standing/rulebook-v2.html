@@ -178,7 +178,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <tr>
 <td><span class="dv">&#916;</span> Game board</td>
 <td>1</td>
-<td><strong>One fixed board</strong> (designer&#39;s call, 2026-10-22): a hexagon of 61 hexes (radius 4), 43 with a printed cube spot in a loot colour, the rest blank. Print: <code>last-deck-standing-v2-board-17x11.5.pdf</code>, one landscape page. Individual hex tiles are gone for now</td>
+<td><strong>One fixed board</strong> (designer&#39;s call, 2026-10-22): a hexagon of 61 hexes (radius 4), 38 have a printed loot spot (5 of them <strong>double-loot hexes</strong> with two spots, one per hex group A to E) for 43 spots in all, the rest blank. The centre hex is a regular hex (it can hold loot); hexes are shaded in 5 groups A to E for later group play. Print: <code>last-deck-standing-v2-board-17x11.5.pdf</code>, one landscape page. Individual hex tiles are gone for now</td>
 </tr>
 <tr>
 <td>Pawn</td>
@@ -204,8 +204,8 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <h2 id="setup">Setup</h2>
 <ol>
 <li><span class="dv">&#916;</span> <strong>Lay out the board.</strong> Use the fixed 61-hex board for any player count from 2 to 6 (default: the sim runs fine at 2&#8211;6 players; 2 players on 61 hexes is roomy but the storm still closes it). No building: the old player-built boards and per-player tile counts are gone for now.</li>
-<li><span class="dv">&#916;</span> Put a loot cube of the <strong>matching colour</strong> on every printed cube spot (43 of 61 hexes; designer&#39;s call 2026-10-22, tested in SIM-030 addendum 28). The mix is 12 purple Move, 23 red Attack, 8 green Heal (about 6/11/4 per 21), matching the loot decks card for card. When a cube is looted the spot stays empty; no new loot cubes appear (only legendary cubes, from Drops).</li>
-<li><span class="dv">&#916;</span> <strong>Battle bus:</strong> put a spinner on the centre hex (marked on the board) and spin it. Its line runs across the board through the centre. In a <strong>2 or 3 player</strong> game, pawns start <strong>on the line</strong>. With <strong>4 or more players</strong>, they start <strong>on the line or 1 tile away from it</strong>. No minimum distance between pawns (designer&#39;s call), but each pawn starts on its own tile; players place in the order they choose. (Designer confirmed 2026-10-13: the line sets starting positions.)</li>
+<li><span class="dv">&#916;</span> Put a loot cube of the <strong>matching colour</strong> on every printed cube spot (43 spots on 38 of the 61 hexes, 5 of them double-loot hexes; designer&#39;s call 2026-10-22, tested in SIM-030 addendum 28). The mix is 12 purple Move, 23 red Attack, 8 green Heal (about 6/11/4 per 21), matching the loot decks card for card. When a cube is looted the spot stays empty; no new loot cubes appear (only legendary cubes, from Drops).</li>
+<li><span class="dv">&#916;</span> <strong>Battle bus:</strong> put a spinner on the centre hex (a regular hex, not marked) and spin it. Its line runs across the board through the centre. In a <strong>2 or 3 player</strong> game, pawns start <strong>on the line</strong>. With <strong>4 or more players</strong>, they start <strong>on the line or 1 tile away from it</strong>. No minimum distance between pawns (designer&#39;s call), but each pawn starts on its own tile; players place in the order they choose. (Designer confirmed 2026-10-13: the line sets starting positions.)</li>
 <li><span class="dv">&#916;</span> Shuffle your 10-card base deck and draw 5. <strong>When your draw pile is empty, shuffle your discard pile (Dead cards included) to make a new one</strong> (designer&#39;s call, 2026-10-13).</li>
 <li>Lay out the Market.</li>
 <li><span class="dv">&#916;</span> <strong>Seat order:</strong> go around the table clockwise from the player who spun the spinner (the youngest player spins; default). This is the &quot;turn order&quot; for Drops (designer&#39;s call, 2026-10-13).</li>

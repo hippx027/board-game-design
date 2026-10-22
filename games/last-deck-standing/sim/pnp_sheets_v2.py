@@ -121,9 +121,13 @@ def board():
     ordered = sorted([c for c in cells if c != (0, 0)],
                      key=lambda c: (math.atan2(c[1] * 0.866, c[0] + c[1] / 2) % (2 * math.pi), max(abs(c[0]), abs(c[1]), abs(c[0] + c[1]))))
     group = {c: i // 12 for i, c in enumerate(ordered)}
-    with_spot = set()
-    for g, n in enumerate((9, 9, 9, 8, 8)):  # 43 spots, 8-9 per group
-        with_spot |= set(rng.sample([c for c in ordered if group[c] == g], n))
+    # 43 spots: 5 double-loot hexes (one per group, ring 3-4, 2 spots each) + 33 single hexes (centre is a regular hex with one)
+    with_spot, double = {(0, 0)}, set()
+    for g, n in enumerate((6, 6, 6, 7, 7)):
+        gc = [c for c in ordered if group[c] == g]
+        d = rng.choice([c for c in gc if max(abs(c[0]), abs(c[1]), abs(c[0] + c[1])) >= 3])
+        double.add(d)
+        with_spot |= {d} | set(rng.sample([c for c in gc if c != d], n))
     w = 1.3
     cx, cy = 8.0, 5.25
     out = []
@@ -131,11 +135,12 @@ def board():
         ring = max(abs(q), abs(r), abs(q + r))
         x, y = cx + w * (q + r / 2), cy + w * 0.866 * r
         inner = ""
-        if (q, r) == (0, 0):
-            inner = '<span class="ctr">CENTRE<br>spinner</span>'
-        elif (q, r) in with_spot:
-            k = spots.pop()
-            inner = f'<span class="cspot sm" style="--type:{TYPE_COLOR[k]}"><span class="msym">{MSYM[k]}</span></span>'
+        if (q, r) in with_spot:
+            for _ in range(2 if (q, r) in double else 1):
+                k = spots.pop()
+                inner += f'<span class="cspot sm{" dbl" if (q, r) in double else ""}" style="--type:{TYPE_COLOR[k]}"><span class="msym">{MSYM[k]}</span></span>'
+            if (q, r) in double:
+                inner += '<span class="x2">x2</span>'
         g = group.get((q, r))
         gcls = f" g{g}" if g is not None else ""
         if g is not None:
@@ -164,6 +169,8 @@ body { font-family: Helvetica, Arial, sans-serif; color: #1b1f2a; }
 .bhex.g0 .bin { background: #f0c9c0; } .bhex.g1 .bin { background: #f3e2a0; } .bhex.g2 .bin { background: #c8e3bd; }
 .bhex.g3 .bin { background: #bfdcee; } .bhex.g4 .bin { background: #dccbee; }
 .glab { position: absolute; top: 3px; left: 50%; transform: translateX(-50%); font: 10pt "Bangers", Impact, sans-serif; color: #15121c88; }
+.cspot.sm.dbl { width: 0.5in; height: 0.5in; margin: 0 -1px; } .cspot.sm.dbl .msym { font-size: 16pt; }
+.x2 { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); font: 10pt "Bangers", Impact, sans-serif; color: #15121c; }
 .cspot.sm { width: 0.62in; height: 0.62in; border-width: 3px; } .cspot.sm .msym { font-size: 20pt; }
 .ctr { font: 11pt/1.1 "Bangers", Impact, sans-serif; letter-spacing: 1px; text-align: center; color: #15121c; }
 .btitle { position: absolute; left: 0.1in; top: 0.05in; font: 20pt "Bangers", Impact, sans-serif; letter-spacing: 2px; }
