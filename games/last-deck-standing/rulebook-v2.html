@@ -63,7 +63,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 <tr>
 <td>Other attack options</td>
-<td>Use attack option A (declare &quot;Attack&quot;, pause the table, resolve, resume)</td>
+<td>Declare &quot;Attack&quot;, resolve it at once, no pause</td>
 </tr>
 </tbody></table></div>
 <p><strong>Drops stay in</strong> (designer&#39;s call: they matter at every player count): the 2-minute drop timer, legendary cubes, the Legendary deck and the elimination drop.</p>
@@ -71,7 +71,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <p>What to watch for (these are the questions this session answers):</p>
 <ol>
 <li><strong>Does the Market get used?</strong> Sim: about 3 buys per player per game (9 at 3p, 11 at 4p). Count yours.</li>
-<li><strong>How much of the game is paused?</strong> Sim: a third of table time. Note whether attack pauses feel like realtime.</li>
+<li><strong>Do attacks feel fair without a pause?</strong> Note any argument about positions or who declared first (the sim has no data on this; its numbers assume pauses).</li>
 <li><strong>How long does a game take?</strong> Sim: about 8&#8211;10 minutes at 37 s a turn. Write down the real number.</li>
 <li><strong>Hoarding:</strong> does the hand cap of 5 change what you loot or hold?</li>
 <li><strong>Storm:</strong> does it push people together or just kill them?</li>
@@ -190,9 +190,17 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <td>1</td>
 <td>Battle bus: sits on the centre tile; its line sets where pawns may start (a paper arrow on a pin, or a pencil, works)</td>
 </tr>
+<tr>
+<td><span class="dv">&#916;</span> Storm markers</td>
+<td>61</td>
+<td>One per hex</td>
+</tr>
+<tr>
+<td><span class="dv">&#916;</span> Cards print</td>
+<td>11&#215;17 paper</td>
+<td>Card sheets (replaces the old size)</td>
+</tr>
 </tbody></table></div>
-<p>| <span class="dv">&#916;</span> Storm markers | 61 | One per hex |
-| <span class="dv">&#916;</span> Cards print | 11&#215;17 paper | Card sheets (replaces the old size) |</p>
 <h2 id="setup">Setup</h2>
 <ol>
 <li><span class="dv">&#916;</span> <strong>Lay out the board.</strong> Use the fixed 61-hex board for any player count from 2 to 6 (default: the sim runs fine at 2&#8211;6 players; 2 players on 61 hexes is roomy but the storm still closes it). No building: the old player-built boards and per-player tile counts are gone for now.</li>
@@ -290,14 +298,12 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </ul>
 <p>The game inside the game: <strong>collect the right cards to turn many low cards into a few strong ones.</strong></p>
 <h2><span class="dv">&#916;</span> Attacking (realtime)</h2>
-<p>To attack, you declare <strong>&quot;Attack&quot;</strong> and <strong>pause the table</strong> (Captain Sonar style; designer&#39;s pick for the first session):</p>
+<p>To attack, you declare <strong>&quot;Attack&quot;</strong> out loud and resolve it on the spot. <strong>The table does not pause</strong> (designer&#39;s call, 2026-10-22; the Captain Sonar-style pause is kept as an option below). Positions are fixed the moment you say &quot;Attack&quot;: nobody may move until it resolves.</p>
 <ol>
-<li>Everyone freezes, including the timers.</li>
 <li>You name the target(s), count the range, and resolve the attack with the <strong>damage = your Attack total &#8722; 2 &#215; Range</strong> (each tile of distance costs 2, changed from v1&#39;s 1); 0 or less can&#39;t hit. Example: Attack 4 does 4 at range 0, 2 at range 1, and can&#39;t reach range 2.</li>
-<li>You put the Dead cards into the target&#39;s <strong>discard pile</strong>, yourself. They show up when that deck reshuffles.</li>
-<li>Everyone resumes.</li>
+<li>You put the Dead cards into the target&#39;s <strong>discard pile</strong>, yourself (designer&#39;s call, 2026-10-22: stays in the discard pile; &quot;reshuffle on hit&quot; is in Ideas for Later). They show up when that deck reshuffles, usually within a turn or two. The target takes no forced turn and loses no cards.</li>
 </ol>
-<p>You can split your Attack among several players, as in v1 (one attack per player). <strong>The range cost is paid per target</strong> (designer&#39;s call, 2026-10-13): each target takes your Attack total (pool) minus 2 per tile of its own range, and you choose how to divide the Attack among them. <strong>Locked for the first paper session: option A (pause).</strong> Options B (the target may dodge with a Move card) and C (resolves 5 s later) are listed below to try in later sessions. In the sim none of them changes who wins; only A costs time.</p>
+<p>You can split your Attack among several players, as in v1 (one attack per player). <strong>The range cost is paid per target</strong> (designer&#39;s call, 2026-10-13): each target takes your Attack total (pool) minus 2 per tile of its own range, and you choose how to divide the Attack among them. <strong>Locked for the first paper session: no pause (option 0).</strong> Options A (pause the table, resolve, resume), B (the target may dodge with a Move card) and C (resolves 5 s later) are listed below to try in later sessions. In the sim none of them changes who wins; only A costs time.</p>
 <h2><span class="dv">&#916;</span> Dead Cards</h2>
 <ul>
 <li><strong>Healed Dead cards go back to the Dead supply</strong> (the stack), not to a discard pile (designer&#39;s call, 2026-10-13).</li>
@@ -373,6 +379,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li><strong>Hex groups instead of one fixed board (designer&#39;s idea, 2026-10-22):</strong> after the fixed board, play with groups of hexes joined in different shapes, so every game has a new map. Brings back 7-10 player games by using more groups.</li>
 <li><strong>A few super-good hexes (designer&#39;s idea, 2026-10-22):</strong> special hexes in the mix with a rich cube spot or a bonus, once shaped boards exist.</li>
 <li><strong>The map opens up (designer&#39;s idea, 2026-10-22):</strong> mid-game a new hex or group is added to the board and comes with a high-loot hex, which pulls players toward it like a drop does. Open: where it attaches (outer edge only, so it can&#39;t outrun the storm?), who places it, and whether it replaces or adds to Drops.</li>
+<li><strong>Reshuffle on hit (designer&#39;s idea, 2026-10-22):</strong> when you are hit, the Dead go to your discard pile and your whole discard pile is shuffled into your draw pile at once. Dead reach your hand about as fast as shuffling them in (model: 1.0-1.2 own turns vs 1.7-2.1 with Dead in the discard), and you also get your earlier good cards back, so a hit is not purely a loss. Not adopted; the rule stays &quot;into the discard pile&quot;. Other Dead delivery options modelled: shuffle into the draw pile, on top of the draw pile. A forced end-of-turn on hit was rejected as feeling bad.</li>
 <li><strong>Market tiers</strong> return later (the designer said &quot;not later&quot;).</li>
 <li><strong>Cube refresh</strong> with each drop, as a playtest variant.</li>
 <li><strong>Market as a location:</strong> instead of buying anywhere, the Market is a board tile you have to be on to buy. <strong>Multiple Market tiles</strong> (several instances, so there&#39;s no single crowd). Designer&#39;s idea (2026-10-12), kept for later. Design notes: buying becomes rarer (the sim already shows only about 3 buys per player per game), a central tile would be stormed last, and 10-player games need several tiles. If tried, buy only while standing on a tile and let the first to declare take a face-up card. Not simulated yet.</li>

@@ -21,7 +21,7 @@ For your first paper session, play it like this. Everything else plays exactly a
 |---|---|
 | Teams | Everyone plays for themselves |
 | The "critical" call | Just check for 3+ Dead cards at the end of your turn |
-| Other attack options | Use attack option A (declare "Attack", pause the table, resolve, resume) |
+| Other attack options | Declare "Attack", resolve it at once, no pause |
 
 **Drops stay in** (designer's call: they matter at every player count): the 2-minute drop timer, legendary cubes, the Legendary deck and the elimination drop.
 
@@ -29,7 +29,7 @@ Keep: the 4-minute storm timer, the Market (3 face up, no tiers, specific costs 
 
 What to watch for (these are the questions this session answers):
 1. **Does the Market get used?** Sim: about 3 buys per player per game (9 at 3p, 11 at 4p). Count yours.
-2. **How much of the game is paused?** Sim: a third of table time. Note whether attack pauses feel like realtime.
+2. **Do attacks feel fair without a pause?** Note any argument about positions or who declared first (the sim has no data on this; its numbers assume pauses).
 3. **How long does a game take?** Sim: about 8–10 minutes at 37 s a turn. Write down the real number.
 4. **Hoarding:** does the hand cap of 5 change what you loot or hold?
 5. **Storm:** does it push people together or just kill them?
@@ -64,7 +64,6 @@ Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) 
 | Δ Game board | 1 | **One fixed board** (designer's call, 2026-10-22): a hexagon of 61 hexes (radius 4), 43 with a printed cube spot in a loot colour, the rest blank. Print: `last-deck-standing-v2-board-17x11.5.pdf`, one landscape page. Individual hex tiles are gone for now |
 | Pawn | 1 per player | |
 | Δ Spinner | 1 | Battle bus: sits on the centre tile; its line sets where pawns may start (a paper arrow on a pin, or a pencil, works) |
-
 | Δ Storm markers | 61 | One per hex |
 | Δ Cards print | 11×17 paper | Card sheets (replaces the old size) |
 
@@ -129,13 +128,11 @@ You may trade cards from your hand to buy a Market card, any time during your tu
 The game inside the game: **collect the right cards to turn many low cards into a few strong ones.**
 
 ## Δ Attacking (realtime)
-To attack, you declare **"Attack"** and **pause the table** (Captain Sonar style; designer's pick for the first session):
-1. Everyone freezes, including the timers.
-2. You name the target(s), count the range, and resolve the attack with the **damage = your Attack total − 2 × Range** (each tile of distance costs 2, changed from v1's 1); 0 or less can't hit. Example: Attack 4 does 4 at range 0, 2 at range 1, and can't reach range 2.
-3. You put the Dead cards into the target's **discard pile**, yourself. They show up when that deck reshuffles.
-4. Everyone resumes.
+To attack, you declare **"Attack"** out loud and resolve it on the spot. **The table does not pause** (designer's call, 2026-10-22; the Captain Sonar-style pause is kept as an option below). Positions are fixed the moment you say "Attack": nobody may move until it resolves.
+1. You name the target(s), count the range, and resolve the attack with the **damage = your Attack total − 2 × Range** (each tile of distance costs 2, changed from v1's 1); 0 or less can't hit. Example: Attack 4 does 4 at range 0, 2 at range 1, and can't reach range 2.
+3. You put the Dead cards into the target's **discard pile**, yourself (designer's call, 2026-10-22: stays in the discard pile; "reshuffle on hit" is in Ideas for Later). They show up when that deck reshuffles, usually within a turn or two. The target takes no forced turn and loses no cards.
 
-You can split your Attack among several players, as in v1 (one attack per player). **The range cost is paid per target** (designer's call, 2026-10-13): each target takes your Attack total (pool) minus 2 per tile of its own range, and you choose how to divide the Attack among them. **Locked for the first paper session: option A (pause).** Options B (the target may dodge with a Move card) and C (resolves 5 s later) are listed below to try in later sessions. In the sim none of them changes who wins; only A costs time.
+You can split your Attack among several players, as in v1 (one attack per player). **The range cost is paid per target** (designer's call, 2026-10-13): each target takes your Attack total (pool) minus 2 per tile of its own range, and you choose how to divide the Attack among them. **Locked for the first paper session: no pause (option 0).** Options A (pause the table, resolve, resume), B (the target may dodge with a Move card) and C (resolves 5 s later) are listed below to try in later sessions. In the sim none of them changes who wins; only A costs time.
 
 ## Δ Dead Cards
 - **Healed Dead cards go back to the Dead supply** (the stack), not to a discard pile (designer's call, 2026-10-13).
@@ -202,6 +199,7 @@ When a player is eliminated:
 - **Hex groups instead of one fixed board (designer's idea, 2026-10-22):** after the fixed board, play with groups of hexes joined in different shapes, so every game has a new map. Brings back 7-10 player games by using more groups.
 - **A few super-good hexes (designer's idea, 2026-10-22):** special hexes in the mix with a rich cube spot or a bonus, once shaped boards exist.
 - **The map opens up (designer's idea, 2026-10-22):** mid-game a new hex or group is added to the board and comes with a high-loot hex, which pulls players toward it like a drop does. Open: where it attaches (outer edge only, so it can't outrun the storm?), who places it, and whether it replaces or adds to Drops.
+- **Reshuffle on hit (designer's idea, 2026-10-22):** when you are hit, the Dead go to your discard pile and your whole discard pile is shuffled into your draw pile at once. Dead reach your hand about as fast as shuffling them in (model: 1.0-1.2 own turns vs 1.7-2.1 with Dead in the discard), and you also get your earlier good cards back, so a hit is not purely a loss. Not adopted; the rule stays "into the discard pile". Other Dead delivery options modelled: shuffle into the draw pile, on top of the draw pile. A forced end-of-turn on hit was rejected as feeling bad.
 - **Market tiers** return later (the designer said "not later").
 - **Cube refresh** with each drop, as a playtest variant.
 - **Market as a location:** instead of buying anywhere, the Market is a board tile you have to be on to buy. **Multiple Market tiles** (several instances, so there's no single crowd). Designer's idea (2026-10-12), kept for later. Design notes: buying becomes rarer (the sim already shows only about 3 buys per player per game), a central tile would be stormed last, and 10-player games need several tiles. If tried, buy only while standing on a tile and let the first to declare take a face-up card. Not simulated yet.
