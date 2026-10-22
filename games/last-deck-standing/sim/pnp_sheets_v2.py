@@ -1,12 +1,12 @@
 """Print-and-play sheets for Last Deck Standing v2 (realtime), HTML -> PDF via headless Chrome.
 
-Usage: python3 pnp_sheets_v2.py
+Usage: python3 pnp_sheets_v2.py [--diff]   (--diff writes ../pnp/v2/diff/ with only what changed from v1)
   writes ../pnp/v2/last-deck-standing-v2-cards-11x17.{html,pdf}    card sheets, 4x4 cards (2.5 x 3.5 in) per 11 x 17 page
          ../pnp/v2/last-deck-standing-v2-pieces-11.5x17.{html,pdf} Market mat, reference sheets, storm markers on 11.5 x 17
-         ../pnp/v2/last-deck-standing-v2-tiles-sticker-8.5x11.{html,pdf} 100 hex tiles, 1.75 in across the flats, 20 per US Letter sticker sheet
+         ../pnp/v2/last-deck-standing-v2-tiles-sticker-8.5x11.{html,pdf} 100 fixed 61-hex board on one 17 x 11.5 landscape page
 
 Contents follow rulebook-v2-draft.md: 10 base decks (up to 10 players), three loot decks, the Market deck (21),
-the Legendary deck (72: use 48 up to 7 players), 60 Dead cards (plain backs: every card back is the same). Style and icons are reused from
+the Legendary deck (72: use 48 up to 7 players), 100 Dead cards (plain backs: every card back is the same). Style and icons are reused from
 pnp_sheets.py (comic frames, Material Symbols Sharp, rarity colours), so nothing here is hand-drawn artwork.
 """
 import html
@@ -16,7 +16,9 @@ import subprocess
 
 from pnp_sheets import COMIC_CSS, MSYM, RARITY, TYPE, TYPE_COLOR, comic, tile_color
 
-OUT = os.path.join(os.path.dirname(__file__), "..", "pnp", "v2")
+import sys
+DIFF = "--diff" in sys.argv  # print only what differs from v1 (skips the storm markers and the 60 Dead cards v1 already has)
+OUT = os.path.join(os.path.dirname(__file__), "..", "pnp", "v2", "diff" if DIFF else "")
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 GOLD = ("#c98a00", "Legendary")
 
@@ -52,7 +54,7 @@ def decks():
     for n in range(1, 11):
         o = f"Player {n}"
         base += [card("M", 1, "Starting", o)] * 4 + [card("A", 1, "Starting", o)] * 4 + [card("H", 1, "Starting", o)] * 2
-    for k, size in (("M", 14), ("A", 26), ("H", 10)):  # loot is 1s and 2s only; 3s come from the Market, kills or drops
+    for k, size in (("M", 12), ("A", 23), ("H", 8)):  # loot is 1s and 2s only; 3s come from the Market, kills or drops
         loot += [card(k, 1, "Loot")] * (size // 2) + [card(k, 2, "Loot")] * (size - size // 2)
     for k, v, n in (("A", 2, 6), ("M", 2, 4), ("H", 2, 4), ("A", 3, 3), ("M", 3, 2), ("H", 3, 2)):
         market += [card(k, v, "Market")] * n
@@ -85,7 +87,7 @@ def market_mat():
 QUICK = [
     ("Your turn", ["Draw up to 5 cards. Say <b>critical</b> if 3+ Dead are in hand.",
                    "Play cards, move, loot, buy, attack, in any order.",
-                   "End: 3+ Dead in hand = <b>out</b>. Otherwise discard down to 3 cards (Dead stay and count toward the 3) and go again. Flip your 1-minute sand timer when your turn starts; when it runs out, finish the action and End."]),
+                   "End: 3+ Dead in hand = <b>out</b>. Otherwise discard every card that isn't Dead (use it or lose it) and go again. Flip your 1-minute sand timer when your turn starts; when it runs out, finish the action and End."]),
     ("Move and loot", ["Base Move 1 + Move cards played. One adjacent tile per point.",
                        "Moving <b>into</b> a tile with a cube takes it: draw the top card of that loot deck into your hand. Hand cap 5; extra loot goes to your discard pile.",
                        "Legendary cubes on your own tile can be taken without moving."]),
@@ -105,29 +107,31 @@ def reference():
     return f"<section class='page ref'>{copy}<div class='cutline'>cut here</div>{copy}</section>"
 
 
-def tiles():
-    # 50 of 100 tiles get a printed cube spot in a loot colour (14 Move, 26 Attack, 10 Heal ~ 6/11/4 per 21): put that colour cube on it
-    rng = random.Random(7)
-    cols = ["M"] * 14 + ["A"] * 26 + ["H"] * 10
-    rng.shuffle(cols)
-    flat = []
-    for i, letter in enumerate("ABCDE"):
-        spots = 10
-        for n in range(20):
-            t = tile_color([], letter)
-            if n < spots:
-                k = cols.pop()
-                t = t.replace('<div class="hloots"></div>',
-                              f'<div class="hloots"><span class="cspot" style="--type:{TYPE_COLOR[k]}"><span class="msym">{MSYM[k]}</span></span></div>')
-            flat.append(t)
-    # one set of 20 per US Letter sticker sheet: honeycomb rows of 4, odd rows shifted half a hex
-    pages = []
-    for i in range(0, len(flat), 20):
-        rows = ""
-        for r in range(5):
-            rows += f"<div class='hrow{' odd' if r % 2 else ''}'>" + "".join(flat[i + r * 4:i + r * 4 + 4]) + "</div>"
-        pages.append(f"<section class='page tilepage'>{rows}</section>")
-    return pages
+BOARD_R = 4          # fixed board: hexagon of radius 4 = 61 hexes (designer's call 2026-10-22: start with one fixed board)
+BOARD_SPOTS = ("M", 12), ("A", 23), ("H", 8)  # 43 cube spots on 61 hexes (about 7 in 10), colours 6/11/4 like the loot decks
+
+
+def board():
+    """One fixed board: 61 hexes with printed cube spots. Pointy-top hexes, 1.3 in across the flats, on one 17 x 11.5 in landscape page."""
+    rng = random.Random(11)
+    cells = [(q, r) for q in range(-BOARD_R, BOARD_R + 1) for r in range(-BOARD_R, BOARD_R + 1) if abs(q + r) <= BOARD_R]
+    spots = [k for k, n in BOARD_SPOTS for _ in range(n)]
+    rng.shuffle(spots)
+    with_spot = set(rng.sample([c for c in cells if c != (0, 0)], len(spots)))  # 43 of the 60 non-centre hexes
+    w = 1.3
+    cx, cy = 8.0, 5.25
+    out = []
+    for q, r in cells:
+        ring = max(abs(q), abs(r), abs(q + r))
+        x, y = cx + w * (q + r / 2), cy + w * 0.866 * r
+        inner = ""
+        if (q, r) == (0, 0):
+            inner = '<span class="ctr">CENTRE<br>spinner</span>'
+        elif (q, r) in with_spot:
+            k = spots.pop()
+            inner = f'<span class="cspot sm" style="--type:{TYPE_COLOR[k]}"><span class="msym">{MSYM[k]}</span></span>'
+        out.append(f'<div class="bhex ring{ring}" style="left:{x - w / 2:.3f}in; top:{y - w * 0.577:.3f}in"><div class="bin">{inner}</div></div>')
+    return [f"<section class='page boardpage'><div class='btitle'>LAST DECK STANDING &middot; BOARD</div>{''.join(out)}</section>"]
 
 
 def minis():
@@ -141,10 +145,15 @@ body { font-family: Helvetica, Arial, sans-serif; color: #1b1f2a; }
 .cardsheet .page { width: 10in; margin: 0 auto; }
 .cardsheet .page > .cc { margin: 0; outline: 1px dashed #aaa; }
 .piecesheet .page { width: 10.4in; margin: 0 auto; }
-.tilesheet .page { display: block; width: 7.9in; margin: 0 auto; }
-.tilesheet .hrow { display: flex; margin-top: -0.5052in; } .tilesheet .hrow:first-child { margin-top: 0; }
-.tilesheet .hrow.odd { margin-left: 0.875in; }
-.tilesheet .hexc { width: 1.75in; height: 2.0207in; flex: none; }
+.boardsheet .page { display: block; position: relative; width: 16in; height: 11in; margin: 0 auto; }
+.bhex { position: absolute; width: 1.3in; height: 1.5011in; background: #15121c; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+.bhex .bin { position: absolute; inset: 4px; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); background: #f3e2b3;
+             display: flex; align-items: center; justify-content: center; }
+.bhex.ring1 .bin, .bhex.ring3 .bin { background: #ead29a; }
+.bhex.ring4 .bin { background: #e2c77f; }
+.cspot.sm { width: 0.62in; height: 0.62in; border-width: 3px; } .cspot.sm .msym { font-size: 20pt; }
+.ctr { font: 11pt/1.1 "Bangers", Impact, sans-serif; letter-spacing: 1px; text-align: center; color: #15121c; }
+.btitle { position: absolute; left: 0.1in; top: 0.05in; font: 20pt "Bangers", Impact, sans-serif; letter-spacing: 2px; }
 h1 { font: 44pt "Bangers", Impact, sans-serif; letter-spacing: 3px; width: 100%; text-align: center; margin: 0.2in 0 0.15in; }
 .cspot { width: 0.7in; height: 0.7in; border-radius: 50%; border: 4px dashed var(--type); background: rgba(255,255,255,.6);
          display: flex; align-items: center; justify-content: center; }
@@ -191,13 +200,14 @@ def build(name, size, body_pages, cls, extra_css=""):
 def main():
     os.makedirs(OUT, exist_ok=True)
     base, loot, market, gold = decks()
-    deads = [dead()] * 100
+    deads = [dead()] * (40 if DIFF else 100)  # v1 already has 60 Dead cards; v2 needs 100
     cards = sheets(base, 16, "") + sheets(loot, 16, "") + sheets(market, 16, "") + sheets(gold, 16, "") + sheets(deads, 16, "")
     print(f"cards: base {len(base)} loot {len(loot)} market {len(market)} gold {len(gold)} dead {len(deads)} on {len(cards)} pages")
-    build("last-deck-standing-v2-cards-11x17", "11in 17in", cards, "cardsheet")
-    pieces = [market_mat(), reference()] + minis()
-    build("last-deck-standing-v2-pieces-11.5x17", "11.5in 17in", pieces, "piecesheet")
-    build("last-deck-standing-v2-tiles-sticker-8.5x11", "8.5in 11in", tiles(), "tilesheet")  # 5 sheets of 20, 1.75in hexes on sticker paper
+    tag = "-diff" if DIFF else ""
+    build(f"last-deck-standing-v2{tag}-cards-11x17", "11in 17in", cards, "cardsheet")
+    pieces = [market_mat(), reference()] + ([] if DIFF else minis())  # storm markers are unchanged from v1
+    build(f"last-deck-standing-v2{tag}-pieces-11.5x17", "11.5in 17in", pieces, "piecesheet")
+    build(f"last-deck-standing-v2{tag}-board-17x11.5", "17in 11.5in", board(), "boardsheet")  # one fixed 61-hex board, landscape
 
 
 if __name__ == "__main__":

@@ -115,7 +115,10 @@ class Game:
         self.heap, self.seq = [], 0
         tpp = 15 if n <= 3 else (12 if n == 4 else 10)
         self.tiles = {(0, 0)}
-        while len(self.tiles) < tpp * n:
+        if a.board_radius:  # one fixed hexagonal board for every player count
+            R = a.board_radius
+            self.tiles = {(q, r) for q in range(-R, R + 1) for r in range(-R, R + 1) if abs(q + r) <= R}
+        while len(self.tiles) < tpp * n and not a.board_radius:
             fr = list({nb for h in self.tiles for nb in nbrs(h) if nb not in self.tiles})
             top = max(sum(1 for x in nbrs(h) if x in self.tiles) for h in fr)  # compact, roundish board (the rules ask for one)
             self.tiles.add(rng.choice([h for h in fr if sum(1 for x in nbrs(h) if x in self.tiles) >= top - (1 if rng.random() < 0.25 else 0)]))
@@ -623,6 +626,7 @@ def main():
     ap.add_argument("--loot-ones", action="store_true", help="half the loot 2s become 1s")
     ap.add_argument("--elim", type=int, default=3, help="Dead cards in hand at end of turn that eliminate you")
     ap.add_argument("--storm-mode", default="both", choices=["enter", "end", "both"], help="enter: 1 Dead per storm tile you move into; end: ending your turn on one")
+    ap.add_argument("--board-radius", type=int, default=0, help="fixed hexagonal board of this radius (4 = 61 hexes) instead of player-built boards")
     ap.add_argument("--debug-stall", action="store_true")
     ap.add_argument("--loot-cap", type=int, default=5, help="hand size cap for looting; extra loot goes to the discard pile (0 = no cap)")
     ap.add_argument("--loot-weak", action="store_true", help="loot values 1 and 2 only (half 1s, half 2s)")

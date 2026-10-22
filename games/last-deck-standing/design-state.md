@@ -13,6 +13,7 @@ Updated 2026-10-12 · Designers: Brandon and Chris · Milestone: v2 (realtime) d
 | Players / time | 2–5 solo, or teams (equal sizes) up to 10 players · no time target for now (sim: about 8–12 min at 37 s turns) |
 
 ## v2 Locked (designer's calls)
+- **2026-10-22:** end of turn discards every non-Dead card (replaces keep 3; hand lock and Heal holding are gone); one **fixed 61-hex board** with 43 printed cube spots (12 Move / 23 Attack / 8 Heal, loot decks the same) replaces player-built tiles (2-6 players for now; hex groups, super-good hexes and a mid-game map opening are in Ideas for Later); v1 vs v2 differences are marked with Δ in `rulebook-v2-draft.md` and a diff-only print is in `pnp/v2/diff/`; SIM-030 addendum 28. Timers are under review (see the forced turn-cycle proposal, not yet adopted).
 - Realtime: no rounds; everyone plays their own turns at their own pace, each player has a 1-minute sand timer per turn (flip at turn start, End when it runs out; laid down during pauses; alarms no longer end turns); a table timer drives drops (every 2 min) and the storm (every 4 min); pausing freezes the play clock
 - Attacks: declare "Attack", pause the table, resolve, resume (option A). B (dodge with a Move card) and C (resolves 5 s later) are for later
 - Damage = Attack − **2 per tile of range**; Dead cards go into the target's discard pile, placed by the attacker

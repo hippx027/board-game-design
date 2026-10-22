@@ -29,21 +29,22 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 #quick-reference + p, .qr{background:var(--storm-soft);border-left:0;border:1px solid var(--storm);border-radius:6px;padding:14px 18px}
 .dead{color:var(--dead);font-weight:600}
 .v1{color:var(--r1)}.v2{color:var(--r2)}.v3{color:var(--r3)}
-</style></head><body><div class="wrap">
+</style><style>.dv{color:#c2410c;font-weight:700;margin-right:.25em}</style></head><body><div class="wrap">
 <header><div class="eyebrow">Realtime rules &#183; v2 draft &#183; 2026-10-13</div><h1>Last Deck Standing</h1>
 <div class="meta"><span class="chip">2&#8211;10 players</span><span class="chip">No rounds</span><span class="chip">Battle royale deck builder</span></div></header>
 <main id="rules">
 <p>Designers: Brandon and Chris. Drafted 2026-10-12 from playtest 001 notes (<code>playtest-notes-001.md</code>) and the designer&#39;s answers. <code>rulebook-draft.md</code> (v1) stays as the turn-based baseline.</p>
-<p><strong>Turn floor: none for the first session (designer&#39;s call).</strong> Starting cubes: half the tiles (decided).</p>
+<p><strong>Turn floor: none for the first session (designer&#39;s call).</strong> Starting cubes: 43 of the 61 hexes (about 7 in 10, raised from half on 2026-10-22, because you now have to move into a hex to loot it; SIM-030 addendum 28).</p>
 <p><strong>Lines marked &quot;default&quot; are my calls where the designer hadn&#39;t decided; they were adopted on 2026-10-12 so the first paper session can start (&quot;do them all&quot;), and the designer can change any of them.</strong> Numbers in [brackets] are still placeholders.</p>
+<p><strong><span class="dv">&#916;</span> marks what is new or changed from v1</strong> (turn-based, <code>rulebook-draft.md</code>): a <span class="dv">&#916;</span> on a heading means the whole section differs; on a bullet, table row or step, just that line. Unmarked text plays as in v1. Dropped from v1: stat tracker and Shield, round track, loot display, loot piles, characters, marked Dead backs, supply-drop marker. The print file <code>last-deck-standing-v2-diff-*.pdf</code> holds only the <span class="dv">&#916;</span> components.</p>
 <h2 id="overview">Overview</h2>
 <ul>
-<li><strong>Players:</strong> 2&#8211;10 (solo or equal-size teams) &#183; <strong>Time:</strong> no target for now (designer&#39;s call, 2026-10-12). Sim says about 7&#8211;11 min at 37 s turns; see SIM-030</li>
-<li><strong>Goal:</strong> Be the last player (or team) standing. You knock opponents out by putting Dead cards in their decks. <strong>The game ends the moment only one player or team is left,</strong> and they win (designer&#39;s call, 2026-10-13); they don&#39;t have to finish their turn.</li>
+<li><span class="dv">&#916;</span> <strong>Players:</strong> 2&#8211;6 on the fixed board (solo or equal-size teams; 7&#8211;10 wait for the bigger hex-group boards, see Ideas for Later) &#183; <strong>Time:</strong> no target for now (designer&#39;s call, 2026-10-12). Sim says about 7&#8211;11 min at 37 s turns; see SIM-030</li>
+<li><span class="dv">&#916;</span> <strong>Goal:</strong> Be the last player (or team) standing. You knock opponents out by putting Dead cards in their decks. <strong>The game ends the moment only one player or team is left,</strong> and they win (designer&#39;s call, 2026-10-13); they don&#39;t have to finish their turn.</li>
 <li><strong>You are eliminated</strong> if you end a turn with 3 or more Dead cards in your hand.</li>
-<li><strong>Realtime:</strong> there are no rounds. Everyone plays their own turns at the same time and at their own pace, each with a 1-minute sand timer. The storm and loot drops run on a table timer.</li>
+<li><span class="dv">&#916;</span> <strong>Realtime:</strong> there are no rounds. Everyone plays their own turns at the same time and at their own pace, each with a 1-minute sand timer. The storm and loot drops run on a table timer.</li>
 </ul>
-<h2 id="first-game-learning-rules-3-4-players-no-teams-">First Game (learning rules, 3&#8211;4 players, no teams)</h2>
+<h2><span class="dv">&#916;</span> First Game (learning rules, 3&#8211;4 players, no teams)</h2>
 <p>For your first paper session, play it like this. Everything else plays exactly as written.</p>
 <div class="tbl"><table>
 <thead>
@@ -66,7 +67,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 </tbody></table></div>
 <p><strong>Drops stay in</strong> (designer&#39;s call: they matter at every player count): the 2-minute drop timer, legendary cubes, the Legendary deck and the elimination drop.</p>
-<p>Keep: the 4-minute storm timer, the Market (3 face up, no tiers, specific costs printed on each card), the hand cap of 5, and Range cost 2 per tile. Cubes go on half the tiles. Each player has a 1-minute sand timer.</p>
+<p>Keep: the 4-minute storm timer, the Market (3 face up, no tiers, specific costs printed on each card), the hand cap of 5, and Range cost 2 per tile. Cubes go on the 43 printed cube spots. Each player has a 1-minute sand timer.</p>
 <p>What to watch for (these are the questions this session answers):</p>
 <ol>
 <li><strong>Does the Market get used?</strong> Sim: about 3 buys per player per game (9 at 3p, 11 at 4p). Count yours.</li>
@@ -114,7 +115,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 <tr>
 <td>Discard down to 3 at end of turn</td>
-<td>Same: keep up to 3 cards in all, Dead included, discard the rest (Dead cards are never discarded, so each Dead you hold leaves one fewer slot). Hand cap of 5; looted cards over the cap go to your discard pile</td>
+<td><strong>Discard every non-Dead card</strong> (designer&#39;s call, 2026-10-22): only Dead cards stay in your hand, so you redraw to 5 each turn. Hand cap of 5; looted cards over the cap go to your discard pile</td>
 </tr>
 <tr>
 <td>Range costs 1 damage per tile</td>
@@ -135,34 +136,34 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 </thead>
 <tbody><tr>
-<td>Base deck</td>
+<td><span class="dv">&#916;</span> Base deck</td>
 <td>10 per player</td>
 <td><strong>4 Move 1, 4 Attack 1, 2 Heal 1</strong></td>
 </tr>
 <tr>
-<td>Loot decks</td>
+<td><span class="dv">&#916;</span> Loot decks</td>
 <td>3, one per type</td>
-<td>Move 14, Attack 26, Heal 10 (50 cards, one per cube spot; was 12/16/10 until the tile count went up), each shuffled face down. <strong>Values 1 and 2 only, half each</strong> (designer&#39;s call: no 3s in loot; Move 7&#215;1 + 7&#215;2, Attack 13&#215;1 + 13&#215;2, Heal 5&#215;1 + 5&#215;2; the half-and-half split is my default). To get 3s you must use the Market, kill someone (elimination drop) or reach a drop. Old loot (2s and 3s) is kept as a variant</td>
+<td>Move 12, Attack 23, Heal 8 (43 cards, one per cube spot on the fixed board), each shuffled face down. <strong>Values 1 and 2 only, half each</strong> (designer&#39;s call: no 3s in loot; Move 6&#215;1 + 6&#215;2, Attack 11&#215;1 + 12&#215;2, Heal 4&#215;1 + 4&#215;2; the half-and-half split is my default). To get 3s you must use the Market, kill someone (elimination drop) or reach a drop. Old loot (2s and 3s) is kept as a variant</td>
 </tr>
 <tr>
-<td>Legendary deck</td>
+<td><span class="dv">&#916;</span> Legendary deck</td>
 <td>48 (72 at 8+ players)</td>
 <td>Value 3 and 4 cards (8 each of Move 3/4, Attack 3/4, Heal 3/4 in the 48; add a second 24 at 8-10 players). Sized by SIM-030 addendum 23; taken from legendary cubes in drops and elimination drops</td>
 </tr>
 <tr>
-<td>Market deck</td>
+<td><span class="dv">&#916;</span> Market deck</td>
 <td>21</td>
 <td>Value 2 and 3 cards; 3 face up; see Market</td>
 </tr>
 <tr>
-<td>Dead cards</td>
+<td><span class="dv">&#916;</span> Dead cards</td>
 <td>100</td>
 <td>Plain backs. Raised from 60 (SIM-030 addendum 27: about 80 are out at once in a 10-player game). If the supply ever runs out, play on: no more Dead can be dealt until some are healed or an eliminated player returns theirs</td>
 </tr>
 <tr>
-<td>Loot cubes</td>
-<td>half the number of tiles in play (up to 50)</td>
-<td>One colour per type (purple Move, red Attack, green Heal); mark available loot on the board</td>
+<td><span class="dv">&#916;</span> Loot cubes</td>
+<td>43</td>
+<td>One colour per type (purple Move 12, red Attack 23, green Heal 8); one on every printed cube spot of the board</td>
 </tr>
 <tr>
 <td>Legendary cubes</td>
@@ -170,14 +171,14 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <td>Mark drops; taking one gives the top card of the Legendary deck</td>
 </tr>
 <tr>
-<td>Sand timers</td>
+<td><span class="dv">&#916;</span> Sand timers</td>
 <td>1 per player</td>
 <td>1-minute sand timers (or a phone timer each); flip at the start of your turn. A simple timer app is planned (per-player turn timers, Storm and Drop alarms, one pause button for everyone)</td>
 </tr>
 <tr>
-<td>Board tiles</td>
-<td>15 per player at 2&#8211;3 players, 12 at 4, 10 at 5+</td>
-<td>100 hex tiles (5 sets, A&#8211;E, of 20), enough for 10 players at 10 tiles each; 50 of them have a printed cube spot in a loot colour (14 Move, 26 Attack, 10 Heal)</td>
+<td><span class="dv">&#916;</span> Game board</td>
+<td>1</td>
+<td><strong>One fixed board</strong> (designer&#39;s call, 2026-10-22): a hexagon of 61 hexes (radius 4), 43 with a printed cube spot in a loot colour, the rest blank. Print: <code>last-deck-standing-v2-board-17x11.5.pdf</code>, one landscape page. Individual hex tiles are gone for now</td>
 </tr>
 <tr>
 <td>Pawn</td>
@@ -185,45 +186,45 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <td></td>
 </tr>
 <tr>
-<td>Spinner</td>
+<td><span class="dv">&#916;</span> Spinner</td>
 <td>1</td>
 <td>Battle bus: sits on the centre tile; its line sets where pawns may start (a paper arrow on a pin, or a pencil, works)</td>
 </tr>
 <tr>
-<td>Table timer</td>
+<td><span class="dv">&#916;</span> Table timer</td>
 <td>1</td>
 <td>A phone with two repeating alarms: <strong>Drop</strong> and <strong>Storm</strong></td>
 </tr>
 <tr>
-<td>Storm markers</td>
-<td>enough for the edge</td>
-<td>One per tile</td>
+<td><span class="dv">&#916;</span> Storm markers</td>
+<td>61</td>
+<td>One per hex</td>
 </tr>
 <tr>
-<td>Cards print</td>
+<td><span class="dv">&#916;</span> Cards print</td>
 <td>11&#215;17 paper</td>
 <td>Card sheets (replaces the old size)</td>
 </tr>
 </tbody></table></div>
 <h2 id="setup">Setup</h2>
 <ol>
-<li>Build the board as in v1 (players alternate placing tiles, each touching the last): <strong>15 tiles per player at 2&#8211;3 players, 12 at 4, 10 at 5 or more</strong> (designer let me pick, 2026-10-13). Use whole sets where you can; with fewer than 100 tiles some loot cards are left over in the decks. About half the tiles have a printed <strong>cube spot</strong> in a loot colour (purple Move, red Attack, green Heal); the other half are blank.</li>
-<li>Put a loot cube of the <strong>matching colour</strong> on every cube spot (half the tiles; designer&#39;s call, tested in SIM-030 addendum 7). The colours are printed on the tiles, which sets the mix: 14 purple Move, 26 red Attack, 10 green Heal on 50 tiles (about 6/11/4 per 21), matching the loot decks card for card when every tile is used. When a cube is looted the spot stays empty; no new loot cubes appear (only legendary cubes, from Drops).</li>
-<li><strong>Battle bus:</strong> put a spinner on the centre tile (the first tile placed) and spin it. Its line runs across the board through the centre. In a <strong>2 or 3 player</strong> game, pawns start <strong>on the line</strong>. With <strong>4 or more players</strong>, they start <strong>on the line or 1 tile away from it</strong>. No minimum distance between pawns (designer&#39;s call), but each pawn starts on its own tile; players place in the order they choose. (Designer confirmed 2026-10-13: the line sets starting positions.)</li>
-<li>Shuffle your 10-card base deck and draw 5. <strong>When your draw pile is empty, shuffle your discard pile (Dead cards included) to make a new one</strong> (designer&#39;s call, 2026-10-13).</li>
+<li><span class="dv">&#916;</span> <strong>Lay out the board.</strong> Use the fixed 61-hex board for any player count from 2 to 6 (default: the sim runs fine at 2&#8211;6 players; 2 players on 61 hexes is roomy but the storm still closes it). No building: the old player-built boards and per-player tile counts are gone for now.</li>
+<li><span class="dv">&#916;</span> Put a loot cube of the <strong>matching colour</strong> on every printed cube spot (43 of 61 hexes; designer&#39;s call 2026-10-22, tested in SIM-030 addendum 28). The mix is 12 purple Move, 23 red Attack, 8 green Heal (about 6/11/4 per 21), matching the loot decks card for card. When a cube is looted the spot stays empty; no new loot cubes appear (only legendary cubes, from Drops).</li>
+<li><span class="dv">&#916;</span> <strong>Battle bus:</strong> put a spinner on the centre hex (marked on the board) and spin it. Its line runs across the board through the centre. In a <strong>2 or 3 player</strong> game, pawns start <strong>on the line</strong>. With <strong>4 or more players</strong>, they start <strong>on the line or 1 tile away from it</strong>. No minimum distance between pawns (designer&#39;s call), but each pawn starts on its own tile; players place in the order they choose. (Designer confirmed 2026-10-13: the line sets starting positions.)</li>
+<li><span class="dv">&#916;</span> Shuffle your 10-card base deck and draw 5. <strong>When your draw pile is empty, shuffle your discard pile (Dead cards included) to make a new one</strong> (designer&#39;s call, 2026-10-13).</li>
 <li>Lay out the Market.</li>
-<li><strong>Seat order:</strong> go around the table clockwise from the player who placed the first tile. This is the &quot;turn order&quot; for Drops (designer&#39;s call, 2026-10-13).</li>
-<li>Start the timer: the 2-minute Drop clock starts with the game. Everyone starts together.</li>
+<li><span class="dv">&#916;</span> <strong>Seat order:</strong> go around the table clockwise from the player who spun the spinner (the youngest player spins). This is the &quot;turn order&quot; for Drops (designer&#39;s call, 2026-10-13).</li>
+<li><span class="dv">&#916;</span> Start the timer: the 2-minute Drop clock starts with the game. Everyone starts together.</li>
 </ol>
-<h2 id="your-turn-played-at-your-own-speed-">Your Turn (played at your own speed)</h2>
+<h2><span class="dv">&#916;</span> Your Turn (played at your own speed)</h2>
 <ol>
 <li><strong>Draw</strong> up to 5 cards. If you have 3 or more Dead cards in your hand, say <strong>&quot;critical&quot;</strong> out loud (default).</li>
 <li><strong>Act</strong> in any order: play cards, move, attack, loot, trade at the Market.</li>
-<li><strong>End:</strong> if you have 3 or more Dead cards in hand, you are eliminated. Otherwise put your played cards in your discard pile, <strong>discard down to 3 cards in your hand</strong> (designer&#39;s call: <strong>Dead cards count toward the 3</strong>, they always have, but they are never discarded; with 2 Dead you keep 1 other card), and start your next turn right away.</li>
+<li><strong>End:</strong> if you have 3 or more Dead cards in hand, you are eliminated. Otherwise put your played cards in your discard pile, <strong>discard every card in your hand that isn&#39;t Dead</strong> (designer&#39;s call, 2026-10-22; replaces &quot;keep up to 3&quot;), and start your next turn right away. Dead cards stay, so you draw back up to 5 (3 or more cards if you hold 2 Dead). Use it or lose it: a Heal or Move you don&#39;t play is gone, so spend what you want before you End.</li>
 </ol>
 <p><strong>Sand timer (designer&#39;s call, 2026-10-13):</strong> every player has a <strong>1-minute sand timer</strong>. Flip it when your turn starts. When it runs out, finish the action you are in and say <strong>&quot;End&quot;</strong>; the end-of-turn steps happen at once. You can End early (flip nothing; your next turn starts right away and you flip again). When the table pauses for an Attack or an alarm, everyone lays their timer on its side, and stands it back up on resume. The Storm and Drop alarms no longer end anyone&#39;s turn; they are table events only. This replaces the earlier ideas of a 30-second &quot;you were hit&quot; rule and ending your turn at the next alarm.</p>
 <p>Nobody waits for you. If you take a long turn, the others take several, and no turn lasts more than a minute of play.</p>
-<h2 id="cards">Cards</h2>
+<h2><span class="dv">&#916;</span> Cards</h2>
 <div class="tbl"><table>
 <thead>
 <tr>
@@ -245,17 +246,17 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 </tbody></table></div>
 <p>Starting cards are value 1. Cards gained from the Market are value 2 or higher.</p>
-<h2 id="moving">Moving</h2>
+<h2><span class="dv">&#916;</span> Moving</h2>
 <p>Play Move cards. Move up to 1 (your Base Move) plus the total value of Move cards played this turn, one adjacent tile per point. You can&#39;t cross a gap. Any number of pawns may share a tile. You always have <strong>Base Move 1</strong>, so you can move 1 tile with no Move cards. Base Move and Base Attack never change.</p>
-<h2 id="looting">Looting</h2>
+<h2><span class="dv">&#916;</span> Looting</h2>
 <ul>
 <li>Cubes on the board mark <strong>available loot</strong>.</li>
 <li><strong>Loot a cube by moving into its tile</strong> (designer&#39;s call): each cube on a tile you move into, passing through or stopping, is removed from the board and you take the <strong>top card of the matching loot deck</strong> (purple Move, red Attack, green Heal) <strong>into your hand</strong>. You can loot as many tiles as you can reach in a turn. The tile you start on doesn&#39;t count, so you can&#39;t loot a cube you are standing on. <strong>Exception:</strong> legendary cubes from a drop or an elimination drop that are on your tile are picked up without moving, as soon as they land (default).</li>
 <li>Looted cards in hand can be played right away, and that is the point: a Heal you loot is a Heal you can use. Played cards (other than Heals) go to your discard pile and become part of your deck.</li>
-<li><strong>Your hand never goes over 5 cards, ever</strong> (designer&#39;s call: always follow the hand cap). Dead cards in your hand count toward it. If your hand is full when you loot, the looted card goes <strong>straight to your discard pile</strong> instead of your hand (default overflow rule; you are never forced to discard to loot). At end of turn you discard down to 3 cards in hand, and Dead cards count toward the 3 (see Your Turn). Played cards go to your discard pile.</li>
+<li><strong>Your hand never goes over 5 cards, ever</strong> (designer&#39;s call: always follow the hand cap). Dead cards in your hand count toward it. If your hand is full when you loot, the looted card goes <strong>straight to your discard pile</strong> instead of your hand (default overflow rule; you are never forced to discard to loot). At end of turn you discard every non-Dead card (see Your Turn). Played cards go to your discard pile.</li>
 <li>Cubes are returned to the supply. The only new cubes are <strong>legendary cubes</strong> from Drops.</li>
 </ul>
-<h2 id="market">Market</h2>
+<h2><span class="dv">&#916;</span> Market</h2>
 <p>You may trade cards from your hand to buy a Market card, any time during your turn.</p>
 <ul>
 <li><strong>No tiers for now</strong> (designer&#39;s call; tiers return later). The Market deck is one shuffled deck; <strong>3 cards are face up</strong> and are replaced from the deck as they&#39;re bought.</li>
@@ -301,7 +302,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li><strong>If the Market deck runs out,</strong> face-up cards that are bought are not replaced (default; the 21-card deck is rarely emptied at 2-4 players).</li>
 </ul>
 <p>The game inside the game: <strong>collect the right cards to turn many low cards into a few strong ones.</strong></p>
-<h2 id="attacking-realtime-">Attacking (realtime)</h2>
+<h2><span class="dv">&#916;</span> Attacking (realtime)</h2>
 <p>To attack, you declare <strong>&quot;Attack&quot;</strong> and <strong>pause the table</strong> (Captain Sonar style; designer&#39;s pick for the first session):</p>
 <ol>
 <li>Everyone freezes, including the timers.</li>
@@ -310,7 +311,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li>Everyone resumes.</li>
 </ol>
 <p>You can split your Attack among several players, as in v1 (one attack per player). <strong>The range cost is paid per target</strong> (designer&#39;s call, 2026-10-13): each target takes your Attack total (pool) minus 2 per tile of its own range, and you choose how to divide the Attack among them. <strong>Locked for the first paper session: option A (pause).</strong> Options B (the target may dodge with a Move card) and C (resolves 5 s later) are listed below to try in later sessions. In the sim none of them changes who wins; only A costs time.</p>
-<h2 id="dead-cards">Dead Cards</h2>
+<h2><span class="dv">&#916;</span> Dead Cards</h2>
 <ul>
 <li><strong>Healed Dead cards go back to the Dead supply</strong> (the stack), not to a discard pile (designer&#39;s call, 2026-10-13).</li>
 <li>Dead cards have plain backs, like all other cards (marked backs would stop people shuffling them to the top).</li>
@@ -318,21 +319,21 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li>Dead cards can&#39;t be played or discarded, and stay in your hand until you heal them.</li>
 <li><strong>Elimination:</strong> you still take turns, just in realtime. If you end your turn with 3 or more Dead cards in hand, you&#39;re out. Nothing else eliminates you.</li>
 </ul>
-<h2 id="elimination-drop">Elimination Drop</h2>
+<h2><span class="dv">&#916;</span> Elimination Drop</h2>
 <p>When a player is eliminated:</p>
 <ol>
 <li>Remove their pawn and return all their Dead cards to the Dead supply. Their other cards leave the game, <strong>except any Legendary cards they own</strong> (hand, deck or discard): those stay on the tile as the first cards of the loot pool.</li>
 <li><strong>Loot drop:</strong> place <strong>2 legendary cubes</strong> on the tile where they fell (default). It&#39;s a drop with no pause and no nudging. Whoever moves through or onto the tile takes them like any legendary cube: the fallen player&#39;s legendary cards come first, then the top of the Legendary deck. If they left more than 2 legendary cards, add one cube per extra card.</li>
 <li>The fallen player&#39;s own Legendary cards always drop. Extra cubes taken from the Legendary deck only come out while that deck has cards left (designer&#39;s call, 2026-10-13).</li>
 </ol>
-<h2 id="the-storm-timer-">The Storm (timer)</h2>
+<h2><span class="dv">&#916;</span> The Storm (timer)</h2>
 <ul>
 <li>The storm alarm sounds <strong>every 4 minutes</strong> (designer&#39;s call; first alarm at 4:00).</li>
 <li>On the alarm, <strong>pause the table</strong>, place storm markers on <strong>every tile of the current outer ring</strong> at once, then resume.</li>
 <li><strong>1 Dead card for each storm tile you move into</strong> (designer&#39;s call), and <strong>1 more if you end your turn on a storm tile</strong>. Dead cards go in your discard pile. Standing in the storm and not moving still costs the end-of-turn card.</li>
 <li>Once every tile is marked, every move costs a Dead card, plus one more at the end of your turn.</li>
 </ul>
-<h2 id="drops-timer-">Drops (timer)</h2>
+<h2><span class="dv">&#916;</span> Drops (timer)</h2>
 <ul>
 <li>The 2-minute Drop clock starts with the game and repeats.</li>
 <li>On the alarm, pause the table:<ol>
@@ -349,7 +350,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li>Looting a legendary cube works like any cube: move into its tile, remove it and take the top card of the Legendary deck into your hand. If a drop lands on your tile, you pick it up without moving.</li>
 <li>Regular cubes are <strong>not</strong> refreshed by drops. They are only the starting cubes. Playtest variant: a cube refresh (for example, the table adds [N] regular cubes with each drop).</li>
 </ul>
-<h2 id="teams-variant-">Teams (variant)</h2>
+<h2><span class="dv">&#916;</span> Teams (variant)</h2>
 <ul>
 <li><strong>Any team shape from 2 to 10 players</strong>: 2 teams of 2&#8211;5 (for example 5v5), 3 teams of 3 (3v3v3), or duos up to 10 players (5 teams). <strong>Teams are equal in size</strong> for the first sessions (designer&#39;s call).</li>
 <li>Every player has their own deck, hand and pawn.</li>
@@ -357,7 +358,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li>A team is eliminated when all its members are. When a member is eliminated, the rotation skips them.</li>
 <li><strong>You can&#39;t attack a teammate</strong> (designer&#39;s call), with Attack cards or anything else.</li>
 <li>Teammates can help: a teammate on your tile can play a Heal on you (default).</li>
-<li>The board grows with the player count (15 tiles per player at 2&#8211;3 players, 12 at 4, 10 at 5+; my pick, as in v1 and the sim); the table timer is the same for every team size.</li>
+<li>The board is the same fixed 61 hexes for every team layout, so teams stop at 6 players for now; the table timer is the same for every team size.</li>
 <li><strong>Known risk, SIM-030 addendum 8:</strong> rotation gets slow with big teams. Your next turn only comes after every teammate has gone, so the storm kills players who haven&#39;t acted yet, and 5v5 stalls in about a quarter of sim games. Fine at 2v2 and 3v3. Playtest the big layouts and see; options to test if needed are listed below.</li>
 </ul>
 <hr>
@@ -381,7 +382,10 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <h2 id="ideas-for-later-not-rules-">Ideas for Later (not rules)</h2>
 <ul>
 <li><strong>Give cards to a player on your tile:</strong> put non-Dead cards from your hand into another player&#39;s discard pile if you share a tile. Designer&#39;s idea (2026-10-12), kept for later. The 5-card hand cap applies, though it can&#39;t matter because cards go to their discard pile. Open questions: teammates only, or anyone? Is it an action? A limit per turn? (Market costs count cards, so gifting helps the receiver; see SIM-030 notes.)</li>
-<li><strong>Hand lock (resolved 2026-10-13):</strong> the first draft of this rule had Dead not counting toward the 3 you keep, so 2 Dead + 3 kept cards filled the hand and a player never drew again, immune to every Dead card. The designer&#39;s rule is that Dead always count toward the 3, which means you always draw at least 2 cards. Starting-tile cubes that can&#39;t be looted by moving in are accepted as is.</li>
+<li><strong>Hand lock (gone since 2026-10-22):</strong> with everything discarded each turn, 2 Dead + 3 kept cards can&#39;t happen. History:  the first draft of this rule had Dead not counting toward the 3 you keep, so 2 Dead + 3 kept cards filled the hand and a player never drew again, immune to every Dead card. The designer&#39;s rule is that Dead always count toward the 3, which means you always draw at least 2 cards. Starting-tile cubes that can&#39;t be looted by moving in are accepted as is.</li>
+<li><strong>Hex groups instead of one fixed board (designer&#39;s idea, 2026-10-22):</strong> after the fixed board, play with groups of hexes joined in different shapes, so every game has a new map. Brings back 7-10 player games by using more groups.</li>
+<li><strong>A few super-good hexes (designer&#39;s idea, 2026-10-22):</strong> special hexes in the mix with a rich cube spot or a bonus, once shaped boards exist.</li>
+<li><strong>The map opens up (designer&#39;s idea, 2026-10-22):</strong> mid-game a new hex or group is added to the board and comes with a high-loot hex, which pulls players toward it like a drop does. Open: where it attaches (outer edge only, so it can&#39;t outrun the storm?), who places it, and whether it replaces or adds to Drops.</li>
 <li><strong>Market tiers</strong> return later (the designer said &quot;not later&quot;).</li>
 <li><strong>Cube refresh</strong> with each drop, as a playtest variant.</li>
 <li><strong>Market as a location:</strong> instead of buying anywhere, the Market is a board tile you have to be on to buy. <strong>Multiple Market tiles</strong> (several instances, so there&#39;s no single crowd). Designer&#39;s idea (2026-10-12), kept for later. Design notes: buying becomes rarer (the sim already shows only about 3 buys per player per game), a central tile would be stormed last, and 10-player games need several tiles. If tried, buy only while standing on a tile and let the first to declare take a face-up card. Not simulated yet.</li>
