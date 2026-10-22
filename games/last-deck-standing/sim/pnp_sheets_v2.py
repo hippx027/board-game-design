@@ -10,7 +10,7 @@ the Legendary deck (72: use 48 up to 7 players), 100 Dead cards (plain backs: ev
 pnp_sheets.py (comic frames, Material Symbols Sharp, rarity colours), so nothing here is hand-drawn artwork.
 """
 import html
-import random
+import math, random
 import os
 import subprocess
 
@@ -117,7 +117,13 @@ def board():
     cells = [(q, r) for q in range(-BOARD_R, BOARD_R + 1) for r in range(-BOARD_R, BOARD_R + 1) if abs(q + r) <= BOARD_R]
     spots = [k for k, n in BOARD_SPOTS for _ in range(n)]
     rng.shuffle(spots)
-    with_spot = set(rng.sample([c for c in cells if c != (0, 0)], len(spots)))  # 43 of the 60 non-centre hexes
+    # 5 pie-slice groups of 12 around the centre hex (connected, each with hexes from every ring)
+    ordered = sorted([c for c in cells if c != (0, 0)],
+                     key=lambda c: (math.atan2(c[1] * 0.866, c[0] + c[1] / 2) % (2 * math.pi), max(abs(c[0]), abs(c[1]), abs(c[0] + c[1]))))
+    group = {c: i // 12 for i, c in enumerate(ordered)}
+    with_spot = set()
+    for g, n in enumerate((9, 9, 9, 8, 8)):  # 43 spots, 8-9 per group
+        with_spot |= set(rng.sample([c for c in ordered if group[c] == g], n))
     w = 1.3
     cx, cy = 8.0, 5.25
     out = []
@@ -130,7 +136,11 @@ def board():
         elif (q, r) in with_spot:
             k = spots.pop()
             inner = f'<span class="cspot sm" style="--type:{TYPE_COLOR[k]}"><span class="msym">{MSYM[k]}</span></span>'
-        out.append(f'<div class="bhex ring{ring}" style="left:{x - w / 2:.3f}in; top:{y - w * 0.577:.3f}in"><div class="bin">{inner}</div></div>')
+        g = group.get((q, r))
+        gcls = f" g{g}" if g is not None else ""
+        if g is not None:
+            inner += f'<span class="glab">{"ABCDE"[g]}</span>'
+        out.append(f'<div class="bhex ring{ring}{gcls}" style="left:{x - w / 2:.3f}in; top:{y - w * 0.577:.3f}in"><div class="bin">{inner}</div></div>')
     return [f"<section class='page boardpage'><div class='btitle'>LAST DECK STANDING &middot; BOARD</div>{''.join(out)}</section>"]
 
 
@@ -151,6 +161,9 @@ body { font-family: Helvetica, Arial, sans-serif; color: #1b1f2a; }
              display: flex; align-items: center; justify-content: center; }
 .bhex.ring1 .bin, .bhex.ring3 .bin { background: #ead29a; }
 .bhex.ring4 .bin { background: #e2c77f; }
+.bhex.g0 .bin { background: #f0c9c0; } .bhex.g1 .bin { background: #f3e2a0; } .bhex.g2 .bin { background: #c8e3bd; }
+.bhex.g3 .bin { background: #bfdcee; } .bhex.g4 .bin { background: #dccbee; }
+.glab { position: absolute; top: 3px; left: 50%; transform: translateX(-50%); font: 10pt "Bangers", Impact, sans-serif; color: #15121c88; }
 .cspot.sm { width: 0.62in; height: 0.62in; border-width: 3px; } .cspot.sm .msym { font-size: 20pt; }
 .ctr { font: 11pt/1.1 "Bangers", Impact, sans-serif; letter-spacing: 1px; text-align: center; color: #15121c; }
 .btitle { position: absolute; left: 0.1in; top: 0.05in; font: 20pt "Bangers", Impact, sans-serif; letter-spacing: 2px; }
