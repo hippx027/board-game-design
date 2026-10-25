@@ -34,7 +34,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <div class="meta"><span class="chip">2&#8211;10 players</span><span class="chip">No rounds</span><span class="chip">Battle royale deck builder</span></div></header>
 <main id="rules">
 <p>Designers: Brandon and Chris. Drafted 2026-10-12 from playtest 001 notes (<code>playtest-notes-001.md</code>) and the designer&#39;s answers. <code>rulebook-draft.md</code> (v1) stays as the turn-based baseline.</p>
-<p><strong>Turn floor: none for the first session (designer&#39;s call).</strong> Starting cubes: 43 of the 61 hexes (about 7 in 10, raised from half on 2026-10-22, because you now have to move into a hex to loot it; SIM-030 addendum 28).</p>
+<p><strong>Turn floor: none for the first session (designer&#39;s call), but see the Realtime table rules (every turn must do something).</strong> Starting cubes: 43 cubes on 38 of the 61 hexes (about 7 in 10, raised from half on 2026-10-22, because you now have to move into a hex to loot it; SIM-030 addendum 28).</p>
 <p><strong>Lines marked &quot;default&quot; are my calls where the designer hadn&#39;t decided; they were adopted on 2026-10-12 so the first paper session can start (&quot;do them all&quot;), and the designer can change any of them.</strong> Numbers in [brackets] are still placeholders.</p>
 <p><strong><span class="dv">&#916;</span> marks what is new or changed from v1</strong> (turn-based, <code>rulebook-draft.md</code>): a <span class="dv">&#916;</span> on a heading means the whole section differs; on a bullet, table row or step, just that line. Unmarked text plays as in v1. Dropped from v1: stat tracker and Shield, round track, loot display, loot piles, characters, marked Dead backs, supply-drop marker. The print file <code>last-deck-standing-v2-diff-*.pdf</code> holds only the <span class="dv">&#916;</span> components.</p>
 <h2 id="overview">Overview</h2>
@@ -74,9 +74,9 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li><strong>Do attacks feel fair without a pause?</strong> Note any argument about positions or who declared first (the sim has no data on this). Rule of thumb already in the rules: positions are fixed the moment someone says &quot;Attack&quot;.</li>
 <li><strong>How long does a game take?</strong> Sim with the current rules (no pauses, discard-all, fixed board): about 4 minutes at 2&#8211;3 players to about 6 minutes at 6 players. Humans will be slower than bots. Write down the real number.</li>
 <li><strong>Hoarding:</strong> does the hand cap of 5 change what you loot or hold?</li>
-<li><strong>Storm:</strong> does it push people together or just kill them? Sim: at 4 minutes the storm marks fewer than 1 ring per game, so it barely matters (see the Storm note under Teams).</li>
+<li><strong>Storm:</strong> does it push people together or just kill them? Sim: at 4 minutes the storm marks fewer than 1 ring per game, so it barely matters (see the Storm note under Playtest options).</li>
 </ol>
-<p>Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) minutes, with stalls of 0.3% (3p) and 3.7% (4p). Add the full rules from the second session.</p>
+<p>Simulated games under the current rules (SIM-030, addendum 29) end in about 4&#8211;6 minutes with 0% stalls (bots; humans slower).</p>
 <h2 id="what-changed-from-v1">What changed from v1</h2>
 <div class="tbl"><table>
 <thead>
@@ -87,7 +87,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </thead>
 <tbody><tr>
 <td>Players take turns around the table</td>
-<td>Everyone plays at once, each at their own pace; the table pauses for attacks</td>
+<td>Everyone plays at once, each at their own pace; attacks resolve on the spot, no pause</td>
 </tr>
 <tr>
 <td>Rounds drive the storm and drops</td>
@@ -173,7 +173,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <tr>
 <td><span class="dv">&#916;</span> Table timer</td>
 <td>1</td>
-<td>A phone with two repeating alarms, <strong>Storm</strong> and <strong>Drop</strong>, and one pause button. The timer app in <code>timer/index.html</code> does this (its per-player turn timers are switched off for now)</td>
+<td>A phone with two repeating alarms, <strong>Storm</strong> and <strong>Drop</strong>, and one pause button. The timer app in <code>timer/index.html</code> does this (it has no per-player turn timers; ATTACK! only logs)</td>
 </tr>
 <tr>
 <td><span class="dv">&#916;</span> Game board</td>
@@ -215,7 +215,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <ol>
 <li><strong>Draw</strong> up to 5 cards. If you have 3 or more Dead cards in your hand, say <strong>&quot;critical&quot;</strong> out loud (default).</li>
 <li><strong>Act</strong> in any order: play cards, move, attack, loot, trade at the Market.</li>
-<li><strong>End:</strong> if you have 3 or more Dead cards in hand, you are eliminated. Otherwise put your played cards in your discard pile, <strong>discard every card in your hand that isn&#39;t Dead</strong> (designer&#39;s call, 2026-10-22; replaces &quot;keep up to 3&quot;), and start your next turn right away. Dead cards stay, so you draw back up to 5 (3 or more cards if you hold 2 Dead). Use it or lose it: a Heal or Move you don&#39;t play is gone, so spend what you want before you End.</li>
+<li><strong>End:</strong> if you have 3 or more Dead cards in hand, you are eliminated. Otherwise put your played cards in your discard pile, <strong>discard every card in your hand that isn&#39;t Dead</strong> (designer&#39;s call, 2026-10-22; replaces &quot;keep up to 3&quot;), and start your next turn right away. Dead cards stay, so you draw back up to 5 (3 or more cards if you hold 2 Dead). Use it or lose it: a Heal or Move you don&#39;t play goes to your discard pile, not back to your hand (it comes around again when you reshuffle), so spend what you want before you End.</li>
 </ol>
 <p><strong>No turn timer (designer&#39;s call, 2026-10-22; replaces the 1-minute sand timer).</strong> Timers run only the table events: the Storm and the Drops. Turns have no limit, so a slow player simply takes fewer turns than a fast one. You can End early; your next turn starts right away.</p>
 <p>Nobody waits for you. If you take a long turn, the others take several.</p>
@@ -242,7 +242,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tbody></table></div>
 <p>Starting cards are value 1. Cards gained from the Market are value 2 or higher.</p>
 <h2><span class="dv">&#916;</span> Moving</h2>
-<p>Play Move cards. Move up to 1 (your Base Move) plus the total value of Move cards played this turn, one adjacent tile per point. You can&#39;t cross a gap. Any number of pawns may share a tile. You always have <strong>Base Move 1</strong>, so you can move 1 tile with no Move cards. Base Move and Base Attack never change.</p>
+<p>Play Move cards. Move up to 1 (your Base Move) plus the total value of Move cards played this turn, one adjacent tile per point.  Any number of pawns may share a tile. You always have <strong>Base Move 1</strong>, so you can move 1 tile with no Move cards. Base Move and Base Attack never change.</p>
 <h2><span class="dv">&#916;</span> Looting</h2>
 <ul>
 <li>Cubes on the board mark <strong>available loot</strong>.</li>
@@ -310,7 +310,6 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li><strong>Mid-move:</strong> a pawn you have started to move is where your hand left it when &quot;Attack&quot; is said; no taking it back.</li>
 <li><strong>Target out of range after a card is played:</strong> an attacker is committed to the Attack cards already played; a target may not play a Move card to escape after &quot;Attack&quot; is said.</li>
 <li><strong>A target in the middle of their own turn</strong> keeps their hand; the Dead cards go to their discard pile, so their hand is unaffected.</li>
-<li><strong>Attacker eliminated while attacking:</strong> the attack still resolves, then the elimination is checked.</li>
 <li><strong>Lost cards or disputes:</strong> the table timer&#39;s Attack button is for the log only; it does not pause.</li>
 </ul>
 <h2><span class="dv">&#916;</span> Dead Cards</h2>
@@ -319,7 +318,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li>Dead cards have plain backs, like all other cards (marked backs would stop people shuffling them to the top).</li>
 <li>If you hold 3 or more, you <strong>announce &quot;critical&quot;</strong> when you draw them. Everyone knows you&#39;re one hit from being out.</li>
 <li>Dead cards can&#39;t be played or discarded, and stay in your hand until you heal them.</li>
-<li><strong>Elimination:</strong> you still take turns, just in realtime. If you end your turn with 3 or more Dead cards in hand, you&#39;re out. Nothing else eliminates you.</li>
+<li><strong>Elimination:</strong> if you end your turn with 3 or more Dead cards in hand, you&#39;re out. Nothing else eliminates you.</li>
 </ul>
 <h2><span class="dv">&#916;</span> Elimination Drop</h2>
 <p>When a player is eliminated:</p>
@@ -354,7 +353,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </ul>
 <h2><span class="dv">&#916;</span> Teams (variant)</h2>
 <ul>
-<li><strong>Any team shape from 2 to 10 players</strong>: 2 teams of 2&#8211;5 (for example 5v5), 3 teams of 3 (3v3v3), or duos up to 10 players (5 teams). <strong>Teams are equal in size</strong> for the first sessions (designer&#39;s call).</li>
+<li><strong>Any team shape from 2 to 6 players</strong>: 2 teams of 2&#8211;3 (2v2, 3v3) or 3 teams of 2 (2v2v2). Bigger teams (up to 5v5) wait for the 7&#8211;10 player boards in Ideas for Later. <strong>Teams are equal in size</strong> for the first sessions (designer&#39;s call).</li>
 <li>Every player has their own deck, hand and pawn.</li>
 <li><strong>Rotation (designer&#39;s call):</strong> each team takes turns one player at a time. Member 1 takes a full turn, then member 2, and so on, then back to member 1. Each player goes after the previous teammate has finished. Different teams run in realtime against each other, so every team has one player acting at a time.</li>
 <li><strong>No turn timer, so rotation is manual (default, 2026-10-25):</strong> when you End, say &quot;next&quot; and your teammate starts. If a teammate is stuck, the rest of the team may say &quot;skip&quot; and the rotation moves on. At 2&#8211;6 players teams are 2 teams of 2&#8211;3 or 3 teams of 2; the rotation only matters at 3 on a team.</li>
@@ -364,14 +363,27 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li>The board is the same fixed 61 hexes for every team layout, so teams stop at 6 players for now; the table timer is the same for every team size.</li>
 <li><strong>Known risk, SIM-030 addendum 8:</strong> rotation gets slow with big teams. Your next turn only comes after every teammate has gone, so the storm kills players who haven&#39;t acted yet, and 5v5 stalls in about a quarter of sim games. Fine at 2v2 and 3v3. Playtest the big layouts and see; options to test if needed are listed below.</li>
 </ul>
+<h2 id="realtime-table-rules-defaults-from-the-blind-read-through-2026-10-25-untested-">Realtime table rules (defaults from the blind read-through, 2026-10-25; untested)</h2>
+<p>Fixes for gaps a blind read-through found once the turn timer and the attack pause were removed. All are my defaults, flagged for the designer:</p>
+<ul>
+<li><strong>Every turn must do something.</strong> You can&#39;t End until you have moved, looted, bought, played a card or attacked at least once. This stops instant End-and-redraw cycling and free micro-turns (a free Base Move/Attack is still allowed, but once per turn like everything else).</li>
+<li><strong>Alarms end every turn.</strong> When the Storm or Drop alarm sounds, everyone stops touching cards and pawns and every turn ends where it stands (elimination and the storm&#39;s end-of-turn Dead card are checked). Half-finished moves stay as they are; play resumes from that state. A player can&#39;t sit in a turn forever to dodge elimination or the storm. This is what &quot;pause the table&quot; means for the Storm and the Drop.</li>
+<li><strong>Attack cards are spent.</strong> Played Attack cards and the Base Attack are used up when an Attack resolves, so you can&#39;t re-declare with the same cards. <strong>Damage = Dead cards:</strong> you put that many Dead cards into the target&#39;s discard pile.</li>
+<li><strong>First hand wins.</strong> If two players reach for the same cube or face-up Market card, the first hand to touch it takes it; a tie goes to the older player. Cubes are collected when you enter a tile, so a pawn frozen mid-path by &quot;Attack&quot; keeps what it has already picked up.</li>
+<li><strong>Last two out together:</strong> if both survivors would be eliminated at the same End (alarm), the one with fewer Dead cards wins, then the older player.</li>
+<li><strong>Start of game:</strong> no actions until someone says &quot;Go&quot;; no Attacks in the first 10 seconds.</li>
+<li><strong>Drops:</strong> the drop lands on a tile with no storm marker; cubes = living players; with no Legendary cards left, no cubes are placed. If the Dead supply is empty, storm charges and hits deal no card (default).</li>
+<li><strong>The Drop marker</strong> is any spare token (a coin); it isn&#39;t a component.</li>
+</ul>
 <hr>
 <section class="designer">
 <h2 id="playtest-options-still-to-run">Playtest options still to run</h2>
 <p><strong>Note: pacing without a turn timer (2026-10-22).</strong> Nothing caps a turn now, so a very slow player gets few turns and a fast one many; ending instantly still gives a free Base Move 1 and Base Attack 1. <strong>Playtest options if pace is a problem:</strong> the 1-minute sand timer back; a minimum turn length; a limit of one declared Attack per turn. <strong>Watch for:</strong> rushing micro-turns to farm moves, and one slow player stalling nobody but themselves.</p>
-<p><strong>Attack timing:</strong></p>
+<p><strong>Attack timing (one list; the rules above use 0):</strong></p>
 <ul>
-<li><strong>A (drafted above):</strong> pause the table, resolve.</li>
-<li><strong>B:</strong> the attack goes in an <strong>action queue</strong> and a target gets 5 seconds to respond with a card (a Shield-like block).</li>
+<li><strong>0 (locked):</strong> no pause, positions fixed when &quot;Attack&quot; is said.</li>
+<li><strong>A:</strong> pause the table, resolve, resume.</li>
+<li><strong>B:</strong> the attack goes in an <strong>action queue</strong> and a target gets 5 seconds to respond with a card (for example by playing a Move card to step out of range).</li>
 <li><strong>C:</strong> attacks are <strong>simultaneous</strong>: you each name a target, then reveal.</li>
 </ul>
 <p><strong>Team rotation:</strong></p>
@@ -390,6 +402,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li><strong>Hand lock (gone since 2026-10-22):</strong> with everything discarded each turn, 2 Dead + 3 kept cards can&#39;t happen. History:  the first draft of this rule had Dead not counting toward the 3 you keep, so 2 Dead + 3 kept cards filled the hand and a player never drew again, immune to every Dead card. The designer&#39;s rule is that Dead always count toward the 3, which means you always draw at least 2 cards. Starting-tile cubes that can&#39;t be looted by moving in are accepted as is.</li>
 <li><strong>Hex groups instead of one fixed board (designer&#39;s idea, 2026-10-22):</strong> after the fixed board, play with groups of hexes joined in different shapes, so every game has a new map. Brings back 7-10 player games by using more groups.<ul>
 <li><strong>Plan (designer, 2026-10-22):</strong> the box holds <strong>10 groups</strong>; the first game uses the default map (5 groups A to E of 12 hexes around the centre hex, as printed on the board PDF). After the first game, <strong>each player places one group on the map as they like.</strong></li>
+<li><strong>Not for the first session:</strong> a 3-player map of 37 hexes needs fewer loot cubes (the 43-card loot decks assume the full 61), so use the full board until the loot per group is sorted out.</li>
 <li><strong>Placement defaults (my picks, 2026-10-25, not tested):</strong> the centre hex always goes down first. Players place one group each in seat order, then the youngest spins for the first placer. A group must touch the centre hex or a group already placed (edges meet along whole hex sides), and no holes inside the map. With 3 players the map is 37 hexes (centre plus 3 groups), with 5 players it is 61.</li>
 <li><strong>Open:</strong> the shapes of groups F to J (different outlines and loot layouts so maps vary), the number of groups per player count, and how Storm rings work on an irregular map (default: the storm marks the hexes farthest from the centre first, a whole ring at a time).</li>
 </ul>
