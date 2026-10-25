@@ -13,11 +13,11 @@ A battle royale deck builder by Brandon and Chris. Players flood rivals' decks w
 | `rulebook-v2.html` | v2 rules as a standalone page, built from `rulebook-v2-draft.md` by `sim/build_html_v2.js` (needs `npm install marked@12`) |
 | `rulebook.html` | Published playtester page, pre-rendered from the Markdown by `sim/build_html.js`. Live at https://claude.ai/artifact/Vxqh1KqNT3K8XXwGD8Ub2y |
 | `design-state.md` | Locked / Rejected / Open decisions, evidence table, risks, next experiment |
-| `components-sheet.md`, `pnp-checklist.md` | Paper prototype build |
+| `components-sheet.md`, `pnp-checklist.md` | Paper prototype build (v2, updated 2026-10-25) |
 | `playtest-log-001.md`, `feedback-sheet.md` | First human session kit |
 | `sim/lds_rt.py` | v2 realtime Monte Carlo sim (play clock, table timers, teams); findings in `simulations/SIM-030.md` addenda |
 | `sim/pnp_sheets_v2.py` | v2 print sheets → `pnp/v2/last-deck-standing-v2-cards-11x17.pdf` (cards) and `-pieces-11.5x17.pdf` (Market mat, reference, storm markers) and `-board-17x11.5.pdf` (the fixed 61-hex board, one landscape page); Chrome headless. `python3 pnp_sheets_v2.py --diff` writes only what changed from v1 to `pnp/v2/diff/` (skips storm markers and the 60 Dead cards v1 already has). Δ in `rulebook-v2-draft.md` marks v2-vs-v1 differences |
-| `timer/index.html` | **Table timer app v0** (single file, no backend): Storm/Drop alarms with auto-pause, per-player turn timers (to be switched off), Attack pause, teams, playtest log. Open `timer/index.html#selftest` for logic tests |
+| `timer/index.html` | **Table timer app v0** (single file, no backend): Storm/Drop alarms with auto-pause, no turn timers, ATTACK! logs only (no pause), teams, playtest log. Open `timer/index.html#selftest` for logic tests |
 | `sim/lds_sim.py` | v1 turn-based Monte Carlo simulator (heuristic bots; system evidence only) |
 | `simulations/SIM-00N.md`, `READTHROUGH-001.md` | Test write-ups; raw JSON in `simulations/data*/` |
 

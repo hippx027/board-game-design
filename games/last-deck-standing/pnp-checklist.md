@@ -1,41 +1,40 @@
-# PnP Checklist — Last Deck Standing
+# PnP Checklist — Last Deck Standing (v2, realtime)
 
-Goal: print, cut and play one full game with 3–5 people. Fidelity: P4 (paper). Simulation (P1) has already covered termination, seat balance and economy (SIM-001 to SIM-005). What paper needs to answer: setup time, table footprint, whether the rules make sense to humans, and whether it is fun.
+Goal: print, cut and play one full game with 2-6 people. Updated 2026-10-25 for the v2 rules (fixed board, no turn timer, discard-all). Rules: `rulebook-v2-draft.md`; quantities: `components-sheet.md`. The v1 turn-based kit is archived in `pnp/v1/`.
 
 ## Inputs Ready
-- [x] Rulebook — `rulebook-draft.md` / [rules page](https://claude.ai/artifact/Vxqh1KqNT3K8XXwGD8Ub2y)
-- [x] Components locked for this build — `components-sheet.md`
-- [x] Design state — `design-state.md`
+- [x] Rulebook: `rulebook-v2-draft.md` / `rulebook-v2.html`
+- [x] Components locked for this build: `components-sheet.md`
+- [x] Design state: `design-state.md`
 
 ## Physical Build
-Two printable versions (v1) in `pnp/v1/`: **`last-deck-standing-pnp-color.pdf`** (full-colour comic style) and **`last-deck-standing-pnp.pdf`** (ink-saver, plain). Print at 100% / Actual size. Regenerate with `python3 sim/pnp_sheets.py`.
+Print from `pnp/v2/` at 100% / Actual size (regenerate with `cd sim && python3 pnp_sheets_v2.py`; `--diff` prints only what changed from v1).
 
-- [ ] **Cards:** 50 base (labelled Player 1–5) + 60 supply (Attack 24, Move 18, Heal 18) + 60 Dead. Poker-size sleeves over normal playing cards work well: slip a printed slip in front.
-- [ ] **Dead cards:** a visibly different back (e.g. red-backed deck vs blue-backed for everything else)
-- [ ] **Hex tiles:** 75, about 2 in / 5 cm across, on cardstock. Draw loot icons by hand; write the set letter A–E on the back.
-- [ ] **Loot cubes:** 30 purple (Move), 55 red (Attack), 20 green (Heal), or beads / coloured candy
-- [ ] **Pawns:** 5
-- [ ] **Stat trackers:** 5 sheets with three 0–4 tracks and a Shield counter; paperclips as markers
-- [ ] **Round track:** 1–25, with round 7 labelled "Storm closes fast"
-- [ ] **Sand timers:** 1-minute, one per player (or a phone timer each)
-- [ ] **Storm markers:** 50 (coloured glass beads or translucent hex cut-outs)
-- [ ] **Reference cards:** 5 copies of the Quick Reference
+- [ ] **Cards** (`...-cards-11x17.pdf`): base decks (10 per player), loot decks 12/23/8, Market 21, Legendary 48, Dead 70. Poker sleeves over playing cards work well.
+- [ ] **Board** (`...-board-17x11.5.pdf`): one landscape page (tape two sheets if the printer can't do 17 x 11.5).
+- [ ] **Pieces** (`...-pieces-11.5x17.pdf`): Market mat, quick reference, 61 storm markers.
+- [ ] **Loot cubes:** 12 purple (Move), 23 red (Attack), 8 green (Heal); a few gold for Drops
+- [ ] **Pawns:** one per player; a **spinner** (paper arrow on a pin or a pencil)
+- [ ] **Table timer:** phone with `timer/index.html` (Storm and Drop only; no turn timers)
+- [ ] **Reference cards:** one Quick Reference per player
 
 ## Print Hygiene
 - [ ] Card value and type readable at arm's length
 - [ ] Rarity colour is backed by the number on the card; never colour alone
-- [ ] Loot cube colours are also distinguished by icons on the tiles
-- [ ] 10 blank cards and 5 blank tiles for mid-session edits
+- [ ] Cube colours are also shown by the icon on each spot
+- [ ] 10 blank cards for mid-session edits
 
 ## Solo Gate (before showing others)
-- [ ] Set up a 3-player board and time it (target ≤ 10 min)
-- [ ] Play 2–3 solo games controlling all seats
+- [ ] Set up a 3-player game and time it (target <= 10 min)
+- [ ] Play 2-3 solo games controlling all seats
 - [ ] Fun sentence still true: *"Go all in for the kill, then get out before someone hits you back."*
 
 ## First External Session
-- [ ] Framework: **Good / Bad / Meh** during play + **Three-Bucket Triage** after (mid stage)
-- [ ] `playtest-log-001.md` prepared
+- [ ] Framework: **Good / Bad / Meh** during play + **Three-Bucket Triage** after
+- [ ] `playtest-log-001.md` prepared (use the timer app's log too)
 - [ ] `feedback-sheet.md` printed, one per player
+- [ ] Time real games: sim says 4-6 min with no pauses (bots); and watch the Storm (4 min barely marks a ring)
+- [ ] Note every no-pause Attack dispute (see the rulebook's edge-case defaults)
 - [ ] Designer answers rules questions only; each question gets logged as a rulebook edit
 
 ## Exit

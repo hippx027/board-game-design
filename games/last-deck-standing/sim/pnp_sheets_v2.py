@@ -6,7 +6,7 @@ Usage: python3 pnp_sheets_v2.py [--diff]   (--diff writes ../pnp/v2/diff/ with o
          ../pnp/v2/last-deck-standing-v2-tiles-sticker-8.5x11.{html,pdf} 100 fixed 61-hex board on one 17 x 11.5 landscape page
 
 Contents follow rulebook-v2-draft.md: 10 base decks (up to 10 players), three loot decks, the Market deck (21),
-the Legendary deck (72: use 48 up to 7 players), 100 Dead cards (plain backs: every card back is the same). Style and icons are reused from
+the Legendary deck (48), 70 Dead cards (plain backs: every card back is the same). Style and icons are reused from
 pnp_sheets.py (comic frames, Material Symbols Sharp, rarity colours), so nothing here is hand-drawn artwork.
 """
 import html
@@ -220,7 +220,7 @@ def build(name, size, body_pages, cls, extra_css=""):
 def main():
     os.makedirs(OUT, exist_ok=True)
     base, loot, market, gold = decks()
-    deads = [dead()] * (40 if DIFF else 100)  # v1 already has 60 Dead cards; v2 needs 100
+    deads = [dead()] * (10 if DIFF else 70)  # v1 already has 60 Dead cards; v2 needs 70
     cards = sheets(base, 16, "") + sheets(loot, 16, "") + sheets(market, 16, "") + sheets(gold, 16, "") + sheets(deads, 16, "")
     print(f"cards: base {len(base)} loot {len(loot)} market {len(market)} gold {len(gold)} dead {len(deads)} on {len(cards)} pages")
     tag = "-diff" if DIFF else ""

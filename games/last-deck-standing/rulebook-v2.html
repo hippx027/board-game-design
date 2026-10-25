@@ -39,7 +39,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <p><strong><span class="dv">&#916;</span> marks what is new or changed from v1</strong> (turn-based, <code>rulebook-draft.md</code>): a <span class="dv">&#916;</span> on a heading means the whole section differs; on a bullet, table row or step, just that line. Unmarked text plays as in v1. Dropped from v1: stat tracker and Shield, round track, loot display, loot piles, characters, marked Dead backs, supply-drop marker. The print file <code>last-deck-standing-v2-diff-*.pdf</code> holds only the <span class="dv">&#916;</span> components.</p>
 <h2 id="overview">Overview</h2>
 <ul>
-<li><span class="dv">&#916;</span> <strong>Players:</strong> 2&#8211;6 on the fixed board (solo or equal-size teams; 7&#8211;10 wait for the bigger hex-group boards, see Ideas for Later) &#183; <strong>Time:</strong> no target for now (designer&#39;s call, 2026-10-12). Sim says about 7&#8211;11 min at 37 s turns; see SIM-030</li>
+<li><span class="dv">&#916;</span> <strong>Players:</strong> 2&#8211;6 on the fixed board (solo or equal-size teams; 7&#8211;10 wait for the bigger hex-group boards, see Ideas for Later) &#183; <strong>Time:</strong> no target for now (designer&#39;s call, 2026-10-12). Sim says about 4&#8211;6 min with no pauses and discard-all (bots; humans slower); see SIM-030 addendum 29</li>
 <li><span class="dv">&#916;</span> <strong>Goal:</strong> Be the last player (or team) standing. You knock opponents out by putting Dead cards in their decks. <strong>The game ends the moment only one player or team is left,</strong> and they win (designer&#39;s call, 2026-10-13); they don&#39;t have to finish their turn.</li>
 <li><strong>You are eliminated</strong> if you end a turn with 3 or more Dead cards in your hand.</li>
 <li><span class="dv">&#916;</span> <strong>Realtime:</strong> there are no rounds. Everyone plays their own turns at the same time and at their own pace, with no turn timer (designer&#39;s call, 2026-10-22). The storm and loot drops run on a table timer.</li>
@@ -71,10 +71,10 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <p>What to watch for (these are the questions this session answers):</p>
 <ol>
 <li><strong>Does the Market get used?</strong> Sim: about 3 buys per player per game (9 at 3p, 11 at 4p). Count yours.</li>
-<li><strong>Do attacks feel fair without a pause?</strong> Note any argument about positions or who declared first (the sim has no data on this; its numbers assume pauses).</li>
-<li><strong>How long does a game take?</strong> Sim: about 8&#8211;10 minutes at 37 s a turn. Write down the real number.</li>
+<li><strong>Do attacks feel fair without a pause?</strong> Note any argument about positions or who declared first (the sim has no data on this). Rule of thumb already in the rules: positions are fixed the moment someone says &quot;Attack&quot;.</li>
+<li><strong>How long does a game take?</strong> Sim with the current rules (no pauses, discard-all, fixed board): about 4 minutes at 2&#8211;3 players to about 6 minutes at 6 players. Humans will be slower than bots. Write down the real number.</li>
 <li><strong>Hoarding:</strong> does the hand cap of 5 change what you loot or hold?</li>
-<li><strong>Storm:</strong> does it push people together or just kill them?</li>
+<li><strong>Storm:</strong> does it push people together or just kill them? Sim: at 4 minutes the storm marks fewer than 1 ring per game, so it barely matters (see the Storm note under Teams).</li>
 </ol>
 <p>Simulated first games (SIM-030, addendum 11) end in about 8.4 (3p) and 9.9 (4p) minutes, with stalls of 0.3% (3p) and 3.7% (4p). Add the full rules from the second session.</p>
 <h2 id="what-changed-from-v1">What changed from v1</h2>
@@ -147,8 +147,8 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 <tr>
 <td><span class="dv">&#916;</span> Legendary deck</td>
-<td>48 (72 at 8+ players)</td>
-<td>Value 3 and 4 cards (8 each of Move 3/4, Attack 3/4, Heal 3/4 in the 48; add a second 24 at 8-10 players). Sized by SIM-030 addendum 23; taken from legendary cubes in drops and elimination drops</td>
+<td>48</td>
+<td>Value 3 and 4 cards (8 each of Move 3/4, Attack 3/4, Heal 3/4 in the 48; the second 24 for 8-10 players is shelved with those player counts). Bots at 6 players draw about 15 per game. Sized by SIM-030 addendum 23; taken from legendary cubes in drops and elimination drops</td>
 </tr>
 <tr>
 <td><span class="dv">&#916;</span> Market deck</td>
@@ -157,8 +157,8 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 </tr>
 <tr>
 <td><span class="dv">&#916;</span> Dead cards</td>
-<td>100</td>
-<td>Plain backs. Raised from 60 (SIM-030 addendum 27: about 80 are out at once in a 10-player game). If the supply ever runs out, play on: no more Dead can be dealt until some are healed or an eliminated player returns theirs</td>
+<td>70</td>
+<td>Plain backs. Trimmed from 100 to <strong>70</strong> (default, 2026-10-25) now that the game is 2-6 players: the sim&#39;s average peak is 46 out at once at 6 players (SIM-030 addendum 29), so 70 leaves headroom for bad games; raise it again if 7-10 players return. If the supply ever runs out, play on: no more Dead can be dealt until some are healed or an eliminated player returns theirs</td>
 </tr>
 <tr>
 <td><span class="dv">&#916;</span> Loot cubes</td>
@@ -304,6 +304,15 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li>You put the Dead cards into the target&#39;s <strong>discard pile</strong>, yourself (designer&#39;s call, 2026-10-22: stays in the discard pile; &quot;reshuffle on hit&quot; is in Ideas for Later). They show up when that deck reshuffles, usually within a turn or two. The target takes no forced turn and loses no cards.</li>
 </ol>
 <p>You can split your Attack among several players, as in v1 (one attack per player). <strong>The range cost is paid per target</strong> (designer&#39;s call, 2026-10-13): each target takes your Attack total (pool) minus 2 per tile of its own range, and you choose how to divide the Attack among them. <strong>Locked for the first paper session: no pause (option 0).</strong> Options A (pause the table, resolve, resume), B (the target may dodge with a Move card) and C (resolves 5 s later) are listed below to try in later sessions. In the sim none of them changes who wins; only A costs time.</p>
+<p><strong>No-pause edge cases (defaults, 2026-10-25, untested):</strong></p>
+<ul>
+<li><strong>Two attacks at once:</strong> whoever said &quot;Attack&quot; first resolves first; if you can&#39;t agree, the older player decides. Positions freeze for both until both are done.</li>
+<li><strong>Mid-move:</strong> a pawn you have started to move is where your hand left it when &quot;Attack&quot; is said; no taking it back.</li>
+<li><strong>Target out of range after a card is played:</strong> an attacker is committed to the Attack cards already played; a target may not play a Move card to escape after &quot;Attack&quot; is said.</li>
+<li><strong>A target in the middle of their own turn</strong> keeps their hand; the Dead cards go to their discard pile, so their hand is unaffected.</li>
+<li><strong>Attacker eliminated while attacking:</strong> the attack still resolves, then the elimination is checked.</li>
+<li><strong>Lost cards or disputes:</strong> the table timer&#39;s Attack button is for the log only; it does not pause.</li>
+</ul>
 <h2><span class="dv">&#916;</span> Dead Cards</h2>
 <ul>
 <li><strong>Healed Dead cards go back to the Dead supply</strong> (the stack), not to a discard pile (designer&#39;s call, 2026-10-13).</li>
@@ -348,6 +357,7 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li><strong>Any team shape from 2 to 10 players</strong>: 2 teams of 2&#8211;5 (for example 5v5), 3 teams of 3 (3v3v3), or duos up to 10 players (5 teams). <strong>Teams are equal in size</strong> for the first sessions (designer&#39;s call).</li>
 <li>Every player has their own deck, hand and pawn.</li>
 <li><strong>Rotation (designer&#39;s call):</strong> each team takes turns one player at a time. Member 1 takes a full turn, then member 2, and so on, then back to member 1. Each player goes after the previous teammate has finished. Different teams run in realtime against each other, so every team has one player acting at a time.</li>
+<li><strong>No turn timer, so rotation is manual (default, 2026-10-25):</strong> when you End, say &quot;next&quot; and your teammate starts. If a teammate is stuck, the rest of the team may say &quot;skip&quot; and the rotation moves on. At 2&#8211;6 players teams are 2 teams of 2&#8211;3 or 3 teams of 2; the rotation only matters at 3 on a team.</li>
 <li>A team is eliminated when all its members are. When a member is eliminated, the rotation skips them.</li>
 <li><strong>You can&#39;t attack a teammate</strong> (designer&#39;s call), with Attack cards or anything else.</li>
 <li>Teammates can help: a teammate on your tile can play a Heal on you (default).</li>
@@ -371,12 +381,19 @@ hr{border:0;border-top:2px dashed var(--line);margin:56px 0 0}
 <li><strong>C:</strong> members play simultaneously, with no rotation (solo rules, shared win); the sim says this scales to 10 players with few stalls.</li>
 <li><strong>Big-team fixes to test if rotation stalls:</strong> a slower storm for teams of 4+ (for example 3 min), or damage only on entering a storm tile.</li>
 </ul>
-<p><strong>Storm:</strong> interval is 4 minutes (sim: SIM-030 add. 14; 2 min is the stall-prone alternative). Both charges are in (enter + end of turn).</p>
+<p><strong>Storm:</strong> interval is 4 minutes (designer&#39;s call; sim: SIM-030 add. 14). Both charges are in (enter + end of turn). <strong>Flag (SIM-030 addendum 29):</strong> with no pauses, discard-all and the 61-hex board, games last 4&#8211;6 minutes in the sim, so a 4-minute storm marks only 0.3&#8211;0.9 rings per game and barely matters. At 2 minutes it marks 1.2&#8211;2.1 rings; at 90 s, 2.1&#8211;2.7. Keep 4 minutes for the first human playtest and time real games, then decide. The timer app lets you pick 2&#8211;5 minutes.</p>
+<p><strong>Loot overflow (flag):</strong> bots lose 2 (2 players) to 16 (6 players) looted cards per game to a full hand, because everything is discarded each turn and loot lands in a hand that is often already full. Default: leave it (the overflow card goes to your discard pile, not lost). If playtesters feel robbed, option: a looted card over the cap is played or kept face-up beside your hand until your next draw.</p>
+<p><strong>Room to deck-build (flag):</strong> the sim&#39;s games make about 5 Market buys at 2 players to 14 at 6 players, but each player only takes 4&#8211;5 turns in a 4-minute game at 3&#8211;4 players, so bought cards rarely reshuffle in. Watch whether the Market feels worth it; option if not: cheaper costs or buying straight to the draw pile.</p>
 <h2 id="ideas-for-later-not-rules-">Ideas for Later (not rules)</h2>
 <ul>
 <li><strong>Give cards to a player on your tile:</strong> put non-Dead cards from your hand into another player&#39;s discard pile if you share a tile. Designer&#39;s idea (2026-10-12), kept for later. The 5-card hand cap applies, though it can&#39;t matter because cards go to their discard pile. Open questions: teammates only, or anyone? Is it an action? A limit per turn? (Market costs count cards, so gifting helps the receiver; see SIM-030 notes.)</li>
 <li><strong>Hand lock (gone since 2026-10-22):</strong> with everything discarded each turn, 2 Dead + 3 kept cards can&#39;t happen. History:  the first draft of this rule had Dead not counting toward the 3 you keep, so 2 Dead + 3 kept cards filled the hand and a player never drew again, immune to every Dead card. The designer&#39;s rule is that Dead always count toward the 3, which means you always draw at least 2 cards. Starting-tile cubes that can&#39;t be looted by moving in are accepted as is.</li>
-<li><strong>Hex groups instead of one fixed board (designer&#39;s idea, 2026-10-22):</strong> after the fixed board, play with groups of hexes joined in different shapes, so every game has a new map. Brings back 7-10 player games by using more groups.</li>
+<li><strong>Hex groups instead of one fixed board (designer&#39;s idea, 2026-10-22):</strong> after the fixed board, play with groups of hexes joined in different shapes, so every game has a new map. Brings back 7-10 player games by using more groups.<ul>
+<li><strong>Plan (designer, 2026-10-22):</strong> the box holds <strong>10 groups</strong>; the first game uses the default map (5 groups A to E of 12 hexes around the centre hex, as printed on the board PDF). After the first game, <strong>each player places one group on the map as they like.</strong></li>
+<li><strong>Placement defaults (my picks, 2026-10-25, not tested):</strong> the centre hex always goes down first. Players place one group each in seat order, then the youngest spins for the first placer. A group must touch the centre hex or a group already placed (edges meet along whole hex sides), and no holes inside the map. With 3 players the map is 37 hexes (centre plus 3 groups), with 5 players it is 61.</li>
+<li><strong>Open:</strong> the shapes of groups F to J (different outlines and loot layouts so maps vary), the number of groups per player count, and how Storm rings work on an irregular map (default: the storm marks the hexes farthest from the centre first, a whole ring at a time).</li>
+</ul>
+</li>
 <li><strong>A few super-good hexes (designer&#39;s idea, 2026-10-22):</strong> special hexes in the mix with a rich cube spot or a bonus, once shaped boards exist.</li>
 <li><strong>The map opens up (designer&#39;s idea, 2026-10-22):</strong> mid-game a new hex or group is added to the board and comes with a high-loot hex, which pulls players toward it like a drop does. Open: where it attaches (outer edge only, so it can&#39;t outrun the storm?), who places it, and whether it replaces or adds to Drops.</li>
 <li><strong>Reshuffle on hit (designer&#39;s idea, 2026-10-22):</strong> when you are hit, the Dead go to your discard pile and your whole discard pile is shuffled into your draw pile at once. Dead reach your hand about as fast as shuffling them in (model: 1.0-1.2 own turns vs 1.7-2.1 with Dead in the discard), and you also get your earlier good cards back, so a hit is not purely a loss. Not adopted; the rule stays &quot;into the discard pile&quot;. Other Dead delivery options modelled: shuffle into the draw pile, on top of the draw pile. A forced end-of-turn on hit was rejected as feeling bad.</li>

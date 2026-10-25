@@ -90,13 +90,11 @@ button { font: inherit; color: inherit; border: 0; cursor: pointer; }
 
 <div id="setup">
   <h1>Last Deck Standing</h1>
-  <p class="sub">Table timer v0: turn timers, Storm and Drop alarms, one pause for everyone.</p>
+  <p class="sub">Table timer: Storm and Drop alarms with one pause for everyone. No turn timers: players take turns at their own pace.</p>
   <div class="row"><label>Players</label><div class="seg" id="sPlayers"></div></div>
   <div class="row"><label>Teams (equal size)</label><div class="seg" id="sTeams"></div></div>
-  <div class="row"><label>Turn timer</label><div class="seg" id="sTurn"></div></div>
   <div class="row"><label>Storm every</label><div class="seg" id="sStorm"></div></div>
   <div class="row"><label>Drop every</label><div class="seg" id="sDrop"></div></div>
-  <div class="row"><label>Minimum turn (floor)</label><div class="seg" id="sFloor"></div></div>
   <div class="names" id="names"></div>
   <button class="big" id="startBtn">Start game</button>
   <button class="big alt hide" id="resumeBtn">Resume saved game</button>
@@ -115,7 +113,7 @@ button { font: inherit; color: inherit; border: 0; cursor: pointer; }
   <div class="actions"><button id="pauseBtn">PAUSE</button><button id="atkBtn">ATTACK!</button></div>
   <div class="players" id="grid"></div>
   <p class="hint" id="more"></p>
-  <p class="hint">Tap your tile to End your turn. Your next turn starts at once.</p>
+  <p class="hint">Tap your tile when your turn ends (counts turns; teams rotate). ATTACK! only logs: no pause, say &quot;Attack&quot;, then put the Dead cards in the targets' discard piles.</p>
 </div>
 
 <div id="ov" class="hide"></div>
@@ -130,13 +128,13 @@ const fmt = (ms) => { const neg = ms < 0, s = Math.ceil(Math.abs(ms) / 1000); re
 
 // ---------- state ----------
 // All timers run on GAME time (S.g, ms), which only advances while the table is unpaused, so one pause freezes everything.
-let S = null, last = 0, view = "table", cfg = { players: 4, teams: 0, turn: 60, storm: 240, drop: 120, floor: 0, names: [] };
+let S = null, last = 0, view = "table", cfg = { players: 4, teams: 0, storm: 240, drop: 120, names: [] };
 
 function newGame(c) {
   const pl = [];
   for (let i = 0; i < c.players; i++) {
     pl.push({ id: i, name: (c.names[i] || "").trim() || "Player " + (i + 1), team: c.teams ? i % c.teams : -1, alive: true,
-              ts: 0, turns: 0, durs: [], over: 0, late: false });
+              turns: 0 });
   }
   const teamCur = [];
   for (let t = 0; t < c.teams; t++) teamCur.push(pl.find((p) => p.team === t).id);
@@ -170,9 +168,6 @@ function advance(dt) {
     return;
   }
   S.g = target;
-  for (const p of S.pl) {
-    if (active(p) && !p.late && S.g - p.ts >= S.cfg.turn * 1000) { p.late = true; p.over++; S.beep = "turn"; }
-  }
 }
 
 function pauseWith(events) {
@@ -189,14 +184,12 @@ function resume() {
 function endTurn(id) {
   const p = S.pl[id];
   if (!active(p) || S.paused || S.over) return false;
-  const el = S.g - p.ts;
-  if (S.cfg.floor && el < S.cfg.floor * 1000) return "floor";
-  p.turns++; p.durs.push(el); p.late = false;
+  p.turns++;
   if (S.cfg.teams) {
     const mem = S.pl.filter((q) => q.team === p.team && q.alive);
     const nx = mem[(mem.indexOf(p) + 1) % mem.length];
-    S.teamCur[p.team] = nx.id; nx.ts = S.g; nx.late = false;
-  } else p.ts = S.g;
+    S.teamCur[p.team] = nx.id;
+  }
   return true;
 }
 
@@ -206,7 +199,7 @@ function eliminate(id) {
   p.alive = false; logEv("out", { p: id });
   if (S.cfg.teams && S.teamCur[p.team] === id) {
     const mem = S.pl.filter((q) => q.team === p.team && q.alive);
-    if (mem.length) { S.teamCur[p.team] = mem[0].id; mem[0].ts = S.g; mem[0].late = false; }
+    if (mem.length) { S.teamCur[p.team] = mem[0].id; }
   }
   const left = S.cfg.teams ? [...new Set(alive().map((q) => q.team))] : alive().map((q) => q.id);
   if (left.length <= 1) {
@@ -219,17 +212,16 @@ function endGame() {
   if (!S || S.over) return;
   S.over = { winner: null, g: S.g, early: true }; S.paused = true; S.queue = [{ type: "over" }]; logEv("ended");
 }
-function declareAttack() { S.attacks++; logEv("attack"); pauseWith([{ type: "attack" }]); }
+function declareAttack() { S.attacks++; logEv("attack"); }  // log only: attacks do not pause the table
 
 // ---------- summary ----------
 function summary() {
   const L = [];
   L.push("Last Deck Standing timer log");
-  L.push(`Game time ${fmt(S.g)} (pauses ${S.pauses}, paused ${fmt(S.pauseWall)}). Storm rings ${S.stormN}, drops ${S.dropN}, attacks ${S.attacks || 0}. Turn timer ${S.cfg.turn}s, storm ${S.cfg.storm / 60} min, drop ${S.cfg.drop / 60} min.`);
+  L.push(`Game time ${fmt(S.g)} (pauses ${S.pauses}, paused ${fmt(S.pauseWall)}). Storm rings ${S.stormN}, drops ${S.dropN}, attacks ${S.attacks || 0}. Storm ${S.cfg.storm / 60} min, drop ${S.cfg.drop / 60} min.`);
   if (S.over) L.push(S.over.early ? "Ended early by the table" : "Winner: " + (S.over.winner ? (S.over.winner.team !== undefined ? teamName(S.over.winner.team) : S.pl[S.over.winner.id].name) : "none"));
   for (const p of S.pl) {
-    const avg = p.durs.length ? Math.round(p.durs.reduce((a, b) => a + b, 0) / p.durs.length / 1000) : 0;
-    L.push(`${p.name}${p.team >= 0 ? " (" + teamName(p.team) + ")" : ""}: ${p.alive ? "alive" : "out"}, ${p.turns} turns, avg ${avg}s, ${p.over} timed out`);
+    L.push(`${p.name}${p.team >= 0 ? " (" + teamName(p.team) + ")" : ""}: ${p.alive ? "alive" : "out"}, ${p.turns} turns`);
   }
   L.push("Events: " + S.log.filter((e) => e.t !== "resume").map((e) => `${fmt(e.g)} ${e.t}${e.p !== undefined ? " " + S.pl[e.p].name : ""}${e.n ? " #" + e.n : ""}`).join("; "));
   return L.join("\n");
@@ -247,10 +239,8 @@ function tone(f, d, t0, type) {
 }
 function cue(kind) {
   try {
-    if (kind === "turn") { tone(880, 0.12, 0); tone(660, 0.18, 0.14); if (navigator.vibrate) navigator.vibrate(120); }
-    else if (kind === "storm") { tone(110, 0.5, 0, "sawtooth"); tone(98, 0.7, 0.5, "sawtooth"); if (navigator.vibrate) navigator.vibrate([300, 100, 300]); }
+    if (kind === "storm") { tone(110, 0.5, 0, "sawtooth"); tone(98, 0.7, 0.5, "sawtooth"); if (navigator.vibrate) navigator.vibrate([300, 100, 300]); }
     else if (kind === "drop") { tone(523, 0.15, 0); tone(659, 0.15, 0.17); tone(784, 0.3, 0.34); if (navigator.vibrate) navigator.vibrate([150, 80, 150, 80, 150]); }
-    else if (kind === "attack") { tone(300, 0.1, 0); tone(300, 0.1, 0.15); if (navigator.vibrate) navigator.vibrate(200); }
   } catch (e) { /* audio is a nicety */ }
 }
 let wake = null;
@@ -270,10 +260,8 @@ function drawSetup() {
   seg("#sPlayers", [2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => [n, n]), "players");
   const ts = [["Solo", 0]]; for (let t = 2; t <= cfg.players / 2; t++) if (cfg.players % t === 0) ts.push([t + " teams", t]);
   seg("#sTeams", ts, "teams");
-  seg("#sTurn", [[45, 45], [60, 60], [90, 90]].map(([a, b]) => [a + "s", b]), "turn");
   seg("#sStorm", [[2, 120], [3, 180], [4, 240], [5, 300]].map(([a, b]) => [a + " min", b]), "storm");
   seg("#sDrop", [[1, 60], [2, 120], [3, 180]].map(([a, b]) => [a + " min", b]), "drop");
-  seg("#sFloor", [["Off", 0], ["10s", 10], ["20s", 20], ["30s", 30]], "floor");
   const nm = $("#names"); const keep = cfg.names.slice(); nm.innerHTML = "";
   for (let i = 0; i < cfg.players; i++) {
     const inp = document.createElement("input"); inp.placeholder = "Player " + (i + 1) + (cfg.teams ? " · " + teamName(i % cfg.teams) : ""); inp.value = keep[i] || "";
@@ -289,7 +277,7 @@ function buildGrid() {
   grid.className = "players" + (view === "players" ? " many" : "");
   grid.innerHTML = list.map((p) => `<div class="t" data-id="${p.id}" style="--c:${COLORS[p.id]}"><button class="x" data-x="${p.id}" aria-label="Out">✕</button>` +
     `<div><div class="n">${esc(p.name)}</div><div class="team">${p.team >= 0 ? teamName(p.team) : "&nbsp;"}</div></div>` +
-    `<div><div class="time mono">1:00</div><div class="bar2"><i></i></div><div class="meta">turn 1</div></div></div>`).join("");
+    `<div><div class="time mono">turn 1</div><div class="meta">&nbsp;</div></div></div>`).join("");
   $("#more").textContent = view === "table" && S.pl.length > 4 ? `+${S.pl.length - 4} more players in the Players view` : "";
   $("#globals").className = "globals" + (view === "players" ? " compact" : "");
   tileKey = view + ":" + S.pl.length;
@@ -297,7 +285,6 @@ function buildGrid() {
 function render() {
   if (!S) return;
   if (tileKey !== view + ":" + S.pl.length) buildGrid();
-  const turn = S.cfg.turn * 1000;
   $("#gclock").textContent = `${fmt(S.g)} · ${S.pauses} pauses`;
   const ts = nextStorm() * 1000 / 1000 * 1000 - S.g, td = nextDrop() * 1000 - S.g;
   $("#gStorm").querySelector(".v").textContent = fmt(ts); $("#gStorm").querySelector(".s").textContent = "ring " + (S.stormN + 1);
@@ -305,11 +292,10 @@ function render() {
   $("#gStorm").classList.toggle("soon", ts < 10000 && !S.paused); $("#gDrop").classList.toggle("soon", td < 10000 && !S.paused);
   $("#pauseBtn").textContent = S.paused ? "PAUSED" : "PAUSE";
   for (const el of document.querySelectorAll(".t")) {
-    const p = S.pl[+el.dataset.id], act = active(p), left = turn - (S.g - p.ts);
-    el.classList.toggle("out", !p.alive); el.classList.toggle("wait", p.alive && !act); el.classList.toggle("late", act && left <= 0 && !S.paused);
-    el.querySelector(".time").textContent = !p.alive ? "OUT" : act ? fmt(left) : "next up";
-    el.querySelector(".bar2 i").style.width = (act ? Math.max(0, Math.min(100, left / turn * 100)) : 0) + "%";
-    el.querySelector(".meta").textContent = p.alive ? `turn ${p.turns + (act ? 1 : 0)}${p.over ? " · " + p.over + " late" : ""}` : "";
+    const p = S.pl[+el.dataset.id], act = active(p);
+    el.classList.toggle("out", !p.alive); el.classList.toggle("wait", p.alive && !act);
+    el.querySelector(".time").textContent = !p.alive ? "OUT" : act ? `turn ${p.turns + 1}` : "next up";
+    el.querySelector(".meta").textContent = "";
   }
   const ov = S.paused ? S.queue[0] : null;
   if (S.beep) { cue(S.beep); S.beep = null; }
@@ -330,7 +316,6 @@ function showOverlay(ev) {
   else if (ev.type === "drop") el.innerHTML = `<h2>Drop alarm</h2><div class="head" style="color:var(--drop)">DROP!</div><div class="body"><ul><li>${name(ev.placer)} places the drop marker.</li>` +
     ev.movers.map((m) => `<li>${name(m)} moves it up to <b>${ev.tiles}</b> tile${ev.tiles > 1 ? "s" : ""}.</li>`).join("") +
     `<li>Table places <b>${ev.cubes}</b> legendary cube${ev.cubes > 1 ? "s" : ""} on the drop tile.</li></ul></div>${more}<button class="go" id="go">Done, resume</button>`;
-  else if (ev.type === "attack") el.innerHTML = `<h2>Attack declared</h2><div class="head" style="color:var(--warn)">ATTACK!</div><div class="body">Name the targets, count range, put the Dead cards in their discard piles. Damage = Attack total − 2 per tile of range.</div><button class="go" id="go">Resolved, resume</button>`;
   else if (ev.type === "over") {
     const w = S.over.winner; const wn = !w ? "Nobody" : w.team !== undefined ? teamName(w.team) : esc(S.pl[w.id].name);
     el.innerHTML = `<h2>Game over</h2><div class="head">${S.over.early ? "Game ended" : wn + " wins"}</div><div class="body mono">Game time ${fmt(S.over.g)}</div><textarea readonly id="sum">${esc(summary())}</textarea><button class="go" id="copy">Copy log</button><button class="cancel" id="again">New game</button>`;
@@ -361,7 +346,7 @@ $("#endBtn").onclick = () => {
 $("#tabTable").onclick = () => { view = "table"; setTabs(); render(); };
 $("#tabPlayers").onclick = () => { view = "players"; setTabs(); render(); };
 $("#pauseBtn").onclick = () => { if (S.over) return; if (S.paused) return; pauseWith([{ type: "manual" }].slice(1)); S.queue = []; logEv("pause"); render(); };
-$("#atkBtn").onclick = () => { if (S.over || S.paused) return; declareAttack(); render(); };
+$("#atkBtn").onclick = () => { if (S.over || S.paused) return; declareAttack(); toast("Attack logged (no pause). Dead cards go to the targets' discards."); render(); };
 $("#grid").onclick = (e) => {
   const x = e.target.closest(".x");
   if (x) {
@@ -370,8 +355,7 @@ $("#grid").onclick = (e) => {
     return;
   }
   const t = e.target.closest(".t"); if (!t) return;
-  const r = endTurn(+t.dataset.id);
-  if (r === "floor") toast("Minimum turn is " + S.cfg.floor + "s"); else render();
+  endTurn(+t.dataset.id); render();
 };
 $("#ov").onclick = (e) => {
   const b = e.target.closest("button"); if (!b) return;
@@ -388,7 +372,7 @@ drawSetup();
 // ---------- self-test: open index.html#selftest and read the result ----------
 if (location.hash === "#selftest") {
   const out = [], ok = (n, c) => out.push((c ? "PASS " : "FAIL ") + n);
-  S = newGame({ players: 4, teams: 0, turn: 60, storm: 240, drop: 120, floor: 0, names: [] });
+  S = newGame({ players: 4, teams: 0, storm: 240, drop: 120, names: [] });
   advance(119900); ok("no alarm before 2:00", !S.paused);
   advance(200); ok("drop alarm at 2:00 pauses", S.paused && S.queue.length === 1 && S.queue[0].type === "drop" && S.g === 120000);
   ok("drop: placer P1, 3 movers, 1 tile, 4 cubes", S.queue[0].placer === 0 && S.queue[0].movers.length === 3 && S.queue[0].tiles === 1 && S.queue[0].cubes === 4);
@@ -396,13 +380,12 @@ if (location.hash === "#selftest") {
   resume(); ok("resume unpauses", !S.paused);
   advance(120000); ok("storm and drop coincide at 4:00, storm first", S.paused && S.queue.length === 2 && S.queue[0].type === "storm" && S.queue[1].type === "drop" && S.queue[1].placer === 1);
   resume(); ok("first resume keeps pause for the drop", S.paused && S.queue.length === 1); resume(); ok("second resume runs", !S.paused);
-  const p = S.pl[0]; p.ts = S.g; advance(61000); ok("turn timer flags late after 60s", p.late && p.over === 1);
-  endTurn(0); ok("End resets the turn", !p.late && p.turns === 1 && S.g - p.ts === 0);
-  declareAttack(); ok("attack pauses and counts", S.paused && S.attacks === 1 && S.queue[0].type === "attack"); resume();
+  endTurn(0); ok("End counts the turn", S.pl[0].turns === 1);
+  declareAttack(); ok("attack logs and does not pause", !S.paused && S.attacks === 1);
   eliminate(1); eliminate(2); ok("two out, game on", !S.over); eliminate(3); ok("last one standing wins", S.over && S.over.winner.id === 0 && S.paused);
-  S = newGame({ players: 6, teams: 2, turn: 60, storm: 240, drop: 120, floor: 10, names: [] });
+  S = newGame({ players: 6, teams: 2, storm: 240, drop: 120, names: [] });
   ok("teams: only the current member is active", active(S.pl[0]) && !active(S.pl[2]) && active(S.pl[1]));
-  advance(5000); ok("floor blocks an early End", endTurn(0) === "floor"); advance(6000); ok("End after the floor works and rotates", endTurn(0) === true && active(S.pl[2]) && !active(S.pl[0]));
+  ok("End rotates to the next team member", endTurn(0) === true && active(S.pl[2]) && !active(S.pl[0]));
   endGame(); ok("end game button stops with no winner", S.over && S.over.early && S.paused); S.over = null; S.paused = false;
   eliminate(1); eliminate(3); eliminate(5); ok("team wins when the other team is out", S.over && S.over.winner.team === 0);
   S = null; document.body.innerHTML = "<pre id='t'>" + out.join("\n") + "</pre>";
